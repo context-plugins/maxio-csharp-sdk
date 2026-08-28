@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -94,4 +95,7 @@ public record CreateProductPricePoint
     /// </summary>
     [JsonPropertyName("use_site_exchange_rate")]
     public bool? UseSiteExchangeRate { get; init; } = true;
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

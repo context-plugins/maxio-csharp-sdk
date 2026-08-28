@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -17,4 +18,7 @@ public record TaxConfiguration
     /// </summary>
     [JsonPropertyName("fully_configured")]
     public bool? FullyConfigured { get; init; } = false;
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

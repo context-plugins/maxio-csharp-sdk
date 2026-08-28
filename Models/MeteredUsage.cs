@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -23,4 +24,7 @@ public record MeteredUsage
 
     [JsonPropertyName("memo")]
     public required string Memo { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

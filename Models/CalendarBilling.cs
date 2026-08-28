@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 using MaxioAdvancedBilling.Models.Enums;
 
@@ -19,4 +20,7 @@ public record CalendarBilling
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("calendar_billing_first_charge")]
     public FirstChargeType? CalendarBillingFirstCharge { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

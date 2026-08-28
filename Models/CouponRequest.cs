@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -22,4 +23,7 @@ public record CouponRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("restricted_components")]
     public IReadOnlyDictionary<string, bool>? RestrictedComponents { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 
 namespace MaxioAdvancedBilling.Models;
@@ -11,4 +12,7 @@ public record IssueServiceCredit
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("memo")]
     public string? Memo { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

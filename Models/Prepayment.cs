@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -44,4 +45,7 @@ public record Prepayment
 
     [JsonPropertyName("created_at")]
     public required DateTimeOffset CreatedAt { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

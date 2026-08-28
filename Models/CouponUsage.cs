@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -52,4 +53,7 @@ public record CouponUsage
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("revenue_in_cents")]
     public long? RevenueInCents { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

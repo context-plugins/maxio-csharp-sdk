@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 using MaxioAdvancedBilling.Models.Enums;
 
@@ -341,4 +342,7 @@ public record CreateSubscription
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("skip_billing_manifest_taxes")]
     public bool? SkipBillingManifestTaxes { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

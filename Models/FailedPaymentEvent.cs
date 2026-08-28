@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -23,4 +24,7 @@ public record FailedPaymentEvent
     /// </summary>
     [JsonPropertyName("event_data")]
     public required FailedPaymentEventData EventData { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

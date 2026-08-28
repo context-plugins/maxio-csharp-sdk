@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -14,4 +15,7 @@ public record CreateOrUpdateEndpoint
 
     [JsonPropertyName("webhook_subscriptions")]
     public required IReadOnlyList<WebhookSubscription> WebhookSubscriptions { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

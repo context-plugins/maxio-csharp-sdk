@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 using MaxioAdvancedBilling.Models.Enums;
 
@@ -158,4 +159,7 @@ public record Allocation
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("charge_id")]
     public long? ChargeId { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

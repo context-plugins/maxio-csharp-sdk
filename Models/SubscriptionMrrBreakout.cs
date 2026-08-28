@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -9,4 +10,7 @@ public record SubscriptionMrrBreakout
 
     [JsonPropertyName("usage_amount_in_cents")]
     public required long UsageAmountInCents { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

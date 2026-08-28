@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -198,4 +199,7 @@ public record InvoiceLineItem
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("prepaid_allocation_expires_at")]
     public DateTimeOffset? PrepaidAllocationExpiresAt { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

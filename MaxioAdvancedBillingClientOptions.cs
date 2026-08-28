@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using MaxioAdvancedBilling.Core.Authentication.Basic;
 using MaxioAdvancedBilling.Core.Configuration;
+using MaxioAdvancedBilling.Core.Hooks;
 using MaxioAdvancedBilling.Servers;
 
 namespace MaxioAdvancedBilling;
@@ -10,6 +12,7 @@ public class MaxioAdvancedBillingClientOptions
     public RetryOptions Retry { get; set; } = RetryOptions.Default();
     public LoggingOptions Logging { get; set; } = new();
     public ServerOptions Server { get; set; } = new();
+    public IReadOnlyList<SdkHook> Hooks { get; set; } = [];
     /// <summary>
     /// The <c>username</c> is a Maxio Chargify API key and the <c>password</c> is <c>x</c>. Basic authentication works only with the US and EU environments, which connect to <c>chargify.com</c> directly. The Maxio API Gateway environment does not accept Basic authentication.
     /// </summary>

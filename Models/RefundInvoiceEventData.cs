@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -73,4 +74,7 @@ public record RefundInvoiceEventData
     /// </summary>
     [JsonPropertyName("transaction_time")]
     public required DateTimeOffset TransactionTime { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

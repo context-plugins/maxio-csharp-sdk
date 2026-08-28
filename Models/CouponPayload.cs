@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 using MaxioAdvancedBilling.Models.Enums;
 
@@ -89,4 +90,7 @@ public record CouponPayload
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("apply_on_subscription_expiration")]
     public bool? ApplyOnSubscriptionExpiration { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

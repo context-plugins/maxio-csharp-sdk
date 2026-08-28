@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -15,4 +16,7 @@ public record PrepaidSubscriptionBalanceChanged
 
     [JsonPropertyName("current_usage_amount_in_cents")]
     public required long CurrentUsageAmountInCents { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

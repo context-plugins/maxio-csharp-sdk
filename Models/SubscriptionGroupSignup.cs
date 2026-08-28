@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -39,4 +40,7 @@ public record SubscriptionGroupSignup
 
     [JsonPropertyName("subscriptions")]
     public required IReadOnlyList<SubscriptionGroupSignupItem> Subscriptions { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

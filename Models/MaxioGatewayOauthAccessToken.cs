@@ -1,8 +1,9 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
-public record MaxioGatewayOauthAccessToken
+public record MaxioGatewayOAuthAccessToken
 {
     [JsonPropertyName("access_token")]
     public required string AccessToken { get; init; }
@@ -21,4 +22,7 @@ public record MaxioGatewayOauthAccessToken
     /// </summary>
     [JsonPropertyName("created_at")]
     public required int CreatedAt { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

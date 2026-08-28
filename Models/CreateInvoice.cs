@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Models;
@@ -63,4 +64,7 @@ public record CreateInvoice
 
     [JsonPropertyName("status")]
     public CreateInvoiceStatus? Status { get; init; } = CreateInvoiceStatus.Open;
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

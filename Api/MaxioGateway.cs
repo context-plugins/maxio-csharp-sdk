@@ -32,7 +32,7 @@ public sealed class MaxioGateway
     /// <param name="body"></param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
     /// <param name="ct">Cancellation token</param>
-    /// <returns>A <see cref="Task{TResult}"/> of <see cref="MaxioGatewayOauthAccessToken"/> instance.</returns>
+    /// <returns>A <see cref="Task{TResult}"/> of <see cref="MaxioGatewayOAuthAccessToken"/> instance.</returns>
     /// <exception cref="SdkException{TResult}"> of <see cref="RequestAccessTokenError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Exchanges your connector's OAuth 2.0 client credentials for a bearer access token.
@@ -46,7 +46,7 @@ public sealed class MaxioGateway
     /// This endpoint is available only for connectors configured for OAuth2. It lives at your connector's root host (<c>https://{connector}.api.maxio.com/oauth/token</c>), not under the <c>/api/v1/billing</c> base path.
     /// </para>
     /// </remarks>
-    public Task<MaxioGatewayOauthAccessToken> RequestAccessToken(MaxioGatewayOauthTokenRequest body,
+    public Task<MaxioGatewayOAuthAccessToken> RequestAccessToken(MaxioGatewayOAuthTokenRequest body,
         RequestOptions? requestOptions = null,
         CancellationToken ct = default) =>
         _rawClient.Execute(_server.Oauth("/oauth/token"),
@@ -55,7 +55,7 @@ public sealed class MaxioGateway
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             JsonRequest.Create(body),
-            JsonResponse.Create<MaxioGatewayOauthAccessToken>(),
+            JsonResponse.Create<MaxioGatewayOAuthAccessToken>(),
             RequestAccessTokenErrorResponse.Instance,
             [],
             requestOptions,

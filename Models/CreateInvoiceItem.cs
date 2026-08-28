@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 
 namespace MaxioAdvancedBilling.Models;
@@ -81,4 +82,7 @@ public record CreateInvoiceItem
     [JsonPropertyName("description")]
     [MaxLength(255)]
     public string? Description { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

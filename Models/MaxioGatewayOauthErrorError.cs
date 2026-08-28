@@ -1,8 +1,9 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
-public record MaxioGatewayOauthErrorError
+public record MaxioGatewayOAuthErrorError
 {
     [JsonPropertyName("error")]
     public required string Error { get; init; }
@@ -10,4 +11,7 @@ public record MaxioGatewayOauthErrorError
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("error_description")]
     public string? ErrorDescription { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

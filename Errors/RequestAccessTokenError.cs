@@ -9,27 +9,27 @@ namespace MaxioAdvancedBilling.Errors;
 
 public sealed class RequestAccessTokenError : ApiError
 {
-    private readonly Optional<MaxioGatewayOauthError> _maxioGatewayOauthErrorValue;
+    private readonly Optional<MaxioGatewayOAuthError> _maxioGatewayOAuthErrorValue;
 
-    private RequestAccessTokenError(Optional<MaxioGatewayOauthError> maxioGatewayOauthErrorValue,
+    private RequestAccessTokenError(Optional<MaxioGatewayOAuthError> maxioGatewayOAuthErrorValue,
         Optional<RawError> fallback) : base(fallback)
     {
-        _maxioGatewayOauthErrorValue = maxioGatewayOauthErrorValue;
+        _maxioGatewayOAuthErrorValue = maxioGatewayOAuthErrorValue;
     }
 
-    private static RequestAccessTokenError AsMaxioGatewayOauthError(MaxioGatewayOauthError value) =>
-        new(Optional<MaxioGatewayOauthError>.Some(value), default);
+    private static RequestAccessTokenError AsMaxioGatewayOAuthError(MaxioGatewayOAuthError value) =>
+        new(Optional<MaxioGatewayOAuthError>.Some(value), default);
 
     private static RequestAccessTokenError AsFallback(RawError value) =>
         new(default, Optional<RawError>.Some(value));
 
-    public bool TryGetMaxioGatewayOauthError(out MaxioGatewayOauthError value) =>
-        _maxioGatewayOauthErrorValue.TryGetValue(out value);
+    public bool TryGetMaxioGatewayOAuthError(out MaxioGatewayOAuthError value) =>
+        _maxioGatewayOAuthErrorValue.TryGetValue(out value);
 
     internal static Task<RequestAccessTokenError> Create(HttpResponseMessage response, CancellationToken ct) =>
         (int)response.StatusCode switch
         {
-            400 or 401 => FromJson<MaxioGatewayOauthError>(response, ct).As(AsMaxioGatewayOauthError),
+            400 or 401 => FromJson<MaxioGatewayOAuthError>(response, ct).As(AsMaxioGatewayOAuthError),
             _ => FromRawBody(response, ct).As(AsFallback)
         };
 }

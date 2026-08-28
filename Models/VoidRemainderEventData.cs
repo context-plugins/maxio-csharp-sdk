@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -28,4 +29,7 @@ public record VoidRemainderEventData
     /// </summary>
     [JsonPropertyName("transaction_time")]
     public required DateTimeOffset TransactionTime { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

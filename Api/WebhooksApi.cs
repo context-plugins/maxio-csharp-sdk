@@ -16,13 +16,13 @@ using MaxioAdvancedBilling.Models.Enums;
 
 namespace MaxioAdvancedBilling.Api;
 
-public sealed class Webhooks
+public sealed class WebhooksApi
 {
     private readonly RawClient _rawClient;
     private readonly Server _server;
     private readonly AuthSchemes _auth;
 
-    internal Webhooks(RawClient rawClient, Server server, AuthSchemes auth)
+    internal WebhooksApi(RawClient rawClient, Server server, AuthSchemes auth)
     {
         _rawClient = rawClient;
         _server = server;

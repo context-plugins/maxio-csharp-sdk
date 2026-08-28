@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -18,4 +19,7 @@ public record NetTerms
 
     [JsonPropertyName("custom_net_terms_enabled")]
     public bool? CustomNetTermsEnabled { get; init; } = false;
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

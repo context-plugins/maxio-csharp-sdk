@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Core.Validation.Attributes;
 
 namespace MaxioAdvancedBilling.Models;
@@ -37,4 +38,7 @@ public record CreatedPrepayment
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("ending_balance_in_cents")]
     public long? EndingBalanceInCents { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

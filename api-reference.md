@@ -35,9 +35,9 @@ try
 }
 catch (SdkException<ExportInvoicesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ExportInvoicesError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -93,9 +93,9 @@ try
 }
 catch (SdkException<ExportProformaInvoicesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ExportProformaInvoicesError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -149,9 +149,9 @@ try
 }
 catch (SdkException<ExportSubscriptionsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ExportSubscriptionsError
+        // TODO: Handle 'error' of type SingleErrorResponse1
     }
 }
 ```
@@ -207,9 +207,9 @@ try
 }
 catch (SdkException<ListExportedInvoicesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListExportedInvoicesError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -279,9 +279,9 @@ try
 }
 catch (SdkException<ListExportedProformaInvoicesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListExportedProformaInvoicesError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -351,9 +351,9 @@ try
 }
 catch (SdkException<ListExportedSubscriptionsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListExportedSubscriptionsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -421,9 +421,9 @@ try
 }
 catch (SdkException<ReadInvoicesExportError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadInvoicesExportError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -489,9 +489,9 @@ try
 }
 catch (SdkException<ReadProformaInvoicesExportError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadProformaInvoicesExportError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -557,9 +557,9 @@ try
 }
 catch (SdkException<ReadSubscriptionsExportError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadSubscriptionsExportError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -633,9 +633,9 @@ try
 }
 catch (SdkException<IssueAdvanceInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type IssueAdvanceInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -702,9 +702,9 @@ try
 }
 catch (SdkException<ReadAdvanceInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadAdvanceInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -771,9 +771,9 @@ try
 }
 catch (SdkException<VoidAdvanceInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type VoidAdvanceInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -860,9 +860,9 @@ try
 }
 catch (SdkException<EnableBillingPortalForCustomerError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type EnableBillingPortalForCustomerError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -937,9 +937,9 @@ try
 }
 catch (SdkException<ReadBillingPortalLinkError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ReadBillingPortalLinkError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -1015,9 +1015,9 @@ try
 }
 catch (SdkException<ResendBillingPortalInvitationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ResendBillingPortalInvitationError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -1158,9 +1158,9 @@ try
 }
 catch (SdkException<ArchiveComponentPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ArchiveComponentPricePointError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -1227,9 +1227,9 @@ try
 }
 catch (SdkException<BulkCreateComponentPricePointsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type BulkCreateComponentPricePointsError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -1303,9 +1303,9 @@ try
 }
 catch (SdkException<CloneComponentPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CloneComponentPricePointError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -1373,9 +1373,9 @@ try
 }
 catch (SdkException<CreateComponentPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateComponentPricePointError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -1446,9 +1446,9 @@ try
 }
 catch (SdkException<CreateCurrencyPricesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateCurrencyPricesError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -1515,9 +1515,9 @@ try
 }
 catch (SdkException<ListAllComponentPricePointsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ListAllComponentPricePointsError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -1869,9 +1869,9 @@ try
 }
 catch (SdkException<UpdateComponentPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateComponentPricePointError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -1941,9 +1941,9 @@ try
 }
 catch (SdkException<UpdateCurrencyPricesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateCurrencyPricesError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -2014,9 +2014,9 @@ try
 }
 catch (SdkException<ArchiveComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ArchiveComponentError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -2091,9 +2091,9 @@ try
 }
 catch (SdkException<CreateEventBasedComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreateEventBasedComponentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -2168,9 +2168,9 @@ try
 }
 catch (SdkException<CreateMeteredComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreateMeteredComponentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -2243,9 +2243,9 @@ try
 }
 catch (SdkException<CreateOnOffComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreateOnOffComponentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -2318,9 +2318,9 @@ try
 }
 catch (SdkException<CreatePrepaidUsageComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreatePrepaidUsageComponentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -2400,9 +2400,9 @@ try
 }
 catch (SdkException<CreateQuantityBasedComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreateQuantityBasedComponentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -2766,9 +2766,9 @@ try
 }
 catch (SdkException<UpdateComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateComponentError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -2839,9 +2839,9 @@ try
 }
 catch (SdkException<UpdateProductFamilyComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateProductFamilyComponentError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -2985,9 +2985,9 @@ try
 }
 catch (SdkException<CreateCouponError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateCouponError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -3163,9 +3163,9 @@ try
 }
 catch (SdkException<CreateOrUpdateCouponCurrencyPricesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorStringMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateOrUpdateCouponCurrencyPricesError
+        // TODO: Handle 'error' of type ErrorStringMapResponse1
     }
 }
 ```
@@ -3254,9 +3254,9 @@ try
 }
 catch (SdkException<DeleteCouponSubcodeError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteCouponSubcodeError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -3735,9 +3735,9 @@ try
 }
 catch (SdkException<UpdateCouponError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateCouponError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -3901,9 +3901,9 @@ try
 }
 catch (SdkException<ValidateCouponError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleStringErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ValidateCouponError
+        // TODO: Handle 'error' of type SingleStringErrorResponse1
     }
 }
 ```
@@ -3978,9 +3978,9 @@ try
 }
 catch (SdkException<CreateMetadataError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateMetadataError
+        // TODO: Handle 'error' of type SingleErrorResponse1
     }
 }
 ```
@@ -4061,9 +4061,9 @@ try
 }
 catch (SdkException<CreateMetafieldsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateMetafieldsError
+        // TODO: Handle 'error' of type SingleErrorResponse1
     }
 }
 ```
@@ -4129,9 +4129,9 @@ try
 }
 catch (SdkException<DeleteMetadataError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteMetadataError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -4199,9 +4199,9 @@ try
 }
 catch (SdkException<DeleteMetafieldError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteMetafieldError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -4492,9 +4492,9 @@ try
 }
 catch (SdkException<UpdateMetadataError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateMetadataError
+        // TODO: Handle 'error' of type SingleErrorResponse1
     }
 }
 ```
@@ -4583,9 +4583,9 @@ try
 }
 catch (SdkException<UpdateMetafieldError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateMetafieldError
+        // TODO: Handle 'error' of type SingleErrorResponse1
     }
 }
 ```
@@ -4679,9 +4679,9 @@ try
 }
 catch (SdkException<CreateCustomerError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetCustomerErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateCustomerError
+        // TODO: Handle 'error' of type CustomerErrorResponse1
     }
 }
 ```
@@ -5101,9 +5101,9 @@ try
 }
 catch (SdkException<UpdateCustomerError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type UpdateCustomerError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -5524,9 +5524,9 @@ try
 }
 catch (SdkException<BulkCreateSegmentsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type BulkCreateSegmentsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -5598,9 +5598,9 @@ try
 }
 catch (SdkException<BulkUpdateSegmentsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type BulkUpdateSegmentsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -5670,9 +5670,9 @@ try
 }
 catch (SdkException<CreateSegmentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreateSegmentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -5741,9 +5741,9 @@ try
 }
 catch (SdkException<DeleteSegmentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteSegmentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -5815,9 +5815,9 @@ try
 }
 catch (SdkException<ListSegmentsForPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListSegmentsForPricePointError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -5889,9 +5889,9 @@ try
 }
 catch (SdkException<UpdateSegmentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type UpdateSegmentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -6053,9 +6053,9 @@ try
 }
 catch (SdkException<ListMrrPerSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionsMrrErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ListMrrPerSubscriptionError
+        // TODO: Handle 'error' of type SubscriptionsMrrErrorResponse1
     }
 }
 ```
@@ -6434,9 +6434,9 @@ try
 }
 catch (SdkException<CreateInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateInvoiceError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -6506,9 +6506,9 @@ try
 }
 catch (SdkException<DeleteInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type DeleteInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -6584,9 +6584,9 @@ try
 }
 catch (SdkException<IssueInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type IssueInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -6995,9 +6995,9 @@ try
 }
 catch (SdkException<PreviewCustomerInformationChangesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type PreviewCustomerInformationChangesError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7205,9 +7205,9 @@ try
 }
 catch (SdkException<RecordPaymentForInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type RecordPaymentForInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7299,9 +7299,9 @@ try
 }
 catch (SdkException<RecordPaymentForMultipleInvoicesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type RecordPaymentForMultipleInvoicesError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7373,9 +7373,9 @@ try
 }
 catch (SdkException<RecordPaymentForSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type RecordPaymentForSubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7448,9 +7448,9 @@ try
 }
 catch (SdkException<RefundInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type RefundInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7528,9 +7528,9 @@ try
 }
 catch (SdkException<ReopenInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetObject(out var error))
     {
-        // TODO: Handle 'error' of type ReopenInvoiceError
+        // TODO: Handle 'error' of type object?
     }
 }
 ```
@@ -7601,9 +7601,9 @@ try
 }
 catch (SdkException<SendInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type SendInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7672,9 +7672,9 @@ try
 }
 catch (SdkException<UpdateCustomerInformationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateCustomerInformationError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7780,9 +7780,9 @@ try
 }
 catch (SdkException<UpdateInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -7850,9 +7850,9 @@ try
 }
 catch (SdkException<VoidInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetObject(out var error))
     {
-        // TODO: Handle 'error' of type VoidInvoiceError
+        // TODO: Handle 'error' of type object?
     }
 }
 ```
@@ -7895,7 +7895,7 @@ catch (SdkException<VoidInvoiceError> ex)
 > Source: [MaxioGateway](Api/MaxioGateway.cs)
 
 <details>
-<summary><code>Task&lt;MaxioGatewayOauthAccessToken&gt; RequestAccessToken(MaxioGatewayOauthTokenRequest body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;MaxioGatewayOAuthAccessToken&gt; RequestAccessToken(MaxioGatewayOAuthTokenRequest body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
 
 <dl>
 <dd>
@@ -7925,13 +7925,13 @@ This endpoint is available only for connectors configured for OAuth2. It lives a
 try
 {
     var response = await client.MaxioGateway.RequestAccessToken(body);
-    // TODO: Handle 'response' of type MaxioGatewayOauthAccessToken
+    // TODO: Handle 'response' of type MaxioGatewayOAuthAccessToken
 }
 catch (SdkException<RequestAccessTokenError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetMaxioGatewayOAuthError(out var error))
     {
-        // TODO: Handle 'error' of type RequestAccessTokenError
+        // TODO: Handle 'error' of type MaxioGatewayOAuthError
     }
 }
 ```
@@ -7946,7 +7946,7 @@ catch (SdkException<RequestAccessTokenError> ex)
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[MaxioGatewayOauthTokenRequest](Models/MaxioGatewayOauthTokenRequest.cs)</code> | - |
+| <code>body</code> | <code>[MaxioGatewayOAuthTokenRequest](Models/MaxioGatewayOAuthTokenRequest.cs)</code> | - |
 
 </dd>
 </dl>
@@ -7956,7 +7956,7 @@ catch (SdkException<RequestAccessTokenError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[MaxioGatewayOauthAccessToken](Models/MaxioGatewayOauthAccessToken.cs)</code>
+**OnSuccess**: <code>[MaxioGatewayOAuthAccessToken](Models/MaxioGatewayOAuthAccessToken.cs)</code>
 
 **OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RequestAccessTokenError](Errors/RequestAccessTokenError.cs)&gt;</code>
 
@@ -8077,9 +8077,9 @@ try
 }
 catch (SdkException<CreateOfferError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateOfferError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -8145,9 +8145,9 @@ try
 }
 catch (SdkException<ListOffersError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ListOffersError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -8351,9 +8351,9 @@ try
 }
 catch (SdkException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ChangeSubscriptionDefaultPaymentProfileError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -8424,9 +8424,9 @@ try
 }
 catch (SdkException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ChangeSubscriptionGroupDefaultPaymentProfileError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -8525,9 +8525,9 @@ try
 }
 catch (SdkException<CreatePaymentProfileError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CreatePaymentProfileError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -8730,9 +8730,9 @@ try
 }
 catch (SdkException<DeleteUnusedPaymentProfileError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteUnusedPaymentProfileError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -8869,9 +8869,9 @@ try
 }
 catch (SdkException<ReadOneTimeTokenError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ReadOneTimeTokenError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -8973,9 +8973,9 @@ try
 }
 catch (SdkException<ReadPaymentProfileError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadPaymentProfileError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -9046,9 +9046,9 @@ try
 }
 catch (SdkException<SendRequestUpdatePaymentEmailError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type SendRequestUpdatePaymentEmailError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -9149,9 +9149,9 @@ try
 }
 catch (SdkException<UpdatePaymentProfileError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type UpdatePaymentProfileError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -9218,9 +9218,9 @@ try
 }
 catch (SdkException<VerifyBankAccountError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type VerifyBankAccountError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -9293,9 +9293,9 @@ try
 }
 catch (SdkException<CreateProductFamilyError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateProductFamilyError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -9442,9 +9442,9 @@ try
 }
 catch (SdkException<ListProductsForProductFamilyError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetString(out var error))
     {
-        // TODO: Handle 'error' of type ListProductsForProductFamilyError
+        // TODO: Handle 'error' of type string
     }
 }
 ```
@@ -9591,9 +9591,9 @@ try
 }
 catch (SdkException<ArchiveProductPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ArchiveProductPricePointError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -9660,9 +9660,9 @@ try
 }
 catch (SdkException<BulkCreateProductPricePointsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetMapOfJsonElement(out var error))
     {
-        // TODO: Handle 'error' of type BulkCreateProductPricePointsError
+        // TODO: Handle 'error' of type IReadOnlyDictionary<string, JsonElement>
     }
 }
 ```
@@ -9733,9 +9733,9 @@ try
 }
 catch (SdkException<CreateProductCurrencyPricesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateProductCurrencyPricesError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -9802,9 +9802,9 @@ try
 }
 catch (SdkException<CreateProductPricePointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetProductPricePointErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateProductPricePointError
+        // TODO: Handle 'error' of type ProductPricePointErrorResponse1
     }
 }
 ```
@@ -9871,9 +9871,9 @@ try
 }
 catch (SdkException<ListAllProductPricePointsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ListAllProductPricePointsError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -10221,9 +10221,9 @@ try
 }
 catch (SdkException<UpdateProductCurrencyPricesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateProductCurrencyPricesError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -10365,9 +10365,9 @@ try
 }
 catch (SdkException<ArchiveProductError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ArchiveProductError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -10440,9 +10440,9 @@ try
 }
 catch (SdkException<CreateProductError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateProductError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -10728,9 +10728,9 @@ try
 }
 catch (SdkException<UpdateProductError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateProductError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -10806,9 +10806,9 @@ try
 }
 catch (SdkException<CreateConsolidatedProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateConsolidatedProformaInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -10880,9 +10880,9 @@ try
 }
 catch (SdkException<CreateProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateProformaInvoiceError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -10952,9 +10952,9 @@ try
 }
 catch (SdkException<CreateSignupProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetProformaBadRequestErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateSignupProformaInvoiceError
+        // TODO: Handle 'error' of type ProformaBadRequestErrorResponse1
     }
 }
 ```
@@ -11025,9 +11025,9 @@ try
 }
 catch (SdkException<DeliverProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeliverProformaInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11178,9 +11178,9 @@ try
 }
 catch (SdkException<ListSubscriptionGroupProformaInvoicesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListSubscriptionGroupProformaInvoicesError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11258,9 +11258,9 @@ try
 }
 catch (SdkException<PreviewProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type PreviewProformaInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11330,9 +11330,9 @@ try
 }
 catch (SdkException<PreviewSignupProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetProformaBadRequestErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type PreviewSignupProformaInvoiceError
+        // TODO: Handle 'error' of type ProformaBadRequestErrorResponse1
     }
 }
 ```
@@ -11403,9 +11403,9 @@ try
 }
 catch (SdkException<ReadProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadProformaInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11479,9 +11479,9 @@ try
 }
 catch (SdkException<VoidProformaInvoiceError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type VoidProformaInvoiceError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11568,9 +11568,9 @@ try
 }
 catch (SdkException<CreateReasonCodeError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateReasonCodeError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -11636,9 +11636,9 @@ try
 }
 catch (SdkException<DeleteReasonCodeError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteReasonCodeError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11704,9 +11704,9 @@ try
 }
 catch (SdkException<ListReasonCodesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ListReasonCodesError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -11773,9 +11773,9 @@ try
 }
 catch (SdkException<ReadReasonCodeError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadReasonCodeError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11841,9 +11841,9 @@ try
 }
 catch (SdkException<UpdateReasonCodeError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type UpdateReasonCodeError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -11922,9 +11922,9 @@ try
 }
 catch (SdkException<ValidateReferralCodeError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleStringErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ValidateReferralCodeError
+        // TODO: Handle 'error' of type SingleStringErrorResponse1
     }
 }
 ```
@@ -12529,9 +12529,9 @@ try
 }
 catch (SdkException<AllocateComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type AllocateComponentError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -12617,9 +12617,9 @@ try
 }
 catch (SdkException<AllocateComponentsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type AllocateComponentsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -12829,9 +12829,9 @@ try
 }
 catch (SdkException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetComponentPricePointError1(out var error))
     {
-        // TODO: Handle 'error' of type BulkUpdateSubscriptionComponentsPricePointsError
+        // TODO: Handle 'error' of type ComponentPricePointError1
     }
 }
 ```
@@ -12947,9 +12947,9 @@ try
 }
 catch (SdkException<CreateUsageError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateUsageError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -13094,9 +13094,9 @@ try
 }
 catch (SdkException<DeletePrepaidUsageAllocationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeletePrepaidUsageAllocationError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -13169,9 +13169,9 @@ try
 }
 catch (SdkException<ListAllocationsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListAllocationsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -13518,9 +13518,9 @@ try
 }
 catch (SdkException<PreviewAllocationsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetComponentAllocationError1(out var error))
     {
-        // TODO: Handle 'error' of type PreviewAllocationsError
+        // TODO: Handle 'error' of type ComponentAllocationError1
     }
 }
 ```
@@ -13587,9 +13587,9 @@ try
 }
 catch (SdkException<ReadSubscriptionComponentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ReadSubscriptionComponentError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -13754,9 +13754,9 @@ try
 }
 catch (SdkException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type UpdatePrepaidUsageAllocationExpirationDateError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -13829,9 +13829,9 @@ try
 }
 catch (SdkException<CreateSubscriptionGroupPrepaymentError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateSubscriptionGroupPrepaymentError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -13898,9 +13898,9 @@ try
 }
 catch (SdkException<DeductSubscriptionGroupServiceCreditError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type DeductSubscriptionGroupServiceCreditError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -13967,9 +13967,9 @@ try
 }
 catch (SdkException<IssueSubscriptionGroupServiceCreditError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type IssueSubscriptionGroupServiceCreditError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -14036,9 +14036,9 @@ try
 }
 catch (SdkException<ListPrepaymentsForSubscriptionGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListPrepaymentsForSubscriptionGroupError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -14112,9 +14112,9 @@ try
 }
 catch (SdkException<CancelDelayedCancellationForGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CancelDelayedCancellationForGroupError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -14181,9 +14181,9 @@ try
 }
 catch (SdkException<CancelSubscriptionsInGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CancelSubscriptionsInGroupError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -14251,9 +14251,9 @@ try
 }
 catch (SdkException<InitiateDelayedCancellationForGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type InitiateDelayedCancellationForGroupError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -14344,9 +14344,9 @@ try
 }
 catch (SdkException<ReactivateSubscriptionGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ReactivateSubscriptionGroupError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -14496,9 +14496,9 @@ try
 }
 catch (SdkException<CreateSubscriptionGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionGroupCreateErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateSubscriptionGroupError
+        // TODO: Handle 'error' of type SubscriptionGroupCreateErrorResponse1
     }
 }
 ```
@@ -14565,9 +14565,9 @@ try
 }
 catch (SdkException<DeleteSubscriptionGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type DeleteSubscriptionGroupError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -14635,9 +14635,9 @@ try
 }
 catch (SdkException<FindSubscriptionGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type FindSubscriptionGroupError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -14843,9 +14843,9 @@ try
 }
 catch (SdkException<RemoveSubscriptionFromGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type RemoveSubscriptionFromGroupError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -14921,9 +14921,9 @@ try
 }
 catch (SdkException<SignupWithSubscriptionGroupError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionGroupSignupErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type SignupWithSubscriptionGroupError
+        // TODO: Handle 'error' of type SubscriptionGroupSignupErrorResponse1
     }
 }
 ```
@@ -14990,9 +14990,9 @@ try
 }
 catch (SdkException<UpdateSubscriptionGroupMembersError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionGroupUpdateErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateSubscriptionGroupMembersError
+        // TODO: Handle 'error' of type SubscriptionGroupUpdateErrorResponse1
     }
 }
 ```
@@ -15076,9 +15076,9 @@ try
 }
 catch (SdkException<CreatePrepaymentApiError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetCreatePrepaymentErrorResponse(out var error))
     {
-        // TODO: Handle 'error' of type CreatePrepaymentApiError
+        // TODO: Handle 'error' of type CreatePrepaymentErrorResponse
     }
 }
 ```
@@ -15144,9 +15144,9 @@ try
 }
 catch (SdkException<DeductServiceCreditApiError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetDeductServiceCreditErrorResponse(out var error))
     {
-        // TODO: Handle 'error' of type DeductServiceCreditApiError
+        // TODO: Handle 'error' of type DeductServiceCreditErrorResponse
     }
 }
 ```
@@ -15213,9 +15213,9 @@ try
 }
 catch (SdkException<IssueServiceCreditApiError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetIssueServiceCreditErrorResponse(out var error))
     {
-        // TODO: Handle 'error' of type IssueServiceCreditApiError
+        // TODO: Handle 'error' of type IssueServiceCreditErrorResponse
     }
 }
 ```
@@ -15282,9 +15282,9 @@ try
 }
 catch (SdkException<ListPrepaymentsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListPrepaymentsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -15353,9 +15353,9 @@ try
 }
 catch (SdkException<ListServiceCreditsError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type ListServiceCreditsError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -15491,9 +15491,9 @@ try
 }
 catch (SdkException<RefundPrepaymentApiError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetRefundPrepaymentBaseErrorsResponse1(out var error))
     {
-        // TODO: Handle 'error' of type RefundPrepaymentApiError
+        // TODO: Handle 'error' of type RefundPrepaymentBaseErrorsResponse1
     }
 }
 ```
@@ -15573,9 +15573,9 @@ try
 }
 catch (SdkException<CreateSubscriptionNoteError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateSubscriptionNoteError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -15707,9 +15707,9 @@ try
 }
 catch (SdkException<ListSubscriptionNotesError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ListSubscriptionNotesError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -15843,9 +15843,9 @@ try
 }
 catch (SdkException<UpdateSubscriptionNoteError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateSubscriptionNoteError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -15939,9 +15939,9 @@ try
 }
 catch (SdkException<MigrateSubscriptionProductError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type MigrateSubscriptionProductError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16013,9 +16013,9 @@ try
 }
 catch (SdkException<PreviewSubscriptionProductMigrationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type PreviewSubscriptionProductMigrationError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16086,9 +16086,9 @@ try
 }
 catch (SdkException<CancelScheduledRenewalConfigurationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CancelScheduledRenewalConfigurationError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16155,9 +16155,9 @@ try
 }
 catch (SdkException<CreateScheduledRenewalConfigurationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateScheduledRenewalConfigurationError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16228,9 +16228,9 @@ try
 }
 catch (SdkException<CreateScheduledRenewalConfigurationItemError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateScheduledRenewalConfigurationItemError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16299,9 +16299,9 @@ try
 }
 catch (SdkException<DeleteScheduledRenewalConfigurationItemError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type DeleteScheduledRenewalConfigurationItemError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16435,9 +16435,9 @@ try
 }
 catch (SdkException<LockInScheduledRenewalImmediatelyError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type LockInScheduledRenewalImmediatelyError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16570,9 +16570,9 @@ try
 }
 catch (SdkException<ScheduleScheduledRenewalLockInError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ScheduleScheduledRenewalLockInError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16640,9 +16640,9 @@ try
 }
 catch (SdkException<UnpublishScheduledRenewalConfigurationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UnpublishScheduledRenewalConfigurationError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16709,9 +16709,9 @@ try
 }
 catch (SdkException<UpdateScheduledRenewalConfigurationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateScheduledRenewalConfigurationError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16784,9 +16784,9 @@ try
 }
 catch (SdkException<UpdateScheduledRenewalConfigurationItemError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateScheduledRenewalConfigurationItemError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16861,9 +16861,9 @@ try
 }
 catch (SdkException<CancelDelayedCancellationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CancelDelayedCancellationError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -16929,9 +16929,9 @@ try
 }
 catch (SdkException<CancelDunningError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CancelDunningError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -16998,9 +16998,9 @@ try
 }
 catch (SdkException<CancelSubscriptionApiError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type CancelSubscriptionApiError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -17067,9 +17067,9 @@ try
 }
 catch (SdkException<InitiateDelayedCancellationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type InitiateDelayedCancellationError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -17140,9 +17140,9 @@ try
 }
 catch (SdkException<PauseSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type PauseSubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -17230,9 +17230,9 @@ try
 }
 catch (SdkException<PreviewRenewalError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type PreviewRenewalError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -17458,9 +17458,9 @@ try
 }
 catch (SdkException<ReactivateSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ReactivateSubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -17527,9 +17527,9 @@ try
 }
 catch (SdkException<ResumeSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ResumeSubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -17602,9 +17602,9 @@ try
 }
 catch (SdkException<RetrySubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type RetrySubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -17676,9 +17676,9 @@ try
 }
 catch (SdkException<UpdateAutomaticSubscriptionResumptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateAutomaticSubscriptionResumptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -17791,9 +17791,9 @@ try
 }
 catch (SdkException<ActivateSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
-        // TODO: Handle 'error' of type ActivateSubscriptionError
+        // TODO: Handle 'error' of type ErrorArrayMapResponse1
     }
 }
 ```
@@ -17868,9 +17868,9 @@ try
 }
 catch (SdkException<ApplyCouponsToSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionAddCouponError1(out var error))
     {
-        // TODO: Handle 'error' of type ApplyCouponsToSubscriptionError
+        // TODO: Handle 'error' of type SubscriptionAddCouponError1
     }
 }
 ```
@@ -18002,9 +18002,9 @@ try
 }
 catch (SdkException<CreateSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateSubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -18070,9 +18070,9 @@ try
 }
 catch (SdkException<FindSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type FindSubscriptionError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```
@@ -18260,9 +18260,9 @@ try
 }
 catch (SdkException<OverrideSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
-        // TODO: Handle 'error' of type OverrideSubscriptionError
+        // TODO: Handle 'error' of type SingleErrorResponse1
     }
 }
 ```
@@ -18441,9 +18441,9 @@ try
 }
 catch (SdkException<PurgeSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionResponse(out var error))
     {
-        // TODO: Handle 'error' of type PurgeSubscriptionError
+        // TODO: Handle 'error' of type SubscriptionResponse
     }
 }
 ```
@@ -18585,9 +18585,9 @@ try
 }
 catch (SdkException<RemoveCouponFromSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetSubscriptionRemoveCouponErrors1(out var error))
     {
-        // TODO: Handle 'error' of type RemoveCouponFromSubscriptionError
+        // TODO: Handle 'error' of type SubscriptionRemoveCouponErrors1
     }
 }
 ```
@@ -18654,9 +18654,9 @@ try
 }
 catch (SdkException<UpdatePrepaidSubscriptionConfigurationError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetPrepaidConfigurationErrorResponse(out var error))
     {
-        // TODO: Handle 'error' of type UpdatePrepaidSubscriptionConfigurationError
+        // TODO: Handle 'error' of type PrepaidConfigurationErrorResponse
     }
 }
 ```
@@ -18773,9 +18773,9 @@ try
 }
 catch (SdkException<UpdateSubscriptionError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type UpdateSubscriptionError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -18813,9 +18813,9 @@ catch (SdkException<UpdateSubscriptionError> ex)
 
 </details>
 
-## Webhooks
+## WebhooksApi
 
-> Source: [Webhooks](Api/Webhooks.cs)
+> Source: [WebhooksApi](Api/WebhooksApi.cs)
 
 <details>
 <summary><code>Task&lt;EndpointResponse&gt; CreateEndpoint(CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
@@ -18842,14 +18842,14 @@ See the [Webhooks Reference](page:introduction/webhooks/webhooks-reference#event
 ```csharp
 try
 {
-    var response = await client.Webhooks.CreateEndpoint(body);
+    var response = await client.WebhooksApi.CreateEndpoint(body);
     // TODO: Handle 'response' of type EndpointResponse
 }
 catch (SdkException<CreateEndpointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetErrorListResponse1(out var error))
     {
-        // TODO: Handle 'error' of type CreateEndpointError
+        // TODO: Handle 'error' of type ErrorListResponse1
     }
 }
 ```
@@ -18910,7 +18910,7 @@ Enables webhooks for your site.
 ```csharp
 try
 {
-    var response = await client.Webhooks.EnableWebhooks(body);
+    var response = await client.WebhooksApi.EnableWebhooks(body);
     // TODO: Handle 'response' of type EnableWebhooksResponse
 }
 catch (SdkException<RawError> ex)
@@ -18975,7 +18975,7 @@ Lists endpoints configured for a site.
 ```csharp
 try
 {
-    var response = await client.Webhooks.ListEndpoints();
+    var response = await client.WebhooksApi.ListEndpoints();
     // TODO: Handle 'response' of type IReadOnlyList<Endpoint>
 }
 catch (SdkException<RawError> ex)
@@ -19028,7 +19028,7 @@ Retrieves a list of webhooks.  You can pass query parameters if you want to filt
 ```csharp
 try
 {
-    var response = await client.Webhooks.ListWebhooks(status, sinceDate, untilDate, order, subscription);
+    var response = await client.WebhooksApi.ListWebhooks(status, sinceDate, untilDate, order, subscription);
     // TODO: Handle 'response' of type IReadOnlyList<WebhookResponse>
 }
 catch (SdkException<RawError> ex)
@@ -19099,7 +19099,7 @@ Replays webhooks. Posting to this endpoint does not immediately resend the webho
 ```csharp
 try
 {
-    var response = await client.Webhooks.ReplayWebhooks(body);
+    var response = await client.WebhooksApi.ReplayWebhooks(body);
     // TODO: Handle 'response' of type ReplayWebhooksResponse
 }
 catch (SdkException<RawError> ex)
@@ -19168,14 +19168,14 @@ If you want to unsubscribe from a specific event, send a list of `webhook_subscr
 ```csharp
 try
 {
-    var response = await client.Webhooks.UpdateEndpoint(endpointId, body);
+    var response = await client.WebhooksApi.UpdateEndpoint(endpointId, body);
     // TODO: Handle 'response' of type EndpointResponse
 }
 catch (SdkException<UpdateEndpointError> ex)
 {
-    if (ex.Error.TryGetError(out var error))
+    if (ex.Error.TryGetNoContent(out var error))
     {
-        // TODO: Handle 'error' of type UpdateEndpointError
+        // TODO: Handle 'error' of type RawError
     }
 }
 ```

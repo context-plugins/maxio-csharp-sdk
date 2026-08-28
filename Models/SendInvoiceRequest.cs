@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -28,4 +29,7 @@ public record SendInvoiceRequest
     [JsonPropertyName("attachment_urls")]
     [MaxLength(10)]
     public IReadOnlyList<string>? AttachmentUrls { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

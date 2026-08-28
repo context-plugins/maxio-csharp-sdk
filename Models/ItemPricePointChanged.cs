@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -21,4 +22,7 @@ public record ItemPricePointChanged
 
     [JsonPropertyName("current_price_point")]
     public required ItemPricePointData CurrentPricePoint { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

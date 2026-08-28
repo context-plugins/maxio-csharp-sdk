@@ -55,7 +55,13 @@ public sealed class MaxioAdvancedBillingClient
         var resiliencePipelineFactory = new ResiliencePipelineFactory(options.Retry);
         var httpLogger = new HttpLogger(options.Logging, "MaxioAdvancedBillingClient");
         var rawClient =
-            new RawClient(httpClient, urlFactory, httpStatusPolicy, headersFactory, resiliencePipelineFactory, httpLogger);
+            new RawClient(httpClient,
+                urlFactory,
+                httpStatusPolicy,
+                headersFactory,
+                resiliencePipelineFactory,
+                httpLogger,
+                options.Hooks);
         var auth = new AuthSchemes(options);
         ApiExports = new ApiExports(rawClient, server, auth);
         AdvanceInvoice = new AdvanceInvoice(rawClient, server, auth);
@@ -90,7 +96,7 @@ public sealed class MaxioAdvancedBillingClient
         SubscriptionRenewals = new SubscriptionRenewals(rawClient, server, auth);
         SubscriptionStatus = new SubscriptionStatus(rawClient, server, auth);
         Subscriptions = new Subscriptions(rawClient, server, auth);
-        Webhooks = new Webhooks(rawClient, server, auth);
+        WebhooksApi = new WebhooksApi(rawClient, server, auth);
     }
 
     public ApiExports ApiExports { get; }
@@ -162,5 +168,5 @@ public sealed class MaxioAdvancedBillingClient
 
     public Subscriptions Subscriptions { get; }
 
-    public Webhooks Webhooks { get; }
+    public WebhooksApi WebhooksApi { get; }
 }

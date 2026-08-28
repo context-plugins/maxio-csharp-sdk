@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.OneOf;
 
 namespace MaxioAdvancedBilling.Models;
@@ -51,4 +52,7 @@ public record RemovePaymentEventData
     /// </summary>
     [JsonPropertyName("prepayment")]
     public required bool Prepayment { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

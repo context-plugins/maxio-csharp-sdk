@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Models.AnyOf;
 
 namespace MaxioAdvancedBilling.Models;
@@ -26,4 +27,7 @@ public record ComponentAllocationChange
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("allocated_quantity")]
     public AllocatedQuantity? AllocatedQuantity { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

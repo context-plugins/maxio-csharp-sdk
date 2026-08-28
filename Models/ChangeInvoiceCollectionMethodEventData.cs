@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -18,4 +19,7 @@ public record ChangeInvoiceCollectionMethodEventData
     /// </summary>
     [JsonPropertyName("to_collection_method")]
     public required string ToCollectionMethod { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

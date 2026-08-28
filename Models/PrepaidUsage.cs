@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -37,4 +38,7 @@ public record PrepaidUsage
 
     [JsonPropertyName("allocation_details")]
     public required IReadOnlyList<PrepaidUsageAllocationDetail> AllocationDetails { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

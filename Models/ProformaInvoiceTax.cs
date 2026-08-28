@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Core.Validation.Attributes;
 using MaxioAdvancedBilling.Models.Enums;
 
@@ -42,4 +43,7 @@ public record ProformaInvoiceTax
     [MinLength(1)]
     [UniqueItems]
     public IReadOnlyList<InvoiceTaxBreakout>? LineItemBreakouts { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

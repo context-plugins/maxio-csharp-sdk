@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
@@ -12,4 +13,7 @@ public record UpdateInvoiceRequest
     /// </summary>
     [JsonPropertyName("invoice")]
     public required UpdateInvoice Invoice { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

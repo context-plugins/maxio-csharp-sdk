@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 using MaxioAdvancedBilling.Core.Validation.Attributes;
 
 namespace MaxioAdvancedBilling.Models;
@@ -33,4 +34,7 @@ public record SubscriptionIncludedCoupon
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("percentage")]
     public string? Percentage { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }

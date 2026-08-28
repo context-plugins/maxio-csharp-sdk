@@ -1,8 +1,9 @@
 using System.Text.Json.Serialization;
+using MaxioAdvancedBilling.Core.Models;
 
 namespace MaxioAdvancedBilling.Models;
 
-public record MaxioGatewayOauthTokenRequest
+public record MaxioGatewayOAuthTokenRequest
 {
     [JsonPropertyName("grant_type")]
     public string GrantType { get; } = "client_credentials";
@@ -20,4 +21,7 @@ public record MaxioGatewayOauthTokenRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("client_secret")]
     public string? ClientSecret { get; init; }
+
+    [JsonExtensionData]
+    public AdditionalProperties AdditionalProperties { get; init; } = [];
 }
