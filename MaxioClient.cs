@@ -1,10 +1,10 @@
 using System.Net.Http;
-using MaxioAdvancedBilling.Api;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Logging;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Api;
+using Maxio.Core;
+using Maxio.Core.Logging;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling;
+namespace Maxio;
 
 /// <summary>
 ///
@@ -36,9 +36,9 @@ namespace MaxioAdvancedBilling;
 ///     curl -u &lt;api_key&gt;:x -H Accept:application/json -H Content-Type:application/json https://acme.chargify.com/subscriptions.json
 /// </para>
 /// </summary>
-public sealed class MaxioAdvancedBillingClient
+public sealed class MaxioClient
 {
-    public MaxioAdvancedBillingClient(HttpClient httpClient, MaxioAdvancedBillingClientOptions options)
+    public MaxioClient(HttpClient httpClient, MaxioClientOptions options)
     {
         var server = new Server(options.Environment, options.Server);
         var queryParameterFactory = new QueryParameterFactory([]);
@@ -46,14 +46,14 @@ public sealed class MaxioAdvancedBillingClient
         var urlFactory = new UriFactory(queryParameterFactory, templateParamsFactory);
         var httpStatusPolicy = new HttpStatusPolicy([]);
         var headersFactory =
-            new HeadersFactory([new HeaderParam("User-Agent", "MaxioAdvancedBillingClient/1.0 CSharp"),
+            new HeadersFactory([new HeaderParam("User-Agent", "MaxioClient/1.0 CSharp"),
                     new HeaderParam("X-APIMatic-Lang", "CSharp"),
                     new HeaderParam("X-APIMatic-Package-Version", "1.0"),
                     new HeaderParam("X-APIMatic-Gen-Version", "4.0.0"),
                     new HeaderParam("X-APIMatic-OS", RuntimeEnvironment.Os),
                     new HeaderParam("X-APIMatic-Runtime", RuntimeEnvironment.Runtime)]);
         var resiliencePipelineFactory = new ResiliencePipelineFactory(options.Retry);
-        var httpLogger = new HttpLogger(options.Logging, "MaxioAdvancedBillingClient");
+        var httpLogger = new HttpLogger(options.Logging, "MaxioClient");
         var rawClient =
             new RawClient(httpClient,
                 urlFactory,

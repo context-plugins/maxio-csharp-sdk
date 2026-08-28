@@ -1,13 +1,14 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record CustomerErrorResponse
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("errors")]
-    public ErrorsModel? Errors { get; init; }
+    public Errors1? Errors { get; init; }
 
     [JsonExtensionData]
     public AdditionalProperties AdditionalProperties { get; init; } = [];

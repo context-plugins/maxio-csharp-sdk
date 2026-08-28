@@ -1,13 +1,13 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record SubscriptionGroupCreateErrorResponse1
 {
     [JsonPropertyName("errors")]
-    public required Errors1 Errors { get; init; }
+    public required Errors11 Errors { get; init; }
 
     [JsonExtensionData]
     public AdditionalProperties AdditionalProperties { get; init; } = [];

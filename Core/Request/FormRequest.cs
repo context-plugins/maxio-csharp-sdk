@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Core.Request;
+namespace Maxio.Core.Request;
 
 internal sealed class FormRequest : IRequest
 {

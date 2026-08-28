@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// Errors returned on creating a refund prepayment when bad request

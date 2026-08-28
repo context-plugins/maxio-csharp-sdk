@@ -1,9 +1,9 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
+using Maxio.Core.ErrorResponse;
 
-namespace MaxioAdvancedBilling.Core.Response;
+namespace Maxio.Core.Response;
 
 internal sealed class RawErrorBodyResponse : IResponse<RawError>
 {

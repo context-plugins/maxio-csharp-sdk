@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// If <c>true</c>, Advanced Billing will attempt to resume the subscription's billing period. If not resumable, the subscription will be reactivated with a new billing period. If <c>false</c> or omitted, Advanced Billing will only attempt to reactivate the subscription with a new billing period, regardless of whether or not the subscription is resumable.

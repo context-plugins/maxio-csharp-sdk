@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled

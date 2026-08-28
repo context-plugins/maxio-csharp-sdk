@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http.Headers;
 
-namespace MaxioAdvancedBilling.Core.Pagination.States;
+namespace Maxio.Core.Pagination.States;
 
 internal sealed record CursorState<TResponse> : IPageState<TResponse, CursorState<TResponse>>
 {

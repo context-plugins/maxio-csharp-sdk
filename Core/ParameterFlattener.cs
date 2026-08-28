@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Core;
+namespace Maxio.Core;
 
 internal static class ParameterFlattener
 {

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Core.Authentication.OAuth2.AuthorizationCode;
+namespace Maxio.Core.Authentication.OAuth2.AuthorizationCode;
 
 [JsonConverter(typeof(StringEnumConverter<PkceMethod>))]
 public sealed record PkceMethod : StringEnum<PkceMethod>

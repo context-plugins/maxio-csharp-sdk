@@ -2,9 +2,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Headers;
-using MaxioAdvancedBilling.Core.Exceptions;
+using Maxio.Core.Exceptions;
 
-namespace MaxioAdvancedBilling.Core.Models;
+namespace Maxio.Core.Models;
 
 /// <summary>
 ///     Represents either a successful response of type <typeparamref name="TResponse" />

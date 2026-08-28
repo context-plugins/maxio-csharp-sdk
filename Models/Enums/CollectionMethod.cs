@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - <c>invoice</c>, <c>automatic</c>. For current Relationship Invoicing Architecture valid options are - <c>remittance</c>, <c>automatic</c>, <c>prepaid</c>.

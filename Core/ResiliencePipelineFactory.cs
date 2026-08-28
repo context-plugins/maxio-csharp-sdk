@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using Polly;
 using Polly.Retry;
 using Polly.Timeout;
-using MaxioAdvancedBilling.Core.Configuration;
-using MaxioAdvancedBilling.Core.Logging;
-using MaxioAdvancedBilling.Core.Request;
+using Maxio.Core.Configuration;
+using Maxio.Core.Logging;
+using Maxio.Core.Request;
 
-namespace MaxioAdvancedBilling.Core;
+namespace Maxio.Core;
 
 internal sealed class ResiliencePipelineFactory
 {

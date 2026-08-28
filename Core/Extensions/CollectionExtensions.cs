@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MaxioAdvancedBilling.Core.Extensions;
+namespace Maxio.Core.Extensions;
 
 internal static class CollectionExtensions
 {

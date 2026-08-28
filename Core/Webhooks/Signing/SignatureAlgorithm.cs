@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace MaxioAdvancedBilling.Core.Webhooks.Signing;
+namespace Maxio.Core.Webhooks.Signing;
 
 internal abstract record SignatureAlgorithm
 {

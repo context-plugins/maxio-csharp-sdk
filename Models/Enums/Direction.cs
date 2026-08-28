@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<Direction>))]
 public sealed record Direction : StringEnum<Direction>

@@ -2,18 +2,18 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.Authentication;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class ProformaInvoices
 {

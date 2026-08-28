@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MaxioAdvancedBilling.Core.Webhooks.Signing;
+namespace Maxio.Core.Webhooks.Signing;
 
 internal abstract record SignatureHeaderFormat
 {

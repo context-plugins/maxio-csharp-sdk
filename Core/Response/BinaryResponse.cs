@@ -2,9 +2,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Core.Response;
+namespace Maxio.Core.Response;
 
 internal sealed class BinaryResponse : IResponse<BinaryContent>
 {

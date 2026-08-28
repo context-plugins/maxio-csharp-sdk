@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// The schema varies based on the event key. The key-to-event data mapping is as follows:

@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Validation.Attributes;
+using Maxio.Core.Models;
+using Maxio.Core.Validation.Attributes;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record SubscriptionIncludedCoupon
 {

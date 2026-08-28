@@ -6,18 +6,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using Polly;
 using Polly.Timeout;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Hooks;
-using MaxioAdvancedBilling.Core.Logging;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Pagination;
-using MaxioAdvancedBilling.Core.Pagination.States;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
+using Maxio.Core.Authentication;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Extensions;
+using Maxio.Core.Hooks;
+using Maxio.Core.Logging;
+using Maxio.Core.Models;
+using Maxio.Core.Pagination;
+using Maxio.Core.Pagination.States;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
 
-namespace MaxioAdvancedBilling.Core;
+namespace Maxio.Core;
 
 internal sealed class RawClient
 {

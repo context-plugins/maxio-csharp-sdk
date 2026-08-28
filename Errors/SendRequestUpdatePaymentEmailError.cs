@@ -1,11 +1,11 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class SendRequestUpdatePaymentEmailError : ApiError
 {

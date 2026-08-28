@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// (Optional when performing an Import via vault_token, required otherwise) The 1- or 2-digit credit card expiration month, as an integer or string, e.g., 5

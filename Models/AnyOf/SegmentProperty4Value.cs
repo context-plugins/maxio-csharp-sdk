@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// A value that will occur in your events that you want to bill upon. The type of the value depends on the property type in the related event based billing metric.

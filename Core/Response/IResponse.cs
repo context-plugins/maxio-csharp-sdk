@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaxioAdvancedBilling.Core.Response;
+namespace Maxio.Core.Response;
 
 internal interface IResponse<TResponse>
 {

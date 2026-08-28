@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// The error is base if it is not directly associated with a single attribute.

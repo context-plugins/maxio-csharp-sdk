@@ -1,6 +1,6 @@
 using System;
 
-namespace MaxioAdvancedBilling.Core.Exceptions;
+namespace Maxio.Core.Exceptions;
 
 public sealed class SseTimeoutException : SseException
 {

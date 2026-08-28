@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace MaxioAdvancedBilling.Core.Exceptions;
+namespace Maxio.Core.Exceptions;
 
 public sealed class AuthSchemeException : Exception
 {

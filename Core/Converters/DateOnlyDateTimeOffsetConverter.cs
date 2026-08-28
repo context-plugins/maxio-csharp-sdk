@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
+using Maxio.Core.Extensions;
 
-namespace MaxioAdvancedBilling.Core.Converters;
+namespace Maxio.Core.Converters;
 
 internal sealed class DateOnlyDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
 {

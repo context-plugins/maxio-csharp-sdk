@@ -1,8 +1,8 @@
 using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// Example schema for an <c>apply_debit_note</c> event

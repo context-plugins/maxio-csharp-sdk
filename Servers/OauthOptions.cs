@@ -1,6 +1,6 @@
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Servers;
+namespace Maxio.Servers;
 
 public class OauthOptions
 {

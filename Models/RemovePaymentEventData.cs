@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.OneOf;
+using Maxio.Core.Models;
+using Maxio.Models.OneOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// Example schema for an <c>remove_payment</c> event

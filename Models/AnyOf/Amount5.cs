@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// <c>amount_in_cents</c> is not required if you pass <c>amount</c>.

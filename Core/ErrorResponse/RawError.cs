@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaxioAdvancedBilling.Core.ErrorResponse;
+namespace Maxio.Core.ErrorResponse;
 
 public sealed class RawError
 {

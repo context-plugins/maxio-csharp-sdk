@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Net.Http;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Request;
+using Maxio.Core.Authentication;
+using Maxio.Core.Request;
 
-namespace MaxioAdvancedBilling.Core.Models;
+namespace Maxio.Core.Models;
 
 internal sealed class ApiRequest
 {

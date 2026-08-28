@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MaxioAdvancedBilling.Core.Validation.Attributes;
+namespace Maxio.Core.Validation.Attributes;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 public sealed class ExclusiveMinimumAttribute : ValidationAttribute

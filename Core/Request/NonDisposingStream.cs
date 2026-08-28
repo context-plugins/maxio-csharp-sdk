@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaxioAdvancedBilling.Core.Request;
+namespace Maxio.Core.Request;
 
 internal sealed class NonDisposingStream : Stream
 {

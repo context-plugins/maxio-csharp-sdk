@@ -1,6 +1,6 @@
 # Reference
 
-> Source: [MaxioAdvancedBillingClient](MaxioAdvancedBillingClient.cs)
+> Source: [MaxioClient](MaxioClient.cs)
 
 ## ApiExports
 

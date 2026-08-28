@@ -1,6 +1,6 @@
-using MaxioAdvancedBilling.Servers;
+using Maxio.Servers;
 
-namespace MaxioAdvancedBilling;
+namespace Maxio;
 
 public class ServerOptions
 {

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using MaxioAdvancedBilling.Core.Configuration;
+using Maxio.Core.Configuration;
 
-namespace MaxioAdvancedBilling.Core.Logging;
+namespace Maxio.Core.Logging;
 
 internal sealed class HttpLogger
 {

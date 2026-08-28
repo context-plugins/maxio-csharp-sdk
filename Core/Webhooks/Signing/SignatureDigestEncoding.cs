@@ -1,6 +1,6 @@
 using System;
 
-namespace MaxioAdvancedBilling.Core.Webhooks.Signing;
+namespace Maxio.Core.Webhooks.Signing;
 
 internal abstract record SignatureDigestEncoding
 {

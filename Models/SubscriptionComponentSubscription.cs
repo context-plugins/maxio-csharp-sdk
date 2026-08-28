@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// (Optional) Object that will be returned if the <c>include=subscription</c> query param is provided.

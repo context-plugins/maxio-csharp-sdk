@@ -1,20 +1,20 @@
 <!-- Generated file — do not edit; regenerated with the SDK. -->
 
-# SDK map — Maxio Advanced Billing (.NET)
+# SDK map — Maxio (.NET)
 
 > A generated table of contents for this SDK. Consult this map and its sub-pages to learn signatures, error types, and server/auth wiring **by lookup**. Model shapes and enum values are *not* duplicated here — the map names the file declaring each type; read the shape there. The compiler is the backstop: a wrong name fails to build.
 
 |  |  |
 | --- | --- |
-| SDK display name | Maxio Advanced Billing |
-| Root namespace | `MaxioAdvancedBilling` |
+| SDK display name | Maxio |
+| Root namespace | `Maxio` |
 | Target framework | `netstandard2.0` (C# `LangVersion 14`, `Nullable enable`) |
 | API spec version | `1.0` |
 | Generator | APIMatic |
 
 Staleness check: the API spec version above changes when the SDK is regenerated from a new spec. If a lookup here fails to compile, trust the compiler and re-read the source file named in the row.
 
-All `Source` paths on this map and its sub-pages are relative to the **SDK root** — the directory holding this file and `MaxioAdvancedBilling.csproj` — never to the page that carries them. Open them as-is from the SDK root, from any page; if the SDK sits under a subdirectory of a larger repo, prefix that subdirectory.
+All `Source` paths on this map and its sub-pages are relative to the **SDK root** — the directory holding this file and `Maxio.csproj` — never to the page that carries them. Open them as-is from the SDK root, from any page; if the SDK sits under a subdirectory of a larger repo, prefix that subdirectory.
 
 ---
 
@@ -24,7 +24,7 @@ All `Source` paths on this map and its sub-pages are relative to the **SDK root*
 var httpClient = new HttpClient();
 // TODO: configure more client options here
 var options =
-    new MaxioAdvancedBillingClientOptions
+    new MaxioClientOptions
     {
         BasicAuth = new BasicAuthCredentials
         {
@@ -34,13 +34,13 @@ var options =
         BearerAuth = "YOUR_BEARER_TOKEN",
         Environment = ServerEnvironment.Us,
     };
-var client = new MaxioAdvancedBillingClient(httpClient, options);
+var client = new MaxioClient(httpClient, options);
 ```
 
-DI alternative (`services.AddMaxioAdvancedBillingClient`):
+DI alternative (`services.AddMaxioClient`):
 
 ```csharp
-services.AddMaxioAdvancedBillingClient(options =>
+services.AddMaxioClient(options =>
     {
         options.BasicAuth =
             new BasicAuthCredentials
@@ -54,9 +54,9 @@ services.AddMaxioAdvancedBillingClient(options =>
     });
 ```
 
-Every API group is a property on the client (e.g. `client.ApiExports`). Source: `MaxioAdvancedBillingClient.cs`. The only constructor is `MaxioAdvancedBillingClient(HttpClient httpClient, MaxioAdvancedBillingClientOptions options)`.
+Every API group is a property on the client (e.g. `client.ApiExports`). Source: `MaxioClient.cs`. The only constructor is `MaxioClient(HttpClient httpClient, MaxioClientOptions options)`.
 
-All `MaxioAdvancedBillingClientOptions` properties (source: `MaxioAdvancedBillingClientOptions.cs`):
+All `MaxioClientOptions` properties (source: `MaxioClientOptions.cs`):
 
 | Property | Type |
 | --- | --- |
@@ -68,7 +68,7 @@ All `MaxioAdvancedBillingClientOptions` properties (source: `MaxioAdvancedBillin
 | `BasicAuth` | `BasicAuthCredentials?` |
 | `BearerAuth` | `string?` |
 
-`RetryOptions` members (namespace `MaxioAdvancedBilling.Core.Configuration` — add `using MaxioAdvancedBilling.Core.Configuration;`; source: `Core/Configuration/RetryOptions.cs`; all members are `required`, so build a full instance or start from `RetryOptions.Default()`):
+`RetryOptions` members (namespace `Maxio.Core.Configuration` — add `using Maxio.Core.Configuration;`; source: `Core/Configuration/RetryOptions.cs`; all members are `required`, so build a full instance or start from `RetryOptions.Default()`):
 
 | Member | Type |
 | --- | --- |
@@ -194,7 +194,7 @@ Each links to a sub-page with one row per operation: signature with must-pass-ex
 | Records (plain `record` data models) | 563 | `Models/` |
 | Unions (`OneOf`) — variant factories + `TryGet…` | 7 | `Models/OneOf/` |
 | Unions (`AnyOf`) — variant factories + `TryGet…` | 83 | `Models/AnyOf/` |
-| Enums (`StringEnum<T>` / `IntEnum<T>`) — C# member names + wire values | 98 | `Models/Enums/` |
+| Enums (`StringEnum<T>` / `IntEnum<T>`) — C# member names + wire values | 101 | `Models/Enums/` |
 | Typed error classes (`: ApiError`, one per Case A operation) | 166 | `Errors/` |
 
 Conventions: records are immutable, `init`-only; `required` properties must be set in the object initializer; `T?` is optional. A field's wire name is its `[JsonPropertyName]` and often differs from the C# name (`AmountInCents` ↔ `amount_in_cents`) — read it off the property, don't derive it. `OneOf`/`AnyOf` unions wrap `Optional<T>` variants — build via static factory or implicit conversion, read via `TryGet…(out …)`; `AllOf` compositions are not unions — every constituent is a `required` property, so set them all, and those constituent properties carry no `[JsonPropertyName]` and have no wire name of their own, because the generated converter flattens each constituent's own fields directly into the one parent JSON object. Enums are **not** C# enums — build with `Type.FromValue("wire")` or the static members, whose names are PascalCase even when the wire value isn't (`CollectionMethod.Invoice`, not `.invoice`).
@@ -203,13 +203,13 @@ Namespaces by content type (add `using` accordingly):
 
 | Contents | Namespace |
 | --- | --- |
-| Client & options (root) | `MaxioAdvancedBilling` |
-| Operation controllers (`Api/`) | `MaxioAdvancedBilling.Api` |
-| Records (`Models/`) | `MaxioAdvancedBilling.Models` |
-| Enums (`Models/Enums/`) | `MaxioAdvancedBilling.Models.Enums` |
-| OneOf unions (`Models/OneOf/`) | `MaxioAdvancedBilling.Models.OneOf` |
-| AnyOf unions (`Models/AnyOf/`) | `MaxioAdvancedBilling.Models.AnyOf` |
-| Error classes (`Errors/`) | `MaxioAdvancedBilling.Errors` |
+| Client & options (root) | `Maxio` |
+| Operation controllers (`Api/`) | `Maxio.Api` |
+| Records (`Models/`) | `Maxio.Models` |
+| Enums (`Models/Enums/`) | `Maxio.Models.Enums` |
+| OneOf unions (`Models/OneOf/`) | `Maxio.Models.OneOf` |
+| AnyOf unions (`Models/AnyOf/`) | `Maxio.Models.AnyOf` |
+| Error classes (`Errors/`) | `Maxio.Errors` |
 
 ---
 

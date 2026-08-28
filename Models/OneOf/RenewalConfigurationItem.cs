@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.OneOf;
+namespace Maxio.Models.OneOf;
 
 [JsonConverter(typeof(RenewalConfigurationItemConverter))]
 public record RenewalConfigurationItem
