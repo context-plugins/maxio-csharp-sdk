@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Maxio.Core.Extensions;
+namespace MaxioAdvancedBilling.Core.Extensions;
 
 internal static class JsonSerializerExtensions
 {

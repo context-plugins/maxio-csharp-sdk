@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Core.Pagination.States;
+namespace MaxioAdvancedBilling.Core.Pagination.States;
 
 internal sealed record LinkState<TResponse> : IPageState<TResponse, LinkState<TResponse>>
 {

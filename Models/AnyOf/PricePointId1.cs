@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.AnyOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 /// <summary>
 /// Price point that the allocation should be charged at. Accepts either the price point's id (integer) or handle (string). When not specified, the default price point will be used.

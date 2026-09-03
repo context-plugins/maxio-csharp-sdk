@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// Attributes of a draft ad hoc invoice which can be updated. Only the submitted attributes are changed.

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Models.Enums;
+namespace MaxioAdvancedBilling.Models.Enums;
 
 /// <summary>
 /// The vault that stores the payment profile with the provided <c>vault_token</c>. Use <c>bogus</c> for testing.

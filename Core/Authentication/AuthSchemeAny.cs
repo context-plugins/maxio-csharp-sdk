@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.Exceptions;
+using MaxioAdvancedBilling.Core.Exceptions;
 
-namespace Maxio.Core.Authentication;
+namespace MaxioAdvancedBilling.Core.Authentication;
 
 /// <summary>
 /// Represents multiple alternative schemes (OR logic).

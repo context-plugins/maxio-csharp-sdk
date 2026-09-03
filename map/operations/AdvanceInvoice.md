@@ -8,6 +8,7 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 ### IssueAdvanceInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `IssueAdvanceInvoice(int subscriptionId, IssueAdvanceInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `Invoice`
@@ -23,6 +24,7 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 ### ReadAdvanceInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadAdvanceInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `Invoice`
 - **Error**: `SdkException<ReadAdvanceInvoiceError>` — **Case A (typed)**
@@ -35,6 +37,7 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 ### VoidAdvanceInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `VoidAdvanceInvoice(int subscriptionId, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `Invoice`

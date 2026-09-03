@@ -2,9 +2,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Extensions;
+using MaxioAdvancedBilling.Core.Extensions;
 
-namespace Maxio.Core.Request;
+namespace MaxioAdvancedBilling.Core.Request;
 
 internal sealed class JsonRequest<TData>(TData data, JsonSerializerOptions options) : IRequest
 {

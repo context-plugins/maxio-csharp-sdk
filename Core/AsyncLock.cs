@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maxio.Core;
+namespace MaxioAdvancedBilling.Core;
 
 internal sealed class AsyncLock
 {

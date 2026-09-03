@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Core.Validation.Attributes;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Core.Validation.Attributes;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 public record SubscriptionMrrResponse
 {

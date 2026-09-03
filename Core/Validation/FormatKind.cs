@@ -1,4 +1,4 @@
-namespace Maxio.Core.Validation;
+namespace MaxioAdvancedBilling.Core.Validation;
 
 public enum FormatKind
 {

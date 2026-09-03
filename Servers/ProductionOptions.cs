@@ -1,6 +1,6 @@
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Servers;
+namespace MaxioAdvancedBilling.Servers;
 
 public class ProductionOptions
 {

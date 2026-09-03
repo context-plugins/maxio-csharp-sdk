@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs`
 
 ### MigrateSubscriptionProduct
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `MigrateSubscriptionProduct(int subscriptionId, SubscriptionProductMigrationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`
@@ -23,6 +24,7 @@ Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs`
 
 ### PreviewSubscriptionProductMigration
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewSubscriptionProductMigration(int subscriptionId, SubscriptionMigrationPreviewRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionMigrationPreviewResponse`

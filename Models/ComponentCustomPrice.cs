@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Models.Enums;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Models.Enums;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// Create or update custom pricing unique to the subscription. Used in place of <c>price_point_id</c>.

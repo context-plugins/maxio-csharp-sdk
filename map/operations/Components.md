@@ -8,6 +8,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### ArchiveComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ArchiveComponent(int productFamilyId, string componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `Component`
 - **Error**: `SdkException<ArchiveComponentError>` — **Case A (typed)**
@@ -21,6 +22,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateEventBasedComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateEventBasedComponent(string productFamilyId, CreateEbbComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`
@@ -36,6 +38,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateMeteredComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateMeteredComponent(string productFamilyId, CreateMeteredComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`
@@ -51,6 +54,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateOnOffComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateOnOffComponent(string productFamilyId, CreateOnOffComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`
@@ -66,6 +70,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreatePrepaidUsageComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreatePrepaidUsageComponent(string productFamilyId, CreatePrepaidComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`
@@ -81,6 +86,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateQuantityBasedComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateQuantityBasedComponent(string productFamilyId, CreateQuantityBasedComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`
@@ -96,6 +102,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### FindComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `FindComponent(string handle, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Query params (wire ← C#)**: `handle` ← `handle`
 - **Returns**: `ComponentResponse`
@@ -107,6 +114,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### ListComponents
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListComponents(BasicDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, bool? includeArchived, ListComponentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 7 params (`dateField` … `filter`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -122,6 +130,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### ListComponentsForProductFamily
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListComponentsForProductFamily(int productFamilyId, bool? includeArchived, ListComponentsFilter? filter, BasicDateField? dateField, string? endDate, string? endDatetime, string? startDate, string? startDatetime, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 7 params (`includeArchived` … `startDatetime`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -137,6 +146,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### ReadComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadComponent(int productFamilyId, string componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ComponentResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -147,6 +157,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### UpdateComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateComponent(string componentId, UpdateComponentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`
@@ -162,6 +173,7 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### UpdateProductFamilyComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateProductFamilyComponent(int productFamilyId, string componentId, UpdateComponentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentResponse`

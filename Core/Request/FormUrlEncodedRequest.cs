@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Core.Request;
+namespace MaxioAdvancedBilling.Core.Request;
 
 internal sealed class FormUrlEncodedRequest : IRequest
 {

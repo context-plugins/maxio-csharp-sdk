@@ -3,9 +3,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.Extensions;
+using MaxioAdvancedBilling.Core.Extensions;
 
-namespace Maxio.Core.Response;
+namespace MaxioAdvancedBilling.Core.Response;
 
 internal sealed class JsonResponse<TResponse> : IResponse<TResponse>
 {

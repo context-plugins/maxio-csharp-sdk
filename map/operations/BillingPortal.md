@@ -8,6 +8,7 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### EnableBillingPortalForCustomer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `EnableBillingPortalForCustomer(int customerId, AutoInvite? autoInvite, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `autoInvite` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `auto_invite` ← `autoInvite`
@@ -24,6 +25,7 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### ReadBillingPortalLink
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadBillingPortalLink(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `PortalManagementLink`
 - **Error**: `SdkException<ReadBillingPortalLinkError>` — **Case A (typed)**
@@ -38,6 +40,7 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### ResendBillingPortalInvitation
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ResendBillingPortalInvitation(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ResentInvitation`
 - **Error**: `SdkException<ResendBillingPortalInvitationError>` — **Case A (typed)**
@@ -51,6 +54,7 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### RevokeBillingPortalAccess
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RevokeBillingPortalAccess(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `RevokedInvitation`
 - **Error**: `SdkException<RawError>` — **Case B**

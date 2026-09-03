@@ -1,7 +1,7 @@
-using Maxio.Core.ErrorResponse;
-using Maxio.Core.Response;
+using MaxioAdvancedBilling.Core.ErrorResponse;
+using MaxioAdvancedBilling.Core.Response;
 
-namespace Maxio.Core.Models;
+namespace MaxioAdvancedBilling.Core.Models;
 
 internal sealed class ApiResponse<TResponse, TError>
 {

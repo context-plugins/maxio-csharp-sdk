@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Maxio.Core.Models;
+namespace MaxioAdvancedBilling.Core.Models;
 
 [DebuggerDisplay("{GetDebuggerDisplay(),nq}")]
 internal readonly record struct Optional<TValue>

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// Example schema for an <c>change_invoice_collection_method</c> event

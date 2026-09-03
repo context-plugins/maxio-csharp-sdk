@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Models.AnyOf;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Models.AnyOf;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 public record CreateComponentPricePointsRequest
 {

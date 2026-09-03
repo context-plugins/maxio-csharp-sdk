@@ -8,6 +8,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### ArchiveComponentPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ArchiveComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ComponentPricePointResponse`
 - **Error**: `SdkException<ArchiveComponentPricePointError>` — **Case A (typed)**
@@ -23,6 +24,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### BulkCreateComponentPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkCreateComponentPricePoints(string componentId, CreateComponentPricePointsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentPricePointsResponse`
@@ -38,6 +40,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### CloneComponentPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CloneComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, CloneComponentPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentPricePointCurrencyOverageResponse`
@@ -55,6 +58,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### CreateComponentPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateComponentPricePoint(int componentId, CreateComponentPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentPricePointResponse`
@@ -70,6 +74,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### CreateCurrencyPrices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateCurrencyPrices(int pricePointId, CreateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentCurrencyPricesResponse`
@@ -85,6 +90,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### ListAllComponentPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListAllComponentPricePoints(ListComponentsPricePointsInclude? include, SortingDirection? direction, ListPricePointsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `include` — nullable, no default → **must pass explicitly**
   - `direction` — nullable, no default → **must pass explicitly**
@@ -106,6 +112,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### ListComponentPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListComponentPricePoints(int componentId, bool? currencyPrices, IReadOnlyList<PricePointType>? filterType, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `currencyPrices` — nullable, no default → **must pass explicitly**
   - `filterType` — nullable, no default → **must pass explicitly**
@@ -121,6 +128,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### PromoteComponentPricePointToDefault
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PromoteComponentPricePointToDefault(int componentId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ComponentResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -131,6 +139,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### ReadComponentPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `currencyPrices` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `currency_prices` ← `currencyPrices`
@@ -145,6 +154,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### UnarchiveComponentPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UnarchiveComponentPricePoint(int componentId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ComponentPricePointResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -155,6 +165,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### UpdateComponentPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, UpdateComponentPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentPricePointResponse`
@@ -172,6 +183,7 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 ### UpdateCurrencyPrices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateCurrencyPrices(int pricePointId, UpdateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ComponentCurrencyPricesResponse`

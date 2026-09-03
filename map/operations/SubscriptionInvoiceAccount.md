@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### CreatePrepayment
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreatePrepayment(int subscriptionId, CreatePrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CreatePrepaymentResponse`
@@ -23,6 +24,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### DeductServiceCredit
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeductServiceCredit(int subscriptionId, DeductServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)
@@ -37,6 +39,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### IssueServiceCredit
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `IssueServiceCredit(int subscriptionId, IssueServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ServiceCredit`
@@ -52,6 +55,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### ListPrepayments
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListPrepayments(int subscriptionId, ListPrepaymentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `filter` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`
@@ -68,6 +72,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### ListServiceCredits
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListServiceCredits(int subscriptionId, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `direction` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`
@@ -85,6 +90,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### ReadAccountBalances
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadAccountBalances(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `AccountBalances`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -95,6 +101,7 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 ### RefundPrepayment
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RefundPrepayment(int subscriptionId, long prepaymentId, RefundPrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `PrepaymentResponse`

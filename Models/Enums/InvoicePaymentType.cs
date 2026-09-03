@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Models.Enums;
+namespace MaxioAdvancedBilling.Models.Enums;
 
 /// <summary>
 /// The type of payment to be applied to an Invoice. Defaults to external.

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// Information about the customer who is owner or recipient of the invoiced subscription.

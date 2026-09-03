@@ -8,6 +8,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ExportInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ExportInvoices(RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `BatchJobResponse`
 - **Error**: `SdkException<ExportInvoicesError>` — **Case A (typed)**
@@ -21,6 +22,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ExportProformaInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ExportProformaInvoices(RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `BatchJobResponse`
 - **Error**: `SdkException<ExportProformaInvoicesError>` — **Case A (typed)**
@@ -34,6 +36,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ExportSubscriptions
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ExportSubscriptions(RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `BatchJobResponse`
 - **Error**: `SdkException<ExportSubscriptionsError>` — **Case A (typed)**
@@ -47,6 +50,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ListExportedInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListExportedInvoices(string batchId, int? perPage = 100, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `perPage` = `100`, `page` = `1`
 - **Query params (wire ← C#)**: `per_page` ← `perPage`, `page` ← `page`
@@ -61,6 +65,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ListExportedProformaInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListExportedProformaInvoices(string batchId, int? perPage = 100, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `perPage` = `100`, `page` = `1`
 - **Query params (wire ← C#)**: `per_page` ← `perPage`, `page` ← `page`
@@ -75,6 +80,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ListExportedSubscriptions
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListExportedSubscriptions(string batchId, int? perPage = 100, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `perPage` = `100`, `page` = `1`
 - **Query params (wire ← C#)**: `per_page` ← `perPage`, `page` ← `page`
@@ -89,6 +95,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ReadInvoicesExport
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadInvoicesExport(string batchId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `BatchJobResponse`
 - **Error**: `SdkException<ReadInvoicesExportError>` — **Case A (typed)**
@@ -101,6 +108,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ReadProformaInvoicesExport
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadProformaInvoicesExport(string batchId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `BatchJobResponse`
 - **Error**: `SdkException<ReadProformaInvoicesExportError>` — **Case A (typed)**
@@ -113,6 +121,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 ### ReadSubscriptionsExport
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSubscriptionsExport(string batchId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `BatchJobResponse`
 - **Error**: `SdkException<ReadSubscriptionsExportError>` — **Case A (typed)**

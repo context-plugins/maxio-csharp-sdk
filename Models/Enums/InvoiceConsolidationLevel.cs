@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Models.Enums;
+namespace MaxioAdvancedBilling.Models.Enums;
 
 /// <summary>
 /// Consolidation level of the invoice, which is applicable to invoice consolidation. It will hold one of the following values:

@@ -1,7 +1,7 @@
 using System.Net.Http;
-using Maxio.Core.Extensions;
+using MaxioAdvancedBilling.Core.Extensions;
 
-namespace Maxio.Core.Request;
+namespace MaxioAdvancedBilling.Core.Request;
 
 internal sealed class EmptyBody : IRequest
 {

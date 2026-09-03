@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Models.Enums;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Models.Enums;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// Warning: When updating a metafield's scope attribute, all scope attributes must be passed. Partially complete scope attributes will override the existing settings.

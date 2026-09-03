@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Extensions;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Extensions;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.AnyOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 /// <summary>
 /// A string of the dollar amount to be refunded (eg. "10.50" =&gt; $10.50)

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Models.Enums;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Models.Enums;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 public record Invoice
 {

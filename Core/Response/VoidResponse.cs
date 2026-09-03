@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maxio.Core.Response;
+namespace MaxioAdvancedBilling.Core.Response;
 
 public sealed class VoidResponse : IResponse<VoidResponse>
 {

@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### CreateSubscriptionGroupPrepayment
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateSubscriptionGroupPrepayment(string uid, SubscriptionGroupPrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionGroupPrepaymentResponse`
@@ -23,6 +24,7 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### DeductSubscriptionGroupServiceCredit
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeductSubscriptionGroupServiceCredit(string uid, DeductServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ServiceCredit`
@@ -38,6 +40,7 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### IssueSubscriptionGroupServiceCredit
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `IssueSubscriptionGroupServiceCredit(string uid, IssueServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ServiceCreditResponse`
@@ -53,6 +56,7 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### ListPrepaymentsForSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListPrepaymentsForSubscriptionGroup(string uid, ListPrepaymentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `filter` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`

@@ -1,13 +1,12 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Models.Enums;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 public record MaxioGatewayOAuthTokenRequest
 {
     [JsonPropertyName("grant_type")]
-    public required GrantType GrantType { get; init; }
+    public string GrantType { get; } = "client_credentials";
 
     /// <summary>
     /// OAuth client identifier. Omit when authenticating with HTTP Basic.

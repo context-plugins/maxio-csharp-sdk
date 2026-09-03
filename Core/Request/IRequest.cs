@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace Maxio.Core.Request;
+namespace MaxioAdvancedBilling.Core.Request;
 
 internal interface IRequest
 {

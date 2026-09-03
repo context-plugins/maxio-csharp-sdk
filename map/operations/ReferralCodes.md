@@ -8,6 +8,7 @@ Accessor: `client.ReferralCodes` · Source: `Api/ReferralCodes.cs` · 1 operatio
 
 ### ValidateReferralCode
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ValidateReferralCode(string code, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Query params (wire ← C#)**: `code` ← `code`
 - **Returns**: `ReferralValidationResponse`

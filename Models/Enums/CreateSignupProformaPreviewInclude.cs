@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Models.Enums;
+namespace MaxioAdvancedBilling.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<CreateSignupProformaPreviewInclude>))]
 public sealed record CreateSignupProformaPreviewInclude : StringEnum<CreateSignupProformaPreviewInclude>

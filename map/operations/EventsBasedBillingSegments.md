@@ -8,6 +8,7 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### BulkCreateSegments
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkCreateSegments(string componentId, string pricePointId, BulkCreateSegments? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ListSegmentsResponse`
@@ -23,6 +24,7 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### BulkUpdateSegments
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkUpdateSegments(string componentId, string pricePointId, BulkUpdateSegments? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ListSegmentsResponse`
@@ -38,6 +40,7 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### CreateSegment
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateSegment(string componentId, string pricePointId, CreateSegmentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SegmentResponse`
@@ -53,6 +56,7 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### DeleteSegment
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteSegment(string componentId, string pricePointId, double id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<DeleteSegmentError>` — **Case A (typed)**
@@ -64,6 +68,7 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### ListSegmentsForPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSegmentsForPricePoint(string componentId, string pricePointId, ListSegmentsFilter? filter, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `filter` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `30`
@@ -81,6 +86,7 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### UpdateSegment
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateSegment(string componentId, string pricePointId, double id, UpdateSegmentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SegmentResponse`

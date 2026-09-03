@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Models.Enums;
+namespace MaxioAdvancedBilling.Models.Enums;
 
 /// <summary>
 /// The process used to cancel the subscription, if the subscription has been canceled. It is nil if the subscription's state is not canceled.

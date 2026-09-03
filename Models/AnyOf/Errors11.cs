@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Extensions;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Extensions;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.AnyOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 [JsonConverter(typeof(Errors11Converter))]
 public record Errors11

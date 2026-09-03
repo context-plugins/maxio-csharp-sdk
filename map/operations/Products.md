@@ -8,6 +8,7 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ArchiveProduct
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ArchiveProduct(int productId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductResponse`
 - **Error**: `SdkException<ArchiveProductError>` — **Case A (typed)**
@@ -21,6 +22,7 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### CreateProduct
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateProduct(string productFamilyId, CreateOrUpdateProductRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProductResponse`
@@ -36,6 +38,7 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ListProducts
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListProducts(BasicDateField? dateField, ListProductsFilter? filter, DateTimeOffset? endDate, DateTimeOffset? endDatetime, DateTimeOffset? startDate, DateTimeOffset? startDatetime, bool? includeArchived, ListProductsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 8 params (`dateField` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -52,6 +55,7 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ReadProduct
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadProduct(int productId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -62,6 +66,7 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ReadProductByHandle
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadProductByHandle(string apiHandle, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -72,6 +77,7 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### UpdateProduct
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateProduct(int productId, CreateOrUpdateProductRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProductResponse`

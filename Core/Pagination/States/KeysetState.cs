@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http.Headers;
 
-namespace Maxio.Core.Pagination.States;
+namespace MaxioAdvancedBilling.Core.Pagination.States;
 
 internal sealed record KeysetState<TResponse> : IPageState<TResponse, KeysetState<TResponse>>
 {

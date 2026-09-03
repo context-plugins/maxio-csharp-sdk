@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.AnyOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 /// <summary>
 /// The allocated quantity that was in effect before this allocation was created. String for components supporting fractional quantities

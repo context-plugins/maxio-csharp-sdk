@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.AnyOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 /// <summary>
 /// A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.

@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
-using Maxio.Models.Enums;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Models.Enums;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// Attributes of the target customer who will be the responsible payer of the created subscription. Required.

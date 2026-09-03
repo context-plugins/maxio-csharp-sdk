@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maxio.Core.Webhooks;
+namespace MaxioAdvancedBilling.Core.Webhooks;
 
 public sealed class WebhookRequest
 {

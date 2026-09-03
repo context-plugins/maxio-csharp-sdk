@@ -8,6 +8,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### CreateEndpoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateEndpoint(CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `EndpointResponse`
@@ -23,6 +24,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### EnableWebhooks
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `EnableWebhooks(EnableWebhooksRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `EnableWebhooksResponse`
@@ -35,6 +37,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### ListEndpoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListEndpoints(RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `IReadOnlyList<Endpoint>`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -45,6 +48,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### ListWebhooks
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListWebhooks(WebhookStatus? status, string? sinceDate, string? untilDate, WebhookOrder? order, int? subscription, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 5 params (`status` … `subscription`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -60,6 +64,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### ReplayWebhooks
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReplayWebhooks(ReplayWebhooksRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ReplayWebhooksResponse`
@@ -72,6 +77,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### UpdateEndpoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateEndpoint(int endpointId, CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `EndpointResponse`

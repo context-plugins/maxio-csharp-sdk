@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 ### CreateSubscriptionNote
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateSubscriptionNote(int subscriptionId, UpdateSubscriptionNoteRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionNoteResponse`
@@ -23,12 +24,14 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 ### DeleteSubscriptionNote
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteSubscriptionNote(int subscriptionId, int noteId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**
 
 ### ListSubscriptionNotes
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSubscriptionNotes(int subscriptionId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `page` = `1`, `perPage` = `20`
 - **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
@@ -44,6 +47,7 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 ### ReadSubscriptionNote
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSubscriptionNote(int subscriptionId, int noteId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `SubscriptionNoteResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -54,6 +58,7 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 ### UpdateSubscriptionNote
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateSubscriptionNote(int subscriptionId, int noteId, UpdateSubscriptionNoteRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionNoteResponse`

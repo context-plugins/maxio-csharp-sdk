@@ -8,6 +8,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ArchiveCoupon
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ArchiveCoupon(int productFamilyId, int couponId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `CouponResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -18,6 +19,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### CreateCoupon
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateCoupon(int productFamilyId, CouponRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CouponResponse`
@@ -33,6 +35,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### CreateCouponSubcodes
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateCouponSubcodes(int couponId, CouponSubcodes? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CouponSubcodesResponse`
@@ -45,6 +48,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### CreateOrUpdateCouponCurrencyPrices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateOrUpdateCouponCurrencyPrices(int couponId, CouponCurrencyRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CouponCurrencyResponse`
@@ -60,6 +64,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### DeleteCouponSubcode
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteCouponSubcode(int couponId, string subcode, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<DeleteCouponSubcodeError>` — **Case A (typed)**
@@ -71,6 +76,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### FindCoupon
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `FindCoupon(int? productFamilyId, string? code, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `productFamilyId` — nullable, no default → **must pass explicitly**
   - `code` — nullable, no default → **must pass explicitly**
@@ -85,6 +91,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ListCouponSubcodes
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListCouponSubcodes(int couponId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `page` = `1`, `perPage` = `20`
 - **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
@@ -97,6 +104,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ListCoupons
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListCoupons(ListCouponsFilter? filter, bool? currencyPrices, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `filter` — nullable, no default → **must pass explicitly**
   - `currencyPrices` — nullable, no default → **must pass explicitly**
@@ -112,6 +120,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ListCouponsForProductFamily
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListCouponsForProductFamily(int productFamilyId, ListCouponsFilter? filter, bool? currencyPrices, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `filter` — nullable, no default → **must pass explicitly**
   - `currencyPrices` — nullable, no default → **must pass explicitly**
@@ -127,6 +136,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ReadCoupon
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadCoupon(int productFamilyId, int couponId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `currencyPrices` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `currency_prices` ← `currencyPrices`
@@ -139,6 +149,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ReadCouponUsage
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadCouponUsage(int productFamilyId, int couponId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `IReadOnlyList<CouponUsage>`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -149,6 +160,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### UpdateCoupon
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateCoupon(int productFamilyId, int couponId, CouponRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CouponResponse`
@@ -164,6 +176,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### UpdateCouponSubcodes
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateCouponSubcodes(int couponId, CouponSubcodes? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CouponSubcodesResponse`
@@ -176,6 +189,7 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ValidateCoupon
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ValidateCoupon(string code, int? productFamilyId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `productFamilyId` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `code` ← `code`, `product_family_id` ← `productFamilyId`

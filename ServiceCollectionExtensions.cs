@@ -3,15 +3,15 @@ using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Maxio;
+namespace MaxioAdvancedBilling;
 
 public static class ServiceCollectionExtensions
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddMaxioClient(Action<MaxioClientOptions>? configure = null)
+        public IServiceCollection AddMaxioAdvancedBillingClient(Action<MaxioAdvancedBillingClientOptions>? configure = null)
         {
-            var options = new MaxioClientOptions();
+            var options = new MaxioAdvancedBillingClientOptions();
             configure?.Invoke(options);
             services.AddHttpClient();
             services.AddSingleton(sp =>
@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
                         };
                     var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
                     var httpClient = httpClientFactory.CreateClient();
-                    return new MaxioClient(httpClient, options);
+                    return new MaxioAdvancedBillingClient(httpClient, options);
                 });
             return services;
         }

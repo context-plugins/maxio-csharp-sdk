@@ -8,6 +8,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### CreateMetadata
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateMetadata(ResourceType resourceType, int resourceId, CreateMetadataRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `IReadOnlyList<Metadata>`
@@ -24,6 +25,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### CreateMetafields
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateMetafields(ResourceType resourceType, CreateMetafieldsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `IReadOnlyList<Metafield>`
@@ -40,6 +42,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### DeleteMetadata
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteMetadata(ResourceType resourceType, int resourceId, string? name, IReadOnlyList<string>? names, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `name` — nullable, no default → **must pass explicitly**
   - `names` — nullable, no default → **must pass explicitly**
@@ -55,6 +58,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### DeleteMetafield
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteMetafield(ResourceType resourceType, string? name, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `name` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `name` ← `name`
@@ -69,6 +73,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### ListMetadata
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListMetadata(ResourceType resourceType, int resourceId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `page` = `1`, `perPage` = `20`
 - **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
@@ -82,6 +87,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### ListMetadataForResourceType
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListMetadataForResourceType(ResourceType resourceType, BasicDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, bool? withDeleted, IReadOnlyList<int>? resourceIds, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 8 params (`dateField` … `direction`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -98,6 +104,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### ListMetafields
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListMetafields(ResourceType resourceType, string? name, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `name` — nullable, no default → **must pass explicitly**
   - `direction` — nullable, no default → **must pass explicitly**
@@ -114,6 +121,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### UpdateMetadata
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateMetadata(ResourceType resourceType, int resourceId, UpdateMetadataRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `IReadOnlyList<Metadata>`
@@ -130,6 +138,7 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### UpdateMetafield
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateMetafield(ResourceType resourceType, UpdateMetafieldsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `IReadOnlyList<Metafield>`

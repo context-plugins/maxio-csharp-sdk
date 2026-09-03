@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace Maxio.Core.Extensions;
+namespace MaxioAdvancedBilling.Core.Extensions;
 
 internal static class HttpContentExtension
 {

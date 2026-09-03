@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maxio.Core.Authentication;
+namespace MaxioAdvancedBilling.Core.Authentication;
 
 internal sealed class NoneAuthScheme : IAuthScheme
 {

@@ -1,4 +1,4 @@
-namespace Maxio.Core.Models;
+namespace MaxioAdvancedBilling.Core.Models;
 
 internal enum SerializationFormat
 {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace Maxio.Core;
+namespace MaxioAdvancedBilling.Core;
 
 internal static class RuntimeEnvironment
 {

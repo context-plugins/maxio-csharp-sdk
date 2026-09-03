@@ -1,9 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Extensions;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.OneOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 /// <summary>
 /// A nested data structure detailing the method of payment
@@ -88,20 +89,31 @@ file sealed class InvoiceEventPaymentConverter : JsonConverter<InvoiceEventPayme
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (!root.TryGetProperty("type", out var typeProperty))
+        if (JsonSerializer.TryDeserialize<PaymentMethodApplePay>(root, options, out var paymentMethodApplePayValue))
         {
-            throw new JsonException("Missing required 'type' discriminator field");
+            return InvoiceEventPayment.PaymentMethodApplePay(paymentMethodApplePayValue);
         }
-        var discriminator = typeProperty.GetString();
-        return discriminator switch
+        if (JsonSerializer.TryDeserialize<PaymentMethodBankAccount>(root,
+            options,
+            out var paymentMethodBankAccountValue))
         {
-            "apple_pay" => InvoiceEventPayment.PaymentMethodApplePay(root.Deserialize<PaymentMethodApplePay>(options)!),
-            "bank_account" => InvoiceEventPayment.PaymentMethodBankAccount(root.Deserialize<PaymentMethodBankAccount>(options)!),
-            "credit_card" => InvoiceEventPayment.PaymentMethodCreditCard(root.Deserialize<PaymentMethodCreditCard>(options)!),
-            "external" => InvoiceEventPayment.PaymentMethodExternal(root.Deserialize<PaymentMethodExternal>(options)!),
-            "paypal_account" => InvoiceEventPayment.PaymentMethodPaypal(root.Deserialize<PaymentMethodPaypal>(options)!),
-            _ => throw new JsonException($"JSON does not match PaymentMethodApplePay or PaymentMethodBankAccount or PaymentMethodCreditCard or PaymentMethodExternal or PaymentMethodPaypal schemas: {root.ToString()}")
-        };
+            return InvoiceEventPayment.PaymentMethodBankAccount(paymentMethodBankAccountValue);
+        }
+        if (JsonSerializer.TryDeserialize<PaymentMethodCreditCard>(root,
+            options,
+            out var paymentMethodCreditCardValue))
+        {
+            return InvoiceEventPayment.PaymentMethodCreditCard(paymentMethodCreditCardValue);
+        }
+        if (JsonSerializer.TryDeserialize<PaymentMethodExternal>(root, options, out var paymentMethodExternalValue))
+        {
+            return InvoiceEventPayment.PaymentMethodExternal(paymentMethodExternalValue);
+        }
+        if (JsonSerializer.TryDeserialize<PaymentMethodPaypal>(root, options, out var paymentMethodPaypalValue))
+        {
+            return InvoiceEventPayment.PaymentMethodPaypal(paymentMethodPaypalValue);
+        }
+        throw new JsonException($"JSON does not match PaymentMethodApplePay or PaymentMethodBankAccount or PaymentMethodCreditCard or PaymentMethodExternal or PaymentMethodPaypal schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, InvoiceEventPayment value, JsonSerializerOptions options)

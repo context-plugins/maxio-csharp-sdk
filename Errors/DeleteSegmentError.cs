@@ -1,10 +1,10 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.ErrorResponse;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.ErrorResponse;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Errors;
+namespace MaxioAdvancedBilling.Errors;
 
 public sealed class DeleteSegmentError : ApiError
 {

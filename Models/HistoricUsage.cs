@@ -1,8 +1,8 @@
 using System;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// (Optional) For Event Based Components. If the <c>include=historic_usages</c> query param is provided, the last ten billing periods will be returned.

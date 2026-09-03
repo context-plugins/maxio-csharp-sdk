@@ -8,12 +8,14 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 ### ArchiveOffer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ArchiveOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**
 
 ### CreateOffer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateOffer(CreateOfferRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `OfferResponse`
@@ -29,6 +31,7 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 ### ListOffers
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListOffers(bool? includeArchived, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `includeArchived` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`
@@ -45,6 +48,7 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 ### ReadOffer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `OfferResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -55,6 +59,7 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 ### UnarchiveOffer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UnarchiveOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**

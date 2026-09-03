@@ -1,12 +1,13 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Extensions;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.OneOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
-[JsonConverter(typeof(PaymentProfile1Converter))]
-public record PaymentProfile1
+[JsonConverter(typeof(PaymentProfileConverter))]
+public record PaymentProfile
 {
     private readonly Optional<ApplePayPaymentProfile> _applePayPaymentProfileValue;
 
@@ -16,7 +17,7 @@ public record PaymentProfile1
 
     private readonly Optional<PaypalPaymentProfile> _paypalPaymentProfileValue;
 
-    private PaymentProfile1(Optional<ApplePayPaymentProfile> applePayPaymentProfileValue,
+    private PaymentProfile(Optional<ApplePayPaymentProfile> applePayPaymentProfileValue,
         Optional<BankAccountPaymentProfile> bankAccountPaymentProfileValue,
         Optional<CreditCardPaymentProfile> creditCardPaymentProfileValue,
         Optional<PaypalPaymentProfile> paypalPaymentProfileValue)
@@ -27,16 +28,16 @@ public record PaymentProfile1
         _paypalPaymentProfileValue = paypalPaymentProfileValue;
     }
 
-    public static PaymentProfile1 ApplePayPaymentProfile(ApplePayPaymentProfile value) =>
+    public static PaymentProfile ApplePayPaymentProfile(ApplePayPaymentProfile value) =>
         new(Optional<ApplePayPaymentProfile>.Some(value), default, default, default);
 
-    public static PaymentProfile1 BankAccountPaymentProfile(BankAccountPaymentProfile value) =>
+    public static PaymentProfile BankAccountPaymentProfile(BankAccountPaymentProfile value) =>
         new(default, Optional<BankAccountPaymentProfile>.Some(value), default, default);
 
-    public static PaymentProfile1 CreditCardPaymentProfile(CreditCardPaymentProfile value) =>
+    public static PaymentProfile CreditCardPaymentProfile(CreditCardPaymentProfile value) =>
         new(default, default, Optional<CreditCardPaymentProfile>.Some(value), default);
 
-    public static PaymentProfile1 PaypalPaymentProfile(PaypalPaymentProfile value) =>
+    public static PaymentProfile PaypalPaymentProfile(PaypalPaymentProfile value) =>
         new(default, default, default, Optional<PaypalPaymentProfile>.Some(value));
 
     public bool TryGetApplePayPaymentProfile(out ApplePayPaymentProfile value) =>
@@ -51,42 +52,52 @@ public record PaymentProfile1
     public bool TryGetPaypalPaymentProfile(out PaypalPaymentProfile value) =>
         _paypalPaymentProfileValue.TryGetValue(out value);
 
-    public static implicit operator PaymentProfile1(ApplePayPaymentProfile value) =>
+    public static implicit operator PaymentProfile(ApplePayPaymentProfile value) =>
         ApplePayPaymentProfile(value);
 
-    public static implicit operator PaymentProfile1(BankAccountPaymentProfile value) =>
+    public static implicit operator PaymentProfile(BankAccountPaymentProfile value) =>
         BankAccountPaymentProfile(value);
 
-    public static implicit operator PaymentProfile1(CreditCardPaymentProfile value) =>
+    public static implicit operator PaymentProfile(CreditCardPaymentProfile value) =>
         CreditCardPaymentProfile(value);
 
-    public static implicit operator PaymentProfile1(PaypalPaymentProfile value) => PaypalPaymentProfile(value);
+    public static implicit operator PaymentProfile(PaypalPaymentProfile value) => PaypalPaymentProfile(value);
 }
 
-file sealed class PaymentProfile1Converter : JsonConverter<PaymentProfile1>
+file sealed class PaymentProfileConverter : JsonConverter<PaymentProfile>
 {
-    public override PaymentProfile1 Read(ref Utf8JsonReader reader,
+    public override PaymentProfile Read(ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options)
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (!root.TryGetProperty("payment_type", out var typeProperty))
+        if (JsonSerializer.TryDeserialize<ApplePayPaymentProfile>(root,
+            options,
+            out var applePayPaymentProfileValue))
         {
-            throw new JsonException("Missing required 'payment_type' discriminator field");
+            return PaymentProfile.ApplePayPaymentProfile(applePayPaymentProfileValue);
         }
-        var discriminator = typeProperty.GetString();
-        return discriminator switch
+        if (JsonSerializer.TryDeserialize<BankAccountPaymentProfile>(root,
+            options,
+            out var bankAccountPaymentProfileValue))
         {
-            "apple_pay" => PaymentProfile1.ApplePayPaymentProfile(root.Deserialize<ApplePayPaymentProfile>(options)!),
-            "bank_account" => PaymentProfile1.BankAccountPaymentProfile(root.Deserialize<BankAccountPaymentProfile>(options)!),
-            "credit_card" => PaymentProfile1.CreditCardPaymentProfile(root.Deserialize<CreditCardPaymentProfile>(options)!),
-            "paypal_account" => PaymentProfile1.PaypalPaymentProfile(root.Deserialize<PaypalPaymentProfile>(options)!),
-            _ => throw new JsonException($"JSON does not match ApplePayPaymentProfile or BankAccountPaymentProfile or CreditCardPaymentProfile or PaypalPaymentProfile schemas: {root.ToString()}")
-        };
+            return PaymentProfile.BankAccountPaymentProfile(bankAccountPaymentProfileValue);
+        }
+        if (JsonSerializer.TryDeserialize<CreditCardPaymentProfile>(root,
+            options,
+            out var creditCardPaymentProfileValue))
+        {
+            return PaymentProfile.CreditCardPaymentProfile(creditCardPaymentProfileValue);
+        }
+        if (JsonSerializer.TryDeserialize<PaypalPaymentProfile>(root, options, out var paypalPaymentProfileValue))
+        {
+            return PaymentProfile.PaypalPaymentProfile(paypalPaymentProfileValue);
+        }
+        throw new JsonException($"JSON does not match ApplePayPaymentProfile or BankAccountPaymentProfile or CreditCardPaymentProfile or PaypalPaymentProfile schemas: {root.ToString()}");
     }
 
-    public override void Write(Utf8JsonWriter writer, PaymentProfile1 value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, PaymentProfile value, JsonSerializerOptions options)
     {
         if (value.TryGetApplePayPaymentProfile(out var applePayPaymentProfileValue))
         {
@@ -106,7 +117,7 @@ file sealed class PaymentProfile1Converter : JsonConverter<PaymentProfile1>
         }
         else
         {
-            throw new JsonException($"{nameof(PaymentProfile1)} contains no valid value to serialize.");
+            throw new JsonException($"{nameof(PaymentProfile)} contains no valid value to serialize.");
         }
     }
 }

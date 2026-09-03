@@ -1,4 +1,4 @@
-namespace Maxio.Core.Authentication.OAuth2.Password;
+namespace MaxioAdvancedBilling.Core.Authentication.OAuth2.Password;
 
 public sealed class OAuth2PasswordCredentials
 {

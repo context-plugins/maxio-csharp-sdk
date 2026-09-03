@@ -1,6 +1,6 @@
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Core.Webhooks;
+namespace MaxioAdvancedBilling.Core.Webhooks;
 
 public abstract record WebhookEvent<TPayload>
 {

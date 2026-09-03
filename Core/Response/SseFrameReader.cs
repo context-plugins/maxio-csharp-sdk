@@ -5,9 +5,9 @@ using System.Net.ServerSentEvents;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.Exceptions;
+using MaxioAdvancedBilling.Core.Exceptions;
 
-namespace Maxio.Core.Response;
+namespace MaxioAdvancedBilling.Core.Response;
 
 internal static class SseFrameReader
 {

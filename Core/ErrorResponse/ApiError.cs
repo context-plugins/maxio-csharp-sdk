@@ -2,10 +2,10 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.Models;
-using Maxio.Core.Response;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Core.Response;
 
-namespace Maxio.Core.ErrorResponse;
+namespace MaxioAdvancedBilling.Core.ErrorResponse;
 
 public abstract class ApiError
 {

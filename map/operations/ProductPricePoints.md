@@ -8,6 +8,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ArchiveProductPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ArchiveProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductPricePointResponse`
 - **Error**: `SdkException<ArchiveProductPricePointError>` — **Case A (typed)**
@@ -23,6 +24,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### BulkCreateProductPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkCreateProductPricePoints(int productId, BulkCreateProductPricePointsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `BulkCreateProductPricePointsResponse`
@@ -37,6 +39,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### CreateProductCurrencyPrices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateProductCurrencyPrices(int productPricePointId, CreateProductCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CurrencyPricesResponse`
@@ -52,6 +55,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### CreateProductPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateProductPricePoint(ProductIdModel productId, CreateProductPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProductPricePointResponse`
@@ -68,6 +72,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ListAllProductPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListAllProductPricePoints(SortingDirection? direction, ListPricePointsFilter? filter, ListProductsPricePointsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `direction` — nullable, no default → **must pass explicitly**
   - `filter` — nullable, no default → **must pass explicitly**
@@ -89,6 +94,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ListProductPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListProductPricePoints(ProductIdModel productId, bool? currencyPrices, IReadOnlyList<PricePointType>? filterType, bool? archived, int? page = 1, int? perPage = 10, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `currencyPrices` — nullable, no default → **must pass explicitly**
   - `filterType` — nullable, no default → **must pass explicitly**
@@ -106,6 +112,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### PromoteProductPricePointToDefault
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PromoteProductPricePointToDefault(int productId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -116,6 +123,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ReadProductPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `currencyPrices` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `currency_prices` ← `currencyPrices`
@@ -130,6 +138,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### UnarchiveProductPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UnarchiveProductPricePoint(int productId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductPricePointResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -140,6 +149,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### UpdateProductCurrencyPrices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateProductCurrencyPrices(int productPricePointId, UpdateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CurrencyPricesResponse`
@@ -155,6 +165,7 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### UpdateProductPricePoint
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, UpdateProductPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProductPricePointResponse`

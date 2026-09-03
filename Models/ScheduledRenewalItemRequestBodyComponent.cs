@@ -1,7 +1,6 @@
 using System.Text.Json.Serialization;
-using Maxio.Models.Enums;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 public record ScheduledRenewalItemRequestBodyComponent
 {
@@ -9,7 +8,7 @@ public record ScheduledRenewalItemRequestBodyComponent
     /// Item type to add. Either Product or Component.
     /// </summary>
     [JsonPropertyName("item_type")]
-    public required ItemType ItemType { get; init; }
+    public string ItemType { get; } = "Component";
 
     /// <summary>
     /// Product or component identifier.

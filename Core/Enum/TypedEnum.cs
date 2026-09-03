@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Maxio.Core.Enum;
+namespace MaxioAdvancedBilling.Core.Enum;
 
 /// <summary>
 /// Base class for type-safe enum pattern with flexible serialization

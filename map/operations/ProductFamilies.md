@@ -8,6 +8,7 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### CreateProductFamily
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateProductFamily(CreateProductFamilyRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProductFamilyResponse`
@@ -23,6 +24,7 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### ListProductFamilies
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListProductFamilies(BasicDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 5 params (`dateField` … `endDatetime`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
 - **Query params (wire ← C#)**: `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`
@@ -36,6 +38,7 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### ListProductsForProductFamily
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListProductsForProductFamily(string productFamilyId, BasicDateField? dateField, ListProductsFilter? filter, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, bool? includeArchived, ListProductsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 8 params (`dateField` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -54,6 +57,7 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### ReadProductFamily
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadProductFamily(int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProductFamilyResponse`
 - **Error**: `SdkException<RawError>` — **Case B**

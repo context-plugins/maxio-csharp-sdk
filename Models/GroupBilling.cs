@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// (Optional) Attributes related to billing date and accrual. Note: Only applicable for new subscriptions.

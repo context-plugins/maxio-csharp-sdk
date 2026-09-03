@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Maxio.Core.Webhooks.Signing;
+namespace MaxioAdvancedBilling.Core.Webhooks.Signing;
 
 internal sealed class SignatureVerifier
 {

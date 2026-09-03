@@ -4,12 +4,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.ErrorResponse;
-using Maxio.Core.Models;
-using Maxio.Core.Request;
-using Maxio.Core.Response;
+using MaxioAdvancedBilling.Core.ErrorResponse;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Core.Request;
+using MaxioAdvancedBilling.Core.Response;
 
-namespace Maxio.Core.Authentication.OAuth2.ClientCredentials;
+namespace MaxioAdvancedBilling.Core.Authentication.OAuth2.ClientCredentials;
 
 internal sealed class OAuth2ClientCredentialsStrategy : IOAuth2TokenStrategy<OAuth2ClientCredentials>
 {

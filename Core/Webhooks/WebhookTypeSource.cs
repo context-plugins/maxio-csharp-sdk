@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json;
 
-namespace Maxio.Core.Webhooks;
+namespace MaxioAdvancedBilling.Core.Webhooks;
 
 internal abstract record WebhookTypeSource
 {

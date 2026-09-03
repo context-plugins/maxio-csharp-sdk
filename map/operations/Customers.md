@@ -8,6 +8,7 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### CreateCustomer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateCustomer(CreateCustomerRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CustomerResponse`
@@ -23,12 +24,14 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### DeleteCustomer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteCustomer(int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**
 
 ### ListCustomerSubscriptions
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListCustomerSubscriptions(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `IReadOnlyList<SubscriptionResponse>`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -39,6 +42,7 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### ListCustomers
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListCustomers(SortingDirection? direction, BasicDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, string? q, int? page = 1, int? perPage = 50, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 7 params (`direction` … `q`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `50`
@@ -54,6 +58,7 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### ReadCustomer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadCustomer(int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `CustomerResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -64,6 +69,7 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### ReadCustomerByReference
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadCustomerByReference(string reference, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Query params (wire ← C#)**: `reference` ← `reference`
 - **Returns**: `CustomerResponse`
@@ -75,6 +81,7 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### UpdateCustomer
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateCustomer(int id, UpdateCustomerRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `CustomerResponse`

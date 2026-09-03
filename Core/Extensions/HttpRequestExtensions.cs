@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Net.Http.Headers;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Core.Extensions;
+namespace MaxioAdvancedBilling.Core.Extensions;
 
 internal static class HttpRequestExtensions
 {

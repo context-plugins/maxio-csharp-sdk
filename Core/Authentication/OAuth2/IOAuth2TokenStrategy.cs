@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maxio.Core.Authentication.OAuth2;
+namespace MaxioAdvancedBilling.Core.Authentication.OAuth2;
 
 /// <summary>
 /// Token acquisition strategy for OAuth2 grant types where the scheme does not manage refresh

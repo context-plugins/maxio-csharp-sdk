@@ -8,6 +8,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### CreateInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateInvoice(int subscriptionId, CreateInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `InvoiceResponse`
@@ -23,6 +24,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### DeleteInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteInvoice(int subscriptionId, string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<DeleteInvoiceError>` — **Case A (typed)**
@@ -35,6 +37,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### IssueInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `IssueInvoice(string uid, IssueInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `Invoice`
@@ -50,6 +53,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ListConsolidatedInvoiceSegments
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListConsolidatedInvoiceSegments(string invoiceUid, Direction? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `direction` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`
@@ -64,6 +68,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ListCreditNotes
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListCreditNotes(int? subscriptionId, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? refunds = false, bool? applications = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `subscriptionId` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`, `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `refunds` = `false`, `applications` = `false`
@@ -77,6 +82,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ListInvoiceEvents
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListInvoiceEvents(string? sinceDate, long? sinceId, string? invoiceUid, string? withChangeInvoiceStatus, IReadOnlyList<InvoiceEventType>? eventTypes, int? page = 1, int? perPage = 100, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 5 params (`sinceDate` … `eventTypes`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `100`
@@ -91,6 +97,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ListInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListInvoices(string? startDate, string? endDate, InvoiceStatus? status, int? subscriptionId, string? subscriptionGroupUid, string? consolidationLevel, Direction? direction, InvoiceDateField? dateField, string? startDatetime, string? endDatetime, IReadOnlyList<int>? customerIds, IReadOnlyList<string>? number, IReadOnlyList<int>? productIds, InvoiceSortField? sort, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, bool? refunds = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 14 params (`startDate` … `sort`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`, `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `credits` = `false`, `payments` = `false`, `customFields` = `false`, `refunds` = `false`
@@ -108,6 +115,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### PreviewCustomerInformationChanges
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewCustomerInformationChanges(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `CustomerChangesPreviewResponse`
 - **Error**: `SdkException<PreviewCustomerInformationChangesError>` — **Case A (typed)**
@@ -121,6 +129,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ReadCreditNote
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadCreditNote(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `CreditNote`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -131,6 +140,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ReadInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `Invoice`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -141,6 +151,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RecordPaymentForInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RecordPaymentForInvoice(string uid, CreateInvoicePaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `Invoice`
@@ -156,6 +167,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RecordPaymentForMultipleInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RecordPaymentForMultipleInvoices(CreateMultiInvoicePaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `MultiInvoicePaymentResponse`
@@ -171,6 +183,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RecordPaymentForSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RecordPaymentForSubscription(int subscriptionId, RecordPaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `RecordPaymentResponse`
@@ -186,6 +199,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RefundInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RefundInvoice(string uid, RefundInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `Invoice`
@@ -201,6 +215,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ReopenInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReopenInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `Invoice`
 - **Error**: `SdkException<ReopenInvoiceError>` — **Case A (typed)**
@@ -214,6 +229,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### SendInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `SendInvoice(string uid, SendInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)
@@ -228,6 +244,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### UpdateCustomerInformation
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateCustomerInformation(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `Invoice`
 - **Error**: `SdkException<UpdateCustomerInformationError>` — **Case A (typed)**
@@ -241,6 +258,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### UpdateInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateInvoice(int subscriptionId, string uid, UpdateInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `InvoiceResponse`
@@ -257,6 +275,7 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### VoidInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `VoidInvoice(string uid, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `Invoice`

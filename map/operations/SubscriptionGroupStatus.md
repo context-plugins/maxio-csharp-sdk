@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 ### CancelDelayedCancellationForGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CancelDelayedCancellationForGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<CancelDelayedCancellationForGroupError>` — **Case A (typed)**
@@ -20,6 +21,7 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 ### CancelSubscriptionsInGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CancelSubscriptionsInGroup(string uid, CancelGroupedSubscriptionsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)
@@ -34,6 +36,7 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 ### InitiateDelayedCancellationForGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `InitiateDelayedCancellationForGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<InitiateDelayedCancellationForGroupError>` — **Case A (typed)**
@@ -46,6 +49,7 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 ### ReactivateSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReactivateSubscriptionGroup(string uid, ReactivateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ReactivateSubscriptionGroupResponse`

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models;
+namespace MaxioAdvancedBilling.Models;
 
 /// <summary>
 /// (Optional) If passed, the proof of the authorized ACH agreement terms will be persisted.

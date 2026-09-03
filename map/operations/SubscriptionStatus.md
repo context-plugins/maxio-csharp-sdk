@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### CancelDelayedCancellation
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CancelDelayedCancellation(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `DelayedCancellationResponse`
 - **Error**: `SdkException<CancelDelayedCancellationError>` — **Case A (typed)**
@@ -20,6 +21,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### CancelDunning
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CancelDunning(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `SubscriptionResponse`
 - **Error**: `SdkException<CancelDunningError>` — **Case A (typed)**
@@ -33,6 +35,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### CancelSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CancelSubscription(int subscriptionId, CancellationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`
@@ -48,6 +51,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### InitiateDelayedCancellation
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `InitiateDelayedCancellation(int subscriptionId, CancellationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `DelayedCancellationResponse`
@@ -63,6 +67,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### PauseSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PauseSubscription(int subscriptionId, PauseRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`
@@ -78,6 +83,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### PreviewRenewal
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewRenewal(int subscriptionId, RenewalPreviewRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `RenewalPreviewResponse`
@@ -93,6 +99,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### ReactivateSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReactivateSubscription(int subscriptionId, ReactivateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`
@@ -108,6 +115,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### ResumeSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ResumeSubscription(int subscriptionId, ResumptionCharge? calendarBillingResumptionCharge, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `calendarBillingResumptionCharge` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `calendar_billing['resumption_charge']` ← `calendarBillingResumptionCharge`
@@ -124,6 +132,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### RetrySubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RetrySubscription(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `SubscriptionResponse`
 - **Error**: `SdkException<RetrySubscriptionError>` — **Case A (typed)**
@@ -137,6 +146,7 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 ### UpdateAutomaticSubscriptionResumption
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateAutomaticSubscriptionResumption(int subscriptionId, PauseRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`

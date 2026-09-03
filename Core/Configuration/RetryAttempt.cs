@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace Maxio.Core.Configuration;
+namespace MaxioAdvancedBilling.Core.Configuration;
 
 public sealed record RetryAttempt
 {

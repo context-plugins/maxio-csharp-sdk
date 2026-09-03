@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace Maxio.Core;
+namespace MaxioAdvancedBilling.Core;
 
 internal sealed class HttpStatusPolicy
 {

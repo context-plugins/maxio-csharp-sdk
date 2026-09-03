@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using Maxio.Core.Authentication.Basic;
-using Maxio.Core.Configuration;
-using Maxio.Core.Hooks;
-using Maxio.Servers;
+using MaxioAdvancedBilling.Core.Authentication.Basic;
+using MaxioAdvancedBilling.Core.Configuration;
+using MaxioAdvancedBilling.Core.Hooks;
+using MaxioAdvancedBilling.Servers;
 
-namespace Maxio;
+namespace MaxioAdvancedBilling;
 
-public class MaxioClientOptions
+public class MaxioAdvancedBillingClientOptions
 {
     public ServerEnvironment Environment { get; set; } = ServerEnvironment.Default();
     public RetryOptions Retry { get; set; } = RetryOptions.Default();

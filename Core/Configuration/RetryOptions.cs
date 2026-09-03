@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
-namespace Maxio.Core.Configuration;
+namespace MaxioAdvancedBilling.Core.Configuration;
 
 public record RetryOptions
 {

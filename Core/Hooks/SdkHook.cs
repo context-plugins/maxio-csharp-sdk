@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Maxio.Core.Hooks;
+namespace MaxioAdvancedBilling.Core.Hooks;
 
 public abstract class SdkHook
 {

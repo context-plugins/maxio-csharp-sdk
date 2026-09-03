@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Maxio.Core.Enum;
+namespace MaxioAdvancedBilling.Core.Enum;
 
 public abstract record IntEnum<TEnum> : TypedEnum<int, TEnum>
     where TEnum : IntEnum<TEnum>

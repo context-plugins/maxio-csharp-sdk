@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http.Headers;
 
-namespace Maxio.Core.Models;
+namespace MaxioAdvancedBilling.Core.Models;
 
 public sealed class ErrorByteContent
 {

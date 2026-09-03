@@ -1,4 +1,4 @@
-namespace Maxio.Core.Models;
+namespace MaxioAdvancedBilling.Core.Models;
 
 internal readonly record struct TemplateParam(string Key, object? Value)
 {

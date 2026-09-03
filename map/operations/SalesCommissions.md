@@ -8,6 +8,7 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 ### ListSalesCommissionSettings
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSalesCommissionSettings(string sellerId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer <<apiKey>>", RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `liveMode` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `100`, `authorization` = `"Bearer <<apiKey>>"`
@@ -21,6 +22,7 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 ### ListSalesReps
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSalesReps(string sellerId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer <<apiKey>>", RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `liveMode` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `100`, `authorization` = `"Bearer <<apiKey>>"`
@@ -34,6 +36,7 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 ### ReadSalesRep
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSalesRep(string sellerId, string salesRepId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer <<apiKey>>", RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `liveMode` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `100`, `authorization` = `"Bearer <<apiKey>>"`

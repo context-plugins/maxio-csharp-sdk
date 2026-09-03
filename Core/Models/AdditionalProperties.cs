@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.Json;
-using Maxio.Core.Extensions;
+using MaxioAdvancedBilling.Core.Extensions;
 
-namespace Maxio.Core.Models;
+namespace MaxioAdvancedBilling.Core.Models;
 
 public sealed class AdditionalProperties : IDictionary<string, JsonElement>, IEquatable<AdditionalProperties>
 {

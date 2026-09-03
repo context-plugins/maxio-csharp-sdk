@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace Maxio.Core.Authentication.Basic;
+namespace MaxioAdvancedBilling.Core.Authentication.Basic;
 
 public sealed class BasicAuthCredentials
 {

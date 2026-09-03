@@ -1,11 +1,11 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core.ErrorResponse;
-using Maxio.Core.Models;
-using Maxio.Models.AnyOf;
+using MaxioAdvancedBilling.Core.ErrorResponse;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Models.AnyOf;
 
-namespace Maxio.Errors;
+namespace MaxioAdvancedBilling.Errors;
 
 public sealed class DeductServiceCreditApiError : ApiError
 {

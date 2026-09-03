@@ -8,6 +8,7 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 ### ListMrrMovements
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListMrrMovements(int? subscriptionId, SortingDirection? direction, int? page = 1, int? perPage = 10, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `subscriptionId` — nullable, no default → **must pass explicitly**
   - `direction` — nullable, no default → **must pass explicitly**
@@ -23,6 +24,7 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 ### ListMrrPerSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListMrrPerSubscription(ListMrrFilter? filter, string? atTime, Direction? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `filter` — nullable, no default → **must pass explicitly**
   - `atTime` — nullable, no default → **must pass explicitly**
@@ -43,6 +45,7 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 ### ReadMrr
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadMrr(DateTimeOffset? atTime, int? subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `atTime` — nullable, no default → **must pass explicitly**
   - `subscriptionId` — nullable, no default → **must pass explicitly**
@@ -56,6 +59,7 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 ### ReadSiteStats
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSiteStats(RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `SiteSummary`
 - **Error**: `SdkException<RawError>` — **Case B**

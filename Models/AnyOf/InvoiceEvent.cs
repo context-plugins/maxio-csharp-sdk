@@ -1,12 +1,13 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Extensions;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.OneOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
-[JsonConverter(typeof(InvoiceEvent1Converter))]
-public record InvoiceEvent1
+[JsonConverter(typeof(InvoiceEventConverter))]
+public record InvoiceEvent
 {
     private readonly Optional<ApplyCreditNoteEvent> _applyCreditNoteEventValue;
 
@@ -38,7 +39,7 @@ public record InvoiceEvent1
 
     private readonly Optional<VoidRemainderEvent> _voidRemainderEventValue;
 
-    private InvoiceEvent1(Optional<ApplyCreditNoteEvent> applyCreditNoteEventValue,
+    private InvoiceEvent(Optional<ApplyCreditNoteEvent> applyCreditNoteEventValue,
         Optional<ApplyDebitNoteEvent> applyDebitNoteEventValue,
         Optional<ApplyPaymentEvent> applyPaymentEventValue,
         Optional<BackportInvoiceEvent> backportInvoiceEventValue,
@@ -71,7 +72,7 @@ public record InvoiceEvent1
         _voidRemainderEventValue = voidRemainderEventValue;
     }
 
-    public static InvoiceEvent1 ApplyCreditNoteEvent(ApplyCreditNoteEvent value) =>
+    public static InvoiceEvent ApplyCreditNoteEvent(ApplyCreditNoteEvent value) =>
         new(Optional<ApplyCreditNoteEvent>.Some(value),
             default,
             default,
@@ -88,7 +89,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 ApplyDebitNoteEvent(ApplyDebitNoteEvent value) =>
+    public static InvoiceEvent ApplyDebitNoteEvent(ApplyDebitNoteEvent value) =>
         new(default,
             Optional<ApplyDebitNoteEvent>.Some(value),
             default,
@@ -105,7 +106,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 ApplyPaymentEvent(ApplyPaymentEvent value) =>
+    public static InvoiceEvent ApplyPaymentEvent(ApplyPaymentEvent value) =>
         new(default,
             default,
             Optional<ApplyPaymentEvent>.Some(value),
@@ -122,7 +123,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 BackportInvoiceEvent(BackportInvoiceEvent value) =>
+    public static InvoiceEvent BackportInvoiceEvent(BackportInvoiceEvent value) =>
         new(default,
             default,
             default,
@@ -139,7 +140,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 ChangeChargebackStatusEvent(ChangeChargebackStatusEvent value) =>
+    public static InvoiceEvent ChangeChargebackStatusEvent(ChangeChargebackStatusEvent value) =>
         new(default,
             default,
             default,
@@ -156,7 +157,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 ChangeInvoiceCollectionMethodEvent(ChangeInvoiceCollectionMethodEvent value) =>
+    public static InvoiceEvent ChangeInvoiceCollectionMethodEvent(ChangeInvoiceCollectionMethodEvent value) =>
         new(default,
             default,
             default,
@@ -173,7 +174,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 ChangeInvoiceStatusEvent(ChangeInvoiceStatusEvent value) =>
+    public static InvoiceEvent ChangeInvoiceStatusEvent(ChangeInvoiceStatusEvent value) =>
         new(default,
             default,
             default,
@@ -190,7 +191,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 CreateCreditNoteEvent(CreateCreditNoteEvent value) =>
+    public static InvoiceEvent CreateCreditNoteEvent(CreateCreditNoteEvent value) =>
         new(default,
             default,
             default,
@@ -207,7 +208,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 CreateDebitNoteEvent(CreateDebitNoteEvent value) =>
+    public static InvoiceEvent CreateDebitNoteEvent(CreateDebitNoteEvent value) =>
         new(default,
             default,
             default,
@@ -224,7 +225,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 FailedPaymentEvent(FailedPaymentEvent value) =>
+    public static InvoiceEvent FailedPaymentEvent(FailedPaymentEvent value) =>
         new(default,
             default,
             default,
@@ -241,7 +242,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 IssueInvoiceEvent(IssueInvoiceEvent value) =>
+    public static InvoiceEvent IssueInvoiceEvent(IssueInvoiceEvent value) =>
         new(default,
             default,
             default,
@@ -258,7 +259,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 RefundInvoiceEvent(RefundInvoiceEvent value) =>
+    public static InvoiceEvent RefundInvoiceEvent(RefundInvoiceEvent value) =>
         new(default,
             default,
             default,
@@ -275,7 +276,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 RemovePaymentEvent(RemovePaymentEvent value) =>
+    public static InvoiceEvent RemovePaymentEvent(RemovePaymentEvent value) =>
         new(default,
             default,
             default,
@@ -292,7 +293,7 @@ public record InvoiceEvent1
             default,
             default);
 
-    public static InvoiceEvent1 VoidInvoiceEvent(VoidInvoiceEvent value) =>
+    public static InvoiceEvent VoidInvoiceEvent(VoidInvoiceEvent value) =>
         new(default,
             default,
             default,
@@ -309,7 +310,7 @@ public record InvoiceEvent1
             Optional<VoidInvoiceEvent>.Some(value),
             default);
 
-    public static InvoiceEvent1 VoidRemainderEvent(VoidRemainderEvent value) =>
+    public static InvoiceEvent VoidRemainderEvent(VoidRemainderEvent value) =>
         new(default,
             default,
             default,
@@ -371,73 +372,116 @@ public record InvoiceEvent1
     public bool TryGetVoidRemainderEvent(out VoidRemainderEvent value) =>
         _voidRemainderEventValue.TryGetValue(out value);
 
-    public static implicit operator InvoiceEvent1(ApplyCreditNoteEvent value) => ApplyCreditNoteEvent(value);
+    public static implicit operator InvoiceEvent(ApplyCreditNoteEvent value) => ApplyCreditNoteEvent(value);
 
-    public static implicit operator InvoiceEvent1(ApplyDebitNoteEvent value) => ApplyDebitNoteEvent(value);
+    public static implicit operator InvoiceEvent(ApplyDebitNoteEvent value) => ApplyDebitNoteEvent(value);
 
-    public static implicit operator InvoiceEvent1(ApplyPaymentEvent value) => ApplyPaymentEvent(value);
+    public static implicit operator InvoiceEvent(ApplyPaymentEvent value) => ApplyPaymentEvent(value);
 
-    public static implicit operator InvoiceEvent1(BackportInvoiceEvent value) => BackportInvoiceEvent(value);
+    public static implicit operator InvoiceEvent(BackportInvoiceEvent value) => BackportInvoiceEvent(value);
 
-    public static implicit operator InvoiceEvent1(ChangeChargebackStatusEvent value) =>
+    public static implicit operator InvoiceEvent(ChangeChargebackStatusEvent value) =>
         ChangeChargebackStatusEvent(value);
 
-    public static implicit operator InvoiceEvent1(ChangeInvoiceCollectionMethodEvent value) =>
+    public static implicit operator InvoiceEvent(ChangeInvoiceCollectionMethodEvent value) =>
         ChangeInvoiceCollectionMethodEvent(value);
 
-    public static implicit operator InvoiceEvent1(ChangeInvoiceStatusEvent value) =>
+    public static implicit operator InvoiceEvent(ChangeInvoiceStatusEvent value) =>
         ChangeInvoiceStatusEvent(value);
 
-    public static implicit operator InvoiceEvent1(CreateCreditNoteEvent value) => CreateCreditNoteEvent(value);
+    public static implicit operator InvoiceEvent(CreateCreditNoteEvent value) => CreateCreditNoteEvent(value);
 
-    public static implicit operator InvoiceEvent1(CreateDebitNoteEvent value) => CreateDebitNoteEvent(value);
+    public static implicit operator InvoiceEvent(CreateDebitNoteEvent value) => CreateDebitNoteEvent(value);
 
-    public static implicit operator InvoiceEvent1(FailedPaymentEvent value) => FailedPaymentEvent(value);
+    public static implicit operator InvoiceEvent(FailedPaymentEvent value) => FailedPaymentEvent(value);
 
-    public static implicit operator InvoiceEvent1(IssueInvoiceEvent value) => IssueInvoiceEvent(value);
+    public static implicit operator InvoiceEvent(IssueInvoiceEvent value) => IssueInvoiceEvent(value);
 
-    public static implicit operator InvoiceEvent1(RefundInvoiceEvent value) => RefundInvoiceEvent(value);
+    public static implicit operator InvoiceEvent(RefundInvoiceEvent value) => RefundInvoiceEvent(value);
 
-    public static implicit operator InvoiceEvent1(RemovePaymentEvent value) => RemovePaymentEvent(value);
+    public static implicit operator InvoiceEvent(RemovePaymentEvent value) => RemovePaymentEvent(value);
 
-    public static implicit operator InvoiceEvent1(VoidInvoiceEvent value) => VoidInvoiceEvent(value);
+    public static implicit operator InvoiceEvent(VoidInvoiceEvent value) => VoidInvoiceEvent(value);
 
-    public static implicit operator InvoiceEvent1(VoidRemainderEvent value) => VoidRemainderEvent(value);
+    public static implicit operator InvoiceEvent(VoidRemainderEvent value) => VoidRemainderEvent(value);
 }
 
-file sealed class InvoiceEvent1Converter : JsonConverter<InvoiceEvent1>
+file sealed class InvoiceEventConverter : JsonConverter<InvoiceEvent>
 {
-    public override InvoiceEvent1 Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override InvoiceEvent Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (!root.TryGetProperty("event_type", out var typeProperty))
+        if (JsonSerializer.TryDeserialize<ApplyCreditNoteEvent>(root, options, out var applyCreditNoteEventValue))
         {
-            throw new JsonException("Missing required 'event_type' discriminator field");
+            return InvoiceEvent.ApplyCreditNoteEvent(applyCreditNoteEventValue);
         }
-        var discriminator = typeProperty.GetString();
-        return discriminator switch
+        if (JsonSerializer.TryDeserialize<ApplyDebitNoteEvent>(root, options, out var applyDebitNoteEventValue))
         {
-            "apply_credit_note" => InvoiceEvent1.ApplyCreditNoteEvent(root.Deserialize<ApplyCreditNoteEvent>(options)!),
-            "apply_debit_note" => InvoiceEvent1.ApplyDebitNoteEvent(root.Deserialize<ApplyDebitNoteEvent>(options)!),
-            "apply_payment" => InvoiceEvent1.ApplyPaymentEvent(root.Deserialize<ApplyPaymentEvent>(options)!),
-            "backport_invoice" => InvoiceEvent1.BackportInvoiceEvent(root.Deserialize<BackportInvoiceEvent>(options)!),
-            "change_chargeback_status" => InvoiceEvent1.ChangeChargebackStatusEvent(root.Deserialize<ChangeChargebackStatusEvent>(options)!),
-            "change_invoice_collection_method" => InvoiceEvent1.ChangeInvoiceCollectionMethodEvent(root.Deserialize<ChangeInvoiceCollectionMethodEvent>(options)!),
-            "change_invoice_status" => InvoiceEvent1.ChangeInvoiceStatusEvent(root.Deserialize<ChangeInvoiceStatusEvent>(options)!),
-            "create_credit_note" => InvoiceEvent1.CreateCreditNoteEvent(root.Deserialize<CreateCreditNoteEvent>(options)!),
-            "create_debit_note" => InvoiceEvent1.CreateDebitNoteEvent(root.Deserialize<CreateDebitNoteEvent>(options)!),
-            "failed_payment" => InvoiceEvent1.FailedPaymentEvent(root.Deserialize<FailedPaymentEvent>(options)!),
-            "issue_invoice" => InvoiceEvent1.IssueInvoiceEvent(root.Deserialize<IssueInvoiceEvent>(options)!),
-            "refund_invoice" => InvoiceEvent1.RefundInvoiceEvent(root.Deserialize<RefundInvoiceEvent>(options)!),
-            "remove_payment" => InvoiceEvent1.RemovePaymentEvent(root.Deserialize<RemovePaymentEvent>(options)!),
-            "void_invoice" => InvoiceEvent1.VoidInvoiceEvent(root.Deserialize<VoidInvoiceEvent>(options)!),
-            "void_remainder" => InvoiceEvent1.VoidRemainderEvent(root.Deserialize<VoidRemainderEvent>(options)!),
-            _ => throw new JsonException($"JSON does not match ApplyCreditNoteEvent or ApplyDebitNoteEvent or ApplyPaymentEvent or BackportInvoiceEvent or ChangeChargebackStatusEvent or ChangeInvoiceCollectionMethodEvent or ChangeInvoiceStatusEvent or CreateCreditNoteEvent or CreateDebitNoteEvent or FailedPaymentEvent or IssueInvoiceEvent or RefundInvoiceEvent or RemovePaymentEvent or VoidInvoiceEvent or VoidRemainderEvent schemas: {root.ToString()}")
-        };
+            return InvoiceEvent.ApplyDebitNoteEvent(applyDebitNoteEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<ApplyPaymentEvent>(root, options, out var applyPaymentEventValue))
+        {
+            return InvoiceEvent.ApplyPaymentEvent(applyPaymentEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<BackportInvoiceEvent>(root, options, out var backportInvoiceEventValue))
+        {
+            return InvoiceEvent.BackportInvoiceEvent(backportInvoiceEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<ChangeChargebackStatusEvent>(root,
+            options,
+            out var changeChargebackStatusEventValue))
+        {
+            return InvoiceEvent.ChangeChargebackStatusEvent(changeChargebackStatusEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<ChangeInvoiceCollectionMethodEvent>(root,
+            options,
+            out var changeInvoiceCollectionMethodEventValue))
+        {
+            return InvoiceEvent.ChangeInvoiceCollectionMethodEvent(changeInvoiceCollectionMethodEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<ChangeInvoiceStatusEvent>(root,
+            options,
+            out var changeInvoiceStatusEventValue))
+        {
+            return InvoiceEvent.ChangeInvoiceStatusEvent(changeInvoiceStatusEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<CreateCreditNoteEvent>(root, options, out var createCreditNoteEventValue))
+        {
+            return InvoiceEvent.CreateCreditNoteEvent(createCreditNoteEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<CreateDebitNoteEvent>(root, options, out var createDebitNoteEventValue))
+        {
+            return InvoiceEvent.CreateDebitNoteEvent(createDebitNoteEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<FailedPaymentEvent>(root, options, out var failedPaymentEventValue))
+        {
+            return InvoiceEvent.FailedPaymentEvent(failedPaymentEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<IssueInvoiceEvent>(root, options, out var issueInvoiceEventValue))
+        {
+            return InvoiceEvent.IssueInvoiceEvent(issueInvoiceEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<RefundInvoiceEvent>(root, options, out var refundInvoiceEventValue))
+        {
+            return InvoiceEvent.RefundInvoiceEvent(refundInvoiceEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<RemovePaymentEvent>(root, options, out var removePaymentEventValue))
+        {
+            return InvoiceEvent.RemovePaymentEvent(removePaymentEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<VoidInvoiceEvent>(root, options, out var voidInvoiceEventValue))
+        {
+            return InvoiceEvent.VoidInvoiceEvent(voidInvoiceEventValue);
+        }
+        if (JsonSerializer.TryDeserialize<VoidRemainderEvent>(root, options, out var voidRemainderEventValue))
+        {
+            return InvoiceEvent.VoidRemainderEvent(voidRemainderEventValue);
+        }
+        throw new JsonException($"JSON does not match ApplyCreditNoteEvent or ApplyDebitNoteEvent or ApplyPaymentEvent or BackportInvoiceEvent or ChangeChargebackStatusEvent or ChangeInvoiceCollectionMethodEvent or ChangeInvoiceStatusEvent or CreateCreditNoteEvent or CreateDebitNoteEvent or FailedPaymentEvent or IssueInvoiceEvent or RefundInvoiceEvent or RemovePaymentEvent or VoidInvoiceEvent or VoidRemainderEvent schemas: {root.ToString()}");
     }
 
-    public override void Write(Utf8JsonWriter writer, InvoiceEvent1 value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, InvoiceEvent value, JsonSerializerOptions options)
     {
         if (value.TryGetApplyCreditNoteEvent(out var applyCreditNoteEventValue))
         {
@@ -501,7 +545,7 @@ file sealed class InvoiceEvent1Converter : JsonConverter<InvoiceEvent1>
         }
         else
         {
-            throw new JsonException($"{nameof(InvoiceEvent1)} contains no valid value to serialize.");
+            throw new JsonException($"{nameof(InvoiceEvent)} contains no valid value to serialize.");
         }
     }
 }

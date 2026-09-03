@@ -1,8 +1,8 @@
-# Maxio
+# Maxio Advanced Billing
 
 [![Built with APIMatic][apimatic-badge]][apimatic-url] [![License: MIT][license-badge]][license-url]
 
-The Maxio SDK for .NET provides access to the Maxio REST APIs from .NET applications.
+The Maxio Advanced Billing SDK for .NET provides access to the Maxio Advanced Billing REST APIs from .NET applications.
 
 > [!TIP]
 > **Looking for a specific signature, model, enum, or error type?** This SDK ships a generated,
@@ -39,7 +39,7 @@ The following example uses the curl command-line tool to make an API request.
 Add the .NET SDK as a project reference into your solution:
 
 ```bash
-dotnet add reference <path-to-sdk>/Maxio.csproj
+dotnet add reference <path-to-sdk>/MaxioAdvancedBilling.csproj
 ```
 
 ---
@@ -48,10 +48,10 @@ dotnet add reference <path-to-sdk>/Maxio.csproj
 
 ### Dependency Injection
 
-Register the client with `IServiceCollection` and resolve it from the container. The `HttpClient` is managed by `IHttpClientFactory`. Configure the client's behavior through [MaxioClientOptions](MaxioClientOptions.cs).
+Register the client with `IServiceCollection` and resolve it from the container. The `HttpClient` is managed by `IHttpClientFactory`. Configure the client's behavior through [MaxioAdvancedBillingClientOptions](MaxioAdvancedBillingClientOptions.cs).
 
 ```csharp
-services.AddMaxioClient(options =>
+services.AddMaxioAdvancedBillingClient(options =>
     {
         options.BasicAuth =
             new BasicAuthCredentials
@@ -67,13 +67,13 @@ services.AddMaxioClient(options =>
 
 ### Direct Instantiation
 
-Create the client by passing an `HttpClient` you manage yourself. Configure the client's behavior through [MaxioClientOptions](MaxioClientOptions.cs).
+Create the client by passing an `HttpClient` you manage yourself. Configure the client's behavior through [MaxioAdvancedBillingClientOptions](MaxioAdvancedBillingClientOptions.cs).
 
 ```csharp
 var httpClient = new HttpClient();
 // TODO: configure more client options here
 var options =
-    new MaxioClientOptions
+    new MaxioAdvancedBillingClientOptions
     {
         BasicAuth = new BasicAuthCredentials
         {
@@ -83,7 +83,7 @@ var options =
         BearerAuth = "YOUR_BEARER_TOKEN",
         Environment = ServerEnvironment.Us,
     };
-var client = new MaxioClient(httpClient, options);
+var client = new MaxioAdvancedBillingClient(httpClient, options);
 ```
 
 ---
@@ -121,7 +121,7 @@ The map and the [API Reference](api-reference.md) answer different questions, an
 ## Best Practices
 
 > [!TIP]
-> Use a **single `MaxioClient` instance** for the lifetime of your application and
+> Use a **single `MaxioAdvancedBillingClient` instance** for the lifetime of your application and
 > reuse it across all requests. Creating a new instance per request might exhaust the
 > connection pool.
 

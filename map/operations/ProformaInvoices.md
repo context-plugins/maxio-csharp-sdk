@@ -8,6 +8,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### CreateConsolidatedProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateConsolidatedProformaInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<CreateConsolidatedProformaInvoiceError>` — **Case A (typed)**
@@ -20,6 +21,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### CreateProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateProformaInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProformaInvoice`
 - **Error**: `SdkException<CreateProformaInvoiceError>` — **Case A (typed)**
@@ -33,6 +35,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### CreateSignupProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateSignupProformaInvoice(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProformaInvoice`
@@ -49,6 +52,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### DeliverProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeliverProformaInvoice(string proformaInvoiceUid, DeliverProformaInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProformaInvoice`
@@ -64,6 +68,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### ListProformaInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListProformaInvoices(int subscriptionId, string? startDate, string? endDate, ProformaInvoiceStatus? status, Direction? direction, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 4 params (`startDate` … `direction`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`, `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `credits` = `false`, `payments` = `false`, `customFields` = `false`
@@ -79,6 +84,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### ListSubscriptionGroupProformaInvoices
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSubscriptionGroupProformaInvoices(string uid, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `credits` = `false`, `payments` = `false`, `customFields` = `false`
 - **Query params (wire ← C#)**: `line_items` ← `lineItems`, `discounts` ← `discounts`, `taxes` ← `taxes`, `credits` ← `credits`, `payments` ← `payments`, `custom_fields` ← `customFields`
@@ -93,6 +99,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### PreviewProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewProformaInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProformaInvoice`
 - **Error**: `SdkException<PreviewProformaInvoiceError>` — **Case A (typed)**
@@ -106,6 +113,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### PreviewSignupProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewSignupProformaInvoice(CreateSignupProformaPreviewInclude? include, CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `include` — nullable, no default → **must pass explicitly**
   - `body` — nullable, no default → **must pass explicitly**
@@ -125,6 +133,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### ReadProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadProformaInvoice(string proformaInvoiceUid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ProformaInvoice`
 - **Error**: `SdkException<ReadProformaInvoiceError>` — **Case A (typed)**
@@ -137,6 +146,7 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### VoidProformaInvoice
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `VoidProformaInvoice(string proformaInvoiceUid, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ProformaInvoice`

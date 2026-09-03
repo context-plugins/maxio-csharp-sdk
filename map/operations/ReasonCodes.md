@@ -8,6 +8,7 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### CreateReasonCode
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateReasonCode(CreateReasonCodeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ReasonCodeResponse`
@@ -23,6 +24,7 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### DeleteReasonCode
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteReasonCode(int reasonCodeId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `OkResponse`
 - **Error**: `SdkException<DeleteReasonCodeError>` — **Case A (typed)**
@@ -35,6 +37,7 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### ListReasonCodes
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListReasonCodes(int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `page` = `1`, `perPage` = `20`
 - **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
@@ -50,6 +53,7 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### ReadReasonCode
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadReasonCode(int reasonCodeId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `ReasonCodeResponse`
 - **Error**: `SdkException<ReadReasonCodeError>` — **Case A (typed)**
@@ -62,6 +66,7 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### UpdateReasonCode
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateReasonCode(int reasonCodeId, UpdateReasonCodeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `ReasonCodeResponse`

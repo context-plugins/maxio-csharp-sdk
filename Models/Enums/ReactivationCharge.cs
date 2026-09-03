@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Maxio.Core.Enum;
+using MaxioAdvancedBilling.Core.Enum;
 
-namespace Maxio.Models.Enums;
+namespace MaxioAdvancedBilling.Models.Enums;
 
 /// <summary>
 /// You may choose how to handle the reactivation charge for that subscription: 1) <c>prorated</c> A prorated charge for the product price will be attempted to complete the period 2) <c>immediate</c> A full-price charge for the product price will be attempted immediately 3) <c>delayed</c> A full-price charge for the product price will be attempted at the next renewal.

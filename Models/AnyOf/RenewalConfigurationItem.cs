@@ -1,9 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Extensions;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Models.OneOf;
+namespace MaxioAdvancedBilling.Models.AnyOf;
 
 [JsonConverter(typeof(RenewalConfigurationItemConverter))]
 public record RenewalConfigurationItem
@@ -46,17 +47,19 @@ file sealed class RenewalConfigurationItemConverter : JsonConverter<RenewalConfi
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (!root.TryGetProperty("item_type", out var typeProperty))
+        if (JsonSerializer.TryDeserialize<ScheduledRenewalItemRequestBodyComponent>(root,
+            options,
+            out var scheduledRenewalItemRequestBodyComponentValue))
         {
-            throw new JsonException("Missing required 'item_type' discriminator field");
+            return RenewalConfigurationItem.ScheduledRenewalItemRequestBodyComponent(scheduledRenewalItemRequestBodyComponentValue);
         }
-        var discriminator = typeProperty.GetString();
-        return discriminator switch
+        if (JsonSerializer.TryDeserialize<ScheduledRenewalItemRequestBodyProduct>(root,
+            options,
+            out var scheduledRenewalItemRequestBodyProductValue))
         {
-            "Component" => RenewalConfigurationItem.ScheduledRenewalItemRequestBodyComponent(root.Deserialize<ScheduledRenewalItemRequestBodyComponent>(options)!),
-            "Product" => RenewalConfigurationItem.ScheduledRenewalItemRequestBodyProduct(root.Deserialize<ScheduledRenewalItemRequestBodyProduct>(options)!),
-            _ => throw new JsonException($"JSON does not match ScheduledRenewalItemRequestBodyComponent or ScheduledRenewalItemRequestBodyProduct schemas: {root.ToString()}")
-        };
+            return RenewalConfigurationItem.ScheduledRenewalItemRequestBodyProduct(scheduledRenewalItemRequestBodyProductValue);
+        }
+        throw new JsonException($"JSON does not match ScheduledRenewalItemRequestBodyComponent or ScheduledRenewalItemRequestBodyProduct schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, RenewalConfigurationItem value, JsonSerializerOptions options)

@@ -8,6 +8,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### ChangeSubscriptionDefaultPaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ChangeSubscriptionDefaultPaymentProfile(int subscriptionId, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `PaymentProfileResponse`
 - **Error**: `SdkException<ChangeSubscriptionDefaultPaymentProfileError>` — **Case A (typed)**
@@ -21,6 +22,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### ChangeSubscriptionGroupDefaultPaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ChangeSubscriptionGroupDefaultPaymentProfile(string uid, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `PaymentProfileResponse`
 - **Error**: `SdkException<ChangeSubscriptionGroupDefaultPaymentProfileError>` — **Case A (typed)**
@@ -34,6 +36,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### CreatePaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreatePaymentProfile(CreatePaymentProfileRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `PaymentProfileResponse`
@@ -49,18 +52,21 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### DeleteSubscriptionGroupPaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteSubscriptionGroupPaymentProfile(string uid, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**
 
 ### DeleteSubscriptionsPaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteSubscriptionsPaymentProfile(int subscriptionId, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**
 
 ### DeleteUnusedPaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteUnusedPaymentProfile(int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<DeleteUnusedPaymentProfileError>` — **Case A (typed)**
@@ -73,6 +79,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### ListPaymentProfiles
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListPaymentProfiles(int? customerId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `customerId` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`
@@ -86,6 +93,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### ReadOneTimeToken
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadOneTimeToken(string chargifyToken, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `GetOneTimeTokenRequest`
 - **Error**: `SdkException<ReadOneTimeTokenError>` — **Case A (typed)**
@@ -99,6 +107,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### ReadPaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadPaymentProfile(int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `PaymentProfileResponse`
 - **Error**: `SdkException<ReadPaymentProfileError>` — **Case A (typed)**
@@ -111,6 +120,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### SendRequestUpdatePaymentEmail
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `SendRequestUpdatePaymentEmail(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<SendRequestUpdatePaymentEmailError>` — **Case A (typed)**
@@ -123,6 +133,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### UpdatePaymentProfile
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdatePaymentProfile(int paymentProfileId, UpdatePaymentProfileRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `PaymentProfileResponse`
@@ -138,6 +149,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 ### VerifyBankAccount
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `VerifyBankAccount(int bankAccountId, BankAccountVerificationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `BankAccountResponse`

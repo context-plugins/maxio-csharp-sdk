@@ -8,6 +8,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### ActivateSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ActivateSubscription(int subscriptionId, ActivateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`
@@ -23,6 +24,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### ApplyCouponsToSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ApplyCouponsToSubscription(int subscriptionId, string? code, AddCouponsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `code` — nullable, no default → **must pass explicitly**
   - `body` — nullable, no default → **must pass explicitly**
@@ -40,6 +42,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### CreateSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateSubscription(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`
@@ -55,6 +58,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### FindSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `FindSubscription(string? reference, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `reference` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `reference` ← `reference`
@@ -69,6 +73,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### ListSubscriptions
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSubscriptions(SubscriptionStateFilter? state, int? product, int? productPricePointId, int? coupon, string? couponCode, int? brandingThemeId, SubscriptionDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, IReadOnlyDictionary<string, string>? metadata, SortingDirection? direction, SubscriptionSort? sort, IReadOnlyList<SubscriptionListInclude>? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 15 params (`state` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -87,6 +92,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### OverrideSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `OverrideSubscription(int subscriptionId, OverrideSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)
@@ -101,6 +107,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### PreviewSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewSubscription(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionPreviewResponse`
@@ -113,6 +120,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### PurgeSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PurgeSubscription(int subscriptionId, int ack, IReadOnlyList<SubscriptionPurgeType>? cascade, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `cascade` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `ack` ← `ack`, `cascade` ← `cascade`
@@ -128,6 +136,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### ReadSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSubscription(int subscriptionId, IReadOnlyList<SubscriptionInclude>? include, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `include` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `include` ← `include`
@@ -141,6 +150,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### RemoveCouponFromSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RemoveCouponFromSubscription(int subscriptionId, string? couponCode, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `couponCode` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `coupon_code` ← `couponCode`
@@ -155,6 +165,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### UpdatePrepaidSubscriptionConfiguration
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdatePrepaidSubscriptionConfiguration(int subscriptionId, UpsertPrepaidConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `PrepaidConfigurationResponse`
@@ -170,6 +181,7 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### UpdateSubscription
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateSubscription(int subscriptionId, UpdateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionResponse`

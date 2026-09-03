@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ActivateEventBasedComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ActivateEventBasedComponent(int subscriptionId, int componentId, ActivateEventBasedComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)
@@ -19,6 +20,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### AllocateComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `AllocateComponent(int subscriptionId, int componentId, CreateAllocationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `AllocationResponse`
@@ -34,6 +36,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### AllocateComponents
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `AllocateComponents(int subscriptionId, AllocateComponents? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `IReadOnlyList<AllocationResponse>`
@@ -50,6 +53,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 ### BulkRecordEvents
 
 - **Server group**: `Ebb`
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkRecordEvents(string apiHandle, string? storeUid, IReadOnlyList<EbbEvent>? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `storeUid` — nullable, no default → **must pass explicitly**
   - `body` — nullable, no default → **must pass explicitly**
@@ -63,6 +67,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### BulkResetSubscriptionComponentsPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkResetSubscriptionComponentsPricePoints(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `SubscriptionResponse`
 - **Error**: `SdkException<RawError>` — **Case B**
@@ -73,6 +78,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### BulkUpdateSubscriptionComponentsPricePoints
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `BulkUpdateSubscriptionComponentsPricePoints(int subscriptionId, BulkComponentsPricePointAssignment? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `BulkComponentsPricePointAssignment`
@@ -87,6 +93,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### CreateUsage
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateUsage(SubscriptionIdOrReference subscriptionIdOrReference, ComponentIdModel componentId, CreateUsageRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `UsageResponse`
@@ -104,12 +111,14 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### DeactivateEventBasedComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeactivateEventBasedComponent(int subscriptionId, int componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RawError>` — **Case B**
 
 ### DeletePrepaidUsageAllocation
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeletePrepaidUsageAllocation(int subscriptionId, int componentId, int allocationId, CreditSchemeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)
@@ -124,6 +133,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ListAllocations
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListAllocations(int subscriptionId, int componentId, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - defaults: `page` = `1`
 - **Query params (wire ← C#)**: `page` ← `page`
@@ -139,6 +149,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ListSubscriptionComponents
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSubscriptionComponents(int subscriptionId, SubscriptionListDateField? dateField, SortingDirection? direction, ListSubscriptionComponentsFilter? filter, string? endDate, string? endDatetime, IncludeNotNull? pricePointIds, IReadOnlyList<int>? productFamilyIds, ListSubscriptionComponentsSort? sort, string? startDate, string? startDatetime, IReadOnlyList<ListSubscriptionComponentsInclude>? include, bool? inUse, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 12 params (`dateField` … `inUse`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
 - **Query params (wire ← C#)**: `date_field` ← `dateField`, `direction` ← `direction`, `filter` ← `filter`, `end_date` ← `endDate`, `end_datetime` ← `endDatetime`, `price_point_ids` ← `pricePointIds`, `product_family_ids` ← `productFamilyIds`, `sort` ← `sort`, `start_date` ← `startDate`, `start_datetime` ← `startDatetime`, `include` ← `include`, `in_use` ← `inUse`
@@ -157,6 +168,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ListSubscriptionComponentsForSite
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSubscriptionComponentsForSite(ListSubscriptionComponentsSort? sort, SortingDirection? direction, ListSubscriptionComponentsForSiteFilter? filter, SubscriptionListDateField? dateField, string? startDate, string? startDatetime, string? endDate, string? endDatetime, IReadOnlyList<int>? subscriptionIds, IncludeNotNull? pricePointIds, IReadOnlyList<int>? productFamilyIds, ListSubscriptionComponentsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 12 params (`sort` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -176,6 +188,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ListUsages
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListUsages(SubscriptionIdOrReference subscriptionIdOrReference, ComponentIdModel componentId, long? sinceId, long? maxId, DateTimeOffset? sinceDate, DateTimeOffset? untilDate, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - 4 params (`sinceId` … `untilDate`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
   - defaults: `page` = `1`, `perPage` = `20`
@@ -191,6 +204,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### PreviewAllocations
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `PreviewAllocations(int subscriptionId, PreviewAllocationsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `AllocationPreviewResponse`
@@ -206,6 +220,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ReadSubscriptionComponent
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSubscriptionComponent(int subscriptionId, int componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `SubscriptionComponentResponse`
 - **Error**: `SdkException<ReadSubscriptionComponentError>` — **Case A (typed)**
@@ -219,6 +234,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 ### RecordEvent
 
 - **Server group**: `Ebb`
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RecordEvent(string apiHandle, string? storeUid, EbbEvent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `storeUid` — nullable, no default → **must pass explicitly**
   - `body` — nullable, no default → **must pass explicitly**
@@ -232,6 +248,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### UpdatePrepaidUsageAllocationExpirationDate
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdatePrepaidUsageAllocationExpirationDate(int subscriptionId, int componentId, int allocationId, UpdateAllocationExpirationDate? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `void` (Task)

@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Maxio.Core;
-using Maxio.Core.Authentication;
-using Maxio.Core.ErrorResponse;
-using Maxio.Core.Exceptions;
-using Maxio.Core.Models;
-using Maxio.Core.Request;
-using Maxio.Core.Response;
-using Maxio.Models;
+using MaxioAdvancedBilling.Core;
+using MaxioAdvancedBilling.Core.Authentication;
+using MaxioAdvancedBilling.Core.ErrorResponse;
+using MaxioAdvancedBilling.Core.Exceptions;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Core.Request;
+using MaxioAdvancedBilling.Core.Response;
+using MaxioAdvancedBilling.Models;
 
-namespace Maxio.Api;
+namespace MaxioAdvancedBilling.Api;
 
 public sealed class SalesCommissions
 {

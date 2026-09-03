@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Extensions.Logging;
-using Maxio.Core.Configuration;
+using MaxioAdvancedBilling.Core.Configuration;
 
-namespace Maxio.Core.Logging;
+namespace MaxioAdvancedBilling.Core.Logging;
 
 internal static class LoggingEnvironment
 {

@@ -8,6 +8,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### AddSubscriptionToGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `AddSubscriptionToGroup(int subscriptionId, AddSubscriptionToAGroup? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionGroupResponse`
@@ -20,6 +21,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### CreateSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `CreateSubscriptionGroup(CreateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionGroupResponse`
@@ -35,6 +37,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### DeleteSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `DeleteSubscriptionGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `DeleteSubscriptionGroupResponse`
 - **Error**: `SdkException<DeleteSubscriptionGroupError>` — **Case A (typed)**
@@ -47,6 +50,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### FindSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `FindSubscriptionGroup(string subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Query params (wire ← C#)**: `subscription_id` ← `subscriptionId`
 - **Returns**: `FullSubscriptionGroupResponse`
@@ -60,6 +64,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### ListSubscriptionGroups
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ListSubscriptionGroups(IReadOnlyList<SubscriptionGroupsListInclude>? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `include` — nullable, no default → **must pass explicitly**
   - defaults: `page` = `1`, `perPage` = `20`
@@ -74,6 +79,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### ReadSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `ReadSubscriptionGroup(string uid, IReadOnlyList<SubscriptionGroupInclude>? include, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `include` — nullable, no default → **must pass explicitly**
 - **Query params (wire ← C#)**: `include` ← `include`
@@ -87,6 +93,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### RemoveSubscriptionFromGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `RemoveSubscriptionFromGroup(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
 - **Returns**: `void` (Task)
 - **Error**: `SdkException<RemoveSubscriptionFromGroupError>` — **Case A (typed)**
@@ -99,6 +106,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### SignupWithSubscriptionGroup
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `SignupWithSubscriptionGroup(SubscriptionGroupSignupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionGroupSignupResponse`
@@ -114,6 +122,7 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### UpdateSubscriptionGroupMembers
 
+- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
 - **Signature**: `UpdateSubscriptionGroupMembers(string uid, UpdateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
   - `body` — nullable, no default → **must pass explicitly**
 - **Returns**: `SubscriptionGroupResponse`

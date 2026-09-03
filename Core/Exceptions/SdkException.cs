@@ -1,6 +1,6 @@
 using System;
 
-namespace Maxio.Core.Exceptions;
+namespace MaxioAdvancedBilling.Core.Exceptions;
 
 public sealed class SdkException<TError> : Exception
 {

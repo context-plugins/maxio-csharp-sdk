@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Maxio.Core.Models;
+using MaxioAdvancedBilling.Core.Models;
 
-namespace Maxio.Core;
+namespace MaxioAdvancedBilling.Core;
 
 internal sealed class UriFactory
 {

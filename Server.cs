@@ -1,7 +1,7 @@
-using Maxio.Core.Models;
-using Maxio.Servers;
+using MaxioAdvancedBilling.Core.Models;
+using MaxioAdvancedBilling.Servers;
 
-namespace Maxio;
+namespace MaxioAdvancedBilling;
 
 public class Server
 {
