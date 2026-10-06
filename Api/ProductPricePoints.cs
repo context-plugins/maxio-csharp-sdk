@@ -1,21 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.ProductPricePoints;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class ProductPricePoints
 {
@@ -33,68 +30,68 @@ public sealed class ProductPricePoints
     /// <summary>
     /// Archive Product Price Point
     /// </summary>
-    /// <param name="productId">The id or handle of the product. When using the handle, it must be prefixed with <c>handle:</c>. Example: <c>123</c> for an integer ID, or <c>handle:example-product-handle</c> for a string handle.</param>
-    /// <param name="pricePointId">The id or handle of the price point. When using the handle, it must be prefixed with <c>handle:</c>. Example: <c>123</c> for an integer ID, or <c>handle:example-product-price-point-handle</c> for a string handle.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ProductPricePointResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ArchiveProductPricePointError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ArchiveProductPricePointError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Archives a product price point.
     /// </remarks>
-    public Task<ProductPricePointResponse> ArchiveProductPricePoint(ProductIdModel productId,
-        PricePointIdModel pricePointId,
+    public Task<ProductPricePointResponse> ArchiveProductPricePoint(ArchiveProductPricePointRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points/{price_point_id}.json"),
-            [new TemplateParam("product_id", productId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points/{price_point_id}.json"),
+            [
+                new TemplateParam("product_id", request.ProductId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             JsonResponse.Create<ProductPricePointResponse>(),
-            ArchiveProductPricePointErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ArchiveProductPricePointError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Bulk Create Product Price Points
     /// </summary>
-    /// <param name="productId">The Advanced Billing id of the product to which the price points belong</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="BulkCreateProductPricePointsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="BulkCreateProductPricePointsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="BulkCreateProductPricePointsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates multiple product price points in one request.
     /// </remarks>
-    public Task<BulkCreateProductPricePointsResponse> BulkCreateProductPricePoints(int productId,
-        BulkCreateProductPricePointsRequest? body,
+    public Task<BulkCreateProductPricePointsResponse> BulkCreateProductPricePoints(BulkCreateProductPricePointsOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points/bulk.json"),
-            [new TemplateParam("product_id", productId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points/bulk.json"),
+            [new TemplateParam("product_id", request.ProductId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<BulkCreateProductPricePointsResponse>(),
-            BulkCreateProductPricePointsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            BulkCreateProductPricePointsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Product Currency Prices
     /// </summary>
-    /// <param name="productPricePointId">The Advanced Billing id of the product price point</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CurrencyPricesResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateProductCurrencyPricesError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateProductCurrencyPricesError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates currency prices for a given currency that has been defined on the site level in your settings.
     /// <para>
@@ -104,226 +101,216 @@ public sealed class ProductPricePoints
     /// Note: Currency Prices are not able to be created for custom product price points.
     /// </para>
     /// </remarks>
-    public Task<CurrencyPricesResponse> CreateProductCurrencyPrices(int productPricePointId,
-        CreateProductCurrencyPricesRequest? body,
+    public Task<CurrencyPricesResponse> CreateProductCurrencyPrices(CreateProductCurrencyPricesOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_price_points/{product_price_point_id}/currency_prices.json"),
-            [new TemplateParam("product_price_point_id", productPricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_price_points/{product_price_point_id}/currency_prices.json"),
+            [new TemplateParam("product_price_point_id", request.ProductPricePointId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CurrencyPricesResponse>(),
-            CreateProductCurrencyPricesErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateProductCurrencyPricesError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Product Price Point
     /// </summary>
-    /// <param name="productId">The id or handle of the product. When using the handle, it must be prefixed with <c>handle:</c></param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ProductPricePointResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateProductPricePointError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateProductPricePointError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates a Product Price Point. See the <see href="https://maxio.zendesk.com/hc/en-us/articles/24261111947789-Product-Price-Points">Product Price Point</see> documentation for details.
     /// </remarks>
-    public Task<ProductPricePointResponse> CreateProductPricePoint(ProductIdModel productId,
-        CreateProductPricePointRequest? body,
+    public Task<ProductPricePointResponse> CreateProductPricePoint(CreateProductPricePointOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points.json"),
-            [new TemplateParam("product_id", productId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points.json"),
+            [new TemplateParam("product_id", request.ProductId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ProductPricePointResponse>(),
-            CreateProductPricePointErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateProductPricePointError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List All Products Price Points
     /// </summary>
-    /// <param name="direction">Controls the order in which results are returned. Use in query <c>direction=asc</c>.</param>
-    /// <param name="filter">Filter to use for List PricePoints operations</param>
-    /// <param name="include">Allows including additional data in the response. Use in query: <c>include=currency_prices</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListProductPricePointsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ListAllProductPricePointsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ListAllProductPricePointsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists Product Price Points belonging to a site.
     /// </remarks>
-    public Task<ListProductPricePointsResponse> ListAllProductPricePoints(SortingDirection? direction,
-        ListPricePointsFilter? filter,
-        ListProductsPricePointsInclude? include,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<ListProductPricePointsResponse> ListAllProductPricePoints(ListAllProductPricePointsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products_price_points.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products_price_points.json"),
             [],
-            [new Param("direction", direction),
-                new Param("filter", filter),
-                new Param("include", include),
-                new Param("page", page),
-                new Param("per_page", perPage)],
+            [
+                new Param("direction", request.Direction),
+                new Param("filter", request.Filter),
+                new Param("include", request.Include),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListProductPricePointsResponse>(),
-            ListAllProductPricePointsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ListAllProductPricePointsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Product Price Points
     /// </summary>
-    /// <param name="productId">The id or handle of the product. When using the handle, it must be prefixed with <c>handle:</c></param>
-    /// <param name="currencyPrices">(Optional) If you have defined multiple currencies at the site level, you can pass ?currency_prices=true to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.</param>
-    /// <param name="filterType">Use in query: <c>filter[type]=catalog,default</c>.</param>
-    /// <param name="archived">Set to include archived price points in the response.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListProductPricePointsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Retrieves a list of product price points.
     /// </remarks>
-    public Task<ListProductPricePointsResponse> ListProductPricePoints(ProductIdModel productId,
-        bool? currencyPrices,
-        IReadOnlyList<PricePointType>? filterType,
-        bool? archived,
-        int? page = 1,
-        int? perPage = 10,
+    public Task<ListProductPricePointsResponse> ListProductPricePoints(ListProductPricePointsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points.json"),
-            [new TemplateParam("product_id", productId)],
-            [new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("currency_prices", currencyPrices),
-                new Param("filter[type]", filterType),
-                new Param("archived", archived)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points.json"),
+            [new TemplateParam("product_id", request.ProductId)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("currency_prices", request.CurrencyPrices),
+                new Param("filter[type]", request.FilterType),
+                new Param("archived", request.Archived),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListProductPricePointsResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Promote Product Price Point to Default
     /// </summary>
-    /// <param name="productId">The Advanced Billing id of the product to which the price point belongs</param>
-    /// <param name="pricePointId">The Advanced Billing id of the product price point</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ProductResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Sets a product price point as the default for the product.
     /// <para>
     /// Note: Custom product price points cannot be set as the default for a product.
     /// </para>
     /// </remarks>
-    public Task<ProductResponse> PromoteProductPricePointToDefault(int productId,
-        int pricePointId,
+    public Task<ProductResponse> PromoteProductPricePointToDefault(PromoteProductPricePointToDefaultRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points/{price_point_id}/default.json"),
-            [new TemplateParam("product_id", productId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points/{price_point_id}/default.json"),
+            [
+                new TemplateParam("product_id", request.ProductId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             new HttpMethod("PATCH"),
             EmptyBody.Instance,
             JsonResponse.Create<ProductResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Product Price Point
     /// </summary>
-    /// <param name="productId">The id or handle of the product. When using the handle, it must be prefixed with <c>handle:</c>. Example: <c>123</c> for an integer ID, or <c>handle:example-product-handle</c> for a string handle.</param>
-    /// <param name="pricePointId">The id or handle of the price point. When using the handle, it must be prefixed with <c>handle:</c>. Example: <c>123</c> for an integer ID, or <c>handle:example-product-price-point-handle</c> for a string handle.</param>
-    /// <param name="currencyPrices">(Optional) If you have defined multiple currencies at the site level, you can pass ?currency_prices=true to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ProductPricePointResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns details for a specific product price point. You can achieve this by using either the product price point ID or handle.
     /// </remarks>
-    public Task<ProductPricePointResponse> ReadProductPricePoint(ProductIdModel productId,
-        PricePointIdModel pricePointId,
-        bool? currencyPrices,
+    public Task<ProductPricePointResponse> ReadProductPricePoint(ReadProductPricePointRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points/{price_point_id}.json"),
-            [new TemplateParam("product_id", productId), new TemplateParam("price_point_id", pricePointId)],
-            [new Param("currency_prices", currencyPrices)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points/{price_point_id}.json"),
+            [
+                new TemplateParam("product_id", request.ProductId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
+            [new Param("currency_prices", request.CurrencyPrices)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ProductPricePointResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Unarchive Product Price Point
     /// </summary>
-    /// <param name="productId">The Advanced Billing id of the product to which the price point belongs</param>
-    /// <param name="pricePointId">The Advanced Billing id of the product price point</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ProductPricePointResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Unarchives an archived product price point.
     /// </remarks>
-    public Task<ProductPricePointResponse> UnarchiveProductPricePoint(int productId,
-        int pricePointId,
+    public Task<ProductPricePointResponse> UnarchiveProductPricePoint(UnarchiveProductPricePointRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points/{price_point_id}/unarchive.json"),
-            [new TemplateParam("product_id", productId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points/{price_point_id}/unarchive.json"),
+            [
+                new TemplateParam("product_id", request.ProductId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             new HttpMethod("PATCH"),
             EmptyBody.Instance,
             JsonResponse.Create<ProductPricePointResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Product Currency Prices
     /// </summary>
-    /// <param name="productPricePointId">The Advanced Billing id of the product price point</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CurrencyPricesResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateProductCurrencyPricesError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateProductCurrencyPricesError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates the <c>price</c>s of currency prices for a given currency that exists on the product price point.
     /// <para>
@@ -333,52 +320,52 @@ public sealed class ProductPricePoints
     /// Note: Currency Prices cannot be updated for custom product price points.
     /// </para>
     /// </remarks>
-    public Task<CurrencyPricesResponse> UpdateProductCurrencyPrices(int productPricePointId,
-        UpdateCurrencyPricesRequest? body,
+    public Task<CurrencyPricesResponse> UpdateProductCurrencyPrices(UpdateProductCurrencyPricesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_price_points/{product_price_point_id}/currency_prices.json"),
-            [new TemplateParam("product_price_point_id", productPricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_price_points/{product_price_point_id}/currency_prices.json"),
+            [new TemplateParam("product_price_point_id", request.ProductPricePointId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CurrencyPricesResponse>(),
-            UpdateProductCurrencyPricesErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateProductCurrencyPricesError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Product Price Point
     /// </summary>
-    /// <param name="productId">The id or handle of the product. When using the handle, it must be prefixed with <c>handle:</c>. Example: <c>123</c> for an integer ID, or <c>handle:example-product-handle</c> for a string handle.</param>
-    /// <param name="pricePointId">The id or handle of the price point. When using the handle, it must be prefixed with <c>handle:</c>. Example: <c>123</c> for an integer ID, or <c>handle:example-product-price-point-handle</c> for a string handle.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ProductPricePointResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates a product price point.
     /// <para>
     /// Note: Custom product price points cannot be updated.
     /// </para>
     /// </remarks>
-    public Task<ProductPricePointResponse> UpdateProductPricePoint(ProductIdModel productId,
-        PricePointIdModel pricePointId,
-        UpdateProductPricePointRequest? body,
+    public Task<ProductPricePointResponse> UpdateProductPricePoint(UpdateProductPricePointOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/products/{product_id}/price_points/{price_point_id}.json"),
-            [new TemplateParam("product_id", productId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/products/{product_id}/price_points/{price_point_id}.json"),
+            [
+                new TemplateParam("product_id", request.ProductId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ProductPricePointResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

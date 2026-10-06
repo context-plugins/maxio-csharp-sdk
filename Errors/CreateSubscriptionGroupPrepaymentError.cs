@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class CreateSubscriptionGroupPrepaymentError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class CreateSubscriptionGroupPrepaymentError : ApiError
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<CreateSubscriptionGroupPrepaymentError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<CreateSubscriptionGroupPrepaymentError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class CreateSubscriptionGroupPrepaymentErrorResponse : IErrorResponse<CreateSubscriptionGroupPrepaymentError>
-{
-    public static CreateSubscriptionGroupPrepaymentErrorResponse Instance { get; } = new();
-
-    private CreateSubscriptionGroupPrepaymentErrorResponse()
-    {
-    }
-
-    public Task<CreateSubscriptionGroupPrepaymentError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        CreateSubscriptionGroupPrepaymentError.Create(response, ct);
+    internal static ApiErrorResponse<CreateSubscriptionGroupPrepaymentError> Response { get; } = new(Create);
 }

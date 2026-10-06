@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class RetrySubscriptionError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class RetrySubscriptionError : ApiError
     private static RetrySubscriptionError AsErrorListResponse1(ErrorListResponse1 value) =>
         new(Optional<ErrorListResponse1>.Some(value), default);
 
-    private static RetrySubscriptionError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static RetrySubscriptionError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<RetrySubscriptionError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<RetrySubscriptionError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class RetrySubscriptionErrorResponse : IErrorResponse<RetrySubscriptionError>
-{
-    public static RetrySubscriptionErrorResponse Instance { get; } = new();
-
-    private RetrySubscriptionErrorResponse()
-    {
-    }
-
-    public Task<RetrySubscriptionError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        RetrySubscriptionError.Create(response, ct);
+    internal static ApiErrorResponse<RetrySubscriptionError> Response { get; } = new(Create);
 }

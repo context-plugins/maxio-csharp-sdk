@@ -8,15 +8,16 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### CreateMetadata
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateMetadata(ResourceType resourceType, int resourceId, CreateMetadataRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateMetadata(CreateMetadataOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`, `ResourceId`
 - **Returns**: `IReadOnlyList<Metadata>`
-- **Error**: `SdkException<CreateMetadataError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateMetadataError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleErrorResponse1(out SingleErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateMetadataOperationRequest` | `Requests/CustomFields/CreateMetadataOperationRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `CreateMetadataRequest` | `Models/CreateMetadataRequest.cs` |
 | `Metadata` | `Models/Metadata.cs` |
@@ -25,15 +26,16 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### CreateMetafields
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateMetafields(ResourceType resourceType, CreateMetafieldsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateMetafields(CreateMetafieldsOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`
 - **Returns**: `IReadOnlyList<Metafield>`
-- **Error**: `SdkException<CreateMetafieldsError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateMetafieldsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleErrorResponse1(out SingleErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateMetafieldsOperationRequest` | `Requests/CustomFields/CreateMetafieldsOperationRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `CreateMetafieldsRequest` | `Models/CreateMetafieldsRequest.cs` |
 | `Metafield` | `Models/Metafield.cs` |
@@ -42,61 +44,63 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### DeleteMetadata
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteMetadata(ResourceType resourceType, int resourceId, string? name, IReadOnlyList<string>? names, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `name` — nullable, no default → **must pass explicitly**
-  - `names` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `name` ← `name`, `names` ← `names`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteMetadata(DeleteMetadataRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`, `ResourceId`
+- **Query params (wire ← C#)**: `name` ← `Name`, `names` ← `Names`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeleteMetadataError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteMetadataError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteMetadataRequest` | `Requests/CustomFields/DeleteMetadataRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `DeleteMetadataError` | `Errors/DeleteMetadataError.cs` |
 
 ### DeleteMetafield
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteMetafield(ResourceType resourceType, string? name, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `name` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `name` ← `name`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteMetafield(DeleteMetafieldRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`
+- **Query params (wire ← C#)**: `name` ← `Name`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeleteMetafieldError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteMetafieldError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteMetafieldRequest` | `Requests/CustomFields/DeleteMetafieldRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `DeleteMetafieldError` | `Errors/DeleteMetafieldError.cs` |
 
 ### ListMetadata
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListMetadata(ResourceType resourceType, int resourceId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListMetadata(ListMetadataRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`, `ResourceId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `PaginatedMetadata`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListMetadataRequest` | `Requests/CustomFields/ListMetadataRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `PaginatedMetadata` | `Models/PaginatedMetadata.cs` |
 
 ### ListMetadataForResourceType
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListMetadataForResourceType(ResourceType resourceType, BasicDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, bool? withDeleted, IReadOnlyList<int>? resourceIds, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 8 params (`dateField` … `direction`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`, `with_deleted` ← `withDeleted`, `resource_ids` ← `resourceIds`, `direction` ← `direction`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListMetadataForResourceType(ListMetadataForResourceTypeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `with_deleted` ← `WithDeleted`, `resource_ids` ← `ResourceIds`, `direction` ← `Direction`
 - **Returns**: `PaginatedMetadata`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListMetadataForResourceTypeRequest` | `Requests/CustomFields/ListMetadataForResourceTypeRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
@@ -104,32 +108,32 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### ListMetafields
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListMetafields(ResourceType resourceType, string? name, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `name` — nullable, no default → **must pass explicitly**
-  - `direction` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `name` ← `name`, `page` ← `page`, `per_page` ← `perPage`, `direction` ← `direction`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListMetafields(ListMetafieldsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`
+- **Query params (wire ← C#)**: `name` ← `Name`, `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`
 - **Returns**: `ListMetafieldsResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListMetafieldsRequest` | `Requests/CustomFields/ListMetafieldsRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
 | `ListMetafieldsResponse` | `Models/ListMetafieldsResponse.cs` |
 
 ### UpdateMetadata
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateMetadata(ResourceType resourceType, int resourceId, UpdateMetadataRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateMetadata(UpdateMetadataOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`, `ResourceId`
 - **Returns**: `IReadOnlyList<Metadata>`
-- **Error**: `SdkException<UpdateMetadataError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateMetadataError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleErrorResponse1(out SingleErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateMetadataOperationRequest` | `Requests/CustomFields/UpdateMetadataOperationRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `UpdateMetadataRequest` | `Models/UpdateMetadataRequest.cs` |
 | `Metadata` | `Models/Metadata.cs` |
@@ -138,15 +142,16 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 ### UpdateMetafield
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateMetafield(ResourceType resourceType, UpdateMetafieldsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateMetafield(UpdateMetafieldRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ResourceType`
 - **Returns**: `IReadOnlyList<Metafield>`
-- **Error**: `SdkException<UpdateMetafieldError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateMetafieldError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleErrorResponse1(out SingleErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateMetafieldRequest` | `Requests/CustomFields/UpdateMetafieldRequest.cs` |
 | `ResourceType` | `Models/Enums/ResourceType.cs` |
 | `UpdateMetafieldsRequest` | `Models/UpdateMetafieldsRequest.cs` |
 | `Metafield` | `Models/Metafield.cs` |

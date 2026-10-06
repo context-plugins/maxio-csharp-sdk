@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(Errors1Converter))]
 public record Errors1
@@ -20,16 +20,14 @@ public record Errors1
         _listOfStringValue = listOfStringValue;
     }
 
-    public static Errors1 CustomerError(CustomerError value) =>
-        new(Optional<CustomerError>.Some(value), default);
+    public static Errors1 CustomerError(CustomerError value) => new(Optional<CustomerError>.Some(value), default);
 
     public static Errors1 ListOfString(IReadOnlyList<string> value) =>
         new(default, Optional<IReadOnlyList<string>>.Some(value));
 
     public bool TryGetCustomerError(out CustomerError value) => _customerErrorValue.TryGetValue(out value);
 
-    public bool TryGetListOfString(out IReadOnlyList<string> value) =>
-        _listOfStringValue.TryGetValue(out value);
+    public bool TryGetListOfString(out IReadOnlyList<string> value) => _listOfStringValue.TryGetValue(out value);
 
     public static implicit operator Errors1(CustomerError value) => CustomerError(value);
 }
@@ -48,7 +46,8 @@ file sealed class Errors1Converter : JsonConverter<Errors1>
         {
             return Errors1.ListOfString(listOfStringValue);
         }
-        throw new JsonException($"JSON does not match CustomerError or IReadOnlyList<string> schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match CustomerError or IReadOnlyList<string> schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, Errors1 value, JsonSerializerOptions options)

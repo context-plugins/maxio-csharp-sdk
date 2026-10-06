@@ -8,15 +8,15 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### CreateEndpoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateEndpoint(CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateEndpoint(CreateEndpointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `EndpointResponse`
-- **Error**: `SdkException<CreateEndpointError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateEndpointError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateEndpointRequest` | `Requests/WebhooksApi/CreateEndpointRequest.cs` |
 | `CreateOrUpdateEndpointRequest` | `Models/CreateOrUpdateEndpointRequest.cs` |
 | `EndpointResponse` | `Models/EndpointResponse.cs` |
 | `CreateEndpointError` | `Errors/CreateEndpointError.cs` |
@@ -24,23 +24,23 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### EnableWebhooks
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `EnableWebhooks(EnableWebhooksRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `EnableWebhooks(EnableWebhooksOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `EnableWebhooksResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `EnableWebhooksOperationRequest` | `Requests/WebhooksApi/EnableWebhooksOperationRequest.cs` |
 | `EnableWebhooksRequest` | `Models/EnableWebhooksRequest.cs` |
 | `EnableWebhooksResponse` | `Models/EnableWebhooksResponse.cs` |
 
 ### ListEndpoints
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListEndpoints(RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListEndpoints(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `IReadOnlyList<Endpoint>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
@@ -48,44 +48,44 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 ### ListWebhooks
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListWebhooks(WebhookStatus? status, string? sinceDate, string? untilDate, WebhookOrder? order, int? subscription, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 5 params (`status` … `subscription`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `status` ← `status`, `since_date` ← `sinceDate`, `until_date` ← `untilDate`, `page` ← `page`, `per_page` ← `perPage`, `order` ← `order`, `subscription` ← `subscription`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListWebhooks(ListWebhooksRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `status` ← `Status`, `since_date` ← `SinceDate`, `until_date` ← `UntilDate`, `page` ← `Page`, `per_page` ← `PerPage`, `order` ← `Order`, `subscription` ← `Subscription`
 - **Returns**: `IReadOnlyList<WebhookResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListWebhooksRequest` | `Requests/WebhooksApi/ListWebhooksRequest.cs` |
 | `WebhookStatus` | `Models/Enums/WebhookStatus.cs` |
 | `WebhookOrder` | `Models/Enums/WebhookOrder.cs` |
 | `WebhookResponse` | `Models/WebhookResponse.cs` |
 
 ### ReplayWebhooks
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReplayWebhooks(ReplayWebhooksRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReplayWebhooks(ReplayWebhooksOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `ReplayWebhooksResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReplayWebhooksOperationRequest` | `Requests/WebhooksApi/ReplayWebhooksOperationRequest.cs` |
 | `ReplayWebhooksRequest` | `Models/ReplayWebhooksRequest.cs` |
 | `ReplayWebhooksResponse` | `Models/ReplayWebhooksResponse.cs` |
 
 ### UpdateEndpoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateEndpoint(int endpointId, CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateEndpoint(UpdateEndpointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `EndpointId`
 - **Returns**: `EndpointResponse`
-- **Error**: `SdkException<UpdateEndpointError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateEndpointError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateEndpointRequest` | `Requests/WebhooksApi/UpdateEndpointRequest.cs` |
 | `CreateOrUpdateEndpointRequest` | `Models/CreateOrUpdateEndpointRequest.cs` |
 | `EndpointResponse` | `Models/EndpointResponse.cs` |
 | `UpdateEndpointError` | `Errors/UpdateEndpointError.cs` |

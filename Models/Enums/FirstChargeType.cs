@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<FirstChargeType>))]
-public sealed record FirstChargeType : StringEnum<FirstChargeType>
+public sealed record FirstChargeType : OpenStringEnum<FirstChargeType>
 {
     private FirstChargeType(string value) : base(value)
     {
@@ -16,5 +17,23 @@ public sealed record FirstChargeType : StringEnum<FirstChargeType>
 
     public static readonly FirstChargeType Delayed = new("delayed");
 
-    public static FirstChargeType FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onProrated,
+        Func<TResult> onImmediate,
+        Func<TResult> onDelayed,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Prorated => onProrated(),
+            _ when this == Immediate => onImmediate(),
+            _ when this == Delayed => onDelayed(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onProrated, Action onImmediate, Action onDelayed, Action<string> otherwise)
+    {
+        if (this == Prorated) onProrated();
+        else if (this == Immediate) onImmediate();
+        else if (this == Delayed) onDelayed();
+        else otherwise(Value);
+    }
 }

@@ -8,43 +8,43 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 ### ListSalesCommissionSettings
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSalesCommissionSettings(string sellerId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer <<apiKey>>", RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `liveMode` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `100`, `authorization` = `"Bearer <<apiKey>>"`
-- **Query params (wire ← C#)**: `live_mode` ← `liveMode`, `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSalesCommissionSettings(ListSalesCommissionSettingsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SellerId`
+- **Query params (wire ← C#)**: `live_mode` ← `LiveMode`, `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `IReadOnlyList<SaleRepSettings>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListSalesCommissionSettingsRequest` | `Requests/SalesCommissions/ListSalesCommissionSettingsRequest.cs` |
 | `SaleRepSettings` | `Models/SaleRepSettings.cs` |
 
 ### ListSalesReps
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSalesReps(string sellerId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer <<apiKey>>", RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `liveMode` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `100`, `authorization` = `"Bearer <<apiKey>>"`
-- **Query params (wire ← C#)**: `live_mode` ← `liveMode`, `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSalesReps(ListSalesRepsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SellerId`
+- **Query params (wire ← C#)**: `live_mode` ← `LiveMode`, `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `IReadOnlyList<ListSaleRepItem>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListSalesRepsRequest` | `Requests/SalesCommissions/ListSalesRepsRequest.cs` |
 | `ListSaleRepItem` | `Models/ListSaleRepItem.cs` |
 
 ### ReadSalesRep
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSalesRep(string sellerId, string salesRepId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer <<apiKey>>", RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `liveMode` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `100`, `authorization` = `"Bearer <<apiKey>>"`
-- **Query params (wire ← C#)**: `live_mode` ← `liveMode`, `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSalesRep(ReadSalesRepRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SellerId`, `SalesRepId`
+- **Query params (wire ← C#)**: `live_mode` ← `LiveMode`, `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `SaleRep`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadSalesRepRequest` | `Requests/SalesCommissions/ReadSalesRepRequest.cs` |
 | `SaleRep` | `Models/SaleRep.cs` |
 

@@ -1,16 +1,16 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.ReferralCodes;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class ReferralCodes
 {
@@ -28,38 +28,30 @@ public sealed class ReferralCodes
     /// <summary>
     /// Validate Referral Code
     /// </summary>
-    /// <param name="code">The referral code you are trying to validate</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ReferralValidationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ValidateReferralCodeError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ValidateReferralCodeError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Validates whether a referral code is valid and applicable within your site. This method is useful for validating referral codes that are entered by a customer.
     /// <para>
-    /// ## Referrals Documentation
-    /// </para>
-    /// <para>
-    /// Full documentation on how to use the referrals feature in the Advanced Billing UI can be located <see href="https://maxio.zendesk.com/hc/en-us/sections/24286965611405-Referrals">here</see>.
-    /// </para>
-    /// <para>
-    /// ## Server Response
-    /// </para>
-    /// <para>
-    /// If the referral code is valid the status code will be <c>200</c> and the referral code will be returned. If the referral code is invalid, a <c>404</c> response will be returned.
+    /// For more information, see <see href="https://docs.maxio.com/hc/en-us/articles/24286981223693-Understanding-Referrals">Understanding Referrals</see> in the product documentation.
     /// </para>
     /// </remarks>
-    public Task<ReferralValidationResponse> ValidateReferralCode(string code,
+    public Task<ReferralValidationResponse> ValidateReferralCode(ValidateReferralCodeRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/referral_codes/validate.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/referral_codes/validate.json"),
             [],
-            [new Param("code", code)],
+            [new Param("code", request.Code)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ReferralValidationResponse>(),
-            ValidateReferralCodeErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ValidateReferralCodeError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

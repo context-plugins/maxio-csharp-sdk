@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(PricePointConverter))]
 public record PricePoint
@@ -32,8 +32,7 @@ public record PricePoint
     public bool TryGetCreatePrepaidUsageComponentPricePoint(out CreatePrepaidUsageComponentPricePoint value) =>
         _createPrepaidUsageComponentPricePointValue.TryGetValue(out value);
 
-    public static implicit operator PricePoint(CreateComponentPricePoint value) =>
-        CreateComponentPricePoint(value);
+    public static implicit operator PricePoint(CreateComponentPricePoint value) => CreateComponentPricePoint(value);
 
     public static implicit operator PricePoint(CreatePrepaidUsageComponentPricePoint value) =>
         CreatePrepaidUsageComponentPricePoint(value);
@@ -45,19 +44,22 @@ file sealed class PricePointConverter : JsonConverter<PricePoint>
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (JsonSerializer.TryDeserialize<CreateComponentPricePoint>(root,
+        if (JsonSerializer.TryDeserialize<CreateComponentPricePoint>(
+            root,
             options,
             out var createComponentPricePointValue))
         {
             return PricePoint.CreateComponentPricePoint(createComponentPricePointValue);
         }
-        if (JsonSerializer.TryDeserialize<CreatePrepaidUsageComponentPricePoint>(root,
+        if (JsonSerializer.TryDeserialize<CreatePrepaidUsageComponentPricePoint>(
+            root,
             options,
             out var createPrepaidUsageComponentPricePointValue))
         {
             return PricePoint.CreatePrepaidUsageComponentPricePoint(createPrepaidUsageComponentPricePointValue);
         }
-        throw new JsonException($"JSON does not match CreateComponentPricePoint or CreatePrepaidUsageComponentPricePoint schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match CreateComponentPricePoint or CreatePrepaidUsageComponentPricePoint schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, PricePoint value, JsonSerializerOptions options)

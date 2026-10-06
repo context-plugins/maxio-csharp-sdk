@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<ListProductsPricePointsInclude>))]
-public sealed record ListProductsPricePointsInclude : StringEnum<ListProductsPricePointsInclude>
+public sealed record ListProductsPricePointsInclude : OpenStringEnum<ListProductsPricePointsInclude>
 {
     private ListProductsPricePointsInclude(string value) : base(value)
     {
@@ -12,5 +13,16 @@ public sealed record ListProductsPricePointsInclude : StringEnum<ListProductsPri
 
     public static readonly ListProductsPricePointsInclude CurrencyPrices = new("currency_prices");
 
-    public static ListProductsPricePointsInclude FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onCurrencyPrices, Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == CurrencyPrices => onCurrencyPrices(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onCurrencyPrices, Action<string> otherwise)
+    {
+        if (this == CurrencyPrices) onCurrencyPrices();
+        else otherwise(Value);
+    }
 }

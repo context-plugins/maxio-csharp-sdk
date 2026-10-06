@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(Errors11Converter))]
 public record Errors11
@@ -43,8 +43,7 @@ public record Errors11
     public static implicit operator Errors11(SubscriptionGroupMembersArrayError value) =>
         SubscriptionGroupMembersArrayError(value);
 
-    public static implicit operator Errors11(SubscriptionGroupSingleError value) =>
-        SubscriptionGroupSingleError(value);
+    public static implicit operator Errors11(SubscriptionGroupSingleError value) => SubscriptionGroupSingleError(value);
 
     public static implicit operator Errors11(string value) => String(value);
 }
@@ -55,13 +54,15 @@ file sealed class Errors11Converter : JsonConverter<Errors11>
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (JsonSerializer.TryDeserialize<SubscriptionGroupMembersArrayError>(root,
+        if (JsonSerializer.TryDeserialize<SubscriptionGroupMembersArrayError>(
+            root,
             options,
             out var subscriptionGroupMembersArrayErrorValue))
         {
             return Errors11.SubscriptionGroupMembersArrayError(subscriptionGroupMembersArrayErrorValue);
         }
-        if (JsonSerializer.TryDeserialize<SubscriptionGroupSingleError>(root,
+        if (JsonSerializer.TryDeserialize<SubscriptionGroupSingleError>(
+            root,
             options,
             out var subscriptionGroupSingleErrorValue))
         {
@@ -72,7 +73,8 @@ file sealed class Errors11Converter : JsonConverter<Errors11>
             var value = root.GetString()!;
             return Errors11.String(value);
         }
-        throw new JsonException($"JSON does not match SubscriptionGroupMembersArrayError or SubscriptionGroupSingleError or string schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match SubscriptionGroupMembersArrayError or SubscriptionGroupSingleError or string schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, Errors11 value, JsonSerializerOptions options)

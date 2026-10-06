@@ -1,20 +1,18 @@
-using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.Insights;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class Insights
 {
@@ -32,14 +30,11 @@ public sealed class Insights
     /// <summary>
     /// List MRR Movements
     /// </summary>
-    /// <param name="subscriptionId">(Optional) Filter results by subscription.</param>
-    /// <param name="direction">Controls the order in which results are returned. Use in query <c>direction=asc</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 50; any per_page value over 50 will be changed to 50. Use in query <c>per_page=20</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListMrrResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists your site's MRR movements.
     /// <para>
@@ -72,100 +67,94 @@ public sealed class Insights
     /// * Prepaid Usage Components
     /// </para>
     /// </remarks>
-    public Task<ListMrrResponse> ListMrrMovements(int? subscriptionId,
-        SortingDirection? direction,
-        int? page = 1,
-        int? perPage = 10,
+    public Task<ListMrrResponse> ListMrrMovements(ListMrrMovementsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/mrr_movements.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/mrr_movements.json"),
             [],
-            [new Param("subscription_id", subscriptionId),
-                new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("direction", direction)],
+            [
+                new Param("subscription_id", request.SubscriptionId),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("direction", request.Direction),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListMrrResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List MRR per subscription
     /// </summary>
-    /// <param name="filter">Filter to use for List MRR per subscription operation</param>
-    /// <param name="atTime">Submit a timestamp in ISO8601 format to request MRR for a historic time. Use in query: <c>at_time=2022-01-10T10:00:00-05:00</c>.</param>
-    /// <param name="direction">Controls the order in which results are returned. Records are ordered by subscription_id in ascending order by default. Use in query <c>direction=desc</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionMrrResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ListMrrPerSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ListMrrPerSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists your site's current MRR, including plan and usage breakouts split per subscription.
     /// </remarks>
-    public Task<SubscriptionMrrResponse> ListMrrPerSubscription(ListMrrFilter? filter,
-        string? atTime,
-        Direction? direction,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<SubscriptionMrrResponse> ListMrrPerSubscription(ListMrrPerSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions_mrr.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions_mrr.json"),
             [],
-            [new Param("filter", filter),
-                new Param("at_time", atTime),
-                new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("direction", direction)],
+            [
+                new Param("filter", request.Filter),
+                new Param("at_time", request.AtTime),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("direction", request.Direction),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionMrrResponse>(),
-            ListMrrPerSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ListMrrPerSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read MRR
     /// </summary>
-    /// <param name="atTime">submit a timestamp in ISO8601 format to request MRR for a historic time.</param>
-    /// <param name="subscriptionId">submit the id of a subscription in order to limit results.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="MrrResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns your site's current MRR, including plan and usage breakouts.
     /// </remarks>
-    public Task<MrrResponse> ReadMrr(DateTimeOffset? atTime,
-        int? subscriptionId,
+    public Task<MrrResponse> ReadMrr(ReadMrrRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/mrr.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/mrr.json"),
             [],
-            [new Param("at_time", atTime?.ToIso8601()), new Param("subscription_id", subscriptionId)],
+            [new Param("at_time", request.AtTime?.ToIso8601()), new Param("subscription_id", request.SubscriptionId)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<MrrResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Site Stats
     /// </summary>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SiteSummary"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns basic site-level stats. This API call only answers with JSON responses. An XML version is not provided.
     /// <para>
@@ -178,8 +167,10 @@ public sealed class Insights
     /// https://subdomain.chargify.com/dashboard
     /// </code>
     /// </remarks>
-    public Task<SiteSummary> ReadSiteStats(RequestOptions? requestOptions = null, CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/stats.json"),
+    public Task<SiteSummary> ReadSiteStats(RequestOptions? requestOptions = null,
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/stats.json"),
             [],
             [],
             [],
@@ -187,7 +178,7 @@ public sealed class Insights
             EmptyBody.Instance,
             JsonResponse.Create<SiteSummary>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

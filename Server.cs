@@ -1,7 +1,7 @@
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Servers;
+using Maxio.Core.Models;
+using Maxio.Servers;
 
-namespace MaxioAdvancedBilling;
+namespace Maxio;
 
 public class Server
 {
@@ -16,5 +16,4 @@ public class Server
 
     internal UrlTemplate Production(string path) => _options.Production.Resolve(_environment, path);
     internal UrlTemplate Ebb(string path) => _options.Ebb.Resolve(_environment, path);
-    internal UrlTemplate Oauth(string path) => _options.Oauth.Resolve(_environment, path);
 }

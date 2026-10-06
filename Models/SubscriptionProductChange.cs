@@ -1,8 +1,12 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
+/// <summary>
+/// Event data for both <c>subscription_product_change</c> and <c>subscription_product_change_scheduled</c>. The price point and <c>effective_at</c> fields are only populated for scheduled changes.
+/// </summary>
 public record SubscriptionProductChange
 {
     [JsonPropertyName("previous_product_id")]
@@ -10,6 +14,21 @@ public record SubscriptionProductChange
 
     [JsonPropertyName("new_product_id")]
     public required int NewProductId { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("previous_product_price_point_id")]
+    public int? PreviousProductPricePointId { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("new_product_price_point_id")]
+    public int? NewProductPricePointId { get; init; }
+
+    /// <summary>
+    /// When the scheduled product change takes effect (the subscription's next renewal). Only sent for <c>subscription_product_change_scheduled</c>.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("effective_at")]
+    public DateTimeOffset? EffectiveAt { get; init; }
 
     [JsonExtensionData]
     public AdditionalProperties AdditionalProperties { get; init; } = [];

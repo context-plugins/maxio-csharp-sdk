@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.PaymentProfiles;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class PaymentProfiles
 {
@@ -31,44 +31,45 @@ public sealed class PaymentProfiles
     /// <summary>
     /// Change Subscription Default Payment Profile
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PaymentProfileResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ChangeSubscriptionDefaultPaymentProfileError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ChangeSubscriptionDefaultPaymentProfileError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Changes the default payment profile on the subscription to the existing payment profile with the specified ID.
     /// <para>
     /// You must elect to change the existing payment profile to a new payment profile ID in order to receive a satisfactory response from this endpoint.
     /// </para>
     /// </remarks>
-    public Task<PaymentProfileResponse> ChangeSubscriptionDefaultPaymentProfile(int subscriptionId,
-        int paymentProfileId,
+    public Task<PaymentProfileResponse> ChangeSubscriptionDefaultPaymentProfile(ChangeSubscriptionDefaultPaymentProfileRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}/change_payment_profile.json"),
-            [new TemplateParam("subscription_id", subscriptionId),
-                new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production(
+                "/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}/change_payment_profile.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("payment_profile_id", request.PaymentProfileId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<PaymentProfileResponse>(),
-            ChangeSubscriptionDefaultPaymentProfileErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ChangeSubscriptionDefaultPaymentProfileError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Change Subscription Group Default Payment Profile
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PaymentProfileResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ChangeSubscriptionGroupDefaultPaymentProfileError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ChangeSubscriptionGroupDefaultPaymentProfileError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Changes the default payment profile on the subscription group to the existing payment profile with the specified ID.
     /// <para>
@@ -78,30 +79,31 @@ public sealed class PaymentProfiles
     /// The new payment profile must belong to the subscription group's customer, otherwise you will receive an error.
     /// </para>
     /// </remarks>
-    public Task<PaymentProfileResponse> ChangeSubscriptionGroupDefaultPaymentProfile(string uid,
-        int paymentProfileId,
+    public Task<PaymentProfileResponse> ChangeSubscriptionGroupDefaultPaymentProfile(ChangeSubscriptionGroupDefaultPaymentProfileRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}/change_payment_profile.json"),
-            [new TemplateParam("uid", uid), new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production(
+                "/subscription_groups/{uid}/payment_profiles/{payment_profile_id}/change_payment_profile.json"),
+            [new TemplateParam("uid", request.Uid), new TemplateParam("payment_profile_id", request.PaymentProfileId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<PaymentProfileResponse>(),
-            ChangeSubscriptionGroupDefaultPaymentProfileErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ChangeSubscriptionGroupDefaultPaymentProfileError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Payment Profile
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PaymentProfileResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreatePaymentProfileError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreatePaymentProfileError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates a payment profile for a customer.
     /// <para>
@@ -149,154 +151,157 @@ public sealed class PaymentProfiles
     /// See the <see href="https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow">3D Secure Post-Authentication Flow</see> article in the product documentation to learn how to manage the redirect flow.
     /// </para>
     /// </remarks>
-    public Task<PaymentProfileResponse> CreatePaymentProfile(CreatePaymentProfileRequest? body,
+    public Task<PaymentProfileResponse> CreatePaymentProfile(CreatePaymentProfileOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/payment_profiles.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/payment_profiles.json"),
             [],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<PaymentProfileResponse>(),
-            CreatePaymentProfileErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreatePaymentProfileError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Subscription Group Payment Profile
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes a Payment Profile belonging to a Subscription Group.
     /// <para>
     /// <b>Note</b>: If the Payment Profile belongs to multiple Subscription Groups and/or Subscriptions, it will be removed from all of them.
     /// </para>
     /// </remarks>
-    public Task DeleteSubscriptionGroupPaymentProfile(string uid,
-        int paymentProfileId,
+    public Task DeleteSubscriptionGroupPaymentProfile(DeleteSubscriptionGroupPaymentProfileRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json"),
-            [new TemplateParam("uid", uid), new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json"),
+            [new TemplateParam("uid", request.Uid), new TemplateParam("payment_profile_id", request.PaymentProfileId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Subscription Payment Profile
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes a payment profile belonging to the customer on the subscription.
-    /// <list type="bullet">
-    ///   <item><description>If the customer has multiple subscriptions, the payment profile will be removed from all of them.</description></item>
-    /// </list>
-    /// <list type="bullet">
-    ///   <item><description>If you delete the default payment profile for a subscription, you will need to specify another payment profile to be the default through the api, or either prompt the user to enter a card in the billing portal or on the self-service page, or visit the Payment Details tab on the subscription in the Admin UI and use the “Add New Credit Card” or “Make Active Payment Method” link, (depending on whether there are other cards present).</description></item>
-    /// </list>
+    /// <para>
+    /// If the customer has multiple subscriptions, the payment profile is removed from all of them.
+    /// </para>
+    /// <para>
+    /// If you delete the default payment profile for a subscription, you need to specify another payment profile to be the default through the API, or either prompt the user to enter a card in the billing portal or on the self-service page, or visit the Payment Details tab on the subscription in the Admin UI and use the “Add New Credit Card” or “Make Active Payment Method” link, (depending on whether there are other cards present).
+    /// </para>
     /// </remarks>
-    public Task DeleteSubscriptionsPaymentProfile(int subscriptionId,
-        int paymentProfileId,
+    public Task DeleteSubscriptionsPaymentProfile(DeleteSubscriptionsPaymentProfileRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId),
-                new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("payment_profile_id", request.PaymentProfileId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Unused Payment Profile
     /// </summary>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeleteUnusedPaymentProfileError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeleteUnusedPaymentProfileError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes an unused payment profile.
     /// <para>
-    /// If the payment profile is in use by one or more subscriptions or groups, a 422 and error message will be returned.
+    /// If the payment profile is in use by one or more subscriptions or groups, an error message is returned.
     /// </para>
     /// </remarks>
-    public Task DeleteUnusedPaymentProfile(int paymentProfileId,
+    public Task DeleteUnusedPaymentProfile(DeleteUnusedPaymentProfileRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/payment_profiles/{payment_profile_id}.json"),
-            [new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/payment_profiles/{payment_profile_id}.json"),
+            [new TemplateParam("payment_profile_id", request.PaymentProfileId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            DeleteUnusedPaymentProfileErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeleteUnusedPaymentProfileError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Payment Profiles
     /// </summary>
-    /// <param name="customerId">The ID of the customer for which you wish to list payment profiles</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="PaymentProfileResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Lists all active payment profiles for a site, or for one customer within a site. If no payment profiles are found, this endpoint will return an empty array, not a 404.
+    /// Lists all active payment profiles for a site, or for one customer within a site. If no payment profiles are found, this endpoint returns an empty array.
     /// </remarks>
-    public Task<IReadOnlyList<PaymentProfileResponse>> ListPaymentProfiles(int? customerId,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<IReadOnlyList<PaymentProfileResponse>> ListPaymentProfiles(ListPaymentProfilesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/payment_profiles.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/payment_profiles.json"),
             [],
-            [new Param("page", page), new Param("per_page", perPage), new Param("customer_id", customerId)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("customer_id", request.CustomerId),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<PaymentProfileResponse>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read one time token details
     /// </summary>
-    /// <param name="chargifyToken">Advanced Billing Token</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="GetOneTimeTokenRequest"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReadOneTimeTokenError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReadOneTimeTokenError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns the one-time token data, including credit card or ACH details, associated with the provided token ID. One Time Tokens aka Advanced Billing Tokens house the credit card or ACH (Authorize.Net or Stripe only) data for a customer.
     /// <para>
@@ -306,29 +311,30 @@ public sealed class PaymentProfiles
     /// To obtain a One Time Token you have to use <see href="https://docs.maxio.com/hc/en-us/articles/38163190843789-Chargify-js-Overview#chargify-js-overview-0-0">Chargify.js</see>.
     /// </para>
     /// </remarks>
-    public Task<GetOneTimeTokenRequest> ReadOneTimeToken(string chargifyToken,
+    public Task<GetOneTimeTokenRequest> ReadOneTimeToken(ReadOneTimeTokenRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/one_time_tokens/{chargify_token}.json"),
-            [new TemplateParam("chargify_token", chargifyToken)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/one_time_tokens/{chargify_token}.json"),
+            [new TemplateParam("chargify_token", request.ChargifyToken)],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<GetOneTimeTokenRequest>(),
-            ReadOneTimeTokenErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReadOneTimeTokenError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Payment Profile
     /// </summary>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PaymentProfileResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReadPaymentProfileError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReadPaymentProfileError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns a payment profile identified by its unique ID.
     /// <para>
@@ -370,29 +376,30 @@ public sealed class PaymentProfiles
     /// }
     /// </code>
     /// </remarks>
-    public Task<PaymentProfileResponse> ReadPaymentProfile(int paymentProfileId,
+    public Task<PaymentProfileResponse> ReadPaymentProfile(ReadPaymentProfileRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/payment_profiles/{payment_profile_id}.json"),
-            [new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/payment_profiles/{payment_profile_id}.json"),
+            [new TemplateParam("payment_profile_id", request.PaymentProfileId)],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<PaymentProfileResponse>(),
-            ReadPaymentProfileErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReadPaymentProfileError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Send request payment update email
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="SendRequestUpdatePaymentEmailError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="SendRequestUpdatePaymentEmailError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Sends a "request payment update" email to the customer associated with the subscription.
     /// <para>
@@ -405,30 +412,30 @@ public sealed class PaymentProfiles
     /// These error responses are designed to prevent excessive or invalid requests, and to provide clear and helpful information to users who encounter errors during the request process.
     /// </para>
     /// </remarks>
-    public Task SendRequestUpdatePaymentEmail(int subscriptionId,
+    public Task SendRequestUpdatePaymentEmail(SendRequestUpdatePaymentEmailRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/request_payment_profiles_update.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/request_payment_profiles_update.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            SendRequestUpdatePaymentEmailErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            SendRequestUpdatePaymentEmailError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Payment Profile
     /// </summary>
-    /// <param name="paymentProfileId">The Chargify id of the payment profile</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PaymentProfileResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdatePaymentProfileError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdatePaymentProfileError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates a payment profile.
     /// <para>
@@ -476,47 +483,46 @@ public sealed class PaymentProfiles
     ///   <item><description>If you are using Authorize.net or Stripe, you may elect to manually trigger a retry for a past due subscription after a partial update.</description></item>
     /// </list>
     /// </remarks>
-    public Task<PaymentProfileResponse> UpdatePaymentProfile(int paymentProfileId,
-        UpdatePaymentProfileRequest? body,
+    public Task<PaymentProfileResponse> UpdatePaymentProfile(UpdatePaymentProfileOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/payment_profiles/{payment_profile_id}.json"),
-            [new TemplateParam("payment_profile_id", paymentProfileId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/payment_profiles/{payment_profile_id}.json"),
+            [new TemplateParam("payment_profile_id", request.PaymentProfileId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<PaymentProfileResponse>(),
-            UpdatePaymentProfileErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdatePaymentProfileError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Verify Bank Account
     /// </summary>
-    /// <param name="bankAccountId">Identifier of the bank account in the system.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="BankAccountResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="VerifyBankAccountError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="VerifyBankAccountError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Verifies a bank account. Submit the two small deposit amounts the customer received in their bank account to verify the bank account. (Stripe only)
     /// </remarks>
-    public Task<BankAccountResponse> VerifyBankAccount(int bankAccountId,
-        BankAccountVerificationRequest? body,
+    public Task<BankAccountResponse> VerifyBankAccount(VerifyBankAccountRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/bank_accounts/{bank_account_id}/verification.json"),
-            [new TemplateParam("bank_account_id", bankAccountId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/bank_accounts/{bank_account_id}/verification.json"),
+            [new TemplateParam("bank_account_id", request.BankAccountId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<BankAccountResponse>(),
-            VerifyBankAccountErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            VerifyBankAccountError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

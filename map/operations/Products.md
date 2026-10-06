@@ -8,29 +8,32 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ArchiveProduct
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ArchiveProduct(int productId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ArchiveProduct(ArchiveProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`
 - **Returns**: `ProductResponse`
-- **Error**: `SdkException<ArchiveProductError>` — **Case A (typed)**
+- **Error**: `ApiException<ArchiveProductError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ArchiveProductRequest` | `Requests/Products/ArchiveProductRequest.cs` |
 | `ProductResponse` | `Models/ProductResponse.cs` |
 | `ArchiveProductError` | `Errors/ArchiveProductError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### CreateProduct
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateProduct(string productFamilyId, CreateOrUpdateProductRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateProduct(CreateProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `ProductResponse`
-- **Error**: `SdkException<CreateProductError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateProductError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateProductRequest` | `Requests/Products/CreateProductRequest.cs` |
 | `CreateOrUpdateProductRequest` | `Models/CreateOrUpdateProductRequest.cs` |
 | `ProductResponse` | `Models/ProductResponse.cs` |
 | `CreateProductError` | `Errors/CreateProductError.cs` |
@@ -38,16 +41,15 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ListProducts
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListProducts(BasicDateField? dateField, ListProductsFilter? filter, DateTimeOffset? endDate, DateTimeOffset? endDatetime, DateTimeOffset? startDate, DateTimeOffset? startDatetime, bool? includeArchived, ListProductsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 8 params (`dateField` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `date_field` ← `dateField`, `filter` ← `filter`, `end_date` ← `endDate`, `end_datetime` ← `endDatetime`, `start_date` ← `startDate`, `start_datetime` ← `startDatetime`, `page` ← `page`, `per_page` ← `perPage`, `include_archived` ← `includeArchived`, `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListProducts(ListProductsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `date_field` ← `DateField`, `filter` ← `Filter`, `end_date` ← `EndDate`, `end_datetime` ← `EndDatetime`, `start_date` ← `StartDate`, `start_datetime` ← `StartDatetime`, `page` ← `Page`, `per_page` ← `PerPage`, `include_archived` ← `IncludeArchived`, `include` ← `Include`, `include_features` ← `IncludeFeatures`
 - **Returns**: `IReadOnlyList<ProductResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListProductsRequest` | `Requests/Products/ListProductsRequest.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `ListProductsFilter` | `Models/ListProductsFilter.cs` |
 | `ListProductsInclude` | `Models/Enums/ListProductsInclude.cs` |
@@ -55,37 +57,43 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 ### ReadProduct
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadProduct(int productId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadProduct(ReadProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`
+- **Query params (wire ← C#)**: `include_features` ← `IncludeFeatures`
 - **Returns**: `ProductResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadProductRequest` | `Requests/Products/ReadProductRequest.cs` |
 | `ProductResponse` | `Models/ProductResponse.cs` |
 
 ### ReadProductByHandle
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadProductByHandle(string apiHandle, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadProductByHandle(ReadProductByHandleRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ApiHandle`
 - **Returns**: `ProductResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadProductByHandleRequest` | `Requests/Products/ReadProductByHandleRequest.cs` |
 | `ProductResponse` | `Models/ProductResponse.cs` |
 
 ### UpdateProduct
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateProduct(int productId, CreateOrUpdateProductRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateProduct(UpdateProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`
 - **Returns**: `ProductResponse`
-- **Error**: `SdkException<UpdateProductError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateProductError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateProductRequest` | `Requests/Products/UpdateProductRequest.cs` |
 | `CreateOrUpdateProductRequest` | `Models/CreateOrUpdateProductRequest.cs` |
 | `ProductResponse` | `Models/ProductResponse.cs` |
 | `UpdateProductError` | `Errors/UpdateProductError.cs` |

@@ -2,16 +2,16 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.SubscriptionGroupInvoiceAccount;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class SubscriptionGroupInvoiceAccount
 {
@@ -29,116 +29,112 @@ public sealed class SubscriptionGroupInvoiceAccount
     /// <summary>
     /// Create Subscription Group Prepayment
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionGroupPrepaymentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateSubscriptionGroupPrepaymentError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateSubscriptionGroupPrepaymentError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Adds a prepayment for a subscription group. This endpoint requires an <c>amount</c>, <c>details</c>, <c>method</c>, and <c>memo</c>. On success, the prepayment will be added to the group's prepayment balance.
     /// </remarks>
-    public Task<SubscriptionGroupPrepaymentResponse> CreateSubscriptionGroupPrepayment(string uid,
-        SubscriptionGroupPrepaymentRequest? body,
+    public Task<SubscriptionGroupPrepaymentResponse> CreateSubscriptionGroupPrepayment(CreateSubscriptionGroupPrepaymentRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/prepayments.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/prepayments.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionGroupPrepaymentResponse>(),
-            CreateSubscriptionGroupPrepaymentErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateSubscriptionGroupPrepaymentError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Deduct Subscription Group Service Credit
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ServiceCredit"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeductSubscriptionGroupServiceCreditError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeductSubscriptionGroupServiceCreditError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deducts service credit for a subscription group. Credit will be deducted from the group in the amount specified in the request body.
     /// </remarks>
-    public Task<ServiceCredit> DeductSubscriptionGroupServiceCredit(string uid,
-        DeductServiceCreditRequest? body,
+    public Task<ServiceCredit> DeductSubscriptionGroupServiceCredit(DeductSubscriptionGroupServiceCreditRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/service_credit_deductions.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/service_credit_deductions.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ServiceCredit>(),
-            DeductSubscriptionGroupServiceCreditErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeductSubscriptionGroupServiceCreditError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Issue Subscription Group Service Credit
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ServiceCreditResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="IssueSubscriptionGroupServiceCreditError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="IssueSubscriptionGroupServiceCreditError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Issues service credit for a subscription group. Credit will be added to the group in the amount specified in the request body. The credit will be applied to group member invoices as they are generated.
     /// </remarks>
-    public Task<ServiceCreditResponse> IssueSubscriptionGroupServiceCredit(string uid,
-        IssueServiceCreditRequest? body,
+    public Task<ServiceCreditResponse> IssueSubscriptionGroupServiceCredit(IssueSubscriptionGroupServiceCreditRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/service_credits.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/service_credits.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ServiceCreditResponse>(),
-            IssueSubscriptionGroupServiceCreditErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            IssueSubscriptionGroupServiceCreditError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Prepayments For Subscription Group
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="filter">Filter to use for List Prepayments operations</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListSubscriptionGroupPrepaymentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ListPrepaymentsForSubscriptionGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ListPrepaymentsForSubscriptionGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists a subscription group's prepayments.
     /// </remarks>
-    public Task<ListSubscriptionGroupPrepaymentResponse> ListPrepaymentsForSubscriptionGroup(string uid,
-        ListPrepaymentsFilter? filter,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<ListSubscriptionGroupPrepaymentResponse> ListPrepaymentsForSubscriptionGroup(ListPrepaymentsForSubscriptionGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/prepayments.json"),
-            [new TemplateParam("uid", uid)],
-            [new Param("page", page), new Param("per_page", perPage), new Param("filter", filter)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/prepayments.json"),
+            [new TemplateParam("uid", request.Uid)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("filter", request.Filter),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListSubscriptionGroupPrepaymentResponse>(),
-            ListPrepaymentsForSubscriptionGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ListPrepaymentsForSubscriptionGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

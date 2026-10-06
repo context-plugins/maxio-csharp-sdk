@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class VoidInvoiceError : ApiError
 {
@@ -21,37 +19,25 @@ public sealed class VoidInvoiceError : ApiError
         _errorListResponse1Value = errorListResponse1Value;
     }
 
-    private static VoidInvoiceError AsObject(object? value) =>
-        new(Optional<object?>.Some(value), default, default);
+    private static VoidInvoiceError AsObject(object? value) => new(Optional<object?>.Some(value), default, default);
 
     private static VoidInvoiceError AsErrorListResponse1(ErrorListResponse1 value) =>
         new(default, Optional<ErrorListResponse1>.Some(value), default);
 
-    private static VoidInvoiceError AsFallback(RawError value) =>
-        new(default, default, Optional<RawError>.Some(value));
+    private static VoidInvoiceError AsFallback(RawError value) => new(default, default, Optional<RawError>.Some(value));
 
     public bool TryGetObject(out object? value) => _objectValue.TryGetValue(out value);
 
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<VoidInvoiceError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<VoidInvoiceError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromJson<object?>(response, ct).As(AsObject),
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.Json<object?>().As(AsObject),
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class VoidInvoiceErrorResponse : IErrorResponse<VoidInvoiceError>
-{
-    public static VoidInvoiceErrorResponse Instance { get; } = new();
-
-    private VoidInvoiceErrorResponse()
-    {
-    }
-
-    public Task<VoidInvoiceError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        VoidInvoiceError.Create(response, ct);
+    internal static ApiErrorResponse<VoidInvoiceError> Response { get; } = new(Create);
 }

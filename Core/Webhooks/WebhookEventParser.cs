@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace MaxioAdvancedBilling.Core.Webhooks;
+namespace Maxio.Core.Webhooks;
 
 public abstract class WebhookEventParser<TEvent>
     where TEvent : class

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
 
-namespace MaxioAdvancedBilling.Core.Extensions;
+namespace Maxio.Core.Extensions;
 
 internal static class HeaderValueExtensions
 {

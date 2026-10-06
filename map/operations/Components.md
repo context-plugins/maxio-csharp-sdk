@@ -8,29 +8,32 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### ArchiveComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ArchiveComponent(int productFamilyId, string componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ArchiveComponent(ArchiveComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `ComponentId`
 - **Returns**: `Component`
-- **Error**: `SdkException<ArchiveComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<ArchiveComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ArchiveComponentRequest` | `Requests/Components/ArchiveComponentRequest.cs` |
 | `Component` | `Models/Component.cs` |
 | `ArchiveComponentError` | `Errors/ArchiveComponentError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### CreateEventBasedComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateEventBasedComponent(string productFamilyId, CreateEbbComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateEventBasedComponent(CreateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<CreateEventBasedComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateEventBasedComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateEventBasedComponentRequest` | `Requests/Components/CreateEventBasedComponentRequest.cs` |
 | `CreateEbbComponent` | `Models/CreateEbbComponent.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `CreateEventBasedComponentError` | `Errors/CreateEventBasedComponentError.cs` |
@@ -38,15 +41,16 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateMeteredComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateMeteredComponent(string productFamilyId, CreateMeteredComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateMeteredComponent(CreateMeteredComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<CreateMeteredComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateMeteredComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateMeteredComponentRequest` | `Requests/Components/CreateMeteredComponentRequest.cs` |
 | `CreateMeteredComponent` | `Models/CreateMeteredComponent.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `CreateMeteredComponentError` | `Errors/CreateMeteredComponentError.cs` |
@@ -54,15 +58,16 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateOnOffComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateOnOffComponent(string productFamilyId, CreateOnOffComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateOnOffComponent(CreateOnOffComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<CreateOnOffComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateOnOffComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateOnOffComponentRequest` | `Requests/Components/CreateOnOffComponentRequest.cs` |
 | `CreateOnOffComponent` | `Models/CreateOnOffComponent.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `CreateOnOffComponentError` | `Errors/CreateOnOffComponentError.cs` |
@@ -70,15 +75,16 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreatePrepaidUsageComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreatePrepaidUsageComponent(string productFamilyId, CreatePrepaidComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreatePrepaidUsageComponent(CreatePrepaidUsageComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<CreatePrepaidUsageComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreatePrepaidUsageComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreatePrepaidUsageComponentRequest` | `Requests/Components/CreatePrepaidUsageComponentRequest.cs` |
 | `CreatePrepaidComponent` | `Models/CreatePrepaidComponent.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `CreatePrepaidUsageComponentError` | `Errors/CreatePrepaidUsageComponentError.cs` |
@@ -86,15 +92,16 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### CreateQuantityBasedComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateQuantityBasedComponent(string productFamilyId, CreateQuantityBasedComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateQuantityBasedComponent(CreateQuantityBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<CreateQuantityBasedComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateQuantityBasedComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateQuantityBasedComponentRequest` | `Requests/Components/CreateQuantityBasedComponentRequest.cs` |
 | `CreateQuantityBasedComponent` | `Models/CreateQuantityBasedComponent.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `CreateQuantityBasedComponentError` | `Errors/CreateQuantityBasedComponentError.cs` |
@@ -102,70 +109,75 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### FindComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `FindComponent(string handle, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-- **Query params (wire ← C#)**: `handle` ← `handle`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `FindComponent(FindComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Handle`
+- **Query params (wire ← C#)**: `handle` ← `Handle`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `FindComponentRequest` | `Requests/Components/FindComponentRequest.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 
 ### ListComponents
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListComponents(BasicDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, bool? includeArchived, ListComponentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 7 params (`dateField` … `filter`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`, `include_archived` ← `includeArchived`, `page` ← `page`, `per_page` ← `perPage`, `filter` ← `filter`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListComponents(ListComponentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `include_archived` ← `IncludeArchived`, `page` ← `Page`, `per_page` ← `PerPage`, `filter` ← `Filter`
 - **Returns**: `IReadOnlyList<ComponentResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListComponentsRequest` | `Requests/Components/ListComponentsRequest.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `ListComponentsFilter` | `Models/ListComponentsFilter.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 
 ### ListComponentsForProductFamily
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListComponentsForProductFamily(int productFamilyId, bool? includeArchived, ListComponentsFilter? filter, BasicDateField? dateField, string? endDate, string? endDatetime, string? startDate, string? startDatetime, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 7 params (`includeArchived` … `startDatetime`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `include_archived` ← `includeArchived`, `page` ← `page`, `per_page` ← `perPage`, `filter` ← `filter`, `date_field` ← `dateField`, `end_date` ← `endDate`, `end_datetime` ← `endDatetime`, `start_date` ← `startDate`, `start_datetime` ← `startDatetime`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListComponentsForProductFamily(ListComponentsForProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
+- **Query params (wire ← C#)**: `include_archived` ← `IncludeArchived`, `page` ← `Page`, `per_page` ← `PerPage`, `filter` ← `Filter`, `date_field` ← `DateField`, `end_date` ← `EndDate`, `end_datetime` ← `EndDatetime`, `start_date` ← `StartDate`, `start_datetime` ← `StartDatetime`
 - **Returns**: `IReadOnlyList<ComponentResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListComponentsForProductFamilyRequest` | `Requests/Components/ListComponentsForProductFamilyRequest.cs` |
 | `ListComponentsFilter` | `Models/ListComponentsFilter.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 
 ### ReadComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadComponent(int productFamilyId, string componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadComponent(ReadComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `ComponentId`
+- **Query params (wire ← C#)**: `include_features` ← `IncludeFeatures`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadComponentRequest` | `Requests/Components/ReadComponentRequest.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 
 ### UpdateComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateComponent(string componentId, UpdateComponentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateComponent(UpdateComponentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<UpdateComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateComponentOperationRequest` | `Requests/Components/UpdateComponentOperationRequest.cs` |
 | `UpdateComponentRequest` | `Models/UpdateComponentRequest.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `UpdateComponentError` | `Errors/UpdateComponentError.cs` |
@@ -173,15 +185,16 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 ### UpdateProductFamilyComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateProductFamilyComponent(int productFamilyId, string componentId, UpdateComponentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateProductFamilyComponent(UpdateProductFamilyComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `ComponentId`
 - **Returns**: `ComponentResponse`
-- **Error**: `SdkException<UpdateProductFamilyComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateProductFamilyComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateProductFamilyComponentRequest` | `Requests/Components/UpdateProductFamilyComponentRequest.cs` |
 | `UpdateComponentRequest` | `Models/UpdateComponentRequest.cs` |
 | `ComponentResponse` | `Models/ComponentResponse.cs` |
 | `UpdateProductFamilyComponentError` | `Errors/UpdateProductFamilyComponentError.cs` |

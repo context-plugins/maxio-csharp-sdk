@@ -2,18 +2,17 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.BillingPortal;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class BillingPortal
 {
@@ -31,99 +30,90 @@ public sealed class BillingPortal
     /// <summary>
     /// Enable Billing Portal for Customer
     /// </summary>
-    /// <param name="customerId">The Chargify id of the customer</param>
-    /// <param name="autoInvite">When set to 1, an Invitation email will be sent to the Customer. When set to 0, or not sent, an email will not be sent. Use in query: <c>auto_invite=1</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CustomerResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="EnableBillingPortalForCustomerError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="EnableBillingPortalForCustomerError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Enables Billing Portal access for a customer, with an option to send an invitation email at the same time.
-    /// <para>
-    /// ## Billing Portal Documentation
-    /// </para>
-    /// <para>
-    /// Full documentation on how the Billing Portal operates within the Advanced Billing UI can be located <see href="https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-Portal-Overview">here</see>.
-    /// </para>
-    /// <para>
-    /// This documentation is focused on how to configure the Billing Portal Settings, as well as Subscriber Interaction and Merchant Management of the Billing Portal.
-    /// </para>
-    /// <para>
-    /// You can use this endpoint to enable Billing Portal access for a Customer, with the option of sending the Customer an Invitation email at the same time.
-    /// </para>
     /// <para>
     /// ## Billing Portal Security
     /// </para>
     /// <para>
-    /// If your customer has been invited to the Billing Portal, then they will receive a link to manage their subscription (the “Management URL”) automatically at the bottom of their statements, invoices, and receipts. <b>This link changes periodically for security and is only valid for 65 days.</b>
+    /// If your customer has been invited to the Billing Portal, they receive a link to manage their subscription (the “Management URL”) automatically at the bottom of their statements, invoices, and receipts. <b>This link changes periodically for security and is only valid for 65 days.</b>
     /// </para>
     /// <para>
-    /// If you need to provide your customer their Management URL through other means, you can retrieve it via the API. Because the URL is cryptographically signed with a timestamp, it is not possible for merchants to generate the URL without requesting it from Advanced Billing.
+    /// If you need to provide your customer their Management URL through other means, you can retrieve it <see href="$e/Billing%20Portal/readBillingPortalLink">via the API</see>. Because the URL is cryptographically signed with a timestamp, merchants cannot generate the URL without requesting it through the API.
     /// </para>
     /// <para>
-    /// In order to prevent abuse &amp; overuse, we ask that you request a new URL only when absolutely necessary. Management URLs are good for 65 days, so you should re-use a previously generated one as much as possible. If you use the URL frequently (such as to display on your website), <b>do not</b> make an API request to Advanced Billing every time.
+    /// To prevent abuse and overuse, request a new URL only when absolutely necessary. Management URLs are good for 65 days, so you should re-use a previously generated one as much as possible. If you use the URL frequently (such as to display on your website), <b>do not</b> make an API request every time.
+    /// </para>
+    /// <para>
+    /// For more information configuring the Billing Portal, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-Portal-Overview">Billing Portal Overview</see>.
     /// </para>
     /// </remarks>
-    public Task<CustomerResponse> EnableBillingPortalForCustomer(int customerId,
-        AutoInvite? autoInvite,
+    public Task<CustomerResponse> EnableBillingPortalForCustomer(EnableBillingPortalForCustomerRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/portal/customers/{customer_id}/enable.json"),
-            [new TemplateParam("customer_id", customerId)],
-            [new Param("auto_invite", autoInvite)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/portal/customers/{customer_id}/enable.json"),
+            [new TemplateParam("customer_id", request.CustomerId)],
+            [new Param("auto_invite", request.AutoInvite)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<CustomerResponse>(),
-            EnableBillingPortalForCustomerErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            EnableBillingPortalForCustomerError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Billing Portal Management Link
     /// </summary>
-    /// <param name="customerId">The Chargify id of the customer</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PortalManagementLink"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReadBillingPortalLinkError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReadBillingPortalLinkError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns the exact URL required for a subscriber to access the Billing Portal.
     /// <para>
-    /// ## Rules for Management Link API
+    /// ## Management Link Request Rules
     /// </para>
     /// <list type="bullet">
-    ///   <item><description>When retrieving a management URL, multiple requests for the same customer in a short period will return the <b>same</b> URL</description></item>
-    ///   <item><description>We will not generate a new URL for 15 days</description></item>
+    ///   <item><description>When retrieving a management URL, multiple requests for the same customer in a short period return the <b>same</b> URL</description></item>
+    ///   <item><description>A new URL is not generated for 15 days</description></item>
     ///   <item><description>You must cache and remember this URL if you are going to need it again within 15 days</description></item>
     ///   <item><description>Only request a new URL after the <c>new_link_available_at</c> date</description></item>
-    ///   <item><description>You are limited to 15 requests for the same URL. If you make more than 15 requests before <c>new_link_available_at</c>, you will be blocked from further Management URL requests (with a response code <c>429</c>).</description></item>
+    ///   <item><description>You are limited to 15 requests for the same URL. If you make more than 15 requests before <c>new_link_available_at</c>, you are blocked from further Management URL requests (with a response code <c>429</c>).</description></item>
     /// </list>
     /// </remarks>
-    public Task<PortalManagementLink> ReadBillingPortalLink(int customerId,
+    public Task<PortalManagementLink> ReadBillingPortalLink(ReadBillingPortalLinkRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/portal/customers/{customer_id}/management_link.json"),
-            [new TemplateParam("customer_id", customerId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/portal/customers/{customer_id}/management_link.json"),
+            [new TemplateParam("customer_id", request.CustomerId)],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<PortalManagementLink>(),
-            ReadBillingPortalLinkErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReadBillingPortalLinkError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Resend Billing Portal Invitation
     /// </summary>
-    /// <param name="customerId">The Chargify id of the customer</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ResentInvitation"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ResendBillingPortalInvitationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ResendBillingPortalInvitationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Resends a customer's Billing Portal invitation.
     /// <para>
@@ -142,29 +132,30 @@ public sealed class BillingPortal
     /// This endpoint will only return a JSON response.
     /// </para>
     /// </remarks>
-    public Task<ResentInvitation> ResendBillingPortalInvitation(int customerId,
+    public Task<ResentInvitation> ResendBillingPortalInvitation(ResendBillingPortalInvitationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/portal/customers/{customer_id}/invitations/invite.json"),
-            [new TemplateParam("customer_id", customerId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/portal/customers/{customer_id}/invitations/invite.json"),
+            [new TemplateParam("customer_id", request.CustomerId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<ResentInvitation>(),
-            ResendBillingPortalInvitationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ResendBillingPortalInvitationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Revoke Billing Portal Invitation for Customer
     /// </summary>
-    /// <param name="customerId">The Chargify id of the customer</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="RevokedInvitation"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Revokes a customer's Billing Portal invitation.
     /// <para>
@@ -177,18 +168,19 @@ public sealed class BillingPortal
     /// This endpoint will only return a JSON response.
     /// </para>
     /// </remarks>
-    public Task<RevokedInvitation> RevokeBillingPortalAccess(int customerId,
+    public Task<RevokedInvitation> RevokeBillingPortalAccess(RevokeBillingPortalAccessRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/portal/customers/{customer_id}/invitations/revoke.json"),
-            [new TemplateParam("customer_id", customerId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/portal/customers/{customer_id}/invitations/revoke.json"),
+            [new TemplateParam("customer_id", request.CustomerId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             JsonResponse.Create<RevokedInvitation>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

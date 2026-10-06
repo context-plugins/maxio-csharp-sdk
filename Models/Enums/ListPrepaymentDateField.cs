@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<ListPrepaymentDateField>))]
-public sealed record ListPrepaymentDateField : StringEnum<ListPrepaymentDateField>
+public sealed record ListPrepaymentDateField : OpenStringEnum<ListPrepaymentDateField>
 {
     private ListPrepaymentDateField(string value) : base(value)
     {
@@ -14,5 +15,20 @@ public sealed record ListPrepaymentDateField : StringEnum<ListPrepaymentDateFiel
 
     public static readonly ListPrepaymentDateField ApplicationAt = new("application_at");
 
-    public static ListPrepaymentDateField FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onCreatedAt,
+        Func<TResult> onApplicationAt,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == CreatedAt => onCreatedAt(),
+            _ when this == ApplicationAt => onApplicationAt(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onCreatedAt, Action onApplicationAt, Action<string> otherwise)
+    {
+        if (this == CreatedAt) onCreatedAt();
+        else if (this == ApplicationAt) onApplicationAt();
+        else otherwise(Value);
+    }
 }

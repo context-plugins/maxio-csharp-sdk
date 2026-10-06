@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class UpdatePaymentProfileError : ApiError
 {
@@ -35,23 +33,13 @@ public sealed class UpdatePaymentProfileError : ApiError
     public bool TryGetErrorStringMapResponse1(out ErrorStringMapResponse1 value) =>
         _errorStringMapResponse1Value.TryGetValue(out value);
 
-    internal static Task<UpdatePaymentProfileError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<UpdatePaymentProfileError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            422 => FromJson<ErrorStringMapResponse1>(response, ct).As(AsErrorStringMapResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            422 => response.Json<ErrorStringMapResponse1>().As(AsErrorStringMapResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class UpdatePaymentProfileErrorResponse : IErrorResponse<UpdatePaymentProfileError>
-{
-    public static UpdatePaymentProfileErrorResponse Instance { get; } = new();
-
-    private UpdatePaymentProfileErrorResponse()
-    {
-    }
-
-    public Task<UpdatePaymentProfileError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        UpdatePaymentProfileError.Create(response, ct);
+    internal static ApiErrorResponse<UpdatePaymentProfileError> Response { get; } = new(Create);
 }

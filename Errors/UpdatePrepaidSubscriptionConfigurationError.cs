@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class UpdatePrepaidSubscriptionConfigurationError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class UpdatePrepaidSubscriptionConfigurationError : ApiError
     public bool TryGetPrepaidConfigurationErrorResponse(out PrepaidConfigurationErrorResponse value) =>
         _prepaidConfigurationErrorResponseValue.TryGetValue(out value);
 
-    internal static Task<UpdatePrepaidSubscriptionConfigurationError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<UpdatePrepaidSubscriptionConfigurationError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<PrepaidConfigurationErrorResponse>(response, ct).As(AsPrepaidConfigurationErrorResponse),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<PrepaidConfigurationErrorResponse>().As(AsPrepaidConfigurationErrorResponse),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class UpdatePrepaidSubscriptionConfigurationErrorResponse : IErrorResponse<UpdatePrepaidSubscriptionConfigurationError>
-{
-    public static UpdatePrepaidSubscriptionConfigurationErrorResponse Instance { get; } = new();
-
-    private UpdatePrepaidSubscriptionConfigurationErrorResponse()
-    {
-    }
-
-    public Task<UpdatePrepaidSubscriptionConfigurationError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        UpdatePrepaidSubscriptionConfigurationError.Create(response, ct);
+    internal static ApiErrorResponse<UpdatePrepaidSubscriptionConfigurationError> Response { get; } = new(Create);
 }

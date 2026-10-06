@@ -1,13 +1,14 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic.
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter<ProformaInvoiceRole>))]
-public sealed record ProformaInvoiceRole : StringEnum<ProformaInvoiceRole>
+public sealed record ProformaInvoiceRole : OpenStringEnum<ProformaInvoiceRole>
 {
     private ProformaInvoiceRole(string value) : base(value)
     {
@@ -21,5 +22,30 @@ public sealed record ProformaInvoiceRole : StringEnum<ProformaInvoiceRole>
 
     public static readonly ProformaInvoiceRole ProformaAutomatic = new("proforma_automatic");
 
-    public static ProformaInvoiceRole FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onUnset,
+        Func<TResult> onProforma,
+        Func<TResult> onProformaAdhoc,
+        Func<TResult> onProformaAutomatic,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Unset => onUnset(),
+            _ when this == Proforma => onProforma(),
+            _ when this == ProformaAdhoc => onProformaAdhoc(),
+            _ when this == ProformaAutomatic => onProformaAutomatic(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onUnset,
+        Action onProforma,
+        Action onProformaAdhoc,
+        Action onProformaAutomatic,
+        Action<string> otherwise)
+    {
+        if (this == Unset) onUnset();
+        else if (this == Proforma) onProforma();
+        else if (this == ProformaAdhoc) onProformaAdhoc();
+        else if (this == ProformaAutomatic) onProformaAutomatic();
+        else otherwise(Value);
+    }
 }

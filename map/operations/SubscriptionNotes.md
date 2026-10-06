@@ -8,15 +8,16 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 ### CreateSubscriptionNote
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateSubscriptionNote(int subscriptionId, UpdateSubscriptionNoteRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateSubscriptionNote(CreateSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionNoteResponse`
-- **Error**: `SdkException<CreateSubscriptionNoteError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateSubscriptionNoteError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateSubscriptionNoteRequest` | `Requests/SubscriptionNotes/CreateSubscriptionNoteRequest.cs` |
 | `UpdateSubscriptionNoteRequest` | `Models/UpdateSubscriptionNoteRequest.cs` |
 | `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
 | `CreateSubscriptionNoteError` | `Errors/CreateSubscriptionNoteError.cs` |
@@ -24,49 +25,58 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 ### DeleteSubscriptionNote
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteSubscriptionNote(int subscriptionId, int noteId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteSubscriptionNote(DeleteSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `NoteId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
+
+| Type | Source |
+| --- | --- |
+| `DeleteSubscriptionNoteRequest` | `Requests/SubscriptionNotes/DeleteSubscriptionNoteRequest.cs` |
 
 ### ListSubscriptionNotes
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptionNotes(int subscriptionId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptionNotes(ListSubscriptionNotesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `IReadOnlyList<SubscriptionNoteResponse>`
-- **Error**: `SdkException<ListSubscriptionNotesError>` — **Case A (typed)**
+- **Error**: `ApiException<ListSubscriptionNotesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListSubscriptionNotesRequest` | `Requests/SubscriptionNotes/ListSubscriptionNotesRequest.cs` |
 | `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
 | `ListSubscriptionNotesError` | `Errors/ListSubscriptionNotesError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ReadSubscriptionNote
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSubscriptionNote(int subscriptionId, int noteId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSubscriptionNote(ReadSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `NoteId`
 - **Returns**: `SubscriptionNoteResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadSubscriptionNoteRequest` | `Requests/SubscriptionNotes/ReadSubscriptionNoteRequest.cs` |
 | `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
 
 ### UpdateSubscriptionNote
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateSubscriptionNote(int subscriptionId, int noteId, UpdateSubscriptionNoteRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateSubscriptionNote(UpdateSubscriptionNoteOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `NoteId`
 - **Returns**: `SubscriptionNoteResponse`
-- **Error**: `SdkException<UpdateSubscriptionNoteError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateSubscriptionNoteError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateSubscriptionNoteOperationRequest` | `Requests/SubscriptionNotes/UpdateSubscriptionNoteOperationRequest.cs` |
 | `UpdateSubscriptionNoteRequest` | `Models/UpdateSubscriptionNoteRequest.cs` |
 | `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
 | `UpdateSubscriptionNoteError` | `Errors/UpdateSubscriptionNoteError.cs` |

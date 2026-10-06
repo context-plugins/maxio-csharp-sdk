@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(IssueServiceCreditErrorResponseConverter))]
 public record IssueServiceCreditErrorResponse
@@ -51,13 +51,12 @@ file sealed class IssueServiceCreditErrorResponseConverter : JsonConverter<Issue
         {
             return IssueServiceCreditErrorResponse.ErrorListResponse1(errorListResponse1Value);
         }
-        if (JsonSerializer.TryDeserialize<ErrorStringMapResponse1>(root,
-            options,
-            out var errorStringMapResponse1Value))
+        if (JsonSerializer.TryDeserialize<ErrorStringMapResponse1>(root, options, out var errorStringMapResponse1Value))
         {
             return IssueServiceCreditErrorResponse.ErrorStringMapResponse1(errorStringMapResponse1Value);
         }
-        throw new JsonException($"JSON does not match ErrorListResponse1 or ErrorStringMapResponse1 schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match ErrorListResponse1 or ErrorStringMapResponse1 schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer,

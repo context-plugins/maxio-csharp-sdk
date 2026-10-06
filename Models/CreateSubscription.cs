@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record CreateSubscription
 {
@@ -110,6 +110,7 @@ public record CreateSubscription
     /// <summary>
     /// (Optional) Set this attribute to true to create the subscription in the Awaiting Signup Date state. Use this when you want to create a subscription that has an unknown first billing date. When the first billing date is known, update a subscription and set the <c>initial_billing_at</c> date. The subscription moves to the Awaiting Signup state with a scheduled initial billing date. You can omit the initial_billing_at date to activate the subscription immediately. See <see href="https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States">Subscription States</see> for more information.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("defer_signup")]
     public bool? DeferSignup { get; init; } = false;
 
@@ -326,6 +327,7 @@ public record CreateSubscription
     /// <summary>
     /// Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the <c>dunning_communication_delay_time_zone</c> attribute.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("dunning_communication_delay_enabled")]
     public bool? DunningCommunicationDelayEnabled { get; init; } = false;
 

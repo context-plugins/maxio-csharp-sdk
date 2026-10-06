@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record SubscriptionProductMigration
 {
@@ -22,24 +22,28 @@ public record SubscriptionProductMigration
     /// <summary>
     /// Whether to include the trial period configured for the product price point when starting a new billing period. Note that if preserve_period is set, then include_trial will be ignored.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("include_trial")]
     public bool? IncludeTrial { get; init; } = false;
 
     /// <summary>
     /// If <c>true</c> is sent initial charges will be assessed.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("include_initial_charge")]
     public bool? IncludeInitialCharge { get; init; } = false;
 
     /// <summary>
     /// If <c>true</c> is sent, any coupons associated with the subscription will be applied to the migration. If <c>false</c> is sent, coupons will not be applied. Note: When migrating to a new product family, the coupon cannot migrate.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("include_coupons")]
     public bool? IncludeCoupons { get; init; } = true;
 
     /// <summary>
     /// If <c>false</c> is sent, the subscription's billing period will be reset to today and the full price of the new product will be charged. If <c>true</c> is sent, the billing period will not change and a prorated charge will be issued for the new product.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("preserve_period")]
     public bool? PreservePeriod { get; init; } = false;
 

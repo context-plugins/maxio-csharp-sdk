@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record CreateSubscriptionComponent
 {
@@ -22,7 +22,7 @@ public record CreateSubscriptionComponent
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("unit_balance")]
-    public int? UnitBalance { get; init; }
+    public UnitBalance2? UnitBalance { get; init; }
 
     /// <summary>
     /// Used for quantity based components.

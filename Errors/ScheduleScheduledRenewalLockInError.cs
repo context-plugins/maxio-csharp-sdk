@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ScheduleScheduledRenewalLockInError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class ScheduleScheduledRenewalLockInError : ApiError
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<ScheduleScheduledRenewalLockInError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ScheduleScheduledRenewalLockInError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ScheduleScheduledRenewalLockInErrorResponse : IErrorResponse<ScheduleScheduledRenewalLockInError>
-{
-    public static ScheduleScheduledRenewalLockInErrorResponse Instance { get; } = new();
-
-    private ScheduleScheduledRenewalLockInErrorResponse()
-    {
-    }
-
-    public Task<ScheduleScheduledRenewalLockInError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ScheduleScheduledRenewalLockInError.Create(response, ct);
+    internal static ApiErrorResponse<ScheduleScheduledRenewalLockInError> Response { get; } = new(Create);
 }

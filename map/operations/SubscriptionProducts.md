@@ -8,15 +8,16 @@ Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs`
 
 ### MigrateSubscriptionProduct
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `MigrateSubscriptionProduct(int subscriptionId, SubscriptionProductMigrationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `MigrateSubscriptionProduct(MigrateSubscriptionProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<MigrateSubscriptionProductError>` — **Case A (typed)**
+- **Error**: `ApiException<MigrateSubscriptionProductError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `MigrateSubscriptionProductRequest` | `Requests/SubscriptionProducts/MigrateSubscriptionProductRequest.cs` |
 | `SubscriptionProductMigrationRequest` | `Models/SubscriptionProductMigrationRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `MigrateSubscriptionProductError` | `Errors/MigrateSubscriptionProductError.cs` |
@@ -24,15 +25,16 @@ Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs`
 
 ### PreviewSubscriptionProductMigration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PreviewSubscriptionProductMigration(int subscriptionId, SubscriptionMigrationPreviewRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PreviewSubscriptionProductMigration(PreviewSubscriptionProductMigrationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionMigrationPreviewResponse`
-- **Error**: `SdkException<PreviewSubscriptionProductMigrationError>` — **Case A (typed)**
+- **Error**: `ApiException<PreviewSubscriptionProductMigrationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `PreviewSubscriptionProductMigrationRequest` | `Requests/SubscriptionProducts/PreviewSubscriptionProductMigrationRequest.cs` |
 | `SubscriptionMigrationPreviewRequest` | `Models/SubscriptionMigrationPreviewRequest.cs` |
 | `SubscriptionMigrationPreviewResponse` | `Models/SubscriptionMigrationPreviewResponse.cs` |
 | `PreviewSubscriptionProductMigrationError` | `Errors/PreviewSubscriptionProductMigrationError.cs` |

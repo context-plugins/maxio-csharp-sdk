@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// A value that will occur in your events that you want to bill upon. The type of the value depends on the property type in the related event based billing metric.
@@ -37,11 +37,9 @@ public record SegmentProperty3Value
     public static SegmentProperty3Value Double(double value) =>
         new(default, Optional<double>.Some(value), default, default);
 
-    public static SegmentProperty3Value Int(int value) =>
-        new(default, default, Optional<int>.Some(value), default);
+    public static SegmentProperty3Value Int(int value) => new(default, default, Optional<int>.Some(value), default);
 
-    public static SegmentProperty3Value Bool(bool value) =>
-        new(default, default, default, Optional<bool>.Some(value));
+    public static SegmentProperty3Value Bool(bool value) => new(default, default, default, Optional<bool>.Some(value));
 
     public bool TryGetString(out string value) => _stringValue.TryGetValue(out value);
 

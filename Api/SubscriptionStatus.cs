@@ -2,17 +2,16 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.SubscriptionStatus;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class SubscriptionStatus
 {
@@ -30,124 +29,123 @@ public sealed class SubscriptionStatus
     /// <summary>
     /// Cancel Delayed Cancellation
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="DelayedCancellationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CancelDelayedCancellationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CancelDelayedCancellationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Removes the delayed cancellation from a subscription, ensuring it is not canceled at the end of the current period. The request will reset the <c>cancel_at_end_of_period</c> flag to <c>false</c>.
     /// <para>
     /// This endpoint is idempotent. If the subscription was not set to cancel in the future, removing the delayed cancellation has no effect and the call will be successful.
     /// </para>
     /// </remarks>
-    public Task<DelayedCancellationResponse> CancelDelayedCancellation(int subscriptionId,
+    public Task<DelayedCancellationResponse> CancelDelayedCancellation(CancelDelayedCancellationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/delayed_cancel.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/delayed_cancel.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             JsonResponse.Create<DelayedCancellationResponse>(),
-            CancelDelayedCancellationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CancelDelayedCancellationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Cancel Dunning
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CancelDunningError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CancelDunningError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Cancels the active dunning process for a subscription and sets it to active.
     /// </remarks>
-    public Task<SubscriptionResponse> CancelDunning(int subscriptionId,
+    public Task<SubscriptionResponse> CancelDunning(CancelDunningRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/cancel_dunning.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/cancel_dunning.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
-            CancelDunningErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CancelDunningError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Cancel Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CancelSubscriptionApiError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CancelSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Cancels the Subscription. The Delete method sets the Subscription state to <c>canceled</c>.
     /// To cancel the subscription immediately, omit any schedule parameters from the request. To use the schedule options, the Schedule Subscription Cancellation feature must be enabled on your site.
     /// </remarks>
-    public Task<SubscriptionResponse> CancelSubscription(int subscriptionId,
-        CancellationRequest? body,
+    public Task<SubscriptionResponse> CancelSubscription(CancelSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            CancelSubscriptionApiErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CancelSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Initiate Delayed Cancellation
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="DelayedCancellationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="InitiateDelayedCancellationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="InitiateDelayedCancellationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Cancels a subscription at the end of the current billing period based on the subscription's current product. You cannot set <c>cancel_at_end_of_period</c> at subscription creation, or if the subscription is past due.
     /// </remarks>
-    public Task<DelayedCancellationResponse> InitiateDelayedCancellation(int subscriptionId,
-        CancellationRequest? body,
+    public Task<DelayedCancellationResponse> InitiateDelayedCancellation(InitiateDelayedCancellationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/delayed_cancel.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/delayed_cancel.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<DelayedCancellationResponse>(),
-            InitiateDelayedCancellationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            InitiateDelayedCancellationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Hold / Pause Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="PauseSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="PauseSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Places the subscription on hold, preventing it from renewing.
     /// <para>
@@ -157,44 +155,43 @@ public sealed class SubscriptionStatus
     /// You may not place a subscription on hold if the <c>next_billing_at</c> date is within 24 hours.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> PauseSubscription(int subscriptionId,
-        PauseRequest? body,
+    public Task<SubscriptionResponse> PauseSubscription(PauseSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/hold.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/hold.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            PauseSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            PauseSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Preview Renewal
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="RenewalPreviewResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="PreviewRenewalError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="PreviewRenewalError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Previews a subscription’s next renewal assessment. Renewal Preview is an object representing a subscription’s next assessment. You can retrieve it to see a snapshot of how much your customer will be charged on their next renewal.
     /// <para>
-    /// The "Next Billing" amount and "Next Billing" date are already represented in the UI on each Subscriber's Summary. For more information, see our documentation <see href="https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview">here</see>.
+    /// The "Next Billing" amount and "Next Billing" date are already represented in the UI on each Subscriber's Summary. For more information, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview">Subscriber Interface Overview</see>.
     /// </para>
     /// <para>
     /// ## Optional Component Fields
     /// </para>
     /// <para>
-    /// This endpoint is particularly useful due to the fact that it will return the computed billing amount for the base product and the components which are in use by a subscriber.
+    /// This endpoint is particularly useful because it returns the computed billing amount for the base product and the components which are in use by a subscriber.
     /// </para>
     /// <para>
-    /// By default, the preview will include billing details for all components _at their <b>current</b> quantities_. This means:
+    /// By default, the preview includes billing details for all components _at their <b>current</b> quantities_. This means:
     /// </para>
     /// <list type="bullet">
     ///   <item><description>Current <c>allocated_quantity</c> for quantity-based components</description></item>
@@ -203,43 +200,42 @@ public sealed class SubscriptionStatus
     ///   <item><description>Current metric quantity value for events recorded thus far for events-based components</description></item>
     /// </list>
     /// <para>
-    /// In the above statements, "current" means the quantity or value as of the call to the renewal preview endpoint. We do not predict end-of-period values for components, so metered or events-based usage may be less than it will eventually be at the end of the period.
+    /// In the above statements, "current" means the quantity or value as of the call to the renewal preview endpoint. End-of-period values for components are not predicted, so metered or events-based usage may be less than it will eventually be at the end of the period.
     /// </para>
     /// <para>
-    /// Optionally, <b>you may provide your own custom quantities</b> for any component to see a billing preview for non-current quantities. This is accomplished by sending a request body with data under the <c>components</c> key. See the request body documentation below.
+    /// Optionally, <b>you can provide your own custom quantities</b> for any component to see a billing preview for non-current quantities. This is accomplished by sending a request body with data under the <c>components</c> key. See the request body documentation below.
     /// </para>
     /// <para>
-    /// ## Subscription Side Effects
+    /// ## Preview Behavior
     /// </para>
     /// <para>
-    /// You can request a <c>POST</c> to obtain this data from the endpoint without any side effects. This method allows you to preview data, but does not log any changes against a subscription.
+    /// Sending a <c>POST</c> request to this endpoint returns preview data without modifying the subscription. This method previews data, but does not log any changes against a subscription.
     /// </para>
     /// </remarks>
-    public Task<RenewalPreviewResponse> PreviewRenewal(int subscriptionId,
-        RenewalPreviewRequest? body,
+    public Task<RenewalPreviewResponse> PreviewRenewal(PreviewRenewalRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/renewals/preview.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/renewals/preview.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<RenewalPreviewResponse>(),
-            PreviewRenewalErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            PreviewRenewalError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Reactivate Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReactivateSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReactivateSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Reactivates a previously canceled subscription. For details on how the reactivation works, and how to reactivate subscriptions through the application, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming">reactivation</see>.
     /// <para>
@@ -462,58 +458,57 @@ public sealed class SubscriptionStatus
     /// See the <see href="https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow">3D Secure Post-Authentication Flow</see> article in the product documentation to learn how to manage the redirect flow.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> ReactivateSubscription(int subscriptionId,
-        ReactivateSubscriptionRequest? body,
+    public Task<SubscriptionResponse> ReactivateSubscription(ReactivateSubscriptionOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/reactivate.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/reactivate.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            ReactivateSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReactivateSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Resume Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="calendarBillingResumptionCharge">(For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ResumeSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ResumeSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Resumes a paused (on-hold) subscription. If the normal next renewal date has not passed, the subscription will return to active and will renew on that date.  Otherwise, it will behave like a reactivation, setting the billing date to 'now' and charging the subscriber.
     /// </remarks>
-    public Task<SubscriptionResponse> ResumeSubscription(int subscriptionId,
-        ResumptionCharge? calendarBillingResumptionCharge,
+    public Task<SubscriptionResponse> ResumeSubscription(ResumeSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/resume.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
-            [new Param("calendar_billing['resumption_charge']", calendarBillingResumptionCharge)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/resume.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
+            [new Param("calendar_billing['resumption_charge']", request.CalendarBillingResumptionCharge)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
-            ResumeSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ResumeSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Retry Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RetrySubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RetrySubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Retries collecting the balance due on a past-due subscription without waiting for the next scheduled attempt.
     /// <para>
@@ -526,30 +521,30 @@ public sealed class SubscriptionStatus
     /// See the <see href="https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow">3D Secure Post-Authentication Flow</see> article in the product documentation to learn how to manage the redirect flow.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> RetrySubscription(int subscriptionId,
+    public Task<SubscriptionResponse> RetrySubscription(RetrySubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/retry.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/retry.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
-            RetrySubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RetrySubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Automatic Subscription Resumption
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateAutomaticSubscriptionResumptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateAutomaticSubscriptionResumptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates the date on which a paused subscription will automatically resume.
     /// <para>
@@ -562,19 +557,19 @@ public sealed class SubscriptionStatus
     /// Alternatively, you can change the <c>automatically_resume_at</c> to <c>null</c> if you would like the subscription to not have a resume date.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> UpdateAutomaticSubscriptionResumption(int subscriptionId,
-        PauseRequest? body,
+    public Task<SubscriptionResponse> UpdateAutomaticSubscriptionResumption(UpdateAutomaticSubscriptionResumptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/hold.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/hold.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            UpdateAutomaticSubscriptionResumptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateAutomaticSubscriptionResumptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

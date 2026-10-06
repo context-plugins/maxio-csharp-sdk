@@ -5,12 +5,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
 
-namespace MaxioAdvancedBilling.Core.Authentication.OAuth2.AuthorizationCode;
+namespace Maxio.Core.Authentication.OAuth2.AuthorizationCode;
 
 internal sealed class OAuth2AuthorizationCodeStrategy
     : IOAuth2RefreshableTokenStrategy<OAuth2AuthorizationCodeCredentials>
@@ -142,9 +142,9 @@ internal sealed class OAuth2AuthorizationCodeStrategy
         using var rng = RandomNumberGenerator.Create();
         rng.GetBytes(bytes);
         var verifier = Base64UrlEncode(bytes);
-        var challenge = method == PkceMethod.Plain
-            ? verifier
-            : Base64UrlEncode(Sha256Hash(Encoding.ASCII.GetBytes(verifier)));
+        var challenge = method.Match(
+            onS256: () => Base64UrlEncode(Sha256Hash(Encoding.ASCII.GetBytes(verifier))),
+            onPlain: () => verifier);
         return new PkceValues(verifier, challenge, method);
     }
 

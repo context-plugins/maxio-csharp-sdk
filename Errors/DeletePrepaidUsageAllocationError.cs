@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class DeletePrepaidUsageAllocationError : ApiError
 {
@@ -35,24 +33,13 @@ public sealed class DeletePrepaidUsageAllocationError : ApiError
     public bool TryGetSubscriptionComponentAllocationError1(out SubscriptionComponentAllocationError1 value) =>
         _subscriptionComponentAllocationError1Value.TryGetValue(out value);
 
-    internal static Task<DeletePrepaidUsageAllocationError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<DeletePrepaidUsageAllocationError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            422 => FromJson<SubscriptionComponentAllocationError1>(response, ct).As(AsSubscriptionComponentAllocationError1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            422 => response.Json<SubscriptionComponentAllocationError1>().As(AsSubscriptionComponentAllocationError1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class DeletePrepaidUsageAllocationErrorResponse : IErrorResponse<DeletePrepaidUsageAllocationError>
-{
-    public static DeletePrepaidUsageAllocationErrorResponse Instance { get; } = new();
-
-    private DeletePrepaidUsageAllocationErrorResponse()
-    {
-    }
-
-    public Task<DeletePrepaidUsageAllocationError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        DeletePrepaidUsageAllocationError.Create(response, ct);
+    internal static ApiErrorResponse<DeletePrepaidUsageAllocationError> Response { get; } = new(Create);
 }

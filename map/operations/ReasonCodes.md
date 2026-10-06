@@ -8,15 +8,15 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### CreateReasonCode
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateReasonCode(CreateReasonCodeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateReasonCode(CreateReasonCodeOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `ReasonCodeResponse`
-- **Error**: `SdkException<CreateReasonCodeError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateReasonCodeError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateReasonCodeOperationRequest` | `Requests/ReasonCodes/CreateReasonCodeOperationRequest.cs` |
 | `CreateReasonCodeRequest` | `Models/CreateReasonCodeRequest.cs` |
 | `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
 | `CreateReasonCodeError` | `Errors/CreateReasonCodeError.cs` |
@@ -24,57 +24,62 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 ### DeleteReasonCode
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteReasonCode(int reasonCodeId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteReasonCode(DeleteReasonCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ReasonCodeId`
 - **Returns**: `OkResponse`
-- **Error**: `SdkException<DeleteReasonCodeError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteReasonCodeError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteReasonCodeRequest` | `Requests/ReasonCodes/DeleteReasonCodeRequest.cs` |
 | `OkResponse` | `Models/OkResponse.cs` |
 | `DeleteReasonCodeError` | `Errors/DeleteReasonCodeError.cs` |
 
 ### ListReasonCodes
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListReasonCodes(int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListReasonCodes(ListReasonCodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `IReadOnlyList<ReasonCodeResponse>`
-- **Error**: `SdkException<ListReasonCodesError>` — **Case A (typed)**
+- **Error**: `ApiException<ListReasonCodesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListReasonCodesRequest` | `Requests/ReasonCodes/ListReasonCodesRequest.cs` |
 | `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
 | `ListReasonCodesError` | `Errors/ListReasonCodesError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ReadReasonCode
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadReasonCode(int reasonCodeId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadReasonCode(ReadReasonCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ReasonCodeId`
 - **Returns**: `ReasonCodeResponse`
-- **Error**: `SdkException<ReadReasonCodeError>` — **Case A (typed)**
+- **Error**: `ApiException<ReadReasonCodeError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ReadReasonCodeRequest` | `Requests/ReasonCodes/ReadReasonCodeRequest.cs` |
 | `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
 | `ReadReasonCodeError` | `Errors/ReadReasonCodeError.cs` |
 
 ### UpdateReasonCode
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateReasonCode(int reasonCodeId, UpdateReasonCodeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateReasonCode(UpdateReasonCodeOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ReasonCodeId`
 - **Returns**: `ReasonCodeResponse`
-- **Error**: `SdkException<UpdateReasonCodeError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateReasonCodeError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateReasonCodeOperationRequest` | `Requests/ReasonCodes/UpdateReasonCodeOperationRequest.cs` |
 | `UpdateReasonCodeRequest` | `Models/UpdateReasonCodeRequest.cs` |
 | `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
 | `UpdateReasonCodeError` | `Errors/UpdateReasonCodeError.cs` |

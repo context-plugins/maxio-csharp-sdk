@@ -8,15 +8,15 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### CreateCustomer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateCustomer(CreateCustomerRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateCustomer(CreateCustomerOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `CustomerResponse`
-- **Error**: `SdkException<CreateCustomerError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateCustomerError>` — **Case A (typed)**
 - **Error accessors**: `TryGetCustomerErrorResponse1(out CustomerErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateCustomerOperationRequest` | `Requests/Customers/CreateCustomerOperationRequest.cs` |
 | `CreateCustomerRequest` | `Models/CreateCustomerRequest.cs` |
 | `CustomerResponse` | `Models/CustomerResponse.cs` |
 | `CreateCustomerError` | `Errors/CreateCustomerError.cs` |
@@ -24,72 +24,83 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 ### DeleteCustomer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteCustomer(int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteCustomer(DeleteCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Id`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
-
-### ListCustomerSubscriptions
-
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListCustomerSubscriptions(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-- **Returns**: `IReadOnlyList<SubscriptionResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `DeleteCustomerRequest` | `Requests/Customers/DeleteCustomerRequest.cs` |
+
+### ListCustomerSubscriptions
+
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListCustomerSubscriptions(ListCustomerSubscriptionsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CustomerId`
+- **Returns**: `IReadOnlyList<SubscriptionResponse>`
+- **Error**: `ApiException<RawError>` — **Case B**
+
+| Type | Source |
+| --- | --- |
+| `ListCustomerSubscriptionsRequest` | `Requests/Customers/ListCustomerSubscriptionsRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 
 ### ListCustomers
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListCustomers(SortingDirection? direction, BasicDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, string? q, int? page = 1, int? perPage = 50, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 7 params (`direction` … `q`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `50`
-- **Query params (wire ← C#)**: `direction` ← `direction`, `page` ← `page`, `per_page` ← `perPage`, `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`, `q` ← `q`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListCustomers(ListCustomersRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `direction` ← `Direction`, `page` ← `Page`, `per_page` ← `PerPage`, `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `q` ← `Q`
 - **Returns**: `IReadOnlyList<CustomerResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListCustomersRequest` | `Requests/Customers/ListCustomersRequest.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `CustomerResponse` | `Models/CustomerResponse.cs` |
 
 ### ReadCustomer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadCustomer(int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadCustomer(ReadCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Id`
 - **Returns**: `CustomerResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadCustomerRequest` | `Requests/Customers/ReadCustomerRequest.cs` |
 | `CustomerResponse` | `Models/CustomerResponse.cs` |
 
 ### ReadCustomerByReference
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadCustomerByReference(string reference, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-- **Query params (wire ← C#)**: `reference` ← `reference`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadCustomerByReference(ReadCustomerByReferenceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Reference`
+- **Query params (wire ← C#)**: `reference` ← `Reference`
 - **Returns**: `CustomerResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadCustomerByReferenceRequest` | `Requests/Customers/ReadCustomerByReferenceRequest.cs` |
 | `CustomerResponse` | `Models/CustomerResponse.cs` |
 
 ### UpdateCustomer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateCustomer(int id, UpdateCustomerRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateCustomer(UpdateCustomerOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Id`
 - **Returns**: `CustomerResponse`
-- **Error**: `SdkException<UpdateCustomerError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateCustomerError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetCustomerErrorResponse1(out CustomerErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateCustomerOperationRequest` | `Requests/Customers/UpdateCustomerOperationRequest.cs` |
 | `UpdateCustomerRequest` | `Models/UpdateCustomerRequest.cs` |
 | `CustomerResponse` | `Models/CustomerResponse.cs` |
 | `UpdateCustomerError` | `Errors/UpdateCustomerError.cs` |

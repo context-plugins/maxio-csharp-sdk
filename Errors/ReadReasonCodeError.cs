@@ -1,10 +1,8 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ReadReasonCodeError : ApiError
 {
@@ -15,30 +13,18 @@ public sealed class ReadReasonCodeError : ApiError
         _noContentValue = noContentValue;
     }
 
-    private static ReadReasonCodeError AsNoContent(RawError value) =>
-        new(Optional<RawError>.Some(value), default);
+    private static ReadReasonCodeError AsNoContent(RawError value) => new(Optional<RawError>.Some(value), default);
 
-    private static ReadReasonCodeError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static ReadReasonCodeError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetNoContent(out RawError value) => _noContentValue.TryGetValue(out value);
 
-    internal static Task<ReadReasonCodeError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ReadReasonCodeError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ReadReasonCodeErrorResponse : IErrorResponse<ReadReasonCodeError>
-{
-    public static ReadReasonCodeErrorResponse Instance { get; } = new();
-
-    private ReadReasonCodeErrorResponse()
-    {
-    }
-
-    public Task<ReadReasonCodeError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ReadReasonCodeError.Create(response, ct);
+    internal static ApiErrorResponse<ReadReasonCodeError> Response { get; } = new(Create);
 }

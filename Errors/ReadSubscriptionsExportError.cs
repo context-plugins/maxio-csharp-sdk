@@ -1,16 +1,15 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ReadSubscriptionsExportError : ApiError
 {
     private readonly Optional<RawError> _noContentValue;
 
-    private ReadSubscriptionsExportError(Optional<RawError> noContentValue, Optional<RawError> fallback) : base(fallback)
+    private ReadSubscriptionsExportError(Optional<RawError> noContentValue,
+        Optional<RawError> fallback) : base(fallback)
     {
         _noContentValue = noContentValue;
     }
@@ -23,22 +22,12 @@ public sealed class ReadSubscriptionsExportError : ApiError
 
     public bool TryGetNoContent(out RawError value) => _noContentValue.TryGetValue(out value);
 
-    internal static Task<ReadSubscriptionsExportError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ReadSubscriptionsExportError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ReadSubscriptionsExportErrorResponse : IErrorResponse<ReadSubscriptionsExportError>
-{
-    public static ReadSubscriptionsExportErrorResponse Instance { get; } = new();
-
-    private ReadSubscriptionsExportErrorResponse()
-    {
-    }
-
-    public Task<ReadSubscriptionsExportError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ReadSubscriptionsExportError.Create(response, ct);
+    internal static ApiErrorResponse<ReadSubscriptionsExportError> Response { get; } = new(Create);
 }

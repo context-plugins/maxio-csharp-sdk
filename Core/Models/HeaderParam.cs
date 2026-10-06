@@ -1,3 +1,3 @@
-namespace MaxioAdvancedBilling.Core.Models;
+namespace Maxio.Core.Models;
 
 public readonly record struct HeaderParam(string Key, object? Value);

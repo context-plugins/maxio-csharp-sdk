@@ -8,22 +8,27 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 ### ArchiveOffer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ArchiveOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ArchiveOffer(ArchiveOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `OfferId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
+
+| Type | Source |
+| --- | --- |
+| `ArchiveOfferRequest` | `Requests/Offers/ArchiveOfferRequest.cs` |
 
 ### CreateOffer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateOffer(CreateOfferRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateOffer(CreateOfferOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `OfferResponse`
-- **Error**: `SdkException<CreateOfferError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateOfferError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateOfferOperationRequest` | `Requests/Offers/CreateOfferOperationRequest.cs` |
 | `CreateOfferRequest` | `Models/CreateOfferRequest.cs` |
 | `OfferResponse` | `Models/OfferResponse.cs` |
 | `CreateOfferError` | `Errors/CreateOfferError.cs` |
@@ -31,36 +36,42 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 ### ListOffers
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListOffers(bool? includeArchived, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `includeArchived` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `include_archived` ← `includeArchived`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListOffers(ListOffersRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `include_archived` ← `IncludeArchived`
 - **Returns**: `ListOffersResponse`
-- **Error**: `SdkException<ListOffersError>` — **Case A (typed)**
+- **Error**: `ApiException<ListOffersError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListOffersRequest` | `Requests/Offers/ListOffersRequest.cs` |
 | `ListOffersResponse` | `Models/ListOffersResponse.cs` |
 | `ListOffersError` | `Errors/ListOffersError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ReadOffer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadOffer(ReadOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `OfferId`
 - **Returns**: `OfferResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadOfferRequest` | `Requests/Offers/ReadOfferRequest.cs` |
 | `OfferResponse` | `Models/OfferResponse.cs` |
 
 ### UnarchiveOffer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UnarchiveOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UnarchiveOffer(UnarchiveOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `OfferId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
+
+| Type | Source |
+| --- | --- |
+| `UnarchiveOfferRequest` | `Requests/Offers/UnarchiveOfferRequest.cs` |
 

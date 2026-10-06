@@ -1,6 +1,6 @@
 using System.Net.Http.Headers;
 
-namespace MaxioAdvancedBilling.Core.Pagination.States;
+namespace Maxio.Core.Pagination.States;
 
 internal interface IPageState<in TResponse, out TState>
 {

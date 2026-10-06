@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class CreateMetafieldsError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class CreateMetafieldsError : ApiError
     private static CreateMetafieldsError AsSingleErrorResponse1(SingleErrorResponse1 value) =>
         new(Optional<SingleErrorResponse1>.Some(value), default);
 
-    private static CreateMetafieldsError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static CreateMetafieldsError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetSingleErrorResponse1(out SingleErrorResponse1 value) =>
         _singleErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<CreateMetafieldsError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<CreateMetafieldsError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<SingleErrorResponse1>(response, ct).As(AsSingleErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<SingleErrorResponse1>().As(AsSingleErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class CreateMetafieldsErrorResponse : IErrorResponse<CreateMetafieldsError>
-{
-    public static CreateMetafieldsErrorResponse Instance { get; } = new();
-
-    private CreateMetafieldsErrorResponse()
-    {
-    }
-
-    public Task<CreateMetafieldsError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        CreateMetafieldsError.Create(response, ct);
+    internal static ApiErrorResponse<CreateMetafieldsError> Response { get; } = new(Create);
 }

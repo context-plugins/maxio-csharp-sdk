@@ -1,16 +1,15 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ListPrepaymentsForSubscriptionGroupError : ApiError
 {
     private readonly Optional<RawError> _noContentValue;
 
-    private ListPrepaymentsForSubscriptionGroupError(Optional<RawError> noContentValue, Optional<RawError> fallback) : base(fallback)
+    private ListPrepaymentsForSubscriptionGroupError(Optional<RawError> noContentValue,
+        Optional<RawError> fallback) : base(fallback)
     {
         _noContentValue = noContentValue;
     }
@@ -23,23 +22,12 @@ public sealed class ListPrepaymentsForSubscriptionGroupError : ApiError
 
     public bool TryGetNoContent(out RawError value) => _noContentValue.TryGetValue(out value);
 
-    internal static Task<ListPrepaymentsForSubscriptionGroupError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ListPrepaymentsForSubscriptionGroupError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ListPrepaymentsForSubscriptionGroupErrorResponse : IErrorResponse<ListPrepaymentsForSubscriptionGroupError>
-{
-    public static ListPrepaymentsForSubscriptionGroupErrorResponse Instance { get; } = new();
-
-    private ListPrepaymentsForSubscriptionGroupErrorResponse()
-    {
-    }
-
-    public Task<ListPrepaymentsForSubscriptionGroupError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ListPrepaymentsForSubscriptionGroupError.Create(response, ct);
+    internal static ApiErrorResponse<ListPrepaymentsForSubscriptionGroupError> Response { get; } = new(Create);
 }

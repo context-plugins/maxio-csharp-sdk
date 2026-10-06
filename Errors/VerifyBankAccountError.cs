@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class VerifyBankAccountError : ApiError
 {
@@ -35,23 +33,13 @@ public sealed class VerifyBankAccountError : ApiError
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<VerifyBankAccountError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<VerifyBankAccountError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class VerifyBankAccountErrorResponse : IErrorResponse<VerifyBankAccountError>
-{
-    public static VerifyBankAccountErrorResponse Instance { get; } = new();
-
-    private VerifyBankAccountErrorResponse()
-    {
-    }
-
-    public Task<VerifyBankAccountError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        VerifyBankAccountError.Create(response, ct);
+    internal static ApiErrorResponse<VerifyBankAccountError> Response { get; } = new(Create);
 }

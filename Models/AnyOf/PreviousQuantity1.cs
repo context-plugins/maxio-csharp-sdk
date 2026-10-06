@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(PreviousQuantity1Converter))]
 public record PreviousQuantity1
@@ -33,9 +33,7 @@ public record PreviousQuantity1
 
 file sealed class PreviousQuantity1Converter : JsonConverter<PreviousQuantity1>
 {
-    public override PreviousQuantity1 Read(ref Utf8JsonReader reader,
-        Type typeToConvert,
-        JsonSerializerOptions options)
+    public override PreviousQuantity1 Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;

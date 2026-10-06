@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(RefundConverter))]
 public record Refund
@@ -20,8 +20,7 @@ public record Refund
         _refundConsolidatedInvoiceValue = refundConsolidatedInvoiceValue;
     }
 
-    public static Refund RefundInvoice(RefundInvoice value) =>
-        new(Optional<RefundInvoice>.Some(value), default);
+    public static Refund RefundInvoice(RefundInvoice value) => new(Optional<RefundInvoice>.Some(value), default);
 
     public static Refund RefundConsolidatedInvoice(RefundConsolidatedInvoice value) =>
         new(default, Optional<RefundConsolidatedInvoice>.Some(value));
@@ -46,13 +45,15 @@ file sealed class RefundConverter : JsonConverter<Refund>
         {
             return Refund.RefundInvoice(refundInvoiceValue);
         }
-        if (JsonSerializer.TryDeserialize<RefundConsolidatedInvoice>(root,
+        if (JsonSerializer.TryDeserialize<RefundConsolidatedInvoice>(
+            root,
             options,
             out var refundConsolidatedInvoiceValue))
         {
             return Refund.RefundConsolidatedInvoice(refundConsolidatedInvoiceValue);
         }
-        throw new JsonException($"JSON does not match RefundInvoice or RefundConsolidatedInvoice schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match RefundInvoice or RefundConsolidatedInvoice schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, Refund value, JsonSerializerOptions options)

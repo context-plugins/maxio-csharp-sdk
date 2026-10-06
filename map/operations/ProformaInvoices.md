@@ -8,42 +8,46 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### CreateConsolidatedProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateConsolidatedProformaInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateConsolidatedProformaInvoice(CreateConsolidatedProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<CreateConsolidatedProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateConsolidatedProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateConsolidatedProformaInvoiceRequest` | `Requests/ProformaInvoices/CreateConsolidatedProformaInvoiceRequest.cs` |
 | `CreateConsolidatedProformaInvoiceError` | `Errors/CreateConsolidatedProformaInvoiceError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### CreateProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateProformaInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateProformaInvoice(CreateProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `ProformaInvoice`
-- **Error**: `SdkException<CreateProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateProformaInvoiceRequest` | `Requests/ProformaInvoices/CreateProformaInvoiceRequest.cs` |
 | `ProformaInvoice` | `Models/ProformaInvoice.cs` |
 | `CreateProformaInvoiceError` | `Errors/CreateProformaInvoiceError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### CreateSignupProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateSignupProformaInvoice(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateSignupProformaInvoice(CreateSignupProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `ProformaInvoice`
-- **Error**: `SdkException<CreateSignupProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateSignupProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetProformaBadRequestErrorResponse1(out ProformaBadRequestErrorResponse1)` [400] · `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateSignupProformaInvoiceRequest` | `Requests/ProformaInvoices/CreateSignupProformaInvoiceRequest.cs` |
 | `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
 | `ProformaInvoice` | `Models/ProformaInvoice.cs` |
 | `CreateSignupProformaInvoiceError` | `Errors/CreateSignupProformaInvoiceError.cs` |
@@ -52,15 +56,16 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### DeliverProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeliverProformaInvoice(string proformaInvoiceUid, DeliverProformaInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeliverProformaInvoice(DeliverProformaInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProformaInvoiceUid`
 - **Returns**: `ProformaInvoice`
-- **Error**: `SdkException<DeliverProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<DeliverProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeliverProformaInvoiceOperationRequest` | `Requests/ProformaInvoices/DeliverProformaInvoiceOperationRequest.cs` |
 | `DeliverProformaInvoiceRequest` | `Models/DeliverProformaInvoiceRequest.cs` |
 | `ProformaInvoice` | `Models/ProformaInvoice.cs` |
 | `DeliverProformaInvoiceError` | `Errors/DeliverProformaInvoiceError.cs` |
@@ -68,62 +73,64 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### ListProformaInvoices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListProformaInvoices(int subscriptionId, string? startDate, string? endDate, ProformaInvoiceStatus? status, Direction? direction, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 4 params (`startDate` … `direction`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`, `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `credits` = `false`, `payments` = `false`, `customFields` = `false`
-- **Query params (wire ← C#)**: `start_date` ← `startDate`, `end_date` ← `endDate`, `status` ← `status`, `page` ← `page`, `per_page` ← `perPage`, `direction` ← `direction`, `line_items` ← `lineItems`, `discounts` ← `discounts`, `taxes` ← `taxes`, `credits` ← `credits`, `payments` ← `payments`, `custom_fields` ← `customFields`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListProformaInvoices(ListProformaInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `start_date` ← `StartDate`, `end_date` ← `EndDate`, `status` ← `Status`, `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`, `line_items` ← `LineItems`, `discounts` ← `Discounts`, `taxes` ← `Taxes`, `credits` ← `Credits`, `payments` ← `Payments`, `custom_fields` ← `CustomFields`
 - **Returns**: `ListProformaInvoicesResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListProformaInvoicesRequest` | `Requests/ProformaInvoices/ListProformaInvoicesRequest.cs` |
 | `ProformaInvoiceStatus` | `Models/Enums/ProformaInvoiceStatus.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `ListProformaInvoicesResponse` | `Models/ListProformaInvoicesResponse.cs` |
 
 ### ListSubscriptionGroupProformaInvoices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptionGroupProformaInvoices(string uid, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `credits` = `false`, `payments` = `false`, `customFields` = `false`
-- **Query params (wire ← C#)**: `line_items` ← `lineItems`, `discounts` ← `discounts`, `taxes` ← `taxes`, `credits` ← `credits`, `payments` ← `payments`, `custom_fields` ← `customFields`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptionGroupProformaInvoices(ListSubscriptionGroupProformaInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
+- **Query params (wire ← C#)**: `line_items` ← `LineItems`, `discounts` ← `Discounts`, `taxes` ← `Taxes`, `credits` ← `Credits`, `payments` ← `Payments`, `custom_fields` ← `CustomFields`
 - **Returns**: `ListProformaInvoicesResponse`
-- **Error**: `SdkException<ListSubscriptionGroupProformaInvoicesError>` — **Case A (typed)**
+- **Error**: `ApiException<ListSubscriptionGroupProformaInvoicesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListSubscriptionGroupProformaInvoicesRequest` | `Requests/ProformaInvoices/ListSubscriptionGroupProformaInvoicesRequest.cs` |
 | `ListProformaInvoicesResponse` | `Models/ListProformaInvoicesResponse.cs` |
 | `ListSubscriptionGroupProformaInvoicesError` | `Errors/ListSubscriptionGroupProformaInvoicesError.cs` |
 
 ### PreviewProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PreviewProformaInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PreviewProformaInvoice(PreviewProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `ProformaInvoice`
-- **Error**: `SdkException<PreviewProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<PreviewProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `PreviewProformaInvoiceRequest` | `Requests/ProformaInvoices/PreviewProformaInvoiceRequest.cs` |
 | `ProformaInvoice` | `Models/ProformaInvoice.cs` |
 | `PreviewProformaInvoiceError` | `Errors/PreviewProformaInvoiceError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### PreviewSignupProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PreviewSignupProformaInvoice(CreateSignupProformaPreviewInclude? include, CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `include` — nullable, no default → **must pass explicitly**
-  - `body` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PreviewSignupProformaInvoice(PreviewSignupProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `include` ← `Include`
 - **Returns**: `SignupProformaPreviewResponse`
-- **Error**: `SdkException<PreviewSignupProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<PreviewSignupProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetProformaBadRequestErrorResponse1(out ProformaBadRequestErrorResponse1)` [400] · `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `PreviewSignupProformaInvoiceRequest` | `Requests/ProformaInvoices/PreviewSignupProformaInvoiceRequest.cs` |
 | `CreateSignupProformaPreviewInclude` | `Models/Enums/CreateSignupProformaPreviewInclude.cs` |
 | `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
 | `SignupProformaPreviewResponse` | `Models/SignupProformaPreviewResponse.cs` |
@@ -133,28 +140,31 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 ### ReadProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadProformaInvoice(string proformaInvoiceUid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadProformaInvoice(ReadProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProformaInvoiceUid`
 - **Returns**: `ProformaInvoice`
-- **Error**: `SdkException<ReadProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<ReadProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ReadProformaInvoiceRequest` | `Requests/ProformaInvoices/ReadProformaInvoiceRequest.cs` |
 | `ProformaInvoice` | `Models/ProformaInvoice.cs` |
 | `ReadProformaInvoiceError` | `Errors/ReadProformaInvoiceError.cs` |
 
 ### VoidProformaInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `VoidProformaInvoice(string proformaInvoiceUid, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `VoidProformaInvoice(VoidProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProformaInvoiceUid`
 - **Returns**: `ProformaInvoice`
-- **Error**: `SdkException<VoidProformaInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<VoidProformaInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `VoidProformaInvoiceRequest` | `Requests/ProformaInvoices/VoidProformaInvoiceRequest.cs` |
 | `VoidInvoiceRequest` | `Models/VoidInvoiceRequest.cs` |
 | `ProformaInvoice` | `Models/ProformaInvoice.cs` |
 | `VoidProformaInvoiceError` | `Errors/VoidProformaInvoiceError.cs` |

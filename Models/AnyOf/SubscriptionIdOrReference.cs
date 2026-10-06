@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(SubscriptionIdOrReferenceConverter))]
 public record SubscriptionIdOrReference
@@ -20,8 +20,7 @@ public record SubscriptionIdOrReference
 
     public static SubscriptionIdOrReference Int(int value) => new(Optional<int>.Some(value), default);
 
-    public static SubscriptionIdOrReference String(string value) =>
-        new(default, Optional<string>.Some(value));
+    public static SubscriptionIdOrReference String(string value) => new(default, Optional<string>.Some(value));
 
     public bool TryGetInt(out int value) => _intValue.TryGetValue(out value);
 
@@ -55,9 +54,7 @@ file sealed class SubscriptionIdOrReferenceConverter : JsonConverter<Subscriptio
         throw new JsonException($"JSON does not match int or string schemas: {root.ToString()}");
     }
 
-    public override void Write(Utf8JsonWriter writer,
-        SubscriptionIdOrReference value,
-        JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, SubscriptionIdOrReference value, JsonSerializerOptions options)
     {
         if (value.TryGetInt(out var intValue))
         {

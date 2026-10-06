@@ -8,15 +8,16 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### BulkCreateSegments
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `BulkCreateSegments(string componentId, string pricePointId, BulkCreateSegments? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `BulkCreateSegments(BulkCreateSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`, `PricePointId`
 - **Returns**: `ListSegmentsResponse`
-- **Error**: `SdkException<BulkCreateSegmentsError>` — **Case A (typed)**
+- **Error**: `ApiException<BulkCreateSegmentsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetEventBasedBillingSegment1(out EventBasedBillingSegment1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `BulkCreateSegmentsRequest` | `Requests/EventsBasedBillingSegments/BulkCreateSegmentsRequest.cs` |
 | `BulkCreateSegments` | `Models/BulkCreateSegments.cs` |
 | `ListSegmentsResponse` | `Models/ListSegmentsResponse.cs` |
 | `BulkCreateSegmentsError` | `Errors/BulkCreateSegmentsError.cs` |
@@ -24,15 +25,16 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### BulkUpdateSegments
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `BulkUpdateSegments(string componentId, string pricePointId, BulkUpdateSegments? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `BulkUpdateSegments(BulkUpdateSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`, `PricePointId`
 - **Returns**: `ListSegmentsResponse`
-- **Error**: `SdkException<BulkUpdateSegmentsError>` — **Case A (typed)**
+- **Error**: `ApiException<BulkUpdateSegmentsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetEventBasedBillingSegment1(out EventBasedBillingSegment1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `BulkUpdateSegmentsRequest` | `Requests/EventsBasedBillingSegments/BulkUpdateSegmentsRequest.cs` |
 | `BulkUpdateSegments` | `Models/BulkUpdateSegments.cs` |
 | `ListSegmentsResponse` | `Models/ListSegmentsResponse.cs` |
 | `BulkUpdateSegmentsError` | `Errors/BulkUpdateSegmentsError.cs` |
@@ -40,15 +42,16 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### CreateSegment
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateSegment(string componentId, string pricePointId, CreateSegmentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateSegment(CreateSegmentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`, `PricePointId`
 - **Returns**: `SegmentResponse`
-- **Error**: `SdkException<CreateSegmentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateSegmentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetEventBasedBillingSegmentErrors1(out EventBasedBillingSegmentErrors1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateSegmentOperationRequest` | `Requests/EventsBasedBillingSegments/CreateSegmentOperationRequest.cs` |
 | `CreateSegmentRequest` | `Models/CreateSegmentRequest.cs` |
 | `SegmentResponse` | `Models/SegmentResponse.cs` |
 | `CreateSegmentError` | `Errors/CreateSegmentError.cs` |
@@ -56,29 +59,31 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### DeleteSegment
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteSegment(string componentId, string pricePointId, double id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteSegment(DeleteSegmentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`, `PricePointId`, `Id`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeleteSegmentError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteSegmentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404, 422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteSegmentRequest` | `Requests/EventsBasedBillingSegments/DeleteSegmentRequest.cs` |
 | `DeleteSegmentError` | `Errors/DeleteSegmentError.cs` |
 
 ### ListSegmentsForPricePoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSegmentsForPricePoint(string componentId, string pricePointId, ListSegmentsFilter? filter, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `filter` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `30`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `filter` ← `filter`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSegmentsForPricePoint(ListSegmentsForPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`, `PricePointId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `filter` ← `Filter`
 - **Returns**: `ListSegmentsResponse`
-- **Error**: `SdkException<ListSegmentsForPricePointError>` — **Case A (typed)**
+- **Error**: `ApiException<ListSegmentsForPricePointError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetEventBasedBillingListSegmentsErrors1(out EventBasedBillingListSegmentsErrors1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListSegmentsForPricePointRequest` | `Requests/EventsBasedBillingSegments/ListSegmentsForPricePointRequest.cs` |
 | `ListSegmentsFilter` | `Models/ListSegmentsFilter.cs` |
 | `ListSegmentsResponse` | `Models/ListSegmentsResponse.cs` |
 | `ListSegmentsForPricePointError` | `Errors/ListSegmentsForPricePointError.cs` |
@@ -86,15 +91,16 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 ### UpdateSegment
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateSegment(string componentId, string pricePointId, double id, UpdateSegmentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateSegment(UpdateSegmentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ComponentId`, `PricePointId`, `Id`
 - **Returns**: `SegmentResponse`
-- **Error**: `SdkException<UpdateSegmentError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateSegmentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetEventBasedBillingSegmentErrors1(out EventBasedBillingSegmentErrors1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateSegmentOperationRequest` | `Requests/EventsBasedBillingSegments/UpdateSegmentOperationRequest.cs` |
 | `UpdateSegmentRequest` | `Models/UpdateSegmentRequest.cs` |
 | `SegmentResponse` | `Models/SegmentResponse.cs` |
 | `UpdateSegmentError` | `Errors/UpdateSegmentError.cs` |

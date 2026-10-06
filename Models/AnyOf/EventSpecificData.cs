@@ -1,16 +1,15 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 /// <summary>
 /// The schema varies based on the event key. The key-to-event data mapping is as follows:
 /// <para>
-/// * <c>subscription_product_change</c> - SubscriptionProductChange
-/// * <c>subscription_product_change_scheduled</c> - SubscriptionProductChangeScheduled
+/// * <c>subscription_product_change</c>, <c>subscription_product_change_scheduled</c> - SubscriptionProductChange
 /// * <c>subscription_state_change</c> - SubscriptionStateChange
 /// * <c>signup_success</c>, <c>delayed_signup_creation_success</c>, <c>payment_success</c>, <c>payment_failure</c>, <c>renewal_success</c>, <c>renewal_failure</c>, <c>chargeback_lost</c>, <c>chargeback_accepted</c>, <c>chargeback_closed</c> - PaymentRelatedEvents
 /// * <c>refund_success</c> - RefundSuccess
@@ -52,8 +51,6 @@ public record EventSpecificData
 {
     private readonly Optional<SubscriptionProductChange> _subscriptionProductChangeValue;
 
-    private readonly Optional<SubscriptionProductChangeScheduled> _subscriptionProductChangeScheduledValue;
-
     private readonly Optional<SubscriptionStateChange> _subscriptionStateChangeValue;
 
     private readonly Optional<PaymentRelatedEvents> _paymentRelatedEventsValue;
@@ -93,7 +90,6 @@ public record EventSpecificData
     private readonly Optional<ChjsTokenizationFailure> _chjsTokenizationFailureValue;
 
     private EventSpecificData(Optional<SubscriptionProductChange> subscriptionProductChangeValue,
-        Optional<SubscriptionProductChangeScheduled> subscriptionProductChangeScheduledValue,
         Optional<SubscriptionStateChange> subscriptionStateChangeValue,
         Optional<PaymentRelatedEvents> paymentRelatedEventsValue,
         Optional<RefundSuccess> refundSuccessValue,
@@ -115,7 +111,6 @@ public record EventSpecificData
         Optional<ChjsTokenizationFailure> chjsTokenizationFailureValue)
     {
         _subscriptionProductChangeValue = subscriptionProductChangeValue;
-        _subscriptionProductChangeScheduledValue = subscriptionProductChangeScheduledValue;
         _subscriptionStateChangeValue = subscriptionStateChangeValue;
         _paymentRelatedEventsValue = paymentRelatedEventsValue;
         _refundSuccessValue = refundSuccessValue;
@@ -138,31 +133,8 @@ public record EventSpecificData
     }
 
     public static EventSpecificData SubscriptionProductChange(SubscriptionProductChange value) =>
-        new(Optional<SubscriptionProductChange>.Some(value),
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default,
-            default);
-
-    public static EventSpecificData SubscriptionProductChangeScheduled(SubscriptionProductChangeScheduled value) =>
-        new(default,
-            Optional<SubscriptionProductChangeScheduled>.Some(value),
+        new(
+            Optional<SubscriptionProductChange>.Some(value),
             default,
             default,
             default,
@@ -184,7 +156,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData SubscriptionStateChange(SubscriptionStateChange value) =>
-        new(default,
+        new(
             default,
             Optional<SubscriptionStateChange>.Some(value),
             default,
@@ -207,7 +179,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData PaymentRelatedEvents(PaymentRelatedEvents value) =>
-        new(default,
+        new(
             default,
             default,
             Optional<PaymentRelatedEvents>.Some(value),
@@ -230,7 +202,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData RefundSuccess(RefundSuccess value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -253,7 +225,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData ComponentAllocationChange(ComponentAllocationChange value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -276,7 +248,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData MeteredUsage(MeteredUsage value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -299,7 +271,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData PrepaidUsage(PrepaidUsage value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -322,7 +294,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData DunningStepReached(DunningStepReached value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -345,7 +317,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData InvoiceIssued(InvoiceIssued value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -368,7 +340,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData PendingCancellationChange(PendingCancellationChange value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -391,7 +363,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData PrepaidSubscriptionBalanceChanged(PrepaidSubscriptionBalanceChanged value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -414,7 +386,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData ProformaInvoiceIssued(ProformaInvoiceIssued value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -437,7 +409,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData SubscriptionGroupSignupEventData(SubscriptionGroupSignupEventData value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -460,7 +432,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData CreditAccountBalanceChanged(CreditAccountBalanceChanged value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -483,7 +455,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData PrepaymentAccountBalanceChanged(PrepaymentAccountBalanceChanged value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -506,7 +478,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData PaymentCollectionMethodChanged(PaymentCollectionMethodChanged value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -529,7 +501,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData ItemPricePointChanged(ItemPricePointChanged value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -552,7 +524,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData CustomFieldValueChange(CustomFieldValueChange value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -575,7 +547,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData ChjsTokenizationSuccess(ChjsTokenizationSuccess value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -598,7 +570,7 @@ public record EventSpecificData
             default);
 
     public static EventSpecificData ChjsTokenizationFailure(ChjsTokenizationFailure value) =>
-        new(default,
+        new(
             default,
             default,
             default,
@@ -622,9 +594,6 @@ public record EventSpecificData
 
     public bool TryGetSubscriptionProductChange(out SubscriptionProductChange value) =>
         _subscriptionProductChangeValue.TryGetValue(out value);
-
-    public bool TryGetSubscriptionProductChangeScheduled(out SubscriptionProductChangeScheduled value) =>
-        _subscriptionProductChangeScheduledValue.TryGetValue(out value);
 
     public bool TryGetSubscriptionStateChange(out SubscriptionStateChange value) =>
         _subscriptionStateChangeValue.TryGetValue(out value);
@@ -682,14 +651,9 @@ public record EventSpecificData
     public static implicit operator EventSpecificData(SubscriptionProductChange value) =>
         SubscriptionProductChange(value);
 
-    public static implicit operator EventSpecificData(SubscriptionProductChangeScheduled value) =>
-        SubscriptionProductChangeScheduled(value);
+    public static implicit operator EventSpecificData(SubscriptionStateChange value) => SubscriptionStateChange(value);
 
-    public static implicit operator EventSpecificData(SubscriptionStateChange value) =>
-        SubscriptionStateChange(value);
-
-    public static implicit operator EventSpecificData(PaymentRelatedEvents value) =>
-        PaymentRelatedEvents(value);
+    public static implicit operator EventSpecificData(PaymentRelatedEvents value) => PaymentRelatedEvents(value);
 
     public static implicit operator EventSpecificData(RefundSuccess value) => RefundSuccess(value);
 
@@ -710,8 +674,7 @@ public record EventSpecificData
     public static implicit operator EventSpecificData(PrepaidSubscriptionBalanceChanged value) =>
         PrepaidSubscriptionBalanceChanged(value);
 
-    public static implicit operator EventSpecificData(ProformaInvoiceIssued value) =>
-        ProformaInvoiceIssued(value);
+    public static implicit operator EventSpecificData(ProformaInvoiceIssued value) => ProformaInvoiceIssued(value);
 
     public static implicit operator EventSpecificData(SubscriptionGroupSignupEventData value) =>
         SubscriptionGroupSignupEventData(value);
@@ -725,42 +688,29 @@ public record EventSpecificData
     public static implicit operator EventSpecificData(PaymentCollectionMethodChanged value) =>
         PaymentCollectionMethodChanged(value);
 
-    public static implicit operator EventSpecificData(ItemPricePointChanged value) =>
-        ItemPricePointChanged(value);
+    public static implicit operator EventSpecificData(ItemPricePointChanged value) => ItemPricePointChanged(value);
 
-    public static implicit operator EventSpecificData(CustomFieldValueChange value) =>
-        CustomFieldValueChange(value);
+    public static implicit operator EventSpecificData(CustomFieldValueChange value) => CustomFieldValueChange(value);
 
-    public static implicit operator EventSpecificData(ChjsTokenizationSuccess value) =>
-        ChjsTokenizationSuccess(value);
+    public static implicit operator EventSpecificData(ChjsTokenizationSuccess value) => ChjsTokenizationSuccess(value);
 
-    public static implicit operator EventSpecificData(ChjsTokenizationFailure value) =>
-        ChjsTokenizationFailure(value);
+    public static implicit operator EventSpecificData(ChjsTokenizationFailure value) => ChjsTokenizationFailure(value);
 }
 
 file sealed class EventSpecificDataConverter : JsonConverter<EventSpecificData>
 {
-    public override EventSpecificData Read(ref Utf8JsonReader reader,
-        Type typeToConvert,
-        JsonSerializerOptions options)
+    public override EventSpecificData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (JsonSerializer.TryDeserialize<SubscriptionProductChange>(root,
+        if (JsonSerializer.TryDeserialize<SubscriptionProductChange>(
+            root,
             options,
             out var subscriptionProductChangeValue))
         {
             return EventSpecificData.SubscriptionProductChange(subscriptionProductChangeValue);
         }
-        if (JsonSerializer.TryDeserialize<SubscriptionProductChangeScheduled>(root,
-            options,
-            out var subscriptionProductChangeScheduledValue))
-        {
-            return EventSpecificData.SubscriptionProductChangeScheduled(subscriptionProductChangeScheduledValue);
-        }
-        if (JsonSerializer.TryDeserialize<SubscriptionStateChange>(root,
-            options,
-            out var subscriptionStateChangeValue))
+        if (JsonSerializer.TryDeserialize<SubscriptionStateChange>(root, options, out var subscriptionStateChangeValue))
         {
             return EventSpecificData.SubscriptionStateChange(subscriptionStateChangeValue);
         }
@@ -772,7 +722,8 @@ file sealed class EventSpecificDataConverter : JsonConverter<EventSpecificData>
         {
             return EventSpecificData.RefundSuccess(refundSuccessValue);
         }
-        if (JsonSerializer.TryDeserialize<ComponentAllocationChange>(root,
+        if (JsonSerializer.TryDeserialize<ComponentAllocationChange>(
+            root,
             options,
             out var componentAllocationChangeValue))
         {
@@ -794,13 +745,15 @@ file sealed class EventSpecificDataConverter : JsonConverter<EventSpecificData>
         {
             return EventSpecificData.InvoiceIssued(invoiceIssuedValue);
         }
-        if (JsonSerializer.TryDeserialize<PendingCancellationChange>(root,
+        if (JsonSerializer.TryDeserialize<PendingCancellationChange>(
+            root,
             options,
             out var pendingCancellationChangeValue))
         {
             return EventSpecificData.PendingCancellationChange(pendingCancellationChangeValue);
         }
-        if (JsonSerializer.TryDeserialize<PrepaidSubscriptionBalanceChanged>(root,
+        if (JsonSerializer.TryDeserialize<PrepaidSubscriptionBalanceChanged>(
+            root,
             options,
             out var prepaidSubscriptionBalanceChangedValue))
         {
@@ -810,25 +763,29 @@ file sealed class EventSpecificDataConverter : JsonConverter<EventSpecificData>
         {
             return EventSpecificData.ProformaInvoiceIssued(proformaInvoiceIssuedValue);
         }
-        if (JsonSerializer.TryDeserialize<SubscriptionGroupSignupEventData>(root,
+        if (JsonSerializer.TryDeserialize<SubscriptionGroupSignupEventData>(
+            root,
             options,
             out var subscriptionGroupSignupEventDataValue))
         {
             return EventSpecificData.SubscriptionGroupSignupEventData(subscriptionGroupSignupEventDataValue);
         }
-        if (JsonSerializer.TryDeserialize<CreditAccountBalanceChanged>(root,
+        if (JsonSerializer.TryDeserialize<CreditAccountBalanceChanged>(
+            root,
             options,
             out var creditAccountBalanceChangedValue))
         {
             return EventSpecificData.CreditAccountBalanceChanged(creditAccountBalanceChangedValue);
         }
-        if (JsonSerializer.TryDeserialize<PrepaymentAccountBalanceChanged>(root,
+        if (JsonSerializer.TryDeserialize<PrepaymentAccountBalanceChanged>(
+            root,
             options,
             out var prepaymentAccountBalanceChangedValue))
         {
             return EventSpecificData.PrepaymentAccountBalanceChanged(prepaymentAccountBalanceChangedValue);
         }
-        if (JsonSerializer.TryDeserialize<PaymentCollectionMethodChanged>(root,
+        if (JsonSerializer.TryDeserialize<PaymentCollectionMethodChanged>(
+            root,
             options,
             out var paymentCollectionMethodChangedValue))
         {
@@ -838,25 +795,20 @@ file sealed class EventSpecificDataConverter : JsonConverter<EventSpecificData>
         {
             return EventSpecificData.ItemPricePointChanged(itemPricePointChangedValue);
         }
-        if (JsonSerializer.TryDeserialize<CustomFieldValueChange>(root,
-            options,
-            out var customFieldValueChangeValue))
+        if (JsonSerializer.TryDeserialize<CustomFieldValueChange>(root, options, out var customFieldValueChangeValue))
         {
             return EventSpecificData.CustomFieldValueChange(customFieldValueChangeValue);
         }
-        if (JsonSerializer.TryDeserialize<ChjsTokenizationSuccess>(root,
-            options,
-            out var chjsTokenizationSuccessValue))
+        if (JsonSerializer.TryDeserialize<ChjsTokenizationSuccess>(root, options, out var chjsTokenizationSuccessValue))
         {
             return EventSpecificData.ChjsTokenizationSuccess(chjsTokenizationSuccessValue);
         }
-        if (JsonSerializer.TryDeserialize<ChjsTokenizationFailure>(root,
-            options,
-            out var chjsTokenizationFailureValue))
+        if (JsonSerializer.TryDeserialize<ChjsTokenizationFailure>(root, options, out var chjsTokenizationFailureValue))
         {
             return EventSpecificData.ChjsTokenizationFailure(chjsTokenizationFailureValue);
         }
-        throw new JsonException($"JSON does not match SubscriptionProductChange or SubscriptionProductChangeScheduled or SubscriptionStateChange or PaymentRelatedEvents or RefundSuccess or ComponentAllocationChange or MeteredUsage or PrepaidUsage or DunningStepReached or InvoiceIssued or PendingCancellationChange or PrepaidSubscriptionBalanceChanged or ProformaInvoiceIssued or SubscriptionGroupSignupEventData or CreditAccountBalanceChanged or PrepaymentAccountBalanceChanged or PaymentCollectionMethodChanged or ItemPricePointChanged or CustomFieldValueChange or ChjsTokenizationSuccess or ChjsTokenizationFailure schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match SubscriptionProductChange or SubscriptionStateChange or PaymentRelatedEvents or RefundSuccess or ComponentAllocationChange or MeteredUsage or PrepaidUsage or DunningStepReached or InvoiceIssued or PendingCancellationChange or PrepaidSubscriptionBalanceChanged or ProformaInvoiceIssued or SubscriptionGroupSignupEventData or CreditAccountBalanceChanged or PrepaymentAccountBalanceChanged or PaymentCollectionMethodChanged or ItemPricePointChanged or CustomFieldValueChange or ChjsTokenizationSuccess or ChjsTokenizationFailure schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, EventSpecificData value, JsonSerializerOptions options)
@@ -864,10 +816,6 @@ file sealed class EventSpecificDataConverter : JsonConverter<EventSpecificData>
         if (value.TryGetSubscriptionProductChange(out var subscriptionProductChangeValue))
         {
             JsonSerializer.Serialize(writer, subscriptionProductChangeValue, options);
-        }
-        else if (value.TryGetSubscriptionProductChangeScheduled(out var subscriptionProductChangeScheduledValue))
-        {
-            JsonSerializer.Serialize(writer, subscriptionProductChangeScheduledValue, options);
         }
         else if (value.TryGetSubscriptionStateChange(out var subscriptionStateChangeValue))
         {

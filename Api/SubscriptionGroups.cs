@@ -1,20 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.SubscriptionGroups;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class SubscriptionGroups
 {
@@ -32,12 +30,11 @@ public sealed class SubscriptionGroups
     /// <summary>
     /// Add Subscription to Group
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Adds an existing subscription to a subscription group. For sites making use of the <see href="https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview">Relationship Billing</see> and <see href="https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies">Customer Hierarchy</see> features, it is possible to add existing subscriptions to subscription groups.
     /// <para>
@@ -57,114 +54,115 @@ public sealed class SubscriptionGroups
     /// <see href="https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-subscription#subscription-in-a-subscription-group">Create Subscription in a Subscription Group</see>
     /// </para>
     /// </remarks>
-    public Task<SubscriptionGroupResponse> AddSubscriptionToGroup(int subscriptionId,
-        AddSubscriptionToAGroup? body,
+    public Task<SubscriptionGroupResponse> AddSubscriptionToGroup(AddSubscriptionToGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/group.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/group.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionGroupResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Subscription Group
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateSubscriptionGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateSubscriptionGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates a subscription group with given members.
     /// </remarks>
-    public Task<SubscriptionGroupResponse> CreateSubscriptionGroup(CreateSubscriptionGroupRequest? body,
+    public Task<SubscriptionGroupResponse> CreateSubscriptionGroup(CreateSubscriptionGroupOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups.json"),
             [],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionGroupResponse>(),
-            CreateSubscriptionGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateSubscriptionGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Subscription Group
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="DeleteSubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeleteSubscriptionGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeleteSubscriptionGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes a subscription group.
     ///  Only groups without members can be deleted.
     /// </remarks>
-    public Task<DeleteSubscriptionGroupResponse> DeleteSubscriptionGroup(string uid,
+    public Task<DeleteSubscriptionGroupResponse> DeleteSubscriptionGroup(DeleteSubscriptionGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             JsonResponse.Create<DeleteSubscriptionGroupResponse>(),
-            DeleteSubscriptionGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeleteSubscriptionGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Find Subscription Group
     /// </summary>
-    /// <param name="subscriptionId">The Advanced Billing id of the subscription associated with the subscription group</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="FullSubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="FindSubscriptionGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="FindSubscriptionGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Finds the subscription group associated with a subscription.
     /// <para>
-    /// If the subscription is not in a group, the endpoint will return a 404 code.
+    /// If the subscription is not in a group, this endpoint returns an error.
     /// </para>
     /// </remarks>
-    public Task<FullSubscriptionGroupResponse> FindSubscriptionGroup(string subscriptionId,
+    public Task<FullSubscriptionGroupResponse> FindSubscriptionGroup(FindSubscriptionGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/lookup.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/lookup.json"),
             [],
-            [new Param("subscription_id", subscriptionId)],
+            [new Param("subscription_id", request.SubscriptionId)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<FullSubscriptionGroupResponse>(),
-            FindSubscriptionGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            FindSubscriptionGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Subscription Groups
     /// </summary>
-    /// <param name="include">A list of additional information to include in the response. The following values are supported:  - <c>account_balances</c>: Account balance information for the subscription groups. Use in query: <c>include[]=account_balances</c></param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListSubscriptionGroupsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists subscription groups for the site. The response is paginated and will return a <c>meta</c> key with pagination information.
     /// <para>
@@ -174,32 +172,34 @@ public sealed class SubscriptionGroups
     /// Account balance information for the subscription groups is not returned by default. If this information is desired, the <c>include[]=account_balances</c> parameter must be provided with the request.
     /// </para>
     /// </remarks>
-    public Task<ListSubscriptionGroupsResponse> ListSubscriptionGroups(IReadOnlyList<SubscriptionGroupsListInclude>? include,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<ListSubscriptionGroupsResponse> ListSubscriptionGroups(ListSubscriptionGroupsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups.json"),
             [],
-            [new Param("page", page), new Param("per_page", perPage), new Param("include", include)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("include", request.Include),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListSubscriptionGroupsResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Subscription Group
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="include">Allows including additional data in the response. Use in query: <c>include[]=current_billing_amount_in_cents</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="FullSubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns subscription group details.
     /// <para>
@@ -209,56 +209,57 @@ public sealed class SubscriptionGroups
     /// Current billing amount for the subscription group is not returned by default. If this information is desired, the <c>include[]=current_billing_amount_in_cents</c> parameter must be provided with the request.
     /// </para>
     /// </remarks>
-    public Task<FullSubscriptionGroupResponse> ReadSubscriptionGroup(string uid,
-        IReadOnlyList<SubscriptionGroupInclude>? include,
+    public Task<FullSubscriptionGroupResponse> ReadSubscriptionGroup(ReadSubscriptionGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}.json"),
-            [new TemplateParam("uid", uid)],
-            [new Param("include", include)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}.json"),
+            [new TemplateParam("uid", request.Uid)],
+            [new Param("include", request.Include)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<FullSubscriptionGroupResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Remove Subscription from Group
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RemoveSubscriptionFromGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RemoveSubscriptionFromGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Removes an existing subscription from a subscription group. For sites making use of the <see href="https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview">Relationship Billing</see> and <see href="https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies">Customer Hierarchy</see> features, it is possible to remove an existing subscription from a subscription group.
     /// </remarks>
-    public Task RemoveSubscriptionFromGroup(int subscriptionId,
+    public Task RemoveSubscriptionFromGroup(RemoveSubscriptionFromGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/group.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/group.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            RemoveSubscriptionFromGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RemoveSubscriptionFromGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Subscription Group Signup
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionGroupSignupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="SignupWithSubscriptionGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="SignupWithSubscriptionGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates multiple subscriptions at once under the same customer and consolidates them into a subscription group.
     /// <para>
@@ -276,47 +277,47 @@ public sealed class SubscriptionGroups
     /// The first section, "Subscription Customization", will focus on passing different information with a subscription, such as components, calendar billing, and custom fields. These examples will presume you are using a secure chargify_token generated by Maxio.js (formerly Chargify.js).
     /// </para>
     /// </remarks>
-    public Task<SubscriptionGroupSignupResponse> SignupWithSubscriptionGroup(SubscriptionGroupSignupRequest? body,
+    public Task<SubscriptionGroupSignupResponse> SignupWithSubscriptionGroup(SignupWithSubscriptionGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/signup.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/signup.json"),
             [],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionGroupSignupResponse>(),
-            SignupWithSubscriptionGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            SignupWithSubscriptionGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Subscription Group Members
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateSubscriptionGroupMembersError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateSubscriptionGroupMembersError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates subscription group members.
     /// <c>"member_ids"</c> should contain an array of both subscription IDs to set as group members and subscription IDs already present in the groups. Not including them will result in removing them from the subscription group. To clean up members, just leave the array empty.
     /// </remarks>
-    public Task<SubscriptionGroupResponse> UpdateSubscriptionGroupMembers(string uid,
-        UpdateSubscriptionGroupRequest? body,
+    public Task<SubscriptionGroupResponse> UpdateSubscriptionGroupMembers(UpdateSubscriptionGroupMembersRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionGroupResponse>(),
-            UpdateSubscriptionGroupMembersErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateSubscriptionGroupMembersError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

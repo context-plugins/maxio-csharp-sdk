@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(PrepaidConfigurationErrorResponseConverter))]
 public record PrepaidConfigurationErrorResponse
@@ -47,9 +47,7 @@ file sealed class PrepaidConfigurationErrorResponseConverter : JsonConverter<Pre
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (JsonSerializer.TryDeserialize<ErrorStringMapResponse1>(root,
-            options,
-            out var errorStringMapResponse1Value))
+        if (JsonSerializer.TryDeserialize<ErrorStringMapResponse1>(root, options, out var errorStringMapResponse1Value))
         {
             return PrepaidConfigurationErrorResponse.ErrorStringMapResponse1(errorStringMapResponse1Value);
         }
@@ -57,7 +55,8 @@ file sealed class PrepaidConfigurationErrorResponseConverter : JsonConverter<Pre
         {
             return PrepaidConfigurationErrorResponse.ErrorListResponse1(errorListResponse1Value);
         }
-        throw new JsonException($"JSON does not match ErrorStringMapResponse1 or ErrorListResponse1 schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match ErrorStringMapResponse1 or ErrorListResponse1 schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer,
@@ -74,7 +73,8 @@ file sealed class PrepaidConfigurationErrorResponseConverter : JsonConverter<Pre
         }
         else
         {
-            throw new JsonException($"{nameof(PrepaidConfigurationErrorResponse)} contains no valid value to serialize.");
+            throw new JsonException(
+                $"{nameof(PrepaidConfigurationErrorResponse)} contains no valid value to serialize.");
         }
     }
 }

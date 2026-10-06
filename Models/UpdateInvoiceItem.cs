@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// A line item change for a draft ad hoc invoice. Supports the same attributes as line items on invoice creation, plus <c>uid</c> and <c>_destroy</c> for updating or removing existing line items.

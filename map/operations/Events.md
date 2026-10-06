@@ -8,16 +8,15 @@ Accessor: `client.Events` · Source: `Api/Events.cs` · 3 operations
 
 ### ListEvents
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListEvents(long? sinceId, long? maxId, Direction? direction, IReadOnlyList<EventKey>? filter, ListEventsDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 9 params (`sinceId` … `endDatetime`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `since_id` ← `sinceId`, `max_id` ← `maxId`, `direction` ← `direction`, `filter` ← `filter`, `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListEvents(ListEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `since_id` ← `SinceId`, `max_id` ← `MaxId`, `direction` ← `Direction`, `filter` ← `Filter`, `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`
 - **Returns**: `IReadOnlyList<EventResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListEventsRequest` | `Requests/Events/ListEventsRequest.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `EventKey` | `Models/Enums/EventKey.cs` |
 | `ListEventsDateField` | `Models/Enums/ListEventsDateField.cs` |
@@ -25,32 +24,31 @@ Accessor: `client.Events` · Source: `Api/Events.cs` · 3 operations
 
 ### ListSubscriptionEvents
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptionEvents(int subscriptionId, long? sinceId, long? maxId, Direction? direction, IReadOnlyList<EventKey>? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 4 params (`sinceId` … `filter`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `since_id` ← `sinceId`, `max_id` ← `maxId`, `direction` ← `direction`, `filter` ← `filter`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptionEvents(ListSubscriptionEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `since_id` ← `SinceId`, `max_id` ← `MaxId`, `direction` ← `Direction`, `filter` ← `Filter`
 - **Returns**: `IReadOnlyList<EventResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListSubscriptionEventsRequest` | `Requests/Events/ListSubscriptionEventsRequest.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `EventKey` | `Models/Enums/EventKey.cs` |
 | `EventResponse` | `Models/EventResponse.cs` |
 
 ### ReadEventsCount
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadEventsCount(long? sinceId, long? maxId, Direction? direction, IReadOnlyList<EventKey>? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 4 params (`sinceId` … `filter`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `since_id` ← `sinceId`, `max_id` ← `maxId`, `direction` ← `direction`, `filter` ← `filter`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadEventsCount(ReadEventsCountRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `since_id` ← `SinceId`, `max_id` ← `MaxId`, `direction` ← `Direction`, `filter` ← `Filter`
 - **Returns**: `CountResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadEventsCountRequest` | `Requests/Events/ReadEventsCountRequest.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `EventKey` | `Models/Enums/EventKey.cs` |
 | `CountResponse` | `Models/CountResponse.cs` |

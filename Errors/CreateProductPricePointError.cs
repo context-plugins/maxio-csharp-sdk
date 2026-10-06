@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class CreateProductPricePointError : ApiError
 {
@@ -26,22 +24,12 @@ public sealed class CreateProductPricePointError : ApiError
     public bool TryGetProductPricePointErrorResponse1(out ProductPricePointErrorResponse1 value) =>
         _productPricePointErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<CreateProductPricePointError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<CreateProductPricePointError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ProductPricePointErrorResponse1>(response, ct).As(AsProductPricePointErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ProductPricePointErrorResponse1>().As(AsProductPricePointErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class CreateProductPricePointErrorResponse : IErrorResponse<CreateProductPricePointError>
-{
-    public static CreateProductPricePointErrorResponse Instance { get; } = new();
-
-    private CreateProductPricePointErrorResponse()
-    {
-    }
-
-    public Task<CreateProductPricePointError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        CreateProductPricePointError.Create(response, ct);
+    internal static ApiErrorResponse<CreateProductPricePointError> Response { get; } = new(Create);
 }

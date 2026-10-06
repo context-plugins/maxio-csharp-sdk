@@ -8,26 +8,29 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### ArchiveCoupon
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ArchiveCoupon(int productFamilyId, int couponId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ArchiveCoupon(ArchiveCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `CouponId`
 - **Returns**: `CouponResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ArchiveCouponRequest` | `Requests/Coupons/ArchiveCouponRequest.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 
 ### CreateCoupon
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateCoupon(int productFamilyId, CouponRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateCoupon(CreateCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
 - **Returns**: `CouponResponse`
-- **Error**: `SdkException<CreateCouponError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateCouponError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateCouponRequest` | `Requests/Coupons/CreateCouponRequest.cs` |
 | `CouponRequest` | `Models/CouponRequest.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 | `CreateCouponError` | `Errors/CreateCouponError.cs` |
@@ -35,28 +38,30 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### CreateCouponSubcodes
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateCouponSubcodes(int couponId, CouponSubcodes? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateCouponSubcodes(CreateCouponSubcodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CouponId`
 - **Returns**: `CouponSubcodesResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `CreateCouponSubcodesRequest` | `Requests/Coupons/CreateCouponSubcodesRequest.cs` |
 | `CouponSubcodes` | `Models/CouponSubcodes.cs` |
 | `CouponSubcodesResponse` | `Models/CouponSubcodesResponse.cs` |
 
 ### CreateOrUpdateCouponCurrencyPrices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateOrUpdateCouponCurrencyPrices(int couponId, CouponCurrencyRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateOrUpdateCouponCurrencyPrices(CreateOrUpdateCouponCurrencyPricesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CouponId`
 - **Returns**: `CouponCurrencyResponse`
-- **Error**: `SdkException<CreateOrUpdateCouponCurrencyPricesError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateOrUpdateCouponCurrencyPricesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorStringMapResponse1(out ErrorStringMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateOrUpdateCouponCurrencyPricesRequest` | `Requests/Coupons/CreateOrUpdateCouponCurrencyPricesRequest.cs` |
 | `CouponCurrencyRequest` | `Models/CouponCurrencyRequest.cs` |
 | `CouponCurrencyResponse` | `Models/CouponCurrencyResponse.cs` |
 | `CreateOrUpdateCouponCurrencyPricesError` | `Errors/CreateOrUpdateCouponCurrencyPricesError.cs` |
@@ -64,111 +69,113 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### DeleteCouponSubcode
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteCouponSubcode(int couponId, string subcode, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteCouponSubcode(DeleteCouponSubcodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CouponId`, `Subcode`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeleteCouponSubcodeError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteCouponSubcodeError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteCouponSubcodeRequest` | `Requests/Coupons/DeleteCouponSubcodeRequest.cs` |
 | `DeleteCouponSubcodeError` | `Errors/DeleteCouponSubcodeError.cs` |
 
 ### FindCoupon
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `FindCoupon(int? productFamilyId, string? code, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `productFamilyId` — nullable, no default → **must pass explicitly**
-  - `code` — nullable, no default → **must pass explicitly**
-  - `currencyPrices` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `product_family_id` ← `productFamilyId`, `code` ← `code`, `currency_prices` ← `currencyPrices`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `FindCoupon(FindCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `product_family_id` ← `ProductFamilyId`, `code` ← `Code`, `currency_prices` ← `CurrencyPrices`
 - **Returns**: `CouponResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `FindCouponRequest` | `Requests/Coupons/FindCouponRequest.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 
 ### ListCouponSubcodes
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListCouponSubcodes(int couponId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListCouponSubcodes(ListCouponSubcodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CouponId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `CouponSubcodes`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListCouponSubcodesRequest` | `Requests/Coupons/ListCouponSubcodesRequest.cs` |
 | `CouponSubcodes` | `Models/CouponSubcodes.cs` |
 
 ### ListCoupons
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListCoupons(ListCouponsFilter? filter, bool? currencyPrices, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `filter` — nullable, no default → **must pass explicitly**
-  - `currencyPrices` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `30`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `filter` ← `filter`, `currency_prices` ← `currencyPrices`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListCoupons(ListCouponsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `filter` ← `Filter`, `currency_prices` ← `CurrencyPrices`
 - **Returns**: `IReadOnlyList<CouponResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListCouponsRequest` | `Requests/Coupons/ListCouponsRequest.cs` |
 | `ListCouponsFilter` | `Models/ListCouponsFilter.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 
 ### ListCouponsForProductFamily
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListCouponsForProductFamily(int productFamilyId, ListCouponsFilter? filter, bool? currencyPrices, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `filter` — nullable, no default → **must pass explicitly**
-  - `currencyPrices` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `30`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `filter` ← `filter`, `currency_prices` ← `currencyPrices`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListCouponsForProductFamily(ListCouponsForProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `filter` ← `Filter`, `currency_prices` ← `CurrencyPrices`
 - **Returns**: `IReadOnlyList<CouponResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListCouponsForProductFamilyRequest` | `Requests/Coupons/ListCouponsForProductFamilyRequest.cs` |
 | `ListCouponsFilter` | `Models/ListCouponsFilter.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 
 ### ReadCoupon
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadCoupon(int productFamilyId, int couponId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `currencyPrices` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `currency_prices` ← `currencyPrices`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadCoupon(ReadCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `CouponId`
+- **Query params (wire ← C#)**: `currency_prices` ← `CurrencyPrices`
 - **Returns**: `CouponResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadCouponRequest` | `Requests/Coupons/ReadCouponRequest.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 
 ### ReadCouponUsage
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadCouponUsage(int productFamilyId, int couponId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadCouponUsage(ReadCouponUsageRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `CouponId`
 - **Returns**: `IReadOnlyList<CouponUsage>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadCouponUsageRequest` | `Requests/Coupons/ReadCouponUsageRequest.cs` |
 | `CouponUsage` | `Models/CouponUsage.cs` |
 
 ### UpdateCoupon
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateCoupon(int productFamilyId, int couponId, CouponRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateCoupon(UpdateCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`, `CouponId`
 - **Returns**: `CouponResponse`
-- **Error**: `SdkException<UpdateCouponError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateCouponError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateCouponRequest` | `Requests/Coupons/UpdateCouponRequest.cs` |
 | `CouponRequest` | `Models/CouponRequest.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 | `UpdateCouponError` | `Errors/UpdateCouponError.cs` |
@@ -176,29 +183,31 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 ### UpdateCouponSubcodes
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateCouponSubcodes(int couponId, CouponSubcodes? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateCouponSubcodes(UpdateCouponSubcodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CouponId`
 - **Returns**: `CouponSubcodesResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `UpdateCouponSubcodesRequest` | `Requests/Coupons/UpdateCouponSubcodesRequest.cs` |
 | `CouponSubcodes` | `Models/CouponSubcodes.cs` |
 | `CouponSubcodesResponse` | `Models/CouponSubcodesResponse.cs` |
 
 ### ValidateCoupon
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ValidateCoupon(string code, int? productFamilyId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `productFamilyId` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `code` ← `code`, `product_family_id` ← `productFamilyId`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ValidateCoupon(ValidateCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Code`
+- **Query params (wire ← C#)**: `code` ← `Code`, `product_family_id` ← `ProductFamilyId`
 - **Returns**: `CouponResponse`
-- **Error**: `SdkException<ValidateCouponError>` — **Case A (typed)**
+- **Error**: `ApiException<ValidateCouponError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleStringErrorResponse1(out SingleStringErrorResponse1)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ValidateCouponRequest` | `Requests/Coupons/ValidateCouponRequest.cs` |
 | `CouponResponse` | `Models/CouponResponse.cs` |
 | `ValidateCouponError` | `Errors/ValidateCouponError.cs` |
 | `SingleStringErrorResponse1` | `Models/SingleStringErrorResponse1.cs` |

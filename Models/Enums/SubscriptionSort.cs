@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<SubscriptionSort>))]
-public sealed record SubscriptionSort : StringEnum<SubscriptionSort>
+public sealed record SubscriptionSort : OpenStringEnum<SubscriptionSort>
 {
     private SubscriptionSort(string value) : base(value)
     {
@@ -30,5 +31,54 @@ public sealed record SubscriptionSort : StringEnum<SubscriptionSort>
 
     public static readonly SubscriptionSort ExpiresAt = new("expires_at");
 
-    public static SubscriptionSort FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onSignupDate,
+        Func<TResult> onPeriodStart,
+        Func<TResult> onPeriodEnd,
+        Func<TResult> onNextAssessment,
+        Func<TResult> onUpdatedAt,
+        Func<TResult> onCreatedAt,
+        Func<TResult> onTotalPayments,
+        Func<TResult> onId,
+        Func<TResult> onOpenBalance,
+        Func<TResult> onExpiresAt,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == SignupDate => onSignupDate(),
+            _ when this == PeriodStart => onPeriodStart(),
+            _ when this == PeriodEnd => onPeriodEnd(),
+            _ when this == NextAssessment => onNextAssessment(),
+            _ when this == UpdatedAt => onUpdatedAt(),
+            _ when this == CreatedAt => onCreatedAt(),
+            _ when this == TotalPayments => onTotalPayments(),
+            _ when this == Id => onId(),
+            _ when this == OpenBalance => onOpenBalance(),
+            _ when this == ExpiresAt => onExpiresAt(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onSignupDate,
+        Action onPeriodStart,
+        Action onPeriodEnd,
+        Action onNextAssessment,
+        Action onUpdatedAt,
+        Action onCreatedAt,
+        Action onTotalPayments,
+        Action onId,
+        Action onOpenBalance,
+        Action onExpiresAt,
+        Action<string> otherwise)
+    {
+        if (this == SignupDate) onSignupDate();
+        else if (this == PeriodStart) onPeriodStart();
+        else if (this == PeriodEnd) onPeriodEnd();
+        else if (this == NextAssessment) onNextAssessment();
+        else if (this == UpdatedAt) onUpdatedAt();
+        else if (this == CreatedAt) onCreatedAt();
+        else if (this == TotalPayments) onTotalPayments();
+        else if (this == Id) onId();
+        else if (this == OpenBalance) onOpenBalance();
+        else if (this == ExpiresAt) onExpiresAt();
+        else otherwise(Value);
+    }
 }

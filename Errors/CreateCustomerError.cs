@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class CreateCustomerError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class CreateCustomerError : ApiError
     private static CreateCustomerError AsCustomerErrorResponse1(CustomerErrorResponse1 value) =>
         new(Optional<CustomerErrorResponse1>.Some(value), default);
 
-    private static CreateCustomerError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static CreateCustomerError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetCustomerErrorResponse1(out CustomerErrorResponse1 value) =>
         _customerErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<CreateCustomerError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<CreateCustomerError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<CustomerErrorResponse1>(response, ct).As(AsCustomerErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<CustomerErrorResponse1>().As(AsCustomerErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class CreateCustomerErrorResponse : IErrorResponse<CreateCustomerError>
-{
-    public static CreateCustomerErrorResponse Instance { get; } = new();
-
-    private CreateCustomerErrorResponse()
-    {
-    }
-
-    public Task<CreateCustomerError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        CreateCustomerError.Create(response, ct);
+    internal static ApiErrorResponse<CreateCustomerError> Response { get; } = new(Create);
 }

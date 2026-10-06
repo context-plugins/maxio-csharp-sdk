@@ -1,10 +1,8 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class DeleteSegmentError : ApiError
 {
@@ -15,30 +13,18 @@ public sealed class DeleteSegmentError : ApiError
         _noContentValue = noContentValue;
     }
 
-    private static DeleteSegmentError AsNoContent(RawError value) =>
-        new(Optional<RawError>.Some(value), default);
+    private static DeleteSegmentError AsNoContent(RawError value) => new(Optional<RawError>.Some(value), default);
 
-    private static DeleteSegmentError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static DeleteSegmentError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetNoContent(out RawError value) => _noContentValue.TryGetValue(out value);
 
-    internal static Task<DeleteSegmentError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<DeleteSegmentError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 or 422 => FromRawBody(response, ct).As(AsNoContent),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 or 422 => response.RawBody().As(AsNoContent),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class DeleteSegmentErrorResponse : IErrorResponse<DeleteSegmentError>
-{
-    public static DeleteSegmentErrorResponse Instance { get; } = new();
-
-    private DeleteSegmentErrorResponse()
-    {
-    }
-
-    public Task<DeleteSegmentError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        DeleteSegmentError.Create(response, ct);
+    internal static ApiErrorResponse<DeleteSegmentError> Response { get; } = new(Create);
 }

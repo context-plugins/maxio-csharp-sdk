@@ -8,15 +8,16 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### ActivateSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ActivateSubscription(int subscriptionId, ActivateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ActivateSubscription(ActivateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<ActivateSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<ActivateSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [400] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ActivateSubscriptionOperationRequest` | `Requests/Subscriptions/ActivateSubscriptionOperationRequest.cs` |
 | `ActivateSubscriptionRequest` | `Models/ActivateSubscriptionRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `ActivateSubscriptionError` | `Errors/ActivateSubscriptionError.cs` |
@@ -24,17 +25,17 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### ApplyCouponsToSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ApplyCouponsToSubscription(int subscriptionId, string? code, AddCouponsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `code` — nullable, no default → **must pass explicitly**
-  - `body` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `code` ← `code`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ApplyCouponsToSubscription(ApplyCouponsToSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `code` ← `Code`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<ApplyCouponsToSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<ApplyCouponsToSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionAddCouponError1(out SubscriptionAddCouponError1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ApplyCouponsToSubscriptionRequest` | `Requests/Subscriptions/ApplyCouponsToSubscriptionRequest.cs` |
 | `AddCouponsRequest` | `Models/AddCouponsRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `ApplyCouponsToSubscriptionError` | `Errors/ApplyCouponsToSubscriptionError.cs` |
@@ -42,15 +43,15 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### CreateSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateSubscription(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateSubscription(CreateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<CreateSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateSubscriptionOperationRequest` | `Requests/Subscriptions/CreateSubscriptionOperationRequest.cs` |
 | `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `CreateSubscriptionError` | `Errors/CreateSubscriptionError.cs` |
@@ -58,122 +59,130 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### FindSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `FindSubscription(string? reference, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `reference` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `reference` ← `reference`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `FindSubscription(FindSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `reference` ← `Reference`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<FindSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<FindSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `FindSubscriptionRequest` | `Requests/Subscriptions/FindSubscriptionRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `FindSubscriptionError` | `Errors/FindSubscriptionError.cs` |
 
 ### ListSubscriptions
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptions(SubscriptionStateFilter? state, int? product, int? productPricePointId, int? coupon, string? couponCode, int? brandingThemeId, SubscriptionDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, IReadOnlyDictionary<string, string>? metadata, SortingDirection? direction, SubscriptionSort? sort, IReadOnlyList<SubscriptionListInclude>? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 15 params (`state` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `state` ← `state`, `product` ← `product`, `product_price_point_id` ← `productPricePointId`, `coupon` ← `coupon`, `coupon_code` ← `couponCode`, `branding_theme_id` ← `brandingThemeId`, `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`, `metadata` ← `metadata`, `direction` ← `direction`, `sort` ← `sort`, `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptions(ListSubscriptionsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `sort` ← `Sort`, `direction` ← `Direction`, `state` ← `State`, `product` ← `Product`, `q` ← `Q`, `q_scope` ← `QScope`, `customer_id` ← `CustomerId`, `product_price_point_id` ← `ProductPricePointId`, `coupon` ← `Coupon`, `coupon_code` ← `CouponCode`, `collection_method` ← `CollectionMethod`, `branding_theme_id` ← `BrandingThemeId`, `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `metadata` ← `Metadata`, `group_status` ← `GroupStatus`, `dunning_exemption` ← `DunningExemption`, `payment_gateways` ← `PaymentGateways`, `currencies` ← `Currencies`, `include` ← `Include`
 - **Returns**: `IReadOnlyList<SubscriptionResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `SubscriptionStateFilter` | `Models/Enums/SubscriptionStateFilter.cs` |
-| `SubscriptionDateField` | `Models/Enums/SubscriptionDateField.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
+| `ListSubscriptionsRequest` | `Requests/Subscriptions/ListSubscriptionsRequest.cs` |
 | `SubscriptionSort` | `Models/Enums/SubscriptionSort.cs` |
+| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
+| `SubscriptionStateFilter` | `Models/Enums/SubscriptionStateFilter.cs` |
+| `Product1` | `Models/AnyOf/Product1.cs` |
+| `QScope` | `Models/Enums/QScope.cs` |
+| `CollectionMethod1` | `Models/Enums/CollectionMethod1.cs` |
+| `SubscriptionDateField` | `Models/Enums/SubscriptionDateField.cs` |
+| `GroupStatus` | `Models/Enums/GroupStatus.cs` |
 | `SubscriptionListInclude` | `Models/Enums/SubscriptionListInclude.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 
 ### OverrideSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `OverrideSubscription(int subscriptionId, OverrideSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `OverrideSubscription(OverrideSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<OverrideSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<OverrideSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleErrorResponse1(out SingleErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `OverrideSubscriptionOperationRequest` | `Requests/Subscriptions/OverrideSubscriptionOperationRequest.cs` |
 | `OverrideSubscriptionRequest` | `Models/OverrideSubscriptionRequest.cs` |
 | `OverrideSubscriptionError` | `Errors/OverrideSubscriptionError.cs` |
 | `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
 
 ### PreviewSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PreviewSubscription(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PreviewSubscription(PreviewSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `SubscriptionPreviewResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `PreviewSubscriptionRequest` | `Requests/Subscriptions/PreviewSubscriptionRequest.cs` |
 | `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
 | `SubscriptionPreviewResponse` | `Models/SubscriptionPreviewResponse.cs` |
 
 ### PurgeSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PurgeSubscription(int subscriptionId, int ack, IReadOnlyList<SubscriptionPurgeType>? cascade, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `cascade` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `ack` ← `ack`, `cascade` ← `cascade`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PurgeSubscription(PurgeSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Ack`
+- **Query params (wire ← C#)**: `ack` ← `Ack`, `cascade` ← `Cascade`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<PurgeSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<PurgeSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionResponse(out SubscriptionResponse)` [400] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `PurgeSubscriptionRequest` | `Requests/Subscriptions/PurgeSubscriptionRequest.cs` |
 | `SubscriptionPurgeType` | `Models/Enums/SubscriptionPurgeType.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `PurgeSubscriptionError` | `Errors/PurgeSubscriptionError.cs` |
 
 ### ReadSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSubscription(int subscriptionId, IReadOnlyList<SubscriptionInclude>? include, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `include` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSubscription(ReadSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `include` ← `Include`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadSubscriptionRequest` | `Requests/Subscriptions/ReadSubscriptionRequest.cs` |
 | `SubscriptionInclude` | `Models/Enums/SubscriptionInclude.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 
 ### RemoveCouponFromSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RemoveCouponFromSubscription(int subscriptionId, string? couponCode, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `couponCode` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `coupon_code` ← `couponCode`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RemoveCouponFromSubscription(RemoveCouponFromSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `coupon_code` ← `CouponCode`
 - **Returns**: `string`
-- **Error**: `SdkException<RemoveCouponFromSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<RemoveCouponFromSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionRemoveCouponErrors1(out SubscriptionRemoveCouponErrors1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `RemoveCouponFromSubscriptionRequest` | `Requests/Subscriptions/RemoveCouponFromSubscriptionRequest.cs` |
 | `RemoveCouponFromSubscriptionError` | `Errors/RemoveCouponFromSubscriptionError.cs` |
 | `SubscriptionRemoveCouponErrors1` | `Models/SubscriptionRemoveCouponErrors1.cs` |
 
 ### UpdatePrepaidSubscriptionConfiguration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdatePrepaidSubscriptionConfiguration(int subscriptionId, UpsertPrepaidConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdatePrepaidSubscriptionConfiguration(UpdatePrepaidSubscriptionConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `PrepaidConfigurationResponse`
-- **Error**: `SdkException<UpdatePrepaidSubscriptionConfigurationError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdatePrepaidSubscriptionConfigurationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetPrepaidConfigurationErrorResponse(out PrepaidConfigurationErrorResponse)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdatePrepaidSubscriptionConfigurationRequest` | `Requests/Subscriptions/UpdatePrepaidSubscriptionConfigurationRequest.cs` |
 | `UpsertPrepaidConfigurationRequest` | `Models/UpsertPrepaidConfigurationRequest.cs` |
 | `PrepaidConfigurationResponse` | `Models/PrepaidConfigurationResponse.cs` |
 | `UpdatePrepaidSubscriptionConfigurationError` | `Errors/UpdatePrepaidSubscriptionConfigurationError.cs` |
@@ -181,15 +190,16 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 ### UpdateSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateSubscription(int subscriptionId, UpdateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateSubscription(UpdateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<UpdateSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateSubscriptionOperationRequest` | `Requests/Subscriptions/UpdateSubscriptionOperationRequest.cs` |
 | `UpdateSubscriptionRequest` | `Models/UpdateSubscriptionRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 | `UpdateSubscriptionError` | `Errors/UpdateSubscriptionError.cs` |

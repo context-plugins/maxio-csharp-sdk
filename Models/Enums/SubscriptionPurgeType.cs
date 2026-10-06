@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<SubscriptionPurgeType>))]
-public sealed record SubscriptionPurgeType : StringEnum<SubscriptionPurgeType>
+public sealed record SubscriptionPurgeType : OpenStringEnum<SubscriptionPurgeType>
 {
     private SubscriptionPurgeType(string value) : base(value)
     {
@@ -14,5 +15,20 @@ public sealed record SubscriptionPurgeType : StringEnum<SubscriptionPurgeType>
 
     public static readonly SubscriptionPurgeType PaymentProfile = new("payment_profile");
 
-    public static SubscriptionPurgeType FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onCustomer,
+        Func<TResult> onPaymentProfile,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Customer => onCustomer(),
+            _ when this == PaymentProfile => onPaymentProfile(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onCustomer, Action onPaymentProfile, Action<string> otherwise)
+    {
+        if (this == Customer) onCustomer();
+        else if (this == PaymentProfile) onPaymentProfile();
+        else otherwise(Value);
+    }
 }

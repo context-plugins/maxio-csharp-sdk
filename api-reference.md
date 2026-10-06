@@ -1,13 +1,15 @@
 # Reference
 
-> Source: [MaxioAdvancedBillingClient](MaxioAdvancedBillingClient.cs)
+Every operation below is shown in its throwing form. On an error status it throws `ApiException<TError>` — the status code, headers, content type and the operation's error type, `RawError` (the raw body) when the spec declares none — and where an operation offers an `…AsResult` sibling, that sibling returns `ApiResult<TResponse, TError>` instead. A request that produces no usable response surfaces as `SdkConnectionException` or `SdkTimeoutException`, a body that does not match the documented response type as `ResponseDeserializationException`, and a credential that cannot be applied as `AuthSchemeException`; all of them derive from `SdkException` and name the failed call. See [README → Error Handling](README.md#error-handling).
+
+> Source: [MaxioClient](MaxioClient.cs)
 
 ## ApiExports
 
 > Source: [ApiExports](Api/ApiExports.cs)
 
 <details>
-<summary><code>Task&lt;BatchJobResponse&gt; ExportInvoices(RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BatchJobResponse&gt; ExportInvoices(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -33,7 +35,7 @@ try
     var response = await client.ApiExports.ExportInvoices();
     // TODO: Handle 'response' of type BatchJobResponse
 }
-catch (SdkException<ExportInvoicesError> ex)
+catch (ApiException<ExportInvoicesError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -52,7 +54,7 @@ catch (SdkException<ExportInvoicesError> ex)
 
 **OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ExportInvoicesError](Errors/ExportInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ExportInvoicesError](Errors/ExportInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -63,7 +65,7 @@ catch (SdkException<ExportInvoicesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BatchJobResponse&gt; ExportProformaInvoices(RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BatchJobResponse&gt; ExportProformaInvoices(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -73,9 +75,7 @@ catch (SdkException<ExportInvoicesError> ex)
 <dl>
 <dd>
 
-Creates a proforma invoices export and returns a batch job object.
-
-It is only available for Relationship Invoicing architecture.
+Creates a proforma invoices export and returns a batch job object. Proforma invoices are only available on Relationship Invoicing sites.
 
 </dd>
 </dl>
@@ -91,7 +91,7 @@ try
     var response = await client.ApiExports.ExportProformaInvoices();
     // TODO: Handle 'response' of type BatchJobResponse
 }
-catch (SdkException<ExportProformaInvoicesError> ex)
+catch (ApiException<ExportProformaInvoicesError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -110,7 +110,7 @@ catch (SdkException<ExportProformaInvoicesError> ex)
 
 **OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ExportProformaInvoicesError](Errors/ExportProformaInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ExportProformaInvoicesError](Errors/ExportProformaInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -121,7 +121,7 @@ catch (SdkException<ExportProformaInvoicesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BatchJobResponse&gt; ExportSubscriptions(RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BatchJobResponse&gt; ExportSubscriptions(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -147,7 +147,7 @@ try
     var response = await client.ApiExports.ExportSubscriptions();
     // TODO: Handle 'response' of type BatchJobResponse
 }
-catch (SdkException<ExportSubscriptionsError> ex)
+catch (ApiException<ExportSubscriptionsError> ex)
 {
     if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
@@ -166,7 +166,7 @@ catch (SdkException<ExportSubscriptionsError> ex)
 
 **OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ExportSubscriptionsError](Errors/ExportSubscriptionsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ExportSubscriptionsError](Errors/ExportSubscriptionsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -177,7 +177,7 @@ catch (SdkException<ExportSubscriptionsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Invoice&gt;&gt; ListExportedInvoices(string batchId, int? perPage = 100, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Invoice&gt;&gt; ListExportedInvoices(ListExportedInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -202,10 +202,14 @@ Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per
 ```csharp
 try
 {
-    var response = await client.ApiExports.ListExportedInvoices(batchId);
+    var response = await client.ApiExports.ListExportedInvoices(new ListExportedInvoicesRequest
+    {
+        BatchId = "some example string",
+        Page = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<Invoice>
 }
-catch (SdkException<ListExportedInvoicesError> ex)
+catch (ApiException<ListExportedInvoicesError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -217,16 +221,12 @@ catch (SdkException<ListExportedInvoicesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>batchId</code> | <code>string</code> | Id of a Batch Job. |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. <br>Default value is 100. <br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br>**Default**: 100 |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
+<code>[ListExportedInvoicesRequest](Requests/ApiExports/ListExportedInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -238,7 +238,7 @@ catch (SdkException<ListExportedInvoicesError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Invoice](Models/Invoice.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListExportedInvoicesError](Errors/ListExportedInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListExportedInvoicesError](Errors/ListExportedInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -249,7 +249,7 @@ catch (SdkException<ListExportedInvoicesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ProformaInvoice&gt;&gt; ListExportedProformaInvoices(string batchId, int? perPage = 100, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ProformaInvoice&gt;&gt; ListExportedProformaInvoices(ListExportedProformaInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -274,10 +274,14 @@ Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123
 ```csharp
 try
 {
-    var response = await client.ApiExports.ListExportedProformaInvoices(batchId);
+    var response = await client.ApiExports.ListExportedProformaInvoices(new ListExportedProformaInvoicesRequest
+    {
+        BatchId = "some example string",
+        Page = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ProformaInvoice>
 }
-catch (SdkException<ListExportedProformaInvoicesError> ex)
+catch (ApiException<ListExportedProformaInvoicesError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -289,16 +293,12 @@ catch (SdkException<ListExportedProformaInvoicesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>batchId</code> | <code>string</code> | Id of a Batch Job. |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. <br>Default value is 100. <br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br>**Default**: 100 |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
+<code>[ListExportedProformaInvoicesRequest](Requests/ApiExports/ListExportedProformaInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -310,7 +310,7 @@ catch (SdkException<ListExportedProformaInvoicesError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ProformaInvoice](Models/ProformaInvoice.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListExportedProformaInvoicesError](Errors/ListExportedProformaInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListExportedProformaInvoicesError](Errors/ListExportedProformaInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -321,7 +321,7 @@ catch (SdkException<ListExportedProformaInvoicesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Subscription&gt;&gt; ListExportedSubscriptions(string batchId, int? perPage = 100, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Subscription&gt;&gt; ListExportedSubscriptions(ListExportedSubscriptionsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -346,10 +346,14 @@ Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/row
 ```csharp
 try
 {
-    var response = await client.ApiExports.ListExportedSubscriptions(batchId);
+    var response = await client.ApiExports.ListExportedSubscriptions(new ListExportedSubscriptionsRequest
+    {
+        BatchId = "some example string",
+        Page = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<Subscription>
 }
-catch (SdkException<ListExportedSubscriptionsError> ex)
+catch (ApiException<ListExportedSubscriptionsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -361,16 +365,12 @@ catch (SdkException<ListExportedSubscriptionsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>batchId</code> | <code>string</code> | Id of a Batch Job. |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. <br>Default value is 100. <br>The maximum allowed values is 10000; any per_page value over 10000 will be changed to 10000.<br>**Default**: 100 |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
+<code>[ListExportedSubscriptionsRequest](Requests/ApiExports/ListExportedSubscriptionsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -382,7 +382,7 @@ catch (SdkException<ListExportedSubscriptionsError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Subscription](Models/Subscription.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListExportedSubscriptionsError](Errors/ListExportedSubscriptionsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListExportedSubscriptionsError](Errors/ListExportedSubscriptionsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -393,7 +393,7 @@ catch (SdkException<ListExportedSubscriptionsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BatchJobResponse&gt; ReadInvoicesExport(string batchId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BatchJobResponse&gt; ReadInvoicesExport(ReadInvoicesExportRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -416,10 +416,13 @@ Returns a batch job object for an invoices export.
 ```csharp
 try
 {
-    var response = await client.ApiExports.ReadInvoicesExport(batchId);
+    var response = await client.ApiExports.ReadInvoicesExport(new ReadInvoicesExportRequest
+    {
+        BatchId = "some example string",
+    });
     // TODO: Handle 'response' of type BatchJobResponse
 }
-catch (SdkException<ReadInvoicesExportError> ex)
+catch (ApiException<ReadInvoicesExportError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -431,14 +434,12 @@ catch (SdkException<ReadInvoicesExportError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>batchId</code> | <code>string</code> | Id of a Batch Job. |
+<code>[ReadInvoicesExportRequest](Requests/ApiExports/ReadInvoicesExportRequest.cs)</code>
 
 </dd>
 </dl>
@@ -450,7 +451,7 @@ catch (SdkException<ReadInvoicesExportError> ex)
 
 **OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadInvoicesExportError](Errors/ReadInvoicesExportError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadInvoicesExportError](Errors/ReadInvoicesExportError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -461,7 +462,7 @@ catch (SdkException<ReadInvoicesExportError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BatchJobResponse&gt; ReadProformaInvoicesExport(string batchId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BatchJobResponse&gt; ReadProformaInvoicesExport(ReadProformaInvoicesExportRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -471,7 +472,7 @@ catch (SdkException<ReadInvoicesExportError> ex)
 <dl>
 <dd>
 
-Returns a batch job object for a proforma invoices export.
+Returns a batch job object for a proforma invoices export. Proforma invoices are only available on Relationship Invoicing sites.
 
 </dd>
 </dl>
@@ -484,10 +485,13 @@ Returns a batch job object for a proforma invoices export.
 ```csharp
 try
 {
-    var response = await client.ApiExports.ReadProformaInvoicesExport(batchId);
+    var response = await client.ApiExports.ReadProformaInvoicesExport(new ReadProformaInvoicesExportRequest
+    {
+        BatchId = "some example string",
+    });
     // TODO: Handle 'response' of type BatchJobResponse
 }
-catch (SdkException<ReadProformaInvoicesExportError> ex)
+catch (ApiException<ReadProformaInvoicesExportError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -499,14 +503,12 @@ catch (SdkException<ReadProformaInvoicesExportError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>batchId</code> | <code>string</code> | Id of a Batch Job. |
+<code>[ReadProformaInvoicesExportRequest](Requests/ApiExports/ReadProformaInvoicesExportRequest.cs)</code>
 
 </dd>
 </dl>
@@ -518,7 +520,7 @@ catch (SdkException<ReadProformaInvoicesExportError> ex)
 
 **OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadProformaInvoicesExportError](Errors/ReadProformaInvoicesExportError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadProformaInvoicesExportError](Errors/ReadProformaInvoicesExportError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -529,7 +531,7 @@ catch (SdkException<ReadProformaInvoicesExportError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BatchJobResponse&gt; ReadSubscriptionsExport(string batchId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BatchJobResponse&gt; ReadSubscriptionsExport(ReadSubscriptionsExportRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -552,10 +554,13 @@ Returns a batch job object for a subscriptions export.
 ```csharp
 try
 {
-    var response = await client.ApiExports.ReadSubscriptionsExport(batchId);
+    var response = await client.ApiExports.ReadSubscriptionsExport(new ReadSubscriptionsExportRequest
+    {
+        BatchId = "some example string",
+    });
     // TODO: Handle 'response' of type BatchJobResponse
 }
-catch (SdkException<ReadSubscriptionsExportError> ex)
+catch (ApiException<ReadSubscriptionsExportError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -567,14 +572,12 @@ catch (SdkException<ReadSubscriptionsExportError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>batchId</code> | <code>string</code> | Id of a Batch Job. |
+<code>[ReadSubscriptionsExportRequest](Requests/ApiExports/ReadSubscriptionsExportRequest.cs)</code>
 
 </dd>
 </dl>
@@ -586,7 +589,7 @@ catch (SdkException<ReadSubscriptionsExportError> ex)
 
 **OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadSubscriptionsExportError](Errors/ReadSubscriptionsExportError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionsExportError](Errors/ReadSubscriptionsExportError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -601,7 +604,7 @@ catch (SdkException<ReadSubscriptionsExportError> ex)
 > Source: [AdvanceInvoice](Api/AdvanceInvoice.cs)
 
 <details>
-<summary><code>Task&lt;Invoice&gt; IssueAdvanceInvoice(int subscriptionId, IssueAdvanceInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; IssueAdvanceInvoice(IssueAdvanceInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -611,11 +614,13 @@ catch (SdkException<ReadSubscriptionsExportError> ex)
 <dl>
 <dd>
 
-Issues an invoice in advance for a subscription's next renewal date. [See our docs](https://maxio.zendesk.com/hc/en-us/articles/24252026404749-Issue-Invoice-In-Advance) for more information on advance invoices, including eligibility for generating one; for the most part, they function like any other invoice, except they are issued early and have special behavior upon being voided.
-A subscription may only have one advance invoice per billing period. Attempting to issue an advance invoice when one already exists will return an error.
-That said, regeneration of the invoice may be forced with the params `force: true`, which will void an advance invoice if one exists and generate a new one. If no advance invoice exists, a new one will be generated.
-We recommend using either the create or preview endpoints for proforma invoices to preview this advance invoice before using this endpoint to generate it.
+Issues an invoice in advance for a subscription's next renewal date. For the most part, advance invoices function like any other invoice, except they are issued early and have special behavior upon being voided. For more information on advance invoices, including eligibility for generating one, see [Issue Invoice In Advance](https://maxio.zendesk.com/hc/en-us/articles/24252026404749-Issue-Invoice-In-Advance).
 
+A subscription can only have one advance invoice per billing period. Attempting to issue an advance invoice when one already exists returns an error.
+
+Regeneration of the invoice can be forced with the params `force: true`, which voids an advance invoice if one exists and generates a new one. If no advance invoice exists, a new one is generated.
+
+Consider using either the create or preview endpoints for proforma invoices to preview this advance invoice before using this endpoint to generate it.
 
 </dd>
 </dl>
@@ -628,10 +633,14 @@ We recommend using either the create or preview endpoints for proforma invoices 
 ```csharp
 try
 {
-    var response = await client.AdvanceInvoice.IssueAdvanceInvoice(subscriptionId, body);
+    var response = await client.AdvanceInvoice.IssueAdvanceInvoice(new IssueAdvanceInvoiceOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new IssueAdvanceInvoiceRequest { Force = true },
+    });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<IssueAdvanceInvoiceError> ex)
+catch (ApiException<IssueAdvanceInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -643,15 +652,12 @@ catch (SdkException<IssueAdvanceInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[IssueAdvanceInvoiceRequest?](Models/IssueAdvanceInvoiceRequest.cs)</code> | - |
+<code>[IssueAdvanceInvoiceOperationRequest](Requests/AdvanceInvoice/IssueAdvanceInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -663,7 +669,7 @@ catch (SdkException<IssueAdvanceInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[IssueAdvanceInvoiceError](Errors/IssueAdvanceInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueAdvanceInvoiceError](Errors/IssueAdvanceInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -674,7 +680,7 @@ catch (SdkException<IssueAdvanceInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; ReadAdvanceInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; ReadAdvanceInvoice(ReadAdvanceInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -697,10 +703,10 @@ Returns the advance invoice generated for a subscription's upcoming renewal. The
 ```csharp
 try
 {
-    var response = await client.AdvanceInvoice.ReadAdvanceInvoice(subscriptionId);
+    var response = await client.AdvanceInvoice.ReadAdvanceInvoice(new ReadAdvanceInvoiceRequest { SubscriptionId = 1 });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<ReadAdvanceInvoiceError> ex)
+catch (ApiException<ReadAdvanceInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -712,14 +718,12 @@ catch (SdkException<ReadAdvanceInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[ReadAdvanceInvoiceRequest](Requests/AdvanceInvoice/ReadAdvanceInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -731,7 +735,7 @@ catch (SdkException<ReadAdvanceInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadAdvanceInvoiceError](Errors/ReadAdvanceInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadAdvanceInvoiceError](Errors/ReadAdvanceInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -742,7 +746,7 @@ catch (SdkException<ReadAdvanceInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; VoidAdvanceInvoice(int subscriptionId, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; VoidAdvanceInvoice(VoidAdvanceInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -753,7 +757,10 @@ catch (SdkException<ReadAdvanceInvoiceError> ex)
 <dd>
 
 Voids a subscription's existing advance invoice. Once voided, it can later be regenerated if desired.
-A `reason` is required in order to void, and the invoice must have an open status. Voiding will cause any prepayments and credits that were applied to the invoice to be returned to the subscription. For a full overview of the impact of voiding, [see our help docs]($m/Invoice).
+
+A `reason` is required to void, and the invoice must have an open status. Voiding causes any prepayments and credits that were applied to the invoice to be returned to the subscription.
+
+For a full overview of the impact of voiding, see [Invoice]($m/Invoice).
 
 </dd>
 </dl>
@@ -766,10 +773,10 @@ A `reason` is required in order to void, and the invoice must have an open statu
 ```csharp
 try
 {
-    var response = await client.AdvanceInvoice.VoidAdvanceInvoice(subscriptionId, body);
+    var response = await client.AdvanceInvoice.VoidAdvanceInvoice(new VoidAdvanceInvoiceRequest { SubscriptionId = 1 });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<VoidAdvanceInvoiceError> ex)
+catch (ApiException<VoidAdvanceInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -781,15 +788,12 @@ catch (SdkException<VoidAdvanceInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[VoidInvoiceRequest?](Models/VoidInvoiceRequest.cs)</code> | - |
+<code>[VoidAdvanceInvoiceRequest](Requests/AdvanceInvoice/VoidAdvanceInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -801,7 +805,7 @@ catch (SdkException<VoidAdvanceInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[VoidAdvanceInvoiceError](Errors/VoidAdvanceInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VoidAdvanceInvoiceError](Errors/VoidAdvanceInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -816,7 +820,7 @@ catch (SdkException<VoidAdvanceInvoiceError> ex)
 > Source: [BillingPortal](Api/BillingPortal.cs)
 
 <details>
-<summary><code>Task&lt;CustomerResponse&gt; EnableBillingPortalForCustomer(int customerId, AutoInvite? autoInvite, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CustomerResponse&gt; EnableBillingPortalForCustomer(EnableBillingPortalForCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -828,21 +832,15 @@ catch (SdkException<VoidAdvanceInvoiceError> ex)
 
 Enables Billing Portal access for a customer, with an option to send an invitation email at the same time.
 
-## Billing Portal Documentation
-
-Full documentation on how the Billing Portal operates within the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-Portal-Overview).
-
-This documentation is focused on how to configure the Billing Portal Settings, as well as Subscriber Interaction and Merchant Management of the Billing Portal.
-
-You can use this endpoint to enable Billing Portal access for a Customer, with the option of sending the Customer an Invitation email at the same time.
-
 ## Billing Portal Security
 
-If your customer has been invited to the Billing Portal, then they will receive a link to manage their subscription (the “Management URL”) automatically at the bottom of their statements, invoices, and receipts. **This link changes periodically for security and is only valid for 65 days.**
+If your customer has been invited to the Billing Portal, they receive a link to manage their subscription (the “Management URL”) automatically at the bottom of their statements, invoices, and receipts. **This link changes periodically for security and is only valid for 65 days.**
 
-If you need to provide your customer their Management URL through other means, you can retrieve it via the API. Because the URL is cryptographically signed with a timestamp, it is not possible for merchants to generate the URL without requesting it from Advanced Billing.
+If you need to provide your customer their Management URL through other means, you can retrieve it [via the API]($e/Billing%20Portal/readBillingPortalLink). Because the URL is cryptographically signed with a timestamp, merchants cannot generate the URL without requesting it through the API.
 
-In order to prevent abuse & overuse, we ask that you request a new URL only when absolutely necessary. Management URLs are good for 65 days, so you should re-use a previously generated one as much as possible. If you use the URL frequently (such as to display on your website), **do not** make an API request to Advanced Billing every time.
+To prevent abuse and overuse, request a new URL only when absolutely necessary. Management URLs are good for 65 days, so you should re-use a previously generated one as much as possible. If you use the URL frequently (such as to display on your website), **do not** make an API request every time.
+
+For more information configuring the Billing Portal, see [Billing Portal Overview](https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-Portal-Overview).
 
 </dd>
 </dl>
@@ -855,10 +853,13 @@ In order to prevent abuse & overuse, we ask that you request a new URL only when
 ```csharp
 try
 {
-    var response = await client.BillingPortal.EnableBillingPortalForCustomer(customerId, autoInvite);
+    var response = await client.BillingPortal.EnableBillingPortalForCustomer(new EnableBillingPortalForCustomerRequest
+    {
+        CustomerId = 1,
+    });
     // TODO: Handle 'response' of type CustomerResponse
 }
-catch (SdkException<EnableBillingPortalForCustomerError> ex)
+catch (ApiException<EnableBillingPortalForCustomerError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -870,15 +871,12 @@ catch (SdkException<EnableBillingPortalForCustomerError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>customerId</code> | <code>int</code> | The Chargify id of the customer |
-| <code>autoInvite</code> | <code>[AutoInvite?](Models/Enums/AutoInvite.cs)</code> | When set to 1, an Invitation email will be sent to the Customer.<br>When set to 0, or not sent, an email will not be sent.<br>Use in query: `auto_invite=1`. |
+<code>[EnableBillingPortalForCustomerRequest](Requests/BillingPortal/EnableBillingPortalForCustomerRequest.cs)</code>
 
 </dd>
 </dl>
@@ -890,7 +888,7 @@ catch (SdkException<EnableBillingPortalForCustomerError> ex)
 
 **OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[EnableBillingPortalForCustomerError](Errors/EnableBillingPortalForCustomerError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[EnableBillingPortalForCustomerError](Errors/EnableBillingPortalForCustomerError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -901,7 +899,7 @@ catch (SdkException<EnableBillingPortalForCustomerError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PortalManagementLink&gt; ReadBillingPortalLink(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PortalManagementLink&gt; ReadBillingPortalLink(ReadBillingPortalLinkRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -913,13 +911,13 @@ catch (SdkException<EnableBillingPortalForCustomerError> ex)
 
 Returns the exact URL required for a subscriber to access the Billing Portal.
 
-## Rules for Management Link API
+## Management Link Request Rules
 
-+ When retrieving a management URL, multiple requests for the same customer in a short period will return the **same** URL
-+ We will not generate a new URL for 15 days
++ When retrieving a management URL, multiple requests for the same customer in a short period return the **same** URL
++ A new URL is not generated for 15 days
 + You must cache and remember this URL if you are going to need it again within 15 days
 + Only request a new URL after the `new_link_available_at` date
-+ You are limited to 15 requests for the same URL. If you make more than 15 requests before `new_link_available_at`, you will be blocked from further Management URL requests (with a response code `429`).
++ You are limited to 15 requests for the same URL. If you make more than 15 requests before `new_link_available_at`, you are blocked from further Management URL requests (with a response code `429`).
 
 </dd>
 </dl>
@@ -932,10 +930,13 @@ Returns the exact URL required for a subscriber to access the Billing Portal.
 ```csharp
 try
 {
-    var response = await client.BillingPortal.ReadBillingPortalLink(customerId);
+    var response = await client.BillingPortal.ReadBillingPortalLink(new ReadBillingPortalLinkRequest
+    {
+        CustomerId = 1,
+    });
     // TODO: Handle 'response' of type PortalManagementLink
 }
-catch (SdkException<ReadBillingPortalLinkError> ex)
+catch (ApiException<ReadBillingPortalLinkError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -947,14 +948,12 @@ catch (SdkException<ReadBillingPortalLinkError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>customerId</code> | <code>int</code> | The Chargify id of the customer |
+<code>[ReadBillingPortalLinkRequest](Requests/BillingPortal/ReadBillingPortalLinkRequest.cs)</code>
 
 </dd>
 </dl>
@@ -966,7 +965,7 @@ catch (SdkException<ReadBillingPortalLinkError> ex)
 
 **OnSuccess**: <code>[PortalManagementLink](Models/PortalManagementLink.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadBillingPortalLinkError](Errors/ReadBillingPortalLinkError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadBillingPortalLinkError](Errors/ReadBillingPortalLinkError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -977,7 +976,7 @@ catch (SdkException<ReadBillingPortalLinkError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ResentInvitation&gt; ResendBillingPortalInvitation(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ResentInvitation&gt; ResendBillingPortalInvitation(ResendBillingPortalInvitationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1010,10 +1009,13 @@ This endpoint will only return a JSON response.
 ```csharp
 try
 {
-    var response = await client.BillingPortal.ResendBillingPortalInvitation(customerId);
+    var response = await client.BillingPortal.ResendBillingPortalInvitation(new ResendBillingPortalInvitationRequest
+    {
+        CustomerId = 1,
+    });
     // TODO: Handle 'response' of type ResentInvitation
 }
-catch (SdkException<ResendBillingPortalInvitationError> ex)
+catch (ApiException<ResendBillingPortalInvitationError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -1025,14 +1027,12 @@ catch (SdkException<ResendBillingPortalInvitationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>customerId</code> | <code>int</code> | The Chargify id of the customer |
+<code>[ResendBillingPortalInvitationRequest](Requests/BillingPortal/ResendBillingPortalInvitationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1044,7 +1044,7 @@ catch (SdkException<ResendBillingPortalInvitationError> ex)
 
 **OnSuccess**: <code>[ResentInvitation](Models/ResentInvitation.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ResendBillingPortalInvitationError](Errors/ResendBillingPortalInvitationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ResendBillingPortalInvitationError](Errors/ResendBillingPortalInvitationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1055,7 +1055,7 @@ catch (SdkException<ResendBillingPortalInvitationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;RevokedInvitation&gt; RevokeBillingPortalAccess(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;RevokedInvitation&gt; RevokeBillingPortalAccess(RevokeBillingPortalAccessRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1084,10 +1084,13 @@ This endpoint will only return a JSON response.
 ```csharp
 try
 {
-    var response = await client.BillingPortal.RevokeBillingPortalAccess(customerId);
+    var response = await client.BillingPortal.RevokeBillingPortalAccess(new RevokeBillingPortalAccessRequest
+    {
+        CustomerId = 1,
+    });
     // TODO: Handle 'response' of type RevokedInvitation
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -1096,14 +1099,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>customerId</code> | <code>int</code> | The Chargify id of the customer |
+<code>[RevokeBillingPortalAccessRequest](Requests/BillingPortal/RevokeBillingPortalAccessRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1115,7 +1116,428 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[RevokedInvitation](Models/RevokedInvitation.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+## ComponentFeatures
+
+> Source: [ComponentFeatures](Api/ComponentFeatures.cs)
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; CreateComponentFeature(CreateComponentFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Attaches a feature template to this component with a concrete value. Pass `price_point_type: "PricePoint"` and `price_point_id` to create an override scoped to a single component price point instead of the whole component.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ComponentFeatures.CreateComponentFeature(new CreateComponentFeatureRequest
+    {
+        ComponentId = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<CreateComponentFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[CreateComponentFeatureRequest](Requests/ComponentFeatures/CreateComponentFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateComponentFeatureError](Errors/CreateComponentFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemsListResponse&gt; ListComponentFeatures(ListComponentFeaturesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Lists the feature catalog items attached to this component, including price-point-specific overrides.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ComponentFeatures.ListComponentFeatures(new ListComponentFeaturesRequest
+    {
+        ComponentId = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemsListResponse
+}
+catch (ApiException<ListComponentFeaturesError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ListComponentFeaturesRequest](Requests/ComponentFeatures/ListComponentFeaturesRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemsListResponse](Models/FeatureCatalogItemsListResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListComponentFeaturesError](Errors/ListComponentFeaturesError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; ReadComponentFeature(ReadComponentFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Returns a single feature catalog item attached to this component.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ComponentFeatures.ReadComponentFeature(new ReadComponentFeatureRequest
+    {
+        ComponentId = 1,
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<ReadComponentFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ReadComponentFeatureRequest](Requests/ComponentFeatures/ReadComponentFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadComponentFeatureError](Errors/ReadComponentFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task RemoveComponentFeature(RemoveComponentFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Removes a feature catalog item from this component.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    await client.ComponentFeatures.RemoveComponentFeature(new RemoveComponentFeatureRequest
+    {
+        ComponentId = 1,
+        Id = 1,
+    });
+}
+catch (ApiException<RemoveComponentFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[RemoveComponentFeatureRequest](Requests/ComponentFeatures/RemoveComponentFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: No content
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveComponentFeatureError](Errors/RemoveComponentFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; RestoreComponentFeature(RestoreComponentFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Clears the archived state of a feature catalog item attached to this component. Returns `422` if the parent feature template is still archived. Restore the feature template first.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ComponentFeatures.RestoreComponentFeature(new RestoreComponentFeatureRequest
+    {
+        ComponentId = 1,
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<RestoreComponentFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[RestoreComponentFeatureRequest](Requests/ComponentFeatures/RestoreComponentFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RestoreComponentFeatureError](Errors/RestoreComponentFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; UpdateComponentFeature(UpdateComponentFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Updates the value or periodicity of a feature catalog item attached to this component.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ComponentFeatures.UpdateComponentFeature(new UpdateComponentFeatureRequest
+    {
+        ComponentId = 1,
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<UpdateComponentFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[UpdateComponentFeatureRequest](Requests/ComponentFeatures/UpdateComponentFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateComponentFeatureError](Errors/UpdateComponentFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1130,7 +1552,7 @@ catch (SdkException<RawError> ex)
 > Source: [ComponentPricePoints](Api/ComponentPricePoints.cs)
 
 <details>
-<summary><code>Task&lt;ComponentPricePointResponse&gt; ArchiveComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointResponse&gt; ArchiveComponentPricePoint(ArchiveComponentPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1153,10 +1575,14 @@ Archives a component price point. Subscriptions using a price point that has bee
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.ArchiveComponentPricePoint(componentId, pricePointId);
+    var response = await client.ComponentPricePoints.ArchiveComponentPricePoint(new ArchiveComponentPricePointRequest
+    {
+        ComponentId = 1,
+        PricePointId = 1,
+    });
     // TODO: Handle 'response' of type ComponentPricePointResponse
 }
-catch (SdkException<ArchiveComponentPricePointError> ex)
+catch (ApiException<ArchiveComponentPricePointError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -1168,15 +1594,12 @@ catch (SdkException<ArchiveComponentPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>[ComponentIdModel](Models/AnyOf/ComponentIdModel.cs)</code> | The id or handle of the component. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-price_point-handle` for a string handle. |
+<code>[ArchiveComponentPricePointRequest](Requests/ComponentPricePoints/ArchiveComponentPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1188,7 +1611,7 @@ catch (SdkException<ArchiveComponentPricePointError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ArchiveComponentPricePointError](Errors/ArchiveComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveComponentPricePointError](Errors/ArchiveComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1199,7 +1622,7 @@ catch (SdkException<ArchiveComponentPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointsResponse&gt; BulkCreateComponentPricePoints(string componentId, CreateComponentPricePointsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointsResponse&gt; BulkCreateComponentPricePoints(BulkCreateComponentPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1222,10 +1645,40 @@ Creates multiple component price points in one request.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.BulkCreateComponentPricePoints(componentId, body);
+    var response = await client.ComponentPricePoints.BulkCreateComponentPricePoints(
+        new BulkCreateComponentPricePointsRequest
+        {
+            ComponentId = "some example string",
+            Body = new CreateComponentPricePointsRequest
+            {
+                PricePoints = [
+                    new CreateComponentPricePoint
+                    {
+                        Name = "Wholesale",
+                        Handle = "wholesale",
+                        PricingScheme = PricingScheme.PerUnit,
+                        Prices = [new Price { StartingQuantity = 1, UnitPrice = 5d }],
+                    },
+                    new CreateComponentPricePoint
+                    {
+                        Name = "MSRP",
+                        Handle = "msrp",
+                        PricingScheme = PricingScheme.PerUnit,
+                        Prices = [new Price { StartingQuantity = 1, UnitPrice = 4d }],
+                    },
+                    new CreateComponentPricePoint
+                    {
+                        Name = "Special Pricing",
+                        Handle = "special",
+                        PricingScheme = PricingScheme.PerUnit,
+                        Prices = [new Price { StartingQuantity = 1, UnitPrice = 5d }],
+                    },
+                ],
+            },
+        });
     // TODO: Handle 'response' of type ComponentPricePointsResponse
 }
-catch (SdkException<BulkCreateComponentPricePointsError> ex)
+catch (ApiException<BulkCreateComponentPricePointsError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -1237,15 +1690,12 @@ catch (SdkException<BulkCreateComponentPricePointsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | The Advanced Billing id of the component for which you want to fetch price points. |
-| <code>body</code> | <code>[CreateComponentPricePointsRequest?](Models/CreateComponentPricePointsRequest.cs)</code> | - |
+<code>[BulkCreateComponentPricePointsRequest](Requests/ComponentPricePoints/BulkCreateComponentPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1257,7 +1707,7 @@ catch (SdkException<BulkCreateComponentPricePointsError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointsResponse](Models/ComponentPricePointsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[BulkCreateComponentPricePointsError](Errors/BulkCreateComponentPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkCreateComponentPricePointsError](Errors/BulkCreateComponentPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1268,7 +1718,7 @@ catch (SdkException<BulkCreateComponentPricePointsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointCurrencyOverageResponse&gt; CloneComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, CloneComponentPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointCurrencyOverageResponse&gt; CloneComponentPricePoint(CloneComponentPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1298,10 +1748,19 @@ Clones a component price point. Custom price points (tied to a specific subscrip
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.CloneComponentPricePoint(componentId, pricePointId, body);
+    var response = await client.ComponentPricePoints.CloneComponentPricePoint(
+        new CloneComponentPricePointOperationRequest
+        {
+            ComponentId = 1,
+            PricePointId = 1,
+            Body = new CloneComponentPricePointRequest
+            {
+                PricePoint = new CloneComponentPricePoint { Name = "Pro Usage Tiered Clone" },
+            },
+        });
     // TODO: Handle 'response' of type ComponentPricePointCurrencyOverageResponse
 }
-catch (SdkException<CloneComponentPricePointError> ex)
+catch (ApiException<CloneComponentPricePointError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -1313,16 +1772,12 @@ catch (SdkException<CloneComponentPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>[ComponentIdModel](Models/AnyOf/ComponentIdModel.cs)</code> | The id or handle of the component. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-price_point-handle` for a string handle. |
-| <code>body</code> | <code>[CloneComponentPricePointRequest?](Models/CloneComponentPricePointRequest.cs)</code> | - |
+<code>[CloneComponentPricePointOperationRequest](Requests/ComponentPricePoints/CloneComponentPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1334,7 +1789,7 @@ catch (SdkException<CloneComponentPricePointError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointCurrencyOverageResponse](Models/ComponentPricePointCurrencyOverageResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CloneComponentPricePointError](Errors/CloneComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CloneComponentPricePointError](Errors/CloneComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1345,7 +1800,7 @@ catch (SdkException<CloneComponentPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointResponse&gt; CreateComponentPricePoint(int componentId, CreateComponentPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointResponse&gt; CreateComponentPricePoint(CreateComponentPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1368,10 +1823,28 @@ Creates a price point for an existing component.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.CreateComponentPricePoint(componentId, body);
+    var response = await client.ComponentPricePoints.CreateComponentPricePoint(
+        new CreateComponentPricePointOperationRequest
+        {
+            ComponentId = 1,
+            Body = new CreateComponentPricePointRequest
+            {
+                PricePoint = new CreateComponentPricePoint
+                {
+                    Name = "Wholesale",
+                    Handle = "wholesale-handle",
+                    PricingScheme = PricingScheme.Stairstep,
+                    Prices = [
+                        new Price { StartingQuantity = "1", EndingQuantity = "100", UnitPrice = "5.00" },
+                        new Price { StartingQuantity = "101", EndingQuantity = "200", UnitPrice = "4.00" },
+                    ],
+                    UseSiteExchangeRate = false,
+                },
+            },
+        });
     // TODO: Handle 'response' of type ComponentPricePointResponse
 }
-catch (SdkException<CreateComponentPricePointError> ex)
+catch (ApiException<CreateComponentPricePointError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -1383,15 +1856,12 @@ catch (SdkException<CreateComponentPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>body</code> | <code>[CreateComponentPricePointRequest?](Models/CreateComponentPricePointRequest.cs)</code> | - |
+<code>[CreateComponentPricePointOperationRequest](Requests/ComponentPricePoints/CreateComponentPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1403,7 +1873,7 @@ catch (SdkException<CreateComponentPricePointError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateComponentPricePointError](Errors/CreateComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateComponentPricePointError](Errors/CreateComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1414,7 +1884,7 @@ catch (SdkException<CreateComponentPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentCurrencyPricesResponse&gt; CreateCurrencyPrices(int pricePointId, CreateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentCurrencyPricesResponse&gt; CreateCurrencyPrices(CreateCurrencyPricesOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1441,10 +1911,20 @@ Note: Currency Prices are not able to be created for custom price points.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.CreateCurrencyPrices(pricePointId, body);
+    var response = await client.ComponentPricePoints.CreateCurrencyPrices(new CreateCurrencyPricesOperationRequest
+    {
+        PricePointId = 1,
+        Body = new CreateCurrencyPricesRequest
+        {
+            CurrencyPrices = [
+                new CreateCurrencyPrice { Currency = "EUR", Price = 50d, PriceId = 20 },
+                new CreateCurrencyPrice { Currency = "EUR", Price = 40d, PriceId = 21 },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type ComponentCurrencyPricesResponse
 }
-catch (SdkException<CreateCurrencyPricesError> ex)
+catch (ApiException<CreateCurrencyPricesError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -1456,15 +1936,12 @@ catch (SdkException<CreateCurrencyPricesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>pricePointId</code> | <code>int</code> | The Advanced Billing id of the price point |
-| <code>body</code> | <code>[CreateCurrencyPricesRequest?](Models/CreateCurrencyPricesRequest.cs)</code> | - |
+<code>[CreateCurrencyPricesOperationRequest](Requests/ComponentPricePoints/CreateCurrencyPricesOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1476,7 +1953,7 @@ catch (SdkException<CreateCurrencyPricesError> ex)
 
 **OnSuccess**: <code>[ComponentCurrencyPricesResponse](Models/ComponentCurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateCurrencyPricesError](Errors/CreateCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateCurrencyPricesError](Errors/CreateCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1487,7 +1964,7 @@ catch (SdkException<CreateCurrencyPricesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListComponentsPricePointsResponse&gt; ListAllComponentPricePoints(ListComponentsPricePointsInclude? include, SortingDirection? direction, ListPricePointsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListComponentsPricePointsResponse&gt; ListAllComponentPricePoints(ListAllComponentPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1510,10 +1987,15 @@ Lists all component price points belonging to a site.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.ListAllComponentPricePoints(include, direction, filter);
+    var response = await client.ComponentPricePoints.ListAllComponentPricePoints(new ListAllComponentPricePointsRequest
+    {
+        Include = ListComponentsPricePointsInclude.CurrencyPrices,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListComponentsPricePointsResponse
 }
-catch (SdkException<ListAllComponentPricePointsError> ex)
+catch (ApiException<ListAllComponentPricePointsError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -1525,18 +2007,12 @@ catch (SdkException<ListAllComponentPricePointsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>include</code> | <code>[ListComponentsPricePointsInclude?](Models/Enums/ListComponentsPricePointsInclude.cs)</code> | Allows including additional data in the response. Use in query: `include=currency_prices`. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>filter</code> | <code>[ListPricePointsFilter?](Models/ListPricePointsFilter.cs)</code> | Filter to use for List PricePoints operations |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListAllComponentPricePointsRequest](Requests/ComponentPricePoints/ListAllComponentPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1548,7 +2024,7 @@ catch (SdkException<ListAllComponentPricePointsError> ex)
 
 **OnSuccess**: <code>[ListComponentsPricePointsResponse](Models/ListComponentsPricePointsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListAllComponentPricePointsError](Errors/ListAllComponentPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListAllComponentPricePointsError](Errors/ListAllComponentPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1559,7 +2035,7 @@ catch (SdkException<ListAllComponentPricePointsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointsResponse&gt; ListComponentPricePoints(int componentId, bool? currencyPrices, IReadOnlyList&lt;PricePointType&gt;? filterType, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointsResponse&gt; ListComponentPricePoints(ListComponentPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1586,10 +2062,16 @@ If the price point is set to `use_site_exchange_rate: true`, it will return pric
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.ListComponentPricePoints(componentId, currencyPrices, filterType);
+    var response = await client.ComponentPricePoints.ListComponentPricePoints(new ListComponentPricePointsRequest
+    {
+        ComponentId = 1,
+        Page = 1,
+        PerPage = 50,
+        FilterType = [PricePointType.Catalog, PricePointType.Default],
+    });
     // TODO: Handle 'response' of type ComponentPricePointsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -1598,18 +2080,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>currencyPrices</code> | <code>bool?</code> | Include an array of currency price data. |
-| <code>filterType</code> | <code>IReadOnlyList&lt;[PricePointType](Models/Enums/PricePointType.cs)&gt;?</code> | Use in query: `filter[type]=catalog,default`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListComponentPricePointsRequest](Requests/ComponentPricePoints/ListComponentPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1621,7 +2097,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointsResponse](Models/ComponentPricePointsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1632,7 +2108,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; PromoteComponentPricePointToDefault(int componentId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; PromoteComponentPricePointToDefault(PromoteComponentPricePointToDefaultRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1659,10 +2135,11 @@ Note: Custom price points are not able to be set as the default for a component.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.PromoteComponentPricePointToDefault(componentId, pricePointId);
+    var response = await client.ComponentPricePoints.PromoteComponentPricePointToDefault(
+        new PromoteComponentPricePointToDefaultRequest { ComponentId = 1, PricePointId = 1 });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -1671,15 +2148,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component to which the price point belongs |
-| <code>pricePointId</code> | <code>int</code> | The Advanced Billing id of the price point |
+<code>[PromoteComponentPricePointToDefaultRequest](Requests/ComponentPricePoints/PromoteComponentPricePointToDefaultRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1691,7 +2165,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1702,7 +2176,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointCurrencyOverageResponse&gt; ReadComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointCurrencyOverageResponse&gt; ReadComponentPricePoint(ReadComponentPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1725,10 +2199,14 @@ Returns details for a specific component price point. You can achieve this by us
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.ReadComponentPricePoint(componentId, pricePointId, currencyPrices);
+    var response = await client.ComponentPricePoints.ReadComponentPricePoint(new ReadComponentPricePointRequest
+    {
+        ComponentId = 1,
+        PricePointId = 1,
+    });
     // TODO: Handle 'response' of type ComponentPricePointCurrencyOverageResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -1737,16 +2215,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>[ComponentIdModel](Models/AnyOf/ComponentIdModel.cs)</code> | The id or handle of the component. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-price_point-handle` for a string handle. |
-| <code>currencyPrices</code> | <code>bool?</code> | Include an array of currency price data. |
+<code>[ReadComponentPricePointRequest](Requests/ComponentPricePoints/ReadComponentPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1758,7 +2232,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointCurrencyOverageResponse](Models/ComponentPricePointCurrencyOverageResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1769,7 +2243,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointResponse&gt; UnarchiveComponentPricePoint(int componentId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointResponse&gt; UnarchiveComponentPricePoint(UnarchiveComponentPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1792,10 +2266,11 @@ Unarchives a component price point.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.UnarchiveComponentPricePoint(componentId, pricePointId);
+    var response = await client.ComponentPricePoints.UnarchiveComponentPricePoint(
+        new UnarchiveComponentPricePointRequest { ComponentId = 1, PricePointId = 1 });
     // TODO: Handle 'response' of type ComponentPricePointResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -1804,15 +2279,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component to which the price point belongs |
-| <code>pricePointId</code> | <code>int</code> | The Advanced Billing id of the price point |
+<code>[UnarchiveComponentPricePointRequest](Requests/ComponentPricePoints/UnarchiveComponentPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1824,7 +2296,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1835,7 +2307,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentPricePointResponse&gt; UpdateComponentPricePoint(ComponentIdModel componentId, PricePointIdModel pricePointId, UpdateComponentPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentPricePointResponse&gt; UpdateComponentPricePoint(UpdateComponentPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1864,10 +2336,27 @@ Note: Custom price points cannot be updated directly. They must be edited throug
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.UpdateComponentPricePoint(componentId, pricePointId, body);
+    var response = await client.ComponentPricePoints.UpdateComponentPricePoint(
+        new UpdateComponentPricePointOperationRequest
+        {
+            ComponentId = 1,
+            PricePointId = 1,
+            Body = new UpdateComponentPricePointRequest
+            {
+                PricePoint = new UpdateComponentPricePoint
+                {
+                    Name = "Default",
+                    Prices = [
+                        new UpdatePrice { Id = 1, EndingQuantity = 100, UnitPrice = 5d },
+                        new UpdatePrice { Id = 2, Destroy = true },
+                        new UpdatePrice { UnitPrice = 4d, StartingQuantity = 101 },
+                    ],
+                },
+            },
+        });
     // TODO: Handle 'response' of type ComponentPricePointResponse
 }
-catch (SdkException<UpdateComponentPricePointError> ex)
+catch (ApiException<UpdateComponentPricePointError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -1879,16 +2368,12 @@ catch (SdkException<UpdateComponentPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>[ComponentIdModel](Models/AnyOf/ComponentIdModel.cs)</code> | The id or handle of the component. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-price_point-handle` for a string handle. |
-| <code>body</code> | <code>[UpdateComponentPricePointRequest?](Models/UpdateComponentPricePointRequest.cs)</code> | - |
+<code>[UpdateComponentPricePointOperationRequest](Requests/ComponentPricePoints/UpdateComponentPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1900,7 +2385,7 @@ catch (SdkException<UpdateComponentPricePointError> ex)
 
 **OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateComponentPricePointError](Errors/UpdateComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateComponentPricePointError](Errors/UpdateComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1911,7 +2396,7 @@ catch (SdkException<UpdateComponentPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentCurrencyPricesResponse&gt; UpdateCurrencyPrices(int pricePointId, UpdateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentCurrencyPricesResponse&gt; UpdateCurrencyPrices(UpdateCurrencyPricesOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -1936,10 +2421,20 @@ Note: Currency Prices are not able to be updated for custom price points.
 ```csharp
 try
 {
-    var response = await client.ComponentPricePoints.UpdateCurrencyPrices(pricePointId, body);
+    var response = await client.ComponentPricePoints.UpdateCurrencyPrices(new UpdateCurrencyPricesOperationRequest
+    {
+        PricePointId = 1,
+        Body = new UpdateCurrencyPricesRequest
+        {
+            CurrencyPrices = [
+                new UpdateCurrencyPrice { Id = 100, Price = 51d },
+                new UpdateCurrencyPrice { Id = 101, Price = 41d },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type ComponentCurrencyPricesResponse
 }
-catch (SdkException<UpdateCurrencyPricesError> ex)
+catch (ApiException<UpdateCurrencyPricesError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -1951,15 +2446,12 @@ catch (SdkException<UpdateCurrencyPricesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>pricePointId</code> | <code>int</code> | The Advanced Billing id of the price point |
-| <code>body</code> | <code>[UpdateCurrencyPricesRequest?](Models/UpdateCurrencyPricesRequest.cs)</code> | - |
+<code>[UpdateCurrencyPricesOperationRequest](Requests/ComponentPricePoints/UpdateCurrencyPricesOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1971,7 +2463,7 @@ catch (SdkException<UpdateCurrencyPricesError> ex)
 
 **OnSuccess**: <code>[ComponentCurrencyPricesResponse](Models/ComponentCurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateCurrencyPricesError](Errors/UpdateCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCurrencyPricesError](Errors/UpdateCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1986,7 +2478,7 @@ catch (SdkException<UpdateCurrencyPricesError> ex)
 > Source: [Components](Api/Components.cs)
 
 <details>
-<summary><code>Task&lt;Component&gt; ArchiveComponent(int productFamilyId, string componentId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Component&gt; ArchiveComponent(ArchiveComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2009,10 +2501,14 @@ Archives the component; all current subscribers will continue to be charged as u
 ```csharp
 try
 {
-    var response = await client.Components.ArchiveComponent(productFamilyId, componentId);
+    var response = await client.Components.ArchiveComponent(new ArchiveComponentRequest
+    {
+        ProductFamilyId = 1,
+        ComponentId = "some example string",
+    });
     // TODO: Handle 'response' of type Component
 }
-catch (SdkException<ArchiveComponentError> ex)
+catch (ApiException<ArchiveComponentError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -2024,15 +2520,12 @@ catch (SdkException<ArchiveComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the component belongs |
-| <code>componentId</code> | <code>string</code> | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:` |
+<code>[ArchiveComponentRequest](Requests/Components/ArchiveComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2044,7 +2537,7 @@ catch (SdkException<ArchiveComponentError> ex)
 
 **OnSuccess**: <code>[Component](Models/Component.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ArchiveComponentError](Errors/ArchiveComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveComponentError](Errors/ArchiveComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2055,7 +2548,7 @@ catch (SdkException<ArchiveComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; CreateEventBasedComponent(string productFamilyId, CreateEbbComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; CreateEventBasedComponent(CreateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2071,9 +2564,9 @@ Event-based components are similar to other component types, in that you define 
 
 So, instead of reporting usage directly for each component (as you would with metered components), the usage is derived from analysis of your events.
 
-For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+For more information, see [Components Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
 
-If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`; sending a blank value results in a validation error.
 
 </dd>
 </dl>
@@ -2086,10 +2579,27 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.CreateEventBasedComponent(productFamilyId, body);
+    var response = await client.Components.CreateEventBasedComponent(new CreateEventBasedComponentRequest
+    {
+        ProductFamilyId = "some example string",
+        Body = new CreateEbbComponent
+        {
+            EventBasedComponent = new EbbComponent
+            {
+                Name = "Component Name",
+                UnitName = "string",
+                Description = "string",
+                Handle = "some_handle",
+                Taxable = true,
+                PricingScheme = PricingScheme.PerUnit,
+                Prices = [new Price { StartingQuantity = 1, UnitPrice = "0.49" }],
+                EventBasedBillingMetricId = 123,
+            },
+        },
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<CreateEventBasedComponentError> ex)
+catch (ApiException<CreateEventBasedComponentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -2101,15 +2611,12 @@ catch (SdkException<CreateEventBasedComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>body</code> | <code>[CreateEbbComponent?](Models/CreateEbbComponent.cs)</code> | - |
+<code>[CreateEventBasedComponentRequest](Requests/Components/CreateEventBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2121,7 +2628,7 @@ catch (SdkException<CreateEventBasedComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateEventBasedComponentError](Errors/CreateEventBasedComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateEventBasedComponentError](Errors/CreateEventBasedComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2132,7 +2639,7 @@ catch (SdkException<CreateEventBasedComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; CreateMeteredComponent(string productFamilyId, CreateMeteredComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; CreateMeteredComponent(CreateMeteredComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2148,6 +2655,9 @@ Metered components are used to bill for any type of unit that resets to 0 at the
 
 Note that this is different from recurring quantity-based components, which DO NOT reset to zero at the start of every billing period. If you want to bill for a quantity of something that does not change unless you change it, then you want quantity components, instead.
 
+#### Hybrid Pricing
+A `volume`, `tiered`, or `stairstep` metered component can combine its primary pricing with a secondary pricing model (the `overage_pricing` parameter) so both bill as a single invoice line item instead of two. This does not apply to metered components configured for event-based billing (metric, meter, or formula). See [Hybrid Pricing](page:introduction/basic-concepts/hybrid-pricing) for requirements and configuration details.
+
 For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
 
 If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
@@ -2163,10 +2673,24 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.CreateMeteredComponent(productFamilyId, body);
+    var response = await client.Components.CreateMeteredComponent(new CreateMeteredComponentRequest
+    {
+        ProductFamilyId = "some example string",
+        Body = new CreateMeteredComponent
+        {
+            MeteredComponent = new MeteredComponent
+            {
+                Name = "Text messages",
+                UnitName = "text message",
+                Taxable = false,
+                PricingScheme = PricingScheme.PerUnit,
+                Prices = [new Price { StartingQuantity = 1, UnitPrice = 1d }],
+            },
+        },
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<CreateMeteredComponentError> ex)
+catch (ApiException<CreateMeteredComponentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -2178,15 +2702,12 @@ catch (SdkException<CreateMeteredComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>body</code> | <code>[CreateMeteredComponent?](Models/CreateMeteredComponent.cs)</code> | - |
+<code>[CreateMeteredComponentRequest](Requests/Components/CreateMeteredComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2198,7 +2719,7 @@ catch (SdkException<CreateMeteredComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateMeteredComponentError](Errors/CreateMeteredComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateMeteredComponentError](Errors/CreateMeteredComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2209,7 +2730,7 @@ catch (SdkException<CreateMeteredComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; CreateOnOffComponent(string productFamilyId, CreateOnOffComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; CreateOnOffComponent(CreateOnOffComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2238,10 +2759,25 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.CreateOnOffComponent(productFamilyId, body);
+    var response = await client.Components.CreateOnOffComponent(new CreateOnOffComponentRequest
+    {
+        ProductFamilyId = "some example string",
+        Body = new CreateOnOffComponent
+        {
+            OnOffComponent = new OnOffComponent
+            {
+                Name = "Annual Support Services",
+                Description = "Prepay for support services",
+                Taxable = true,
+                UnitPrice = "100.00",
+                DisplayOnHostedPage = true,
+                PublicSignupPageIds = [320495],
+            },
+        },
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<CreateOnOffComponentError> ex)
+catch (ApiException<CreateOnOffComponentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -2253,15 +2789,12 @@ catch (SdkException<CreateOnOffComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>body</code> | <code>[CreateOnOffComponent?](Models/CreateOnOffComponent.cs)</code> | - |
+<code>[CreateOnOffComponentRequest](Requests/Components/CreateOnOffComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2273,7 +2806,7 @@ catch (SdkException<CreateOnOffComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateOnOffComponentError](Errors/CreateOnOffComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateOnOffComponentError](Errors/CreateOnOffComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2284,7 +2817,7 @@ catch (SdkException<CreateOnOffComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; CreatePrepaidUsageComponent(string productFamilyId, CreatePrepaidComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; CreatePrepaidUsageComponent(CreatePrepaidUsageComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2296,11 +2829,11 @@ catch (SdkException<CreateOnOffComponentError> ex)
 
 Creates a prepaid usage component definition under the specified product family. A prepaid component can then be added and “allocated” for a subscription.
 
-Prepaid components allow customers to pre-purchase units that can be used up over time on their subscription. In a sense, they are the mirror image of metered components; while metered components charge at the end of the period for the amount of units used, prepaid components are charged for at the time of purchase, and we subsequently keep track of the usage against the amount purchased.
+Prepaid components allow customers to pre-purchase units that can be used up over time on their subscription. In a sense, they are the mirror image of metered components; while metered components charge at the end of the period for the amount of units used, prepaid components are charged for at the time of purchase, and usage is subsequently tracked against the amount purchased.
 
-For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+For more information, see [Components Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
 
-If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`. Sending `"tax_code": ""` returns `422`.
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, taxable components must include a non-blank `tax_code`; sending a blank value results in a validation error.
 
 </dd>
 </dl>
@@ -2313,10 +2846,35 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.CreatePrepaidUsageComponent(productFamilyId, body);
+    var response = await client.Components.CreatePrepaidUsageComponent(new CreatePrepaidUsageComponentRequest
+    {
+        ProductFamilyId = "some example string",
+        Body = new CreatePrepaidComponent
+        {
+            PrepaidUsageComponent = new PrepaidUsageComponent
+            {
+                Name = "Minutes",
+                UnitName = "minutes",
+                PricingScheme = PricingScheme.PerUnit,
+                UnitPrice = 2d,
+                OveragePricing = new OveragePricing
+                {
+                    PricingScheme = PricingScheme.Stairstep,
+                    Prices = [
+                        new Price { StartingQuantity = startingQuantity, UnitPrice = unitPrice },
+                        new Price { StartingQuantity = startingQuantity, UnitPrice = unitPrice },
+                    ],
+                },
+                RolloverPrepaidRemainder = true,
+                RenewPrepaidAllocation = true,
+                ExpirationInterval = 15d,
+                ExpirationIntervalUnit = ExpirationIntervalUnit.Day,
+            },
+        },
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<CreatePrepaidUsageComponentError> ex)
+catch (ApiException<CreatePrepaidUsageComponentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -2328,15 +2886,12 @@ catch (SdkException<CreatePrepaidUsageComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>body</code> | <code>[CreatePrepaidComponent?](Models/CreatePrepaidComponent.cs)</code> | - |
+<code>[CreatePrepaidUsageComponentRequest](Requests/Components/CreatePrepaidUsageComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2348,7 +2903,7 @@ catch (SdkException<CreatePrepaidUsageComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreatePrepaidUsageComponentError](Errors/CreatePrepaidUsageComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreatePrepaidUsageComponentError](Errors/CreatePrepaidUsageComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2359,7 +2914,7 @@ catch (SdkException<CreatePrepaidUsageComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; CreateQuantityBasedComponent(string productFamilyId, CreateQuantityBasedComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; CreateQuantityBasedComponent(CreateQuantityBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2371,7 +2926,7 @@ catch (SdkException<CreatePrepaidUsageComponentError> ex)
 
 Creates a Quantity Based component definition under the specified product family. A Quantity Based component can then be added and “allocated” for a subscription.
 
-When defining a Quantity Based component, you can choose one of 2 types:
+When defining a Quantity Based component, you can choose one of two types:
 #### Recurring
 Recurring quantity-based components are used to bill for the number of some unit (think monthly software user licenses or the number of pairs of socks in a box-a-month club). This is most commonly associated with billing for user licenses, number of users, number of employees, etc.
 
@@ -2379,6 +2934,10 @@ Recurring quantity-based components are used to bill for the number of some unit
 One-time quantity-based components are used to create ad hoc usage charges that do not recur. For example, at the time of signup, you might want to charge your customer a one-time fee for onboarding or other services.
 
 The allocated quantity for one-time quantity-based components immediately gets reset back to zero after the allocation is made.
+
+For more information, see [Components Overview](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+#### Hybrid Pricing
+A `volume`, `tiered`, or `stairstep` component can combine its primary pricing with a secondary pricing model (the `overage_pricing` parameter) so both bill as a single invoice line item instead of two. See [Hybrid Pricing](page:introduction/basic-concepts/hybrid-pricing) for requirements and configuration details.
 
 For more information on components, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
 
@@ -2395,10 +2954,28 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.CreateQuantityBasedComponent(productFamilyId, body);
+    var response = await client.Components.CreateQuantityBasedComponent(new CreateQuantityBasedComponentRequest
+    {
+        ProductFamilyId = "some example string",
+        Body = new CreateQuantityBasedComponent
+        {
+            QuantityBasedComponent = new QuantityBasedComponent
+            {
+                Name = "Quantity Based Component",
+                UnitName = "Component",
+                Description = "Example of JSON per-unit component example",
+                Taxable = true,
+                PricingScheme = PricingScheme.PerUnit,
+                UnitPrice = "10",
+                DisplayOnHostedPage = true,
+                AllowFractionalQuantities = true,
+                PublicSignupPageIds = [323397],
+            },
+        },
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<CreateQuantityBasedComponentError> ex)
+catch (ApiException<CreateQuantityBasedComponentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -2410,15 +2987,12 @@ catch (SdkException<CreateQuantityBasedComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>body</code> | <code>[CreateQuantityBasedComponent?](Models/CreateQuantityBasedComponent.cs)</code> | - |
+<code>[CreateQuantityBasedComponentRequest](Requests/Components/CreateQuantityBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2430,7 +3004,7 @@ catch (SdkException<CreateQuantityBasedComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateQuantityBasedComponentError](Errors/CreateQuantityBasedComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateQuantityBasedComponentError](Errors/CreateQuantityBasedComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2441,7 +3015,7 @@ catch (SdkException<CreateQuantityBasedComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; FindComponent(string handle, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; FindComponent(FindComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2464,10 +3038,10 @@ Returns information for a component matching the provided handle. You can identi
 ```csharp
 try
 {
-    var response = await client.Components.FindComponent(handle);
+    var response = await client.Components.FindComponent(new FindComponentRequest { Handle = "some example string" });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -2476,14 +3050,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>handle</code> | <code>string</code> | The handle of the component to find |
+<code>[FindComponentRequest](Requests/Components/FindComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2495,7 +3067,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2506,7 +3078,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ComponentResponse&gt;&gt; ListComponents(BasicDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, bool? includeArchived, ListComponentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ComponentResponse&gt;&gt; ListComponents(ListComponentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2529,16 +3101,15 @@ Lists components for a site.
 ```csharp
 try
 {
-    var response = await client.Components.ListComponents(dateField,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime,
-        includeArchived,
-        filter);
+    var response = await client.Components.ListComponents(new ListComponentsRequest
+    {
+        DateField = BasicDateField.UpdatedAt,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ComponentResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -2547,22 +3118,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search. |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>includeArchived</code> | <code>bool?</code> | Include archived items. |
-| <code>filter</code> | <code>[ListComponentsFilter?](Models/ListComponentsFilter.cs)</code> | Filter to use for List Components operations |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListComponentsRequest](Requests/Components/ListComponentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2574,7 +3135,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ComponentResponse](Models/ComponentResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2585,7 +3146,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ComponentResponse&gt;&gt; ListComponentsForProductFamily(int productFamilyId, bool? includeArchived, ListComponentsFilter? filter, BasicDateField? dateField, string? endDate, string? endDatetime, string? startDate, string? startDatetime, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ComponentResponse&gt;&gt; ListComponentsForProductFamily(ListComponentsForProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2608,17 +3169,16 @@ Lists components for a particular product family.
 ```csharp
 try
 {
-    var response = await client.Components.ListComponentsForProductFamily(productFamilyId,
-        includeArchived,
-        filter,
-        dateField,
-        endDate,
-        endDatetime,
-        startDate,
-        startDatetime);
+    var response = await client.Components.ListComponentsForProductFamily(new ListComponentsForProductFamilyRequest
+    {
+        ProductFamilyId = 1,
+        Page = 1,
+        PerPage = 50,
+        DateField = BasicDateField.UpdatedAt,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ComponentResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -2627,23 +3187,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family |
-| <code>includeArchived</code> | <code>bool?</code> | Include archived items. |
-| <code>filter</code> | <code>[ListComponentsFilter?](Models/ListComponentsFilter.cs)</code> | Filter to use for List Components operations |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search. Use in query `date_field=created_at`. |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListComponentsForProductFamilyRequest](Requests/Components/ListComponentsForProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2655,7 +3204,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ComponentResponse](Models/ComponentResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2666,7 +3215,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; ReadComponent(int productFamilyId, string componentId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; ReadComponent(ReadComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2691,10 +3240,14 @@ You can read the component by either the component's id or handle. When using th
 ```csharp
 try
 {
-    var response = await client.Components.ReadComponent(productFamilyId, componentId);
+    var response = await client.Components.ReadComponent(new ReadComponentRequest
+    {
+        ProductFamilyId = 1,
+        ComponentId = "some example string",
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -2703,15 +3256,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the component belongs |
-| <code>componentId</code> | <code>string</code> | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:` |
+<code>[ReadComponentRequest](Requests/Components/ReadComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2723,7 +3273,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2734,7 +3284,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; UpdateComponent(string componentId, UpdateComponentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; UpdateComponent(UpdateComponentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2761,10 +3311,13 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.UpdateComponent(componentId, body);
+    var response = await client.Components.UpdateComponent(new UpdateComponentOperationRequest
+    {
+        ComponentId = "some example string",
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<UpdateComponentError> ex)
+catch (ApiException<UpdateComponentError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -2776,15 +3329,12 @@ catch (SdkException<UpdateComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | The id or handle of the component |
-| <code>body</code> | <code>[UpdateComponentRequest?](Models/UpdateComponentRequest.cs)</code> | - |
+<code>[UpdateComponentOperationRequest](Requests/Components/UpdateComponentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2796,7 +3346,7 @@ catch (SdkException<UpdateComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateComponentError](Errors/UpdateComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateComponentError](Errors/UpdateComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2807,7 +3357,7 @@ catch (SdkException<UpdateComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ComponentResponse&gt; UpdateProductFamilyComponent(int productFamilyId, string componentId, UpdateComponentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ComponentResponse&gt; UpdateProductFamilyComponent(UpdateProductFamilyComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2834,10 +3384,14 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Components.UpdateProductFamilyComponent(productFamilyId, componentId, body);
+    var response = await client.Components.UpdateProductFamilyComponent(new UpdateProductFamilyComponentRequest
+    {
+        ProductFamilyId = 1,
+        ComponentId = "some example string",
+    });
     // TODO: Handle 'response' of type ComponentResponse
 }
-catch (SdkException<UpdateProductFamilyComponentError> ex)
+catch (ApiException<UpdateProductFamilyComponentError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -2849,16 +3403,12 @@ catch (SdkException<UpdateProductFamilyComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the component belongs |
-| <code>componentId</code> | <code>string</code> | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:` |
-| <code>body</code> | <code>[UpdateComponentRequest?](Models/UpdateComponentRequest.cs)</code> | - |
+<code>[UpdateProductFamilyComponentRequest](Requests/Components/UpdateProductFamilyComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2870,7 +3420,7 @@ catch (SdkException<UpdateProductFamilyComponentError> ex)
 
 **OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateProductFamilyComponentError](Errors/UpdateProductFamilyComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductFamilyComponentError](Errors/UpdateProductFamilyComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2885,7 +3435,7 @@ catch (SdkException<UpdateProductFamilyComponentError> ex)
 > Source: [Coupons](Api/Coupons.cs)
 
 <details>
-<summary><code>Task&lt;CouponResponse&gt; ArchiveCoupon(int productFamilyId, int couponId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponResponse&gt; ArchiveCoupon(ArchiveCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2910,10 +3460,10 @@ The `archived_at` date and time will be assigned.
 ```csharp
 try
 {
-    var response = await client.Coupons.ArchiveCoupon(productFamilyId, couponId);
+    var response = await client.Coupons.ArchiveCoupon(new ArchiveCouponRequest { ProductFamilyId = 1, CouponId = 1 });
     // TODO: Handle 'response' of type CouponResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -2922,15 +3472,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the coupon belongs |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
+<code>[ArchiveCouponRequest](Requests/Coupons/ArchiveCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2942,7 +3489,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2953,7 +3500,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponResponse&gt; CreateCoupon(int productFamilyId, CouponRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponResponse&gt; CreateCoupon(CreateCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -2980,10 +3527,33 @@ See [Apply Coupons to Subscriptions](https://maxio.zendesk.com/hc/en-us/articles
 ```csharp
 try
 {
-    var response = await client.Coupons.CreateCoupon(productFamilyId, body);
+    var response = await client.Coupons.CreateCoupon(new CreateCouponRequest
+    {
+        ProductFamilyId = 1,
+        Body = new CouponRequest
+        {
+            Coupon = new CouponPayload
+            {
+                Name = "15% off",
+                Code = "15OFF",
+                Description = "15% off for life",
+                Percentage = 15d,
+                AllowNegativeBalance = false,
+                Recurring = false,
+                EndDate = DateTimeOffset.Parse("2012-08-29T00:00:00Z"),
+                ProductFamilyId = "2",
+                Stackable = true,
+                CompoundingStrategy = CompoundingStrategy.Compound,
+                ExcludeMidPeriodAllocations = true,
+                ApplyOnCancelAtEndOfPeriod = true,
+            },
+            RestrictedProducts = new Dictionary<string, bool> { ["1"] = true },
+            RestrictedComponents = new Dictionary<string, bool> { ["1"] = true, ["2"] = false },
+        },
+    });
     // TODO: Handle 'response' of type CouponResponse
 }
-catch (SdkException<CreateCouponError> ex)
+catch (ApiException<CreateCouponError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -2995,15 +3565,12 @@ catch (SdkException<CreateCouponError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the coupon belongs |
-| <code>body</code> | <code>[CouponRequest?](Models/CouponRequest.cs)</code> | - |
+<code>[CreateCouponRequest](Requests/Coupons/CreateCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3015,7 +3582,7 @@ catch (SdkException<CreateCouponError> ex)
 
 **OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateCouponError](Errors/CreateCouponError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateCouponError](Errors/CreateCouponError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3026,7 +3593,7 @@ catch (SdkException<CreateCouponError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponSubcodesResponse&gt; CreateCouponSubcodes(int couponId, CouponSubcodes? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponSubcodesResponse&gt; CreateCouponSubcodes(CreateCouponSubcodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3037,8 +3604,6 @@ catch (SdkException<CreateCouponError> ex)
 <dd>
 
 Creates subcodes for an existing coupon.
-
-## Coupon Subcodes Intro
 
 Coupon Subcodes allow you to create a set of unique codes that allow you to expand the use of one coupon.
 
@@ -3054,21 +3619,9 @@ Coupon Subcodes:
 + DP80302
 + SPRINGBALTIMORE
 
-Coupon subcodes can be administered in the Admin Interface or via the API.
+When creating a coupon subcode, you must specify a coupon to attach it to using the coupon_id. Valid coupon subcodes are all capital letters, contain only letters and numbers, and do not have any spaces. Lowercase letters are capitalized before the subcode is created.
 
-When creating a coupon subcode, you must specify a coupon to attach it to using the coupon_id. Valid coupon subcodes are all capital letters, contain only letters and numbers, and do not have any spaces. Lowercase letters will be capitalized before the subcode is created.
-
-## Coupon Subcodes Documentation
-
-Full documentation on how to create coupon subcodes in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes).
-
-Additionally, for documentation on how to apply a coupon to a Subscription within the Advanced Billing UI, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
-
-## Create Coupon Subcode
-
-This request allows you to create specific subcodes underneath an existing coupon code.
-
-*Note*: If you are using any of the allowed special characters ("%", "@", "+", "-", "_", and "."), you must encode them for use in the URL.
+Note: If you are using any of the allowed special characters ("%", "@", "+", "-", "_", and "."), you must encode them for use in the URL.
 
     % to %25
     @ to %40
@@ -3078,6 +3631,8 @@ This request allows you to create specific subcodes underneath an existing coupo
     . to %2E
 
 So, if the coupon subcode is `20%OFF`, the URL to delete this coupon subcode would be: `https://<subdomain>.chargify.com/coupons/567/codes/20%25OFF.<format>`.
+
+For more information on coupon codes and applying coupons to subscriptions, see [Coupon Codes](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes) and [Coupons and Subscriptions](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
 
 </dd>
 </dl>
@@ -3090,10 +3645,14 @@ So, if the coupon subcode is `20%OFF`, the URL to delete this coupon subcode wou
 ```csharp
 try
 {
-    var response = await client.Coupons.CreateCouponSubcodes(couponId, body);
+    var response = await client.Coupons.CreateCouponSubcodes(new CreateCouponSubcodesRequest
+    {
+        CouponId = 1,
+        Body = new CouponSubcodes { Codes = ["BALTIMOREFALL", "ORLANDOFALL", "DETROITFALL"] },
+    });
     // TODO: Handle 'response' of type CouponSubcodesResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3102,15 +3661,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
-| <code>body</code> | <code>[CouponSubcodes?](Models/CouponSubcodes.cs)</code> | - |
+<code>[CreateCouponSubcodesRequest](Requests/Coupons/CreateCouponSubcodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3122,7 +3678,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CouponSubcodesResponse](Models/CouponSubcodesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3133,7 +3689,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponCurrencyResponse&gt; CreateOrUpdateCouponCurrencyPrices(int couponId, CouponCurrencyRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponCurrencyResponse&gt; CreateOrUpdateCouponCurrencyPrices(CreateOrUpdateCouponCurrencyPricesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3158,10 +3714,20 @@ Currency pricing for coupons must mirror the setup of the primary coupon pricing
 ```csharp
 try
 {
-    var response = await client.Coupons.CreateOrUpdateCouponCurrencyPrices(couponId, body);
+    var response = await client.Coupons.CreateOrUpdateCouponCurrencyPrices(new CreateOrUpdateCouponCurrencyPricesRequest
+    {
+        CouponId = 1,
+        Body = new CouponCurrencyRequest
+        {
+            CurrencyPrices = [
+                new UpdateCouponCurrency { Currency = "EUR", Price = 10 },
+                new UpdateCouponCurrency { Currency = "GBP", Price = 9 },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type CouponCurrencyResponse
 }
-catch (SdkException<CreateOrUpdateCouponCurrencyPricesError> ex)
+catch (ApiException<CreateOrUpdateCouponCurrencyPricesError> ex)
 {
     if (ex.Error.TryGetErrorStringMapResponse1(out var error))
     {
@@ -3173,15 +3739,12 @@ catch (SdkException<CreateOrUpdateCouponCurrencyPricesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
-| <code>body</code> | <code>[CouponCurrencyRequest?](Models/CouponCurrencyRequest.cs)</code> | - |
+<code>[CreateOrUpdateCouponCurrencyPricesRequest](Requests/Coupons/CreateOrUpdateCouponCurrencyPricesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3193,7 +3756,7 @@ catch (SdkException<CreateOrUpdateCouponCurrencyPricesError> ex)
 
 **OnSuccess**: <code>[CouponCurrencyResponse](Models/CouponCurrencyResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateOrUpdateCouponCurrencyPricesError](Errors/CreateOrUpdateCouponCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateOrUpdateCouponCurrencyPricesError](Errors/CreateOrUpdateCouponCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3204,7 +3767,7 @@ catch (SdkException<CreateOrUpdateCouponCurrencyPricesError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteCouponSubcode(int couponId, string subcode, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteCouponSubcode(DeleteCouponSubcodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3250,9 +3813,13 @@ Or if the coupon subcode is 20%OFF, the URL to delete this coupon subcode would 
 ```csharp
 try
 {
-    await client.Coupons.DeleteCouponSubcode(couponId, subcode);
+    await client.Coupons.DeleteCouponSubcode(new DeleteCouponSubcodeRequest
+    {
+        CouponId = 1,
+        Subcode = "some example string",
+    });
 }
-catch (SdkException<DeleteCouponSubcodeError> ex)
+catch (ApiException<DeleteCouponSubcodeError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -3264,15 +3831,12 @@ catch (SdkException<DeleteCouponSubcodeError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon to which the subcode belongs |
-| <code>subcode</code> | <code>string</code> | The subcode of the coupon |
+<code>[DeleteCouponSubcodeRequest](Requests/Coupons/DeleteCouponSubcodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3284,7 +3848,7 @@ catch (SdkException<DeleteCouponSubcodeError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteCouponSubcodeError](Errors/DeleteCouponSubcodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteCouponSubcodeError](Errors/DeleteCouponSubcodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3295,7 +3859,7 @@ catch (SdkException<DeleteCouponSubcodeError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponResponse&gt; FindCoupon(int? productFamilyId, string? code, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponResponse&gt; FindCoupon(FindCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3305,9 +3869,9 @@ catch (SdkException<DeleteCouponSubcodeError> ex)
 <dl>
 <dd>
 
-Searches for a coupon by code, returning a 404 if no coupon is found. By passing a code parameter, the find will attempt to locate a coupon that matches that code.
+Searches for a coupon by code.
 
-If you have more than one product family and if the coupon you are trying to find does not belong to the default product family in your site, then you will need to specify (either in the url or as a query string param) the product family id.
+If you have more than one product family and if the coupon you are trying to find does not belong to the default product family in your site, you need to specify (either in the URL or as a query string param) the `product_family_id`.
 
 </dd>
 </dl>
@@ -3320,10 +3884,10 @@ If you have more than one product family and if the coupon you are trying to fin
 ```csharp
 try
 {
-    var response = await client.Coupons.FindCoupon(productFamilyId, code, currencyPrices);
+    var response = await client.Coupons.FindCoupon(new FindCouponRequest { CurrencyPrices = true });
     // TODO: Handle 'response' of type CouponResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3332,16 +3896,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int?</code> | The Advanced Billing id of the product family to which the coupon belongs |
-| <code>code</code> | <code>string?</code> | The code of the coupon |
-| <code>currencyPrices</code> | <code>bool?</code> | (Optional) If you have defined multiple currencies at the site level, you can pass `?currency_prices=true` to include an array of currency price data in the response. |
+<code>[FindCouponRequest](Requests/Coupons/FindCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3353,7 +3913,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3364,7 +3924,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponSubcodes&gt; ListCouponSubcodes(int couponId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponSubcodes&gt; ListCouponSubcodes(ListCouponSubcodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3387,10 +3947,15 @@ Lists the subcodes attached to a coupon.
 ```csharp
 try
 {
-    var response = await client.Coupons.ListCouponSubcodes(couponId);
+    var response = await client.Coupons.ListCouponSubcodes(new ListCouponSubcodesRequest
+    {
+        CouponId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type CouponSubcodes
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3399,16 +3964,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListCouponSubcodesRequest](Requests/Coupons/ListCouponSubcodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3420,7 +3981,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CouponSubcodes](Models/CouponSubcodes.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3431,7 +3992,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;CouponResponse&gt;&gt; ListCoupons(ListCouponsFilter? filter, bool? currencyPrices, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;CouponResponse&gt;&gt; ListCoupons(ListCouponsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3454,10 +4015,15 @@ Lists coupons for a site.
 ```csharp
 try
 {
-    var response = await client.Coupons.ListCoupons(filter, currencyPrices);
+    var response = await client.Coupons.ListCoupons(new ListCouponsRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        CurrencyPrices = true,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<CouponResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3466,17 +4032,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>filter</code> | <code>[ListCouponsFilter?](Models/ListCouponsFilter.cs)</code> | Filter to use for List Coupons operations |
-| <code>currencyPrices</code> | <code>bool?</code> | (Optional) If you have defined multiple currencies at the site level, you can pass `?currency_prices=true` to include an array of currency price data in the response. Use in query `currency_prices=true`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 30 |
+<code>[ListCouponsRequest](Requests/Coupons/ListCouponsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3488,7 +4049,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[CouponResponse](Models/CouponResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3499,7 +4060,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;CouponResponse&gt;&gt; ListCouponsForProductFamily(int productFamilyId, ListCouponsFilter? filter, bool? currencyPrices, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;CouponResponse&gt;&gt; ListCouponsForProductFamily(ListCouponsForProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3522,10 +4083,16 @@ Lists coupons for a specific product family in a site.
 ```csharp
 try
 {
-    var response = await client.Coupons.ListCouponsForProductFamily(productFamilyId, filter, currencyPrices);
+    var response = await client.Coupons.ListCouponsForProductFamily(new ListCouponsForProductFamilyRequest
+    {
+        ProductFamilyId = 1,
+        Page = 1,
+        PerPage = 50,
+        CurrencyPrices = true,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<CouponResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3534,18 +4101,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the coupon belongs |
-| <code>filter</code> | <code>[ListCouponsFilter?](Models/ListCouponsFilter.cs)</code> | Filter to use for List Coupons operations |
-| <code>currencyPrices</code> | <code>bool?</code> | (Optional) If you have defined multiple currencies at the site level, you can pass `?currency_prices=true` to include an array of currency price data in the response. Use in query `currency_prices=true`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 30 |
+<code>[ListCouponsForProductFamilyRequest](Requests/Coupons/ListCouponsForProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3557,7 +4118,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[CouponResponse](Models/CouponResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3568,7 +4129,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponResponse&gt; ReadCoupon(int productFamilyId, int couponId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponResponse&gt; ReadCoupon(ReadCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3578,10 +4139,11 @@ catch (SdkException<RawError> ex)
 <dl>
 <dd>
 
-Returns a coupon by its Advanced Billing-assigned ID. You must identify the Coupon in this call by the ID parameter that Advanced Billing assigns.
-If instead you would like to find a Coupon using a Coupon code, see the Coupon Find method.
+Returns a coupon by its system-assigned ID. You must identify the Coupon in this call by the ID parameter assigned to it.
 
-If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
+If instead you would like to find a Coupon using a Coupon code, use the [Find Coupon]($e/Coupons/findCoupon) endpoint.
+
+If the coupon is set to `use_site_exchange_rate: true`, it returns pricing based on the current exchange rate. If the flag is set to false, it returns all of the defined prices for each currency.
 
 </dd>
 </dl>
@@ -3594,10 +4156,15 @@ If the coupon is set to `use_site_exchange_rate: true`, it will return pricing b
 ```csharp
 try
 {
-    var response = await client.Coupons.ReadCoupon(productFamilyId, couponId, currencyPrices);
+    var response = await client.Coupons.ReadCoupon(new ReadCouponRequest
+    {
+        ProductFamilyId = 1,
+        CouponId = 1,
+        CurrencyPrices = true,
+    });
     // TODO: Handle 'response' of type CouponResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3606,16 +4173,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the coupon belongs |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
-| <code>currencyPrices</code> | <code>bool?</code> | (Optional) If you have defined multiple currencies at the site level, you can pass `?currency_prices=true` to include an array of currency price data in the response. |
+<code>[ReadCouponRequest](Requests/Coupons/ReadCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3627,7 +4190,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3638,7 +4201,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;CouponUsage&gt;&gt; ReadCouponUsage(int productFamilyId, int couponId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;CouponUsage&gt;&gt; ReadCouponUsage(ReadCouponUsageRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3661,10 +4224,14 @@ Lists coupon usage details, one entry per product.
 ```csharp
 try
 {
-    var response = await client.Coupons.ReadCouponUsage(productFamilyId, couponId);
+    var response = await client.Coupons.ReadCouponUsage(new ReadCouponUsageRequest
+    {
+        ProductFamilyId = 1,
+        CouponId = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<CouponUsage>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3673,15 +4240,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the coupon belongs. |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon. |
+<code>[ReadCouponUsageRequest](Requests/Coupons/ReadCouponUsageRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3693,7 +4257,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[CouponUsage](Models/CouponUsage.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3704,7 +4268,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponResponse&gt; UpdateCoupon(int productFamilyId, int couponId, CouponRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponResponse&gt; UpdateCoupon(UpdateCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3730,10 +4294,32 @@ You can restrict a coupon to only apply to specific products / components by opt
 ```csharp
 try
 {
-    var response = await client.Coupons.UpdateCoupon(productFamilyId, couponId, body);
+    var response = await client.Coupons.UpdateCoupon(new UpdateCouponRequest
+    {
+        ProductFamilyId = 1,
+        CouponId = 1,
+        Body = new CouponRequest
+        {
+            Coupon = new CouponPayload
+            {
+                Name = "15% off",
+                Code = "15OFF",
+                Description = "15% off for life",
+                Percentage = 15d,
+                AllowNegativeBalance = false,
+                Recurring = false,
+                EndDate = DateTimeOffset.Parse("2012-08-29T00:00:00Z"),
+                ProductFamilyId = "2",
+                Stackable = true,
+                CompoundingStrategy = CompoundingStrategy.Compound,
+            },
+            RestrictedProducts = new Dictionary<string, bool> { ["1"] = true },
+            RestrictedComponents = new Dictionary<string, bool> { ["1"] = true, ["2"] = false },
+        },
+    });
     // TODO: Handle 'response' of type CouponResponse
 }
-catch (SdkException<UpdateCouponError> ex)
+catch (ApiException<UpdateCouponError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -3745,16 +4331,12 @@ catch (SdkException<UpdateCouponError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>int</code> | The Advanced Billing id of the product family to which the coupon belongs |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
-| <code>body</code> | <code>[CouponRequest?](Models/CouponRequest.cs)</code> | - |
+<code>[UpdateCouponRequest](Requests/Coupons/UpdateCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3766,7 +4348,7 @@ catch (SdkException<UpdateCouponError> ex)
 
 **OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateCouponError](Errors/UpdateCouponError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCouponError](Errors/UpdateCouponError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3777,7 +4359,7 @@ catch (SdkException<UpdateCouponError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponSubcodesResponse&gt; UpdateCouponSubcodes(int couponId, CouponSubcodes? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponSubcodesResponse&gt; UpdateCouponSubcodes(UpdateCouponSubcodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3810,10 +4392,14 @@ The response will contain:
 ```csharp
 try
 {
-    var response = await client.Coupons.UpdateCouponSubcodes(couponId, body);
+    var response = await client.Coupons.UpdateCouponSubcodes(new UpdateCouponSubcodesRequest
+    {
+        CouponId = 1,
+        Body = new CouponSubcodes { Codes = ["AAAA", "BBBB", "CCCC"] },
+    });
     // TODO: Handle 'response' of type CouponSubcodesResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -3822,15 +4408,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>couponId</code> | <code>int</code> | The Advanced Billing id of the coupon |
-| <code>body</code> | <code>[CouponSubcodes?](Models/CouponSubcodes.cs)</code> | - |
+<code>[UpdateCouponSubcodesRequest](Requests/Coupons/UpdateCouponSubcodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3842,7 +4425,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CouponSubcodesResponse](Models/CouponSubcodesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3853,7 +4436,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CouponResponse&gt; ValidateCoupon(string code, int? productFamilyId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CouponResponse&gt; ValidateCoupon(ValidateCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3863,23 +4446,17 @@ catch (SdkException<RawError> ex)
 <dl>
 <dd>
 
-Verifies whether a specific coupon code is valid. This method is useful for validating coupon codes that are entered by a customer. If the coupon is found and is valid, the coupon will be returned with a 200 status code.
+Verifies whether a specific coupon code is valid. This method is useful for validating coupon codes that are entered by a customer.
 
-If the coupon is invalid, the status code will be 404 and the response will say why it is invalid. If the coupon is valid, the status code will be 200 and the coupon will be returned. The following reasons for invalidity are supported:
+If you have more than one product family and if the coupon you are validating does not belong to the first product family in your site, you need to specify the product family, either in the URL or as a query string param. This can be done by supplying the id or the handle in the `handle:my-family` format.
 
-+ Coupon not found
-+ Coupon is invalid
-+ Coupon expired
-
-If you have more than one product family and if the coupon you are validating does not belong to the first product family in your site, then you will need to specify the product family, either in the url or as a query string param. This can be done by supplying the id or the handle in the `handle:my-family` format.
-
-Eg.
+Supplying the `product_family_handle` in the URL:
 
 ```
 https://<subdomain>.chargify.com/product_families/handle:<product_family_handle>/coupons/validate.<format>?code=<coupon_code>
 ```
 
-Or:
+Supplying the `product_family_id` as a query parameter:
 
 ```
 https://<subdomain>.chargify.com/coupons/validate.<format>?code=<coupon_code>&product_family_id=<id>
@@ -3896,10 +4473,10 @@ https://<subdomain>.chargify.com/coupons/validate.<format>?code=<coupon_code>&pr
 ```csharp
 try
 {
-    var response = await client.Coupons.ValidateCoupon(code, productFamilyId);
+    var response = await client.Coupons.ValidateCoupon(new ValidateCouponRequest { Code = "some example string" });
     // TODO: Handle 'response' of type CouponResponse
 }
-catch (SdkException<ValidateCouponError> ex)
+catch (ApiException<ValidateCouponError> ex)
 {
     if (ex.Error.TryGetSingleStringErrorResponse1(out var error))
     {
@@ -3911,15 +4488,12 @@ catch (SdkException<ValidateCouponError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>code</code> | <code>string</code> | The code of the coupon |
-| <code>productFamilyId</code> | <code>int?</code> | The Advanced Billing id of the product family to which the coupon belongs |
+<code>[ValidateCouponRequest](Requests/Coupons/ValidateCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3931,7 +4505,7 @@ catch (SdkException<ValidateCouponError> ex)
 
 **OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ValidateCouponError](Errors/ValidateCouponError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ValidateCouponError](Errors/ValidateCouponError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3946,7 +4520,7 @@ catch (SdkException<ValidateCouponError> ex)
 > Source: [CustomFields](Api/CustomFields.cs)
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Metadata&gt;&gt; CreateMetadata(ResourceType resourceType, int resourceId, CreateMetadataRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Metadata&gt;&gt; CreateMetadata(CreateMetadataOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -3973,10 +4547,21 @@ If you create metadata on a subscription or customer with a metafield that does 
 ```csharp
 try
 {
-    var response = await client.CustomFields.CreateMetadata(resourceType, resourceId, body);
+    var response = await client.CustomFields.CreateMetadata(new CreateMetadataOperationRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        ResourceId = 1,
+        Body = new CreateMetadataRequest
+        {
+            Metadata = [
+                new CreateMetadata { Name = "Color", Value = "Blue" },
+                new CreateMetadata { Name = "Something", Value = "Useful" },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type IReadOnlyList<Metadata>
 }
-catch (SdkException<CreateMetadataError> ex)
+catch (ApiException<CreateMetadataError> ex)
 {
     if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
@@ -3988,16 +4573,12 @@ catch (SdkException<CreateMetadataError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>resourceId</code> | <code>int</code> | The Advanced Billing id of the customer or the subscription for which the metadata applies |
-| <code>body</code> | <code>[CreateMetadataRequest?](Models/CreateMetadataRequest.cs)</code> | - |
+<code>[CreateMetadataOperationRequest](Requests/CustomFields/CreateMetadataOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4009,7 +4590,7 @@ catch (SdkException<CreateMetadataError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Metadata](Models/Metadata.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateMetadataError](Errors/CreateMetadataError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateMetadataError](Errors/CreateMetadataError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4020,7 +4601,7 @@ catch (SdkException<CreateMetadataError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Metafield&gt;&gt; CreateMetafields(ResourceType resourceType, CreateMetafieldsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Metafield&gt;&gt; CreateMetafields(CreateMetafieldsOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4056,10 +4637,29 @@ See [Custom Fields Reference](https://docs.maxio.com/hc/en-us/articles/242661408
 ```csharp
 try
 {
-    var response = await client.CustomFields.CreateMetafields(resourceType, body);
+    var response = await client.CustomFields.CreateMetafields(new CreateMetafieldsOperationRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        Body = new CreateMetafieldsRequest
+        {
+            Metafields = new CreateMetafield
+            {
+                Name = "Dropdown field",
+                Scope = new MetafieldScope
+                {
+                    Csv = IncludeOption._0,
+                    Invoices = IncludeOption._0,
+                    Statements = IncludeOption._0,
+                    Portal = IncludeOption._1,
+                },
+                InputType = MetafieldInput.Dropdown,
+                Enum = ["option 1", "option 2"],
+            },
+        },
+    });
     // TODO: Handle 'response' of type IReadOnlyList<Metafield>
 }
-catch (SdkException<CreateMetafieldsError> ex)
+catch (ApiException<CreateMetafieldsError> ex)
 {
     if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
@@ -4071,15 +4671,12 @@ catch (SdkException<CreateMetafieldsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>body</code> | <code>[CreateMetafieldsRequest?](Models/CreateMetafieldsRequest.cs)</code> | - |
+<code>[CreateMetafieldsOperationRequest](Requests/CustomFields/CreateMetafieldsOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4091,7 +4688,7 @@ catch (SdkException<CreateMetafieldsError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Metafield](Models/Metafield.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateMetafieldsError](Errors/CreateMetafieldsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateMetafieldsError](Errors/CreateMetafieldsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4102,7 +4699,7 @@ catch (SdkException<CreateMetafieldsError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteMetadata(ResourceType resourceType, int resourceId, string? name, IReadOnlyList&lt;string&gt;? names, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteMetadata(DeleteMetadataRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4125,9 +4722,13 @@ Deletes one or more metafields (and associated metadata) from the specified subs
 ```csharp
 try
 {
-    await client.CustomFields.DeleteMetadata(resourceType, resourceId, name, names);
+    await client.CustomFields.DeleteMetadata(new DeleteMetadataRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        ResourceId = 1,
+    });
 }
-catch (SdkException<DeleteMetadataError> ex)
+catch (ApiException<DeleteMetadataError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -4139,17 +4740,12 @@ catch (SdkException<DeleteMetadataError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>resourceId</code> | <code>int</code> | The Advanced Billing id of the customer or the subscription for which the metadata applies |
-| <code>name</code> | <code>string?</code> | Name of field to be removed. |
-| <code>names</code> | <code>IReadOnlyList&lt;string&gt;?</code> | Names of fields to be removed. Use in query: `names[]=field1&names[]=my-field&names[]=another-field`. |
+<code>[DeleteMetadataRequest](Requests/CustomFields/DeleteMetadataRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4161,7 +4757,7 @@ catch (SdkException<DeleteMetadataError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteMetadataError](Errors/DeleteMetadataError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteMetadataError](Errors/DeleteMetadataError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4172,7 +4768,7 @@ catch (SdkException<DeleteMetadataError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteMetafield(ResourceType resourceType, string? name, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteMetafield(DeleteMetafieldRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4195,9 +4791,9 @@ Deletes a metafield from your Site. Removes the metafield and associated metadat
 ```csharp
 try
 {
-    await client.CustomFields.DeleteMetafield(resourceType, name);
+    await client.CustomFields.DeleteMetafield(new DeleteMetafieldRequest { ResourceType = ResourceType.Subscriptions });
 }
-catch (SdkException<DeleteMetafieldError> ex)
+catch (ApiException<DeleteMetafieldError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -4209,15 +4805,12 @@ catch (SdkException<DeleteMetafieldError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>name</code> | <code>string?</code> | The name of the metafield to be deleted |
+<code>[DeleteMetafieldRequest](Requests/CustomFields/DeleteMetafieldRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4229,7 +4822,7 @@ catch (SdkException<DeleteMetafieldError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteMetafieldError](Errors/DeleteMetafieldError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteMetafieldError](Errors/DeleteMetafieldError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4240,7 +4833,7 @@ catch (SdkException<DeleteMetafieldError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PaginatedMetadata&gt; ListMetadata(ResourceType resourceType, int resourceId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaginatedMetadata&gt; ListMetadata(ListMetadataRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4263,10 +4856,16 @@ Lists metadata and metafields for a specific customer or subscription.
 ```csharp
 try
 {
-    var response = await client.CustomFields.ListMetadata(resourceType, resourceId);
+    var response = await client.CustomFields.ListMetadata(new ListMetadataRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        ResourceId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type PaginatedMetadata
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4275,17 +4874,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>resourceId</code> | <code>int</code> | The Advanced Billing id of the customer or the subscription for which the metadata applies |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListMetadataRequest](Requests/CustomFields/ListMetadataRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4297,7 +4891,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[PaginatedMetadata](Models/PaginatedMetadata.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4308,7 +4902,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PaginatedMetadata&gt; ListMetadataForResourceType(ResourceType resourceType, BasicDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, bool? withDeleted, IReadOnlyList&lt;int&gt;? resourceIds, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaginatedMetadata&gt; ListMetadataForResourceType(ListMetadataForResourceTypeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4331,18 +4925,16 @@ Lists metadata for a specified array of subscriptions or customers.
 ```csharp
 try
 {
-    var response = await client.CustomFields.ListMetadataForResourceType(resourceType,
-        dateField,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime,
-        withDeleted,
-        resourceIds,
-        direction);
+    var response = await client.CustomFields.ListMetadataForResourceType(new ListMetadataForResourceTypeRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        Page = 1,
+        PerPage = 50,
+        DateField = BasicDateField.UpdatedAt,
+    });
     // TODO: Handle 'response' of type PaginatedMetadata
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4351,24 +4943,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search. |
-| <code>startDate</code> | <code>DateTimeOffset?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>DateTimeOffset?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>DateTimeOffset?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns metadata with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>endDatetime</code> | <code>DateTimeOffset?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns metadata with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>withDeleted</code> | <code>bool?</code> | Allow to fetch deleted metadata. |
-| <code>resourceIds</code> | <code>IReadOnlyList&lt;int&gt;?</code> | Allow to fetch metadata for multiple records based on provided ids. Use in query: `resource_ids[]=122&resource_ids[]=123&resource_ids[]=124`. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListMetadataForResourceTypeRequest](Requests/CustomFields/ListMetadataForResourceTypeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4380,7 +4960,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[PaginatedMetadata](Models/PaginatedMetadata.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4391,7 +4971,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListMetafieldsResponse&gt; ListMetafields(ResourceType resourceType, string? name, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListMetafieldsResponse&gt; ListMetafields(ListMetafieldsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4414,10 +4994,15 @@ Lists the metafields and their associated details for a Site and resource type. 
 ```csharp
 try
 {
-    var response = await client.CustomFields.ListMetafields(resourceType, name, direction);
+    var response = await client.CustomFields.ListMetafields(new ListMetafieldsRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListMetafieldsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4426,18 +5011,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>name</code> | <code>string?</code> | Filter by the name of the metafield. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListMetafieldsRequest](Requests/CustomFields/ListMetafieldsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4449,7 +5028,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListMetafieldsResponse](Models/ListMetafieldsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4460,7 +5039,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Metadata&gt;&gt; UpdateMetadata(ResourceType resourceType, int resourceId, UpdateMetadataRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Metadata&gt;&gt; UpdateMetadata(UpdateMetadataOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4487,10 +5066,14 @@ Each site is limited to 100 unique metafields per resource. This means you can h
 ```csharp
 try
 {
-    var response = await client.CustomFields.UpdateMetadata(resourceType, resourceId, body);
+    var response = await client.CustomFields.UpdateMetadata(new UpdateMetadataOperationRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+        ResourceId = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<Metadata>
 }
-catch (SdkException<UpdateMetadataError> ex)
+catch (ApiException<UpdateMetadataError> ex)
 {
     if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
@@ -4502,16 +5085,12 @@ catch (SdkException<UpdateMetadataError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>resourceId</code> | <code>int</code> | The Advanced Billing id of the customer or the subscription for which the metadata applies |
-| <code>body</code> | <code>[UpdateMetadataRequest?](Models/UpdateMetadataRequest.cs)</code> | - |
+<code>[UpdateMetadataOperationRequest](Requests/CustomFields/UpdateMetadataOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4523,7 +5102,7 @@ catch (SdkException<UpdateMetadataError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Metadata](Models/Metadata.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateMetadataError](Errors/UpdateMetadataError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateMetadataError](Errors/UpdateMetadataError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4534,7 +5113,7 @@ catch (SdkException<UpdateMetadataError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Metafield&gt;&gt; UpdateMetafield(ResourceType resourceType, UpdateMetafieldsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Metafield&gt;&gt; UpdateMetafield(UpdateMetafieldRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4578,10 +5157,13 @@ With this endpoint, you can:
 ```csharp
 try
 {
-    var response = await client.CustomFields.UpdateMetafield(resourceType, body);
+    var response = await client.CustomFields.UpdateMetafield(new UpdateMetafieldRequest
+    {
+        ResourceType = ResourceType.Subscriptions,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<Metafield>
 }
-catch (SdkException<UpdateMetafieldError> ex)
+catch (ApiException<UpdateMetafieldError> ex)
 {
     if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
@@ -4593,15 +5175,12 @@ catch (SdkException<UpdateMetafieldError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>resourceType</code> | <code>[ResourceType](Models/Enums/ResourceType.cs)</code> | The resource type to which the metafields belong. |
-| <code>body</code> | <code>[UpdateMetafieldsRequest?](Models/UpdateMetafieldsRequest.cs)</code> | - |
+<code>[UpdateMetafieldRequest](Requests/CustomFields/UpdateMetafieldRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4613,7 +5192,7 @@ catch (SdkException<UpdateMetafieldError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Metafield](Models/Metafield.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateMetafieldError](Errors/UpdateMetafieldError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateMetafieldError](Errors/UpdateMetafieldError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4628,7 +5207,7 @@ catch (SdkException<UpdateMetafieldError> ex)
 > Source: [Customers](Api/Customers.cs)
 
 <details>
-<summary><code>Task&lt;CustomerResponse&gt; CreateCustomer(CreateCustomerRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CustomerResponse&gt; CreateCustomer(CreateCustomerOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4638,30 +5217,43 @@ catch (SdkException<UpdateMetafieldError> ex)
 <dl>
 <dd>
 
-Creates a new customer; can also be created alongside a new subscription. The only validation restriction is that you may only create one customer for a given reference value.
+Creates a new customer; can also be created alongside a new subscription. The only validation restriction is that you can only create one customer for a given reference value.
 
-If provided, the `reference` value must be unique. It represents a unique identifier for the customer from your own app, i.e. the customer’s ID. This allows you to retrieve a given customer via a piece of shared information. Alternatively, you may choose to leave `reference` blank, and store Advanced Billing’s unique ID for the customer, which is in the `id` attribute.
+If provided, the `reference` value must be unique. It represents a unique identifier for the customer from your own app, i.e. the customer’s ID. This allows you to retrieve a given customer via a piece of shared information. Alternatively, you can choose to leave `reference` blank, and store the system-assigned unique ID for the customer, which is in the `id` attribute.
 
-Full documentation on how to locate, create and edit Customers in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24252190590093-Customer-Details).
+For more information, see [Customer Details](https://maxio.zendesk.com/hc/en-us/articles/24252190590093-Customer-Details).
 
 ## Required Country Format
 
-Advanced Billing requires that you use the ISO Standard Country codes when formatting country attribute of the customer.
+Format the country attribute of the customer using the ISO Standard Country codes.
 
-Countries should be formatted as 2 characters. For more information, see the following wikipedia article on [ISO_3166-1.](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes)
+Countries should be formatted as two characters. For more information, see [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes).
 
 ## Required State Format
 
-Advanced Billing requires that you use the ISO Standard State codes when formatting state attribute of the customer.
+Format the state attribute of the customer using the ISO Standard State codes.
 
-+ US States (2 characters): [ISO_3166-2](https://en.wikipedia.org/wiki/ISO_3166-2:US)
++ US States (two characters): see [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2:US).
 
-+ States Outside the US (2-3 characters): To find the correct state codes outside of the US, go to [ISO_3166-1](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) and click on the link in the “ISO 3166-2 codes” column next to country you wish to populate.
++ States Outside the US (two to three characters): To find the correct state codes outside the US, go to [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) and click on the link in the “ISO 3166-2 codes” column next to the country you wish to populate.
 
 ## Locale
 
-Advanced Billing allows you to attribute a language/region to your customer to deliver invoices in any required language.
-For more: [Customer Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672013709-Customer-Locale)
+You can attribute a language/region to the customer to deliver invoices in any required language. For more information, see [Customer Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672013709-Customer-Locale).
+
+## Tax and Business Identifiers
+
+Send `entity_identifier_kind` and `entity_identifier_value` together to store the customer's tax or business identifier, such as an EU VAT number, a French SIREN, or a LEI. A customer holds one identifier at a time.
+
+The `vat_eu` and `national_tax` kinds also require `vat_country`. An unsupported kind, a missing or mismatched `vat_country`, or a `gln`, `duns`, or `lei` value in the wrong format returns `422`.
+
+Always send the kind. `entity_identifier_value` on its own is stored as a `company_reg` when no `vat_country` is present, and returns `422` naming `entity_identifier_kind` when one is.
+
+A blank pair is ignored rather than rejected, so a `vat_number` sent alongside it still takes effect.
+
+The legacy `vat_number` and `vat_country` pair still works on its own. When neither entity identifier field is sent, Advanced Billing derives the kind from `vat_country`: an EU member state code or `GB` gives `vat_eu`, one of the national tax country codes gives `national_tax`, and a blank or unrecognized country gives `company_reg`.
+
+The response reports the stored identifier in `entity_identifier_kind` and `entity_identifier_value`, and repeats its value in `vat_number`.
 
 </dd>
 </dl>
@@ -4674,10 +5266,32 @@ For more: [Customer Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672
 ```csharp
 try
 {
-    var response = await client.Customers.CreateCustomer(body);
+    var response = await client.Customers.CreateCustomer(new CreateCustomerOperationRequest
+    {
+        Body = new CreateCustomerRequest
+        {
+            Customer = new CreateCustomer
+            {
+                FirstName = "Martha",
+                LastName = "Washington",
+                Email = "martha@example.com",
+                CcEmails = "george@example.com",
+                Organization = "ABC, Inc.",
+                Reference = "1234567890",
+                Address = "123 Main Street",
+                Address2 = "Unit 10",
+                City = "Anytown",
+                State = "MA",
+                Zip = "02120",
+                Country = "US",
+                Phone = "555-555-1212",
+                Locale = "es-MX",
+            },
+        },
+    });
     // TODO: Handle 'response' of type CustomerResponse
 }
-catch (SdkException<CreateCustomerError> ex)
+catch (ApiException<CreateCustomerError> ex)
 {
     if (ex.Error.TryGetCustomerErrorResponse1(out var error))
     {
@@ -4689,14 +5303,12 @@ catch (SdkException<CreateCustomerError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateCustomerRequest?](Models/CreateCustomerRequest.cs)</code> | - |
+<code>[CreateCustomerOperationRequest](Requests/Customers/CreateCustomerOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4708,7 +5320,7 @@ catch (SdkException<CreateCustomerError> ex)
 
 **OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateCustomerError](Errors/CreateCustomerError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateCustomerError](Errors/CreateCustomerError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4719,7 +5331,7 @@ catch (SdkException<CreateCustomerError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteCustomer(int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteCustomer(DeleteCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4742,9 +5354,9 @@ Deletes the customer.
 ```csharp
 try
 {
-    await client.Customers.DeleteCustomer(id);
+    await client.Customers.DeleteCustomer(new DeleteCustomerRequest { Id = 1 });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4753,14 +5365,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>id</code> | <code>int</code> | The Advanced Billing id of the customer |
+<code>[DeleteCustomerRequest](Requests/Customers/DeleteCustomerRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4772,7 +5382,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4783,7 +5393,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionResponse&gt;&gt; ListCustomerSubscriptions(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionResponse&gt;&gt; ListCustomerSubscriptions(ListCustomerSubscriptionsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4808,10 +5418,13 @@ Lists all subscriptions that belong to a customer.
 ```csharp
 try
 {
-    var response = await client.Customers.ListCustomerSubscriptions(customerId);
+    var response = await client.Customers.ListCustomerSubscriptions(new ListCustomerSubscriptionsRequest
+    {
+        CustomerId = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<SubscriptionResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4820,14 +5433,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>customerId</code> | <code>int</code> | The Chargify id of the customer |
+<code>[ListCustomerSubscriptionsRequest](Requests/Customers/ListCustomerSubscriptionsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4839,7 +5450,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionResponse](Models/SubscriptionResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4850,7 +5461,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;CustomerResponse&gt;&gt; ListCustomers(SortingDirection? direction, BasicDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, string? q, int? page = 1, int? perPage = 50, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;CustomerResponse&gt;&gt; ListCustomers(ListCustomersRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4887,16 +5498,15 @@ To retrieve a single, exact match by reference, use the [lookup endpoint](https:
 ```csharp
 try
 {
-    var response = await client.Customers.ListCustomers(direction,
-        dateField,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime,
-        q);
+    var response = await client.Customers.ListCustomers(new ListCustomersRequest
+    {
+        Page = 1,
+        PerPage = 30,
+        DateField = BasicDateField.UpdatedAt,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<CustomerResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4905,22 +5515,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Direction to sort customers by time of creation |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>q</code> | <code>string?</code> | A search query by which to filter customers (can be an email, an ID, a reference, organization) |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 50. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 50 |
+<code>[ListCustomersRequest](Requests/Customers/ListCustomersRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4932,7 +5532,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[CustomerResponse](Models/CustomerResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4943,7 +5543,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CustomerResponse&gt; ReadCustomer(int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CustomerResponse&gt; ReadCustomer(ReadCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -4966,10 +5566,10 @@ Retrieves the Customer properties by Advanced Billing-generated Customer ID.
 ```csharp
 try
 {
-    var response = await client.Customers.ReadCustomer(id);
+    var response = await client.Customers.ReadCustomer(new ReadCustomerRequest { Id = 1 });
     // TODO: Handle 'response' of type CustomerResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -4978,14 +5578,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>id</code> | <code>int</code> | The Advanced Billing id of the customer |
+<code>[ReadCustomerRequest](Requests/Customers/ReadCustomerRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4997,7 +5595,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5008,7 +5606,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CustomerResponse&gt; ReadCustomerByReference(string reference, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CustomerResponse&gt; ReadCustomerByReference(ReadCustomerByReferenceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5031,10 +5629,13 @@ Returns a customer by their unique reference ID. It will return a single match.
 ```csharp
 try
 {
-    var response = await client.Customers.ReadCustomerByReference(reference);
+    var response = await client.Customers.ReadCustomerByReference(new ReadCustomerByReferenceRequest
+    {
+        Reference = "some example string",
+    });
     // TODO: Handle 'response' of type CustomerResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -5043,14 +5644,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>reference</code> | <code>string</code> | Customer reference |
+<code>[ReadCustomerByReferenceRequest](Requests/Customers/ReadCustomerByReferenceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5062,7 +5661,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5073,7 +5672,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CustomerResponse&gt; UpdateCustomer(int id, UpdateCustomerRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CustomerResponse&gt; UpdateCustomer(UpdateCustomerOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5084,6 +5683,24 @@ catch (SdkException<RawError> ex)
 <dd>
 
 Updates the customer.
+
+## Tax and Business Identifiers
+
+Send `entity_identifier_kind` and `entity_identifier_value` together to store the customer's tax or business identifier, such as an EU VAT number, a French SIREN, or a LEI. A customer holds one identifier at a time, so saving an identifier of a different kind replaces the existing one.
+
+The `vat_eu` and `national_tax` kinds also require `vat_country`. An unsupported kind, a missing or mismatched `vat_country`, or a `gln`, `duns`, or `lei` value in the wrong format returns `422`.
+
+Always send the kind. `entity_identifier_value` on its own is stored as a `company_reg` when no `vat_country` is present, and returns `422` naming `entity_identifier_kind` when one is.
+
+To clear an identifier, send a supported `entity_identifier_kind` with a blank `entity_identifier_value`, or send a blank `vat_number` on its own. The first form also clears `vat_number` and `vat_country`, and it removes whichever identifier the customer holds, whatever kind you send with it.
+
+The legacy `vat_number` and `vat_country` pair still works on its own. When neither entity identifier field is sent, Advanced Billing derives the kind from `vat_country`: an EU member state code or `GB` gives `vat_eu`, one of the national tax country codes gives `national_tax`, and a blank or unrecognized country gives `company_reg`.
+
+Sending a customer response straight back leaves the tax ID alone. A blank pair, and a pair that still matches the stored identifier with `vat_country` unchanged, are read as nothing to change rather than as a request to clear. For `gln`, `duns`, and `lei` that also covers the `vat_number` the response mirrors back, so the kind survives the round trip.
+
+What you do change is applied, and the entity identifier fields take precedence over `vat_number`. A different kind or value writes that identifier, and `vat_number` and `vat_country` follow from it. A different `vat_country` next to an unchanged pair is a real edit, so it is validated and can return `422`. Changing only `vat_number` leaves the pair unchanged, so the derivation above decides the kind, which turns a `gln`, `duns`, or `lei` customer into a `company_reg`. Setting `vat_number` to `null` or a blank string still clears the identifier.
+
+The response reports the stored identifier in `entity_identifier_kind` and `entity_identifier_value`, and repeats its value in `vat_number`.
 
 </dd>
 </dl>
@@ -5096,10 +5713,22 @@ Updates the customer.
 ```csharp
 try
 {
-    var response = await client.Customers.UpdateCustomer(id, body);
+    var response = await client.Customers.UpdateCustomer(new UpdateCustomerOperationRequest
+    {
+        Id = 1,
+        Body = new UpdateCustomerRequest
+        {
+            Customer = new UpdateCustomer
+            {
+                FirstName = "Martha",
+                LastName = "Washington",
+                Email = "martha.washington@example.com",
+            },
+        },
+    });
     // TODO: Handle 'response' of type CustomerResponse
 }
-catch (SdkException<UpdateCustomerError> ex)
+catch (ApiException<UpdateCustomerError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5111,15 +5740,12 @@ catch (SdkException<UpdateCustomerError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>id</code> | <code>int</code> | The Advanced Billing id of the customer |
-| <code>body</code> | <code>[UpdateCustomerRequest?](Models/UpdateCustomerRequest.cs)</code> | - |
+<code>[UpdateCustomerOperationRequest](Requests/Customers/UpdateCustomerOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5131,7 +5757,87 @@ catch (SdkException<UpdateCustomerError> ex)
 
 **OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateCustomerError](Errors/UpdateCustomerError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCustomerError](Errors/UpdateCustomerError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+## Entitlements
+
+> Source: [Entitlements](Api/Entitlements.cs)
+
+<details>
+<summary><code>Task&lt;AggregatedEntitlementsResponse&gt; ReadSubscriptionEntitlements(ReadSubscriptionEntitlementsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Returns every feature a subscription is entitled to, collapsed into one entry per feature key and periodicity window across all products and components on the subscription. A `usage_limit` feature granted with two different periodicities comes back as two entries sharing one `feature_key`, each identified by its own `periodicity_key`.
+
+When more than one product or component grants the same feature key and periodicity, the values are combined:
+- **`access_right`** features are combined with a boolean OR. If any contributor grants access, the aggregate is `true`. `source_products` only lists the contributors that granted `true`.
+- **`usage_limit`** features are summed across every contributor sharing the same periodicity window. `source_products` lists every contributor. Grants with different periodicities are not summed together. Each periodicity is returned as a separate entry.
+- **`service_right`** features are not combined: one contributor's value wins. Do not rely on which one when several grant the same feature key.
+
+`enabled` reflects both the aggregated value and the subscription's state. The field is `false` whenever the subscription is not in a live state (`active`, `trialing`, `assessing`, `past_due`, `soft_failure`), regardless of the aggregated value. Entitlements deliberately stay enabled through dunning.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.Entitlements.ReadSubscriptionEntitlements(new ReadSubscriptionEntitlementsRequest
+    {
+        SubscriptionId = 1,
+    });
+    // TODO: Handle 'response' of type AggregatedEntitlementsResponse
+}
+catch (ApiException<ReadSubscriptionEntitlementsError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ReadSubscriptionEntitlementsRequest](Requests/Entitlements/ReadSubscriptionEntitlementsRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[AggregatedEntitlementsResponse](Models/AggregatedEntitlementsResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionEntitlementsError](Errors/ReadSubscriptionEntitlementsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5146,7 +5852,7 @@ catch (SdkException<UpdateCustomerError> ex)
 > Source: [Events](Api/Events.cs)
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;EventResponse&gt;&gt; ListEvents(long? sinceId, long? maxId, Direction? direction, IReadOnlyList&lt;EventKey&gt;? filter, ListEventsDateField? dateField, string? startDate, string? endDate, string? startDatetime, string? endDatetime, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;EventResponse&gt;&gt; ListEvents(ListEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5158,29 +5864,11 @@ catch (SdkException<UpdateCustomerError> ex)
 
 Lists events for a site.
 
-## Events Intro
+Events include various activity that happens around a Site. This information is **especially** useful to track down issues that arise when subscriptions are not created due to errors.
 
-Advanced Billing Events include various activity that happens around a Site. This information is **especially** useful to track down issues that arise when subscriptions are not created due to errors.
+Within the UI, Events are referred to as Site Activity. For more information, see [Site Activity](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-Activity).
 
-Within the Advanced Billing UI, "Events" are referred to as "Site Activity".  See the [Site Activity](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-Activity) article in the product documentation for details on how to record view Events / Site Activty in the Advanced Billing UI.
-
-If you’re using the [enhanced Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology), you’ll see updated naming in webhook events and messages.
-
-Event name changes:
-
-- subscription_product_change → subscription_plan_change
-- component_allocation_change → allocation_change
-- component_billing_date_change → product_billing_date_change
-
-Message updates:
-
-- “Plan changed on Subscription from previous plan to new plan”
-- “Successful payment for allocation changes to Product on Subscription”
-- “Failed payment for allocation changes to Product on Subscription”
-
-## List Events for a Site
-
-This method will retrieve a list of events for a site. Use query string filters to narrow down results. You may use the `key` filter as part of your query string to narrow down results.
+Use query string filters to narrow down results. You can use the `filter` parameter to filter by event key.
 
 ### Legacy Filters
 
@@ -5194,7 +5882,7 @@ The following keys are no longer supported.
 + `zferral_revenue_post_success` - (Specific to the deprecated Zferral integration)
 
 ## Event Key
-The event type is identified by the key property. You can check supported keys [here]($m/Event%20Key).
+The event type is identified by the key property. See [Event Key]($m/Event%20Key) for a complete list of supported keys.
 
 ## Event Specific Data
 
@@ -5239,6 +5927,22 @@ Here’s an example event for the `subscription_state_change` event:
  }
 ```
 
+## Enhanced Catalog Experience
+
+If you’re using the [enhanced Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology), you’ll see updated naming in webhook events and messages.
+
+Event name changes:
+
+- subscription_product_change → subscription_plan_change
+- component_allocation_change → allocation_change
+- component_billing_date_change → product_billing_date_change
+
+Message updates:
+
+- “Plan changed on Subscription from previous plan to new plan”
+- “Successful payment for allocation changes to Product on Subscription”
+- “Failed payment for allocation changes to Product on Subscription”
+
 </dd>
 </dl>
 
@@ -5250,18 +5954,16 @@ Here’s an example event for the `subscription_state_change` event:
 ```csharp
 try
 {
-    var response = await client.Events.ListEvents(sinceId,
-        maxId,
-        direction,
-        filter,
-        dateField,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime);
+    var response = await client.Events.ListEvents(new ListEventsRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        Filter = [EventKey.CustomFieldValueChange, EventKey.PaymentSuccess],
+        DateField = ListEventsDateField.CreatedAt,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<EventResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -5270,24 +5972,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sinceId</code> | <code>long?</code> | Returns events with an id greater than or equal to the one specified. |
-| <code>maxId</code> | <code>long?</code> | Returns events with an id less than or equal to the one specified. |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | The sort direction of the returned events. |
-| <code>filter</code> | <code>IReadOnlyList&lt;[EventKey](Models/Enums/EventKey.cs)&gt;?</code> | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
-| <code>dateField</code> | <code>[ListEventsDateField?](Models/Enums/ListEventsDateField.cs)</code> | The type of filter you would like to apply to your search. |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListEventsRequest](Requests/Events/ListEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5299,7 +5989,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[EventResponse](Models/EventResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5310,7 +6000,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;EventResponse&gt;&gt; ListSubscriptionEvents(int subscriptionId, long? sinceId, long? maxId, Direction? direction, IReadOnlyList&lt;EventKey&gt;? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;EventResponse&gt;&gt; ListSubscriptionEvents(ListSubscriptionEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5323,7 +6013,15 @@ catch (SdkException<RawError> ex)
 Lists events for a subscription.
 
 ## Event Key
-The event type is identified by the key property. You can check supported keys [here]($m/Event%20Key).
+The event type is identified by the key property. See [Event Key]($m/Event%20Key) for a complete list of supported keys.
+
+## Event Specific Data
+
+Different event types may include additional data in `event_specific_data` property.
+While some events share the same schema for `event_specific_data`, others may not include it at all.
+For precise mappings from key to event_specific_data, refer to [Event]($m/Event).
+
+## Enhanced Catalog Experience
 
 If you’re using the [enhanced Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology), you’ll see updated naming in webhook events and messages.
 
@@ -5339,12 +6037,6 @@ Message updates:
 - “Failed payment for allocation changes to Product on Subscription”
 - “Plan changed on Subscription from previous plan to new plan”
 
-## Event Specific Data
-
-Different event types may include additional data in `event_specific_data` property.
-While some events share the same schema for `event_specific_data`, others may not include it at all.
-For precise mappings from key to event_specific_data, refer to [Event]($m/Event).
-
 </dd>
 </dl>
 
@@ -5356,10 +6048,16 @@ For precise mappings from key to event_specific_data, refer to [Event]($m/Event)
 ```csharp
 try
 {
-    var response = await client.Events.ListSubscriptionEvents(subscriptionId, sinceId, maxId, direction, filter);
+    var response = await client.Events.ListSubscriptionEvents(new ListSubscriptionEventsRequest
+    {
+        SubscriptionId = 1,
+        Page = 1,
+        PerPage = 50,
+        Filter = [EventKey.CustomFieldValueChange, EventKey.PaymentSuccess],
+    });
     // TODO: Handle 'response' of type IReadOnlyList<EventResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -5368,20 +6066,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>sinceId</code> | <code>long?</code> | Returns events with an id greater than or equal to the one specified. |
-| <code>maxId</code> | <code>long?</code> | Returns events with an id less than or equal to the one specified. |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | The sort direction of the returned events. |
-| <code>filter</code> | <code>IReadOnlyList&lt;[EventKey](Models/Enums/EventKey.cs)&gt;?</code> | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListSubscriptionEventsRequest](Requests/Events/ListSubscriptionEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5393,7 +6083,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[EventResponse](Models/EventResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5404,7 +6094,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CountResponse&gt; ReadEventsCount(long? sinceId, long? maxId, Direction? direction, IReadOnlyList&lt;EventKey&gt;? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CountResponse&gt; ReadEventsCount(ReadEventsCountRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5441,10 +6131,15 @@ Message updates:
 ```csharp
 try
 {
-    var response = await client.Events.ReadEventsCount(sinceId, maxId, direction, filter);
+    var response = await client.Events.ReadEventsCount(new ReadEventsCountRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        Filter = [EventKey.CustomFieldValueChange, EventKey.PaymentSuccess],
+    });
     // TODO: Handle 'response' of type CountResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -5453,19 +6148,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sinceId</code> | <code>long?</code> | Returns events with an id greater than or equal to the one specified. |
-| <code>maxId</code> | <code>long?</code> | Returns events with an id less than or equal to the one specified. |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | The sort direction of the returned events. |
-| <code>filter</code> | <code>IReadOnlyList&lt;[EventKey](Models/Enums/EventKey.cs)&gt;?</code> | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ReadEventsCountRequest](Requests/Events/ReadEventsCountRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5477,7 +6165,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CountResponse](Models/CountResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5492,7 +6180,7 @@ catch (SdkException<RawError> ex)
 > Source: [EventsBasedBillingSegments](Api/EventsBasedBillingSegments.cs)
 
 <details>
-<summary><code>Task&lt;ListSegmentsResponse&gt; BulkCreateSegments(string componentId, string pricePointId, BulkCreateSegments? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListSegmentsResponse&gt; BulkCreateSegments(BulkCreateSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5519,10 +6207,14 @@ You may specify component and/or price point by using either the numeric ID or t
 ```csharp
 try
 {
-    var response = await client.EventsBasedBillingSegments.BulkCreateSegments(componentId, pricePointId, body);
+    var response = await client.EventsBasedBillingSegments.BulkCreateSegments(new BulkCreateSegmentsRequest
+    {
+        ComponentId = "some example string",
+        PricePointId = "some example string",
+    });
     // TODO: Handle 'response' of type ListSegmentsResponse
 }
-catch (SdkException<BulkCreateSegmentsError> ex)
+catch (ApiException<BulkCreateSegmentsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5534,16 +6226,12 @@ catch (SdkException<BulkCreateSegmentsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | ID or Handle for the Component |
-| <code>pricePointId</code> | <code>string</code> | ID or Handle for the Price Point belonging to the Component |
-| <code>body</code> | <code>[BulkCreateSegments?](Models/BulkCreateSegments.cs)</code> | - |
+<code>[BulkCreateSegmentsRequest](Requests/EventsBasedBillingSegments/BulkCreateSegmentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5555,7 +6243,7 @@ catch (SdkException<BulkCreateSegmentsError> ex)
 
 **OnSuccess**: <code>[ListSegmentsResponse](Models/ListSegmentsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[BulkCreateSegmentsError](Errors/BulkCreateSegmentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkCreateSegmentsError](Errors/BulkCreateSegmentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5566,7 +6254,7 @@ catch (SdkException<BulkCreateSegmentsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListSegmentsResponse&gt; BulkUpdateSegments(string componentId, string pricePointId, BulkUpdateSegments? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListSegmentsResponse&gt; BulkUpdateSegments(BulkUpdateSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5593,10 +6281,14 @@ You may specify component and/or price point by using either the numeric ID or t
 ```csharp
 try
 {
-    var response = await client.EventsBasedBillingSegments.BulkUpdateSegments(componentId, pricePointId, body);
+    var response = await client.EventsBasedBillingSegments.BulkUpdateSegments(new BulkUpdateSegmentsRequest
+    {
+        ComponentId = "some example string",
+        PricePointId = "some example string",
+    });
     // TODO: Handle 'response' of type ListSegmentsResponse
 }
-catch (SdkException<BulkUpdateSegmentsError> ex)
+catch (ApiException<BulkUpdateSegmentsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5608,16 +6300,12 @@ catch (SdkException<BulkUpdateSegmentsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | ID or Handle for the Component |
-| <code>pricePointId</code> | <code>string</code> | ID or Handle for the Price Point belonging to the Component |
-| <code>body</code> | <code>[BulkUpdateSegments?](Models/BulkUpdateSegments.cs)</code> | - |
+<code>[BulkUpdateSegmentsRequest](Requests/EventsBasedBillingSegments/BulkUpdateSegmentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5629,7 +6317,7 @@ catch (SdkException<BulkUpdateSegmentsError> ex)
 
 **OnSuccess**: <code>[ListSegmentsResponse](Models/ListSegmentsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[BulkUpdateSegmentsError](Errors/BulkUpdateSegmentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkUpdateSegmentsError](Errors/BulkUpdateSegmentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5640,7 +6328,7 @@ catch (SdkException<BulkUpdateSegmentsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SegmentResponse&gt; CreateSegment(string componentId, string pricePointId, CreateSegmentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SegmentResponse&gt; CreateSegment(CreateSegmentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5665,10 +6353,27 @@ You may specify component and/or price point by using either the numeric ID or t
 ```csharp
 try
 {
-    var response = await client.EventsBasedBillingSegments.CreateSegment(componentId, pricePointId, body);
+    var response = await client.EventsBasedBillingSegments.CreateSegment(new CreateSegmentOperationRequest
+    {
+        ComponentId = "some example string",
+        PricePointId = "some example string",
+        Body = new CreateSegmentRequest
+        {
+            Segment = new CreateSegment
+            {
+                SegmentProperty1Value = "France",
+                SegmentProperty2Value = "Spain",
+                PricingScheme = PricingScheme.Volume,
+                Prices = [
+                    new CreateOrUpdateSegmentPrice { StartingQuantity = 1, EndingQuantity = 10000, UnitPrice = 0.19d },
+                    new CreateOrUpdateSegmentPrice { StartingQuantity = 10001, UnitPrice = 0.09d },
+                ],
+            },
+        },
+    });
     // TODO: Handle 'response' of type SegmentResponse
 }
-catch (SdkException<CreateSegmentError> ex)
+catch (ApiException<CreateSegmentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5680,16 +6385,12 @@ catch (SdkException<CreateSegmentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | ID or Handle for the Component |
-| <code>pricePointId</code> | <code>string</code> | ID or Handle for the Price Point belonging to the Component |
-| <code>body</code> | <code>[CreateSegmentRequest?](Models/CreateSegmentRequest.cs)</code> | - |
+<code>[CreateSegmentOperationRequest](Requests/EventsBasedBillingSegments/CreateSegmentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5701,7 +6402,7 @@ catch (SdkException<CreateSegmentError> ex)
 
 **OnSuccess**: <code>[SegmentResponse](Models/SegmentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateSegmentError](Errors/CreateSegmentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSegmentError](Errors/CreateSegmentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5712,7 +6413,7 @@ catch (SdkException<CreateSegmentError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteSegment(string componentId, string pricePointId, double id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteSegment(DeleteSegmentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5737,9 +6438,14 @@ You may specify component and/or price point by using either the numeric ID or t
 ```csharp
 try
 {
-    await client.EventsBasedBillingSegments.DeleteSegment(componentId, pricePointId, id);
+    await client.EventsBasedBillingSegments.DeleteSegment(new DeleteSegmentRequest
+    {
+        ComponentId = "some example string",
+        PricePointId = "some example string",
+        Id = 1.5d,
+    });
 }
-catch (SdkException<DeleteSegmentError> ex)
+catch (ApiException<DeleteSegmentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5751,16 +6457,12 @@ catch (SdkException<DeleteSegmentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | ID or Handle of the Component |
-| <code>pricePointId</code> | <code>string</code> | ID or Handle of the Price Point belonging to the Component |
-| <code>id</code> | <code>double</code> | The ID of the Segment |
+<code>[DeleteSegmentRequest](Requests/EventsBasedBillingSegments/DeleteSegmentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5772,7 +6474,7 @@ catch (SdkException<DeleteSegmentError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteSegmentError](Errors/DeleteSegmentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteSegmentError](Errors/DeleteSegmentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5783,7 +6485,7 @@ catch (SdkException<DeleteSegmentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListSegmentsResponse&gt; ListSegmentsForPricePoint(string componentId, string pricePointId, ListSegmentsFilter? filter, int? page = 1, int? perPage = 30, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListSegmentsResponse&gt; ListSegmentsForPricePoint(ListSegmentsForPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5810,10 +6512,17 @@ You may specify component and/or price point by using either the numeric ID or t
 ```csharp
 try
 {
-    var response = await client.EventsBasedBillingSegments.ListSegmentsForPricePoint(componentId, pricePointId, filter);
+    var response = await client.EventsBasedBillingSegments.ListSegmentsForPricePoint(
+        new ListSegmentsForPricePointRequest
+        {
+            ComponentId = "some example string",
+            PricePointId = "some example string",
+            Page = 1,
+            PerPage = 50,
+        });
     // TODO: Handle 'response' of type ListSegmentsResponse
 }
-catch (SdkException<ListSegmentsForPricePointError> ex)
+catch (ApiException<ListSegmentsForPricePointError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5825,18 +6534,12 @@ catch (SdkException<ListSegmentsForPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | ID or Handle for the Component |
-| <code>pricePointId</code> | <code>string</code> | ID or Handle for the Price Point belonging to the Component |
-| <code>filter</code> | <code>[ListSegmentsFilter?](Models/ListSegmentsFilter.cs)</code> | Filter to use for List Segments for a Price Point operation |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 30 |
+<code>[ListSegmentsForPricePointRequest](Requests/EventsBasedBillingSegments/ListSegmentsForPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5848,7 +6551,7 @@ catch (SdkException<ListSegmentsForPricePointError> ex)
 
 **OnSuccess**: <code>[ListSegmentsResponse](Models/ListSegmentsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListSegmentsForPricePointError](Errors/ListSegmentsForPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListSegmentsForPricePointError](Errors/ListSegmentsForPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5859,7 +6562,7 @@ catch (SdkException<ListSegmentsForPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SegmentResponse&gt; UpdateSegment(string componentId, string pricePointId, double id, UpdateSegmentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SegmentResponse&gt; UpdateSegment(UpdateSegmentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5869,9 +6572,9 @@ catch (SdkException<ListSegmentsForPricePointError> ex)
 <dl>
 <dd>
 
-Updates a single segment for a component with a segmented metric. It allows you to update the pricing for the segment.
+Updates a single segment for a component with a segmented metric. You can also update the pricing for the segment.
 
-You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
+You can specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 </dd>
 </dl>
@@ -5884,10 +6587,15 @@ You may specify component and/or price point by using either the numeric ID or t
 ```csharp
 try
 {
-    var response = await client.EventsBasedBillingSegments.UpdateSegment(componentId, pricePointId, id, body);
+    var response = await client.EventsBasedBillingSegments.UpdateSegment(new UpdateSegmentOperationRequest
+    {
+        ComponentId = "some example string",
+        PricePointId = "some example string",
+        Id = 1.5d,
+    });
     // TODO: Handle 'response' of type SegmentResponse
 }
-catch (SdkException<UpdateSegmentError> ex)
+catch (ApiException<UpdateSegmentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -5899,17 +6607,12 @@ catch (SdkException<UpdateSegmentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>componentId</code> | <code>string</code> | ID or Handle of the Component |
-| <code>pricePointId</code> | <code>string</code> | ID or Handle of the Price Point belonging to the Component |
-| <code>id</code> | <code>double</code> | The ID of the Segment |
-| <code>body</code> | <code>[UpdateSegmentRequest?](Models/UpdateSegmentRequest.cs)</code> | - |
+<code>[UpdateSegmentOperationRequest](Requests/EventsBasedBillingSegments/UpdateSegmentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5921,7 +6624,425 @@ catch (SdkException<UpdateSegmentError> ex)
 
 **OnSuccess**: <code>[SegmentResponse](Models/SegmentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateSegmentError](Errors/UpdateSegmentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSegmentError](Errors/UpdateSegmentError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+## FeatureTemplates
+
+> Source: [FeatureTemplates](Api/FeatureTemplates.cs)
+
+<details>
+<summary><code>Task ArchiveFeatureTemplate(ArchiveFeatureTemplateRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Archives a feature template. Archived feature templates are not addressable via [Read Feature Template]($e/Feature%20Templates/readFeatureTemplate) or [Update Feature Template]($e/Feature%20Templates/updateFeatureTemplate). Both endpoints return `404` until the template is restored.
+
+The feature template record itself is never hard-deleted, and can always be restored with [Restore Feature Template]($e/Feature%20Templates/restoreFeatureTemplate). Reversibility does not extend to `remove_from_catalog=true`: the feature catalog items and entitlements that parameter destroys are gone permanently, and restoring the template will not bring subscriber access back.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    await client.FeatureTemplates.ArchiveFeatureTemplate(new ArchiveFeatureTemplateRequest { Id = 1 });
+}
+catch (ApiException<ArchiveFeatureTemplateError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ArchiveFeatureTemplateRequest](Requests/FeatureTemplates/ArchiveFeatureTemplateRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: No content
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveFeatureTemplateError](Errors/ArchiveFeatureTemplateError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureTemplateResponse&gt; CreateFeatureTemplate(CreateFeatureTemplateOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Defines a new feature at the site level. Feature templates aren't billable on their own. Attach a template to products or components to grant the feature to subscribers.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.FeatureTemplates.CreateFeatureTemplate(new CreateFeatureTemplateOperationRequest
+    {
+        Body = new CreateFeatureTemplateRequest
+        {
+            Feature = new Feature { Key = "sso", Name = "Single Sign-On", Kind = FeatureKind.AccessRight },
+        },
+    });
+    // TODO: Handle 'response' of type FeatureTemplateResponse
+}
+catch (ApiException<CreateFeatureTemplateError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[CreateFeatureTemplateOperationRequest](Requests/FeatureTemplates/CreateFeatureTemplateOperationRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateFeatureTemplateError](Errors/CreateFeatureTemplateError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureTemplatesListResponse&gt; ListFeatureTemplates(ListFeatureTemplatesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Lists the feature templates defined for your site, active (non-archived) ones by default. Pass `status=archived` or `status=all` to widen the result set.
+
+Supply `page` or `per_page` to paginate. Without either parameter, the response includes the full result set.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.FeatureTemplates.ListFeatureTemplates(new ListFeatureTemplatesRequest
+    {
+        Page = 1,
+        PerPage = 50,
+    });
+    // TODO: Handle 'response' of type FeatureTemplatesListResponse
+}
+catch (ApiException<ListFeatureTemplatesError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ListFeatureTemplatesRequest](Requests/FeatureTemplates/ListFeatureTemplatesRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureTemplatesListResponse](Models/FeatureTemplatesListResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListFeatureTemplatesError](Errors/ListFeatureTemplatesError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureTemplateResponse&gt; ReadFeatureTemplate(ReadFeatureTemplateRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Returns a single feature template. Archived feature templates are not addressable here and return `404`. Restore a template first to read or update it.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.FeatureTemplates.ReadFeatureTemplate(new ReadFeatureTemplateRequest { Id = 1 });
+    // TODO: Handle 'response' of type FeatureTemplateResponse
+}
+catch (ApiException<ReadFeatureTemplateError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ReadFeatureTemplateRequest](Requests/FeatureTemplates/ReadFeatureTemplateRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadFeatureTemplateError](Errors/ReadFeatureTemplateError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureTemplateResponse&gt; RestoreFeatureTemplate(RestoreFeatureTemplateRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Clears the feature template's archived state. Feature catalog items created from this template are not automatically restored. Restore each one individually.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.FeatureTemplates.RestoreFeatureTemplate(new RestoreFeatureTemplateRequest { Id = 1 });
+    // TODO: Handle 'response' of type FeatureTemplateResponse
+}
+catch (ApiException<RestoreFeatureTemplateError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[RestoreFeatureTemplateRequest](Requests/FeatureTemplates/RestoreFeatureTemplateRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RestoreFeatureTemplateError](Errors/RestoreFeatureTemplateError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureTemplateResponse&gt; UpdateFeatureTemplate(UpdateFeatureTemplateOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Updates the name, description, unit, value type, default value, or default periodicity of a feature template. `key` is rejected on every update. `kind` is rejected once any feature catalog item has been created from this template.
+
+Archived feature templates are not addressable here and return `404`. Restore a template first to update it.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.FeatureTemplates.UpdateFeatureTemplate(new UpdateFeatureTemplateOperationRequest
+    {
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureTemplateResponse
+}
+catch (ApiException<UpdateFeatureTemplateError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[UpdateFeatureTemplateOperationRequest](Requests/FeatureTemplates/UpdateFeatureTemplateOperationRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateFeatureTemplateError](Errors/UpdateFeatureTemplateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5936,7 +7057,7 @@ catch (SdkException<UpdateSegmentError> ex)
 > Source: [Insights](Api/Insights.cs)
 
 <details>
-<summary><code>Task&lt;ListMrrResponse&gt; ListMrrMovements(int? subscriptionId, SortingDirection? direction, int? page = 1, int? perPage = 10, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListMrrResponse&gt; ListMrrMovements(ListMrrMovementsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -5980,10 +7101,10 @@ Usage includes revenue from:
 ```csharp
 try
 {
-    var response = await client.Insights.ListMrrMovements(subscriptionId, direction);
+    var response = await client.Insights.ListMrrMovements(new ListMrrMovementsRequest { Page = 1, PerPage = 20 });
     // TODO: Handle 'response' of type ListMrrResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -5992,17 +7113,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int?</code> | (Optional) Filter results by subscription. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 50; any per_page value over 50 will be changed to 50.<br>Use in query `per_page=20`.<br>**Default**: 10 |
+<code>[ListMrrMovementsRequest](Requests/Insights/ListMrrMovementsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6014,7 +7130,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListMrrResponse](Models/ListMrrResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6025,7 +7141,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionMrrResponse&gt; ListMrrPerSubscription(ListMrrFilter? filter, string? atTime, Direction? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionMrrResponse&gt; ListMrrPerSubscription(ListMrrPerSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6048,10 +7164,16 @@ Lists your site's current MRR, including plan and usage breakouts split per subs
 ```csharp
 try
 {
-    var response = await client.Insights.ListMrrPerSubscription(filter, atTime, direction);
+    var response = await client.Insights.ListMrrPerSubscription(new ListMrrPerSubscriptionRequest
+    {
+        AtTime = "at_time=2022-01-10T10:00:00-05:00",
+        Page = 1,
+        PerPage = 50,
+        Direction = Direction.Desc,
+    });
     // TODO: Handle 'response' of type SubscriptionMrrResponse
 }
-catch (SdkException<ListMrrPerSubscriptionError> ex)
+catch (ApiException<ListMrrPerSubscriptionError> ex)
 {
     if (ex.Error.TryGetSubscriptionsMrrErrorResponse1(out var error))
     {
@@ -6063,18 +7185,12 @@ catch (SdkException<ListMrrPerSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>filter</code> | <code>[ListMrrFilter?](Models/ListMrrFilter.cs)</code> | Filter to use for List MRR per subscription operation |
-| <code>atTime</code> | <code>string?</code> | Submit a timestamp in ISO8601 format to request MRR for a historic time. Use in query: `at_time=2022-01-10T10:00:00-05:00`. |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | Controls the order in which results are returned. Records are ordered by subscription_id in ascending order by default. Use in query `direction=desc`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListMrrPerSubscriptionRequest](Requests/Insights/ListMrrPerSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6086,7 +7202,7 @@ catch (SdkException<ListMrrPerSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionMrrResponse](Models/SubscriptionMrrResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListMrrPerSubscriptionError](Errors/ListMrrPerSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListMrrPerSubscriptionError](Errors/ListMrrPerSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6097,7 +7213,7 @@ catch (SdkException<ListMrrPerSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;MrrResponse&gt; ReadMrr(DateTimeOffset? atTime, int? subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;MrrResponse&gt; ReadMrr(ReadMrrRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6120,10 +7236,10 @@ Returns your site's current MRR, including plan and usage breakouts.
 ```csharp
 try
 {
-    var response = await client.Insights.ReadMrr(atTime, subscriptionId);
+    var response = await client.Insights.ReadMrr(new ReadMrrRequest());
     // TODO: Handle 'response' of type MrrResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -6132,15 +7248,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>atTime</code> | <code>DateTimeOffset?</code> | submit a timestamp in ISO8601 format to request MRR for a historic time. |
-| <code>subscriptionId</code> | <code>int?</code> | submit the id of a subscription in order to limit results. |
+<code>[ReadMrrRequest](Requests/Insights/ReadMrrRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6152,7 +7265,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[MrrResponse](Models/MrrResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6163,7 +7276,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SiteSummary&gt; ReadSiteStats(RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SiteSummary&gt; ReadSiteStats(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6197,7 +7310,7 @@ try
     var response = await client.Insights.ReadSiteStats();
     // TODO: Handle 'response' of type SiteSummary
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -6213,7 +7326,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SiteSummary](Models/SiteSummary.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6228,7 +7341,7 @@ catch (SdkException<RawError> ex)
 > Source: [Invoices](Api/Invoices.cs)
 
 <details>
-<summary><code>Task&lt;InvoiceResponse&gt; CreateInvoice(int subscriptionId, CreateInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;InvoiceResponse&gt; CreateInvoice(CreateInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6429,10 +7542,20 @@ By default, invoices will be created with open status. Possible alternative is `
 ```csharp
 try
 {
-    var response = await client.Invoices.CreateInvoice(subscriptionId, body);
+    var response = await client.Invoices.CreateInvoice(new CreateInvoiceOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new CreateInvoiceRequest
+        {
+            Invoice = new CreateInvoice
+            {
+                LineItems = [new CreateInvoiceItem { Title = "A Product", Quantity = 12d, UnitPrice = "150.00" }],
+            },
+        },
+    });
     // TODO: Handle 'response' of type InvoiceResponse
 }
-catch (SdkException<CreateInvoiceError> ex)
+catch (ApiException<CreateInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -6444,15 +7567,12 @@ catch (SdkException<CreateInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[CreateInvoiceRequest?](Models/CreateInvoiceRequest.cs)</code> | - |
+<code>[CreateInvoiceOperationRequest](Requests/Invoices/CreateInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6464,7 +7584,7 @@ catch (SdkException<CreateInvoiceError> ex)
 
 **OnSuccess**: <code>[InvoiceResponse](Models/InvoiceResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateInvoiceError](Errors/CreateInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateInvoiceError](Errors/CreateInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6475,7 +7595,7 @@ catch (SdkException<CreateInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteInvoice(int subscriptionId, string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteInvoice(DeleteInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6502,9 +7622,9 @@ A successful deletion returns a `204 No Content` response and the invoice is per
 ```csharp
 try
 {
-    await client.Invoices.DeleteInvoice(subscriptionId, uid);
+    await client.Invoices.DeleteInvoice(new DeleteInvoiceRequest { SubscriptionId = 1, Uid = "some example string" });
 }
-catch (SdkException<DeleteInvoiceError> ex)
+catch (ApiException<DeleteInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -6516,15 +7636,12 @@ catch (SdkException<DeleteInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+<code>[DeleteInvoiceRequest](Requests/Invoices/DeleteInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6536,7 +7653,7 @@ catch (SdkException<DeleteInvoiceError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteInvoiceError](Errors/DeleteInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteInvoiceError](Errors/DeleteInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6547,7 +7664,7 @@ catch (SdkException<DeleteInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; IssueInvoice(string uid, IssueInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; IssueInvoice(IssueInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6579,10 +7696,10 @@ For Automatic subscriptions, prepayments and service credits will apply to the i
 ```csharp
 try
 {
-    var response = await client.Invoices.IssueInvoice(uid, body);
+    var response = await client.Invoices.IssueInvoice(new IssueInvoiceOperationRequest { Uid = "some example string" });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<IssueInvoiceError> ex)
+catch (ApiException<IssueInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -6594,15 +7711,12 @@ catch (SdkException<IssueInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
-| <code>body</code> | <code>[IssueInvoiceRequest?](Models/IssueInvoiceRequest.cs)</code> | - |
+<code>[IssueInvoiceOperationRequest](Requests/Invoices/IssueInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6614,7 +7728,7 @@ catch (SdkException<IssueInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[IssueInvoiceError](Errors/IssueInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueInvoiceError](Errors/IssueInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6625,7 +7739,7 @@ catch (SdkException<IssueInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ConsolidatedInvoice&gt; ListConsolidatedInvoiceSegments(string invoiceUid, Direction? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ConsolidatedInvoice&gt; ListConsolidatedInvoiceSegments(ListConsolidatedInvoiceSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6648,10 +7762,15 @@ Lists segments for a consolidated invoice. Invoice segments returned on the inde
 ```csharp
 try
 {
-    var response = await client.Invoices.ListConsolidatedInvoiceSegments(invoiceUid, direction);
+    var response = await client.Invoices.ListConsolidatedInvoiceSegments(new ListConsolidatedInvoiceSegmentsRequest
+    {
+        InvoiceUid = "some example string",
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ConsolidatedInvoice
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -6660,17 +7779,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>invoiceUid</code> | <code>string</code> | The unique identifier of the consolidated invoice |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | Sort direction of the returned segments. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListConsolidatedInvoiceSegmentsRequest](Requests/Invoices/ListConsolidatedInvoiceSegmentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6682,7 +7796,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ConsolidatedInvoice](Models/ConsolidatedInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6693,7 +7807,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListCreditNotesResponse&gt; ListCreditNotes(int? subscriptionId, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? refunds = false, bool? applications = false, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListCreditNotesResponse&gt; ListCreditNotes(ListCreditNotesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6718,10 +7832,15 @@ By default, the credit notes returned by this endpoint will exclude the arrays o
 ```csharp
 try
 {
-    var response = await client.Invoices.ListCreditNotes(subscriptionId);
+    var response = await client.Invoices.ListCreditNotes(new ListCreditNotesRequest
+    {
+        DateField = CreditNoteDateField.IssueDate,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListCreditNotesResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -6730,21 +7849,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int?</code> | The subscription's Advanced Billing id |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
-| <code>lineItems</code> | <code>bool?</code> | Include line items data.<br>**Default**: false |
-| <code>discounts</code> | <code>bool?</code> | Include discounts data.<br>**Default**: false |
-| <code>taxes</code> | <code>bool?</code> | Include taxes data.<br>**Default**: false |
-| <code>refunds</code> | <code>bool?</code> | Include refunds data.<br>**Default**: false |
-| <code>applications</code> | <code>bool?</code> | Include applications data.<br>**Default**: false |
+<code>[ListCreditNotesRequest](Requests/Invoices/ListCreditNotesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6756,7 +7866,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListCreditNotesResponse](Models/ListCreditNotesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6767,7 +7877,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListInvoiceEventsResponse&gt; ListInvoiceEvents(string? sinceDate, long? sinceId, string? invoiceUid, string? withChangeInvoiceStatus, IReadOnlyList&lt;InvoiceEventType&gt;? eventTypes, int? page = 1, int? perPage = 100, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListInvoiceEventsResponse&gt; ListInvoiceEvents(ListInvoiceEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6813,14 +7923,10 @@ Note - invoice events that occurred prior to 09/05/2018 __will not__ contain an 
 ```csharp
 try
 {
-    var response = await client.Invoices.ListInvoiceEvents(sinceDate,
-        sinceId,
-        invoiceUid,
-        withChangeInvoiceStatus,
-        eventTypes);
+    var response = await client.Invoices.ListInvoiceEvents(new ListInvoiceEventsRequest { Page = 1 });
     // TODO: Handle 'response' of type ListInvoiceEventsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -6829,20 +7935,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sinceDate</code> | <code>string?</code> | The timestamp in a format `YYYY-MM-DD T HH:MM:SS Z`, or `YYYY-MM-DD`(in this case, it returns data from the beginning of the day). of the event from which you want to start the search. All the events before the `since_date` timestamp are not returned in the response. |
-| <code>sinceId</code> | <code>long?</code> | The ID of the event from which you want to start the search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more will be shown) This parameter is not used if since_date is defined. |
-| <code>invoiceUid</code> | <code>string?</code> | Providing an invoice_uid allows for scoping of the invoice events to a single invoice or credit note. |
-| <code>withChangeInvoiceStatus</code> | <code>string?</code> | Use this parameter if you want to fetch also invoice events with change_invoice_status type. |
-| <code>eventTypes</code> | <code>IReadOnlyList&lt;[InvoiceEventType](Models/Enums/InvoiceEventType.cs)&gt;?</code> | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: 100 |
+<code>[ListInvoiceEventsRequest](Requests/Invoices/ListInvoiceEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6854,7 +7952,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListInvoiceEventsResponse](Models/ListInvoiceEventsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6865,7 +7963,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListInvoicesResponse&gt; ListInvoices(string? startDate, string? endDate, InvoiceStatus? status, int? subscriptionId, string? subscriptionGroupUid, string? consolidationLevel, Direction? direction, InvoiceDateField? dateField, string? startDatetime, string? endDatetime, IReadOnlyList&lt;int&gt;? customerIds, IReadOnlyList&lt;string&gt;? number, IReadOnlyList&lt;int&gt;? productIds, InvoiceSortField? sort, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, bool? refunds = false, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListInvoicesResponse&gt; ListInvoices(ListInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6888,23 +7986,19 @@ Lists invoices for a site. By default, invoices returned on the index will only 
 ```csharp
 try
 {
-    var response = await client.Invoices.ListInvoices(startDate,
-        endDate,
-        status,
-        subscriptionId,
-        subscriptionGroupUid,
-        consolidationLevel,
-        direction,
-        dateField,
-        startDatetime,
-        endDatetime,
-        customerIds,
-        number,
-        productIds,
-        sort);
+    var response = await client.Invoices.ListInvoices(new ListInvoicesRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        DateField = InvoiceDateField.IssueDate,
+        CustomerIds = [1, 2, 3],
+        Number = ["1234", "1235"],
+        ProductIds = [23, 34],
+        Sort = InvoiceSortField.TotalAmount,
+    });
     // TODO: Handle 'response' of type ListInvoicesResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -6913,36 +8007,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>status</code> | <code>[InvoiceStatus?](Models/Enums/InvoiceStatus.cs)</code> | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
-| <code>subscriptionId</code> | <code>int?</code> | The subscription's ID. |
-| <code>subscriptionGroupUid</code> | <code>string?</code> | The UID of the subscription group you want to fetch consolidated invoices for. This will return a paginated list of consolidated invoices for the specified group. |
-| <code>consolidationLevel</code> | <code>string?</code> | The consolidation level of the invoice. Allowed Values: none, parent, child or comma-separated lists of thereof, e.g. none,parent. |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | The sort direction of the returned invoices. |
-| <code>dateField</code> | <code>[InvoiceDateField?](Models/Enums/InvoiceDateField.cs)</code> | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at. |
-| <code>customerIds</code> | <code>IReadOnlyList&lt;int&gt;?</code> | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
-| <code>number</code> | <code>IReadOnlyList&lt;string&gt;?</code> | Allows fetching invoices with matching invoice number based on provided values. Use in query `number=1234,1235`. |
-| <code>productIds</code> | <code>IReadOnlyList&lt;int&gt;?</code> | Allows fetching invoices with matching line items product ids based on provided values. Use in query `product_ids=23,34`. |
-| <code>sort</code> | <code>[InvoiceSortField?](Models/Enums/InvoiceSortField.cs)</code> | Allows specification of the order of the returned list. Use in query `sort=total_amount`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
-| <code>lineItems</code> | <code>bool?</code> | Include line items data.<br>**Default**: false |
-| <code>discounts</code> | <code>bool?</code> | Include discounts data.<br>**Default**: false |
-| <code>taxes</code> | <code>bool?</code> | Include taxes data.<br>**Default**: false |
-| <code>credits</code> | <code>bool?</code> | Include credits data.<br>**Default**: false |
-| <code>payments</code> | <code>bool?</code> | Include payments data.<br>**Default**: false |
-| <code>customFields</code> | <code>bool?</code> | Include custom fields data.<br>**Default**: false |
-| <code>refunds</code> | <code>bool?</code> | Include refunds data.<br>**Default**: false |
+<code>[ListInvoicesRequest](Requests/Invoices/ListInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6954,7 +8024,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListInvoicesResponse](Models/ListInvoicesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6965,7 +8035,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CustomerChangesPreviewResponse&gt; PreviewCustomerInformationChanges(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CustomerChangesPreviewResponse&gt; PreviewCustomerInformationChanges(PreviewCustomerInformationChangesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -6990,10 +8060,13 @@ The endpoint doesn't accept a request body. Customer information differences are
 ```csharp
 try
 {
-    var response = await client.Invoices.PreviewCustomerInformationChanges(uid);
+    var response = await client.Invoices.PreviewCustomerInformationChanges(new PreviewCustomerInformationChangesRequest
+    {
+        Uid = "some example string",
+    });
     // TODO: Handle 'response' of type CustomerChangesPreviewResponse
 }
-catch (SdkException<PreviewCustomerInformationChangesError> ex)
+catch (ApiException<PreviewCustomerInformationChangesError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7005,14 +8078,12 @@ catch (SdkException<PreviewCustomerInformationChangesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+<code>[PreviewCustomerInformationChangesRequest](Requests/Invoices/PreviewCustomerInformationChangesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7024,7 +8095,7 @@ catch (SdkException<PreviewCustomerInformationChangesError> ex)
 
 **OnSuccess**: <code>[CustomerChangesPreviewResponse](Models/CustomerChangesPreviewResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PreviewCustomerInformationChangesError](Errors/PreviewCustomerInformationChangesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewCustomerInformationChangesError](Errors/PreviewCustomerInformationChangesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7035,7 +8106,7 @@ catch (SdkException<PreviewCustomerInformationChangesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CreditNote&gt; ReadCreditNote(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CreditNote&gt; ReadCreditNote(ReadCreditNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7058,10 +8129,10 @@ Returns the details for a credit note.
 ```csharp
 try
 {
-    var response = await client.Invoices.ReadCreditNote(uid);
+    var response = await client.Invoices.ReadCreditNote(new ReadCreditNoteRequest { Uid = "some example string" });
     // TODO: Handle 'response' of type CreditNote
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -7070,14 +8141,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier of the credit note |
+<code>[ReadCreditNoteRequest](Requests/Invoices/ReadCreditNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7089,7 +8158,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[CreditNote](Models/CreditNote.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7100,7 +8169,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; ReadInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; ReadInvoice(ReadInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7135,10 +8204,10 @@ Response: A single Invoice.
 ```csharp
 try
 {
-    var response = await client.Invoices.ReadInvoice(uid);
+    var response = await client.Invoices.ReadInvoice(new ReadInvoiceRequest { Uid = "some example string" });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -7147,14 +8216,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+<code>[ReadInvoiceRequest](Requests/Invoices/ReadInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7166,7 +8233,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7177,7 +8244,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; RecordPaymentForInvoice(string uid, CreateInvoicePaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; RecordPaymentForInvoice(RecordPaymentForInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7187,7 +8254,7 @@ catch (SdkException<RawError> ex)
 <dl>
 <dd>
 
-Applies a payment of a given type against a specific invoice. If you would like to apply a payment across multiple invoices, you can use the Bulk Payment endpoint.
+Applies a payment of a given type against a specific invoice. If you would like to apply a payment across multiple invoices, you can use the [Record Payment for Multiple Invoices]($e/Invoices/recordPaymentForMultipleInvoices) endpoint.
 
 </dd>
 </dl>
@@ -7200,10 +8267,23 @@ Applies a payment of a given type against a specific invoice. If you would like 
 ```csharp
 try
 {
-    var response = await client.Invoices.RecordPaymentForInvoice(uid, body);
+    var response = await client.Invoices.RecordPaymentForInvoice(new RecordPaymentForInvoiceRequest
+    {
+        Uid = "some example string",
+        Body = new CreateInvoicePaymentRequest
+        {
+            Payment = new CreateInvoicePayment
+            {
+                Amount = 124.33d,
+                Memo = "for John Smith",
+                Method = InvoicePaymentMethodType.Check,
+                Details = "#0102",
+            },
+        },
+    });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<RecordPaymentForInvoiceError> ex)
+catch (ApiException<RecordPaymentForInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7215,15 +8295,12 @@ catch (SdkException<RecordPaymentForInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
-| <code>body</code> | <code>[CreateInvoicePaymentRequest?](Models/CreateInvoicePaymentRequest.cs)</code> | - |
+<code>[RecordPaymentForInvoiceRequest](Requests/Invoices/RecordPaymentForInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7235,7 +8312,7 @@ catch (SdkException<RecordPaymentForInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RecordPaymentForInvoiceError](Errors/RecordPaymentForInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForInvoiceError](Errors/RecordPaymentForInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7246,7 +8323,7 @@ catch (SdkException<RecordPaymentForInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;MultiInvoicePaymentResponse&gt; RecordPaymentForMultipleInvoices(CreateMultiInvoicePaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;MultiInvoicePaymentResponse&gt; RecordPaymentForMultipleInvoices(RecordPaymentForMultipleInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7258,28 +8335,7 @@ catch (SdkException<RecordPaymentForInvoiceError> ex)
 
 Records an external payment against multiple invoices.
 
- To apply a payment to multiple invoices, at minimum, specify the `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
-
-```
-{
-  "payment": {
-    "memo": "to pay the bills",
-    "details": "check number 8675309",
-    "method": "check",
-    "amount": "250.00",
-    "applications": [
-      {
-        "invoice_uid": "inv_8gk5bwkct3gqt",
-        "amount": "100.00"
-      },
-      {
-        "invoice_uid": "inv_7bc6bwkct3lyt",
-        "amount": "150.00"
-      }
-    ]
-  }
-}
-```
+To apply a payment to multiple invoices, at minimum, specify the `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
 
 Note that the invoice payment amounts must be greater than 0. Total amount must be greater or equal to invoices payment amount sum.
 
@@ -7294,10 +8350,26 @@ Note that the invoice payment amounts must be greater than 0. Total amount must 
 ```csharp
 try
 {
-    var response = await client.Invoices.RecordPaymentForMultipleInvoices(body);
+    var response = await client.Invoices.RecordPaymentForMultipleInvoices(new RecordPaymentForMultipleInvoicesRequest
+    {
+        Body = new CreateMultiInvoicePaymentRequest
+        {
+            Payment = new CreateMultiInvoicePayment
+            {
+                Memo = "to pay the bills",
+                Details = "check number 8675309",
+                Method = InvoicePaymentMethodType.Check,
+                Amount = "100.00",
+                Applications = [
+                    new CreateInvoicePaymentApplication { InvoiceUid = "inv_8gk5bwkct3gqt", Amount = "50.00" },
+                    new CreateInvoicePaymentApplication { InvoiceUid = "inv_7bc6bwkct3lyt", Amount = "50.00" },
+                ],
+            },
+        },
+    });
     // TODO: Handle 'response' of type MultiInvoicePaymentResponse
 }
-catch (SdkException<RecordPaymentForMultipleInvoicesError> ex)
+catch (ApiException<RecordPaymentForMultipleInvoicesError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7309,14 +8381,12 @@ catch (SdkException<RecordPaymentForMultipleInvoicesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateMultiInvoicePaymentRequest?](Models/CreateMultiInvoicePaymentRequest.cs)</code> | - |
+<code>[RecordPaymentForMultipleInvoicesRequest](Requests/Invoices/RecordPaymentForMultipleInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7328,7 +8398,7 @@ catch (SdkException<RecordPaymentForMultipleInvoicesError> ex)
 
 **OnSuccess**: <code>[MultiInvoicePaymentResponse](Models/MultiInvoicePaymentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RecordPaymentForMultipleInvoicesError](Errors/RecordPaymentForMultipleInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForMultipleInvoicesError](Errors/RecordPaymentForMultipleInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7339,7 +8409,7 @@ catch (SdkException<RecordPaymentForMultipleInvoicesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;RecordPaymentResponse&gt; RecordPaymentForSubscription(int subscriptionId, RecordPaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;RecordPaymentResponse&gt; RecordPaymentForSubscription(RecordPaymentForSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7368,10 +8438,23 @@ Only ungrouped or primary subscriptions may be paid using the "bulk" payment req
 ```csharp
 try
 {
-    var response = await client.Invoices.RecordPaymentForSubscription(subscriptionId, body);
+    var response = await client.Invoices.RecordPaymentForSubscription(new RecordPaymentForSubscriptionRequest
+    {
+        SubscriptionId = 1,
+        Body = new RecordPaymentRequest
+        {
+            Payment = new CreatePayment
+            {
+                Amount = "10.0",
+                Memo = "to pay the bills",
+                PaymentDetails = "check number 8675309",
+                PaymentMethod = InvoicePaymentMethodType.Check,
+            },
+        },
+    });
     // TODO: Handle 'response' of type RecordPaymentResponse
 }
-catch (SdkException<RecordPaymentForSubscriptionError> ex)
+catch (ApiException<RecordPaymentForSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7383,15 +8466,12 @@ catch (SdkException<RecordPaymentForSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[RecordPaymentRequest?](Models/RecordPaymentRequest.cs)</code> | - |
+<code>[RecordPaymentForSubscriptionRequest](Requests/Invoices/RecordPaymentForSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7403,7 +8483,7 @@ catch (SdkException<RecordPaymentForSubscriptionError> ex)
 
 **OnSuccess**: <code>[RecordPaymentResponse](Models/RecordPaymentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RecordPaymentForSubscriptionError](Errors/RecordPaymentForSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForSubscriptionError](Errors/RecordPaymentForSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7414,7 +8494,7 @@ catch (SdkException<RecordPaymentForSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; RefundInvoice(string uid, RefundInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; RefundInvoice(RefundInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7443,10 +8523,25 @@ For a $50.00 refund on a $100.00 consolidated invoice with one $60.00 segment an
 ```csharp
 try
 {
-    var response = await client.Invoices.RefundInvoice(uid, body);
+    var response = await client.Invoices.RefundInvoice(new RefundInvoiceOperationRequest
+    {
+        Uid = "some example string",
+        Body = new RefundInvoiceRequest
+        {
+            Refund = new RefundInvoice
+            {
+                Amount = "100.00",
+                Memo = "Refund for Basic Plan renewal",
+                PaymentId = 12345,
+                External = false,
+                ApplyCredit = false,
+                VoidInvoice = true,
+            },
+        },
+    });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<RefundInvoiceError> ex)
+catch (ApiException<RefundInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7458,15 +8553,12 @@ catch (SdkException<RefundInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
-| <code>body</code> | <code>[RefundInvoiceRequest?](Models/RefundInvoiceRequest.cs)</code> | - |
+<code>[RefundInvoiceOperationRequest](Requests/Invoices/RefundInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7478,7 +8570,7 @@ catch (SdkException<RefundInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RefundInvoiceError](Errors/RefundInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RefundInvoiceError](Errors/RefundInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7489,7 +8581,7 @@ catch (SdkException<RefundInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; ReopenInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; ReopenInvoice(ReopenInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7523,10 +8615,10 @@ When reopening a consolidated invoice, all of its canceled segments will also be
 ```csharp
 try
 {
-    var response = await client.Invoices.ReopenInvoice(uid);
+    var response = await client.Invoices.ReopenInvoice(new ReopenInvoiceRequest { Uid = "some example string" });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<ReopenInvoiceError> ex)
+catch (ApiException<ReopenInvoiceError> ex)
 {
     if (ex.Error.TryGetObject(out var error))
     {
@@ -7538,14 +8630,12 @@ catch (SdkException<ReopenInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+<code>[ReopenInvoiceRequest](Requests/Invoices/ReopenInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7557,7 +8647,7 @@ catch (SdkException<ReopenInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReopenInvoiceError](Errors/ReopenInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReopenInvoiceError](Errors/ReopenInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7568,7 +8658,7 @@ catch (SdkException<ReopenInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task SendInvoice(string uid, SendInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task SendInvoice(SendInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7597,9 +8687,18 @@ On success, a 204 no-content response will be returned. The response does not in
 ```csharp
 try
 {
-    await client.Invoices.SendInvoice(uid, body);
+    await client.Invoices.SendInvoice(new SendInvoiceOperationRequest
+    {
+        Uid = "some example string",
+        Body = new SendInvoiceRequest
+        {
+            RecipientEmails = ["user0@example.com"],
+            CcRecipientEmails = ["user1@example.com"],
+            BccRecipientEmails = ["user2@example.com"],
+        },
+    });
 }
-catch (SdkException<SendInvoiceError> ex)
+catch (ApiException<SendInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7611,15 +8710,12 @@ catch (SdkException<SendInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
-| <code>body</code> | <code>[SendInvoiceRequest?](Models/SendInvoiceRequest.cs)</code> | - |
+<code>[SendInvoiceOperationRequest](Requests/Invoices/SendInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7631,7 +8727,7 @@ catch (SdkException<SendInvoiceError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[SendInvoiceError](Errors/SendInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[SendInvoiceError](Errors/SendInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7642,7 +8738,7 @@ catch (SdkException<SendInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; UpdateCustomerInformation(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; UpdateCustomerInformation(UpdateCustomerInformationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7667,10 +8763,13 @@ The endpoint doesn't accept a request body. Customer information differences are
 ```csharp
 try
 {
-    var response = await client.Invoices.UpdateCustomerInformation(uid);
+    var response = await client.Invoices.UpdateCustomerInformation(new UpdateCustomerInformationRequest
+    {
+        Uid = "some example string",
+    });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<UpdateCustomerInformationError> ex)
+catch (ApiException<UpdateCustomerInformationError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7682,14 +8781,12 @@ catch (SdkException<UpdateCustomerInformationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
+<code>[UpdateCustomerInformationRequest](Requests/Invoices/UpdateCustomerInformationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7701,7 +8798,7 @@ catch (SdkException<UpdateCustomerInformationError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateCustomerInformationError](Errors/UpdateCustomerInformationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCustomerInformationError](Errors/UpdateCustomerInformationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7712,7 +8809,7 @@ catch (SdkException<UpdateCustomerInformationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;InvoiceResponse&gt; UpdateInvoice(int subscriptionId, string uid, UpdateInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;InvoiceResponse&gt; UpdateInvoice(UpdateInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7775,10 +8872,15 @@ A custom memo can be sent with the `memo` parameter. Likewise, custom payment in
 ```csharp
 try
 {
-    var response = await client.Invoices.UpdateInvoice(subscriptionId, uid, body);
+    var response = await client.Invoices.UpdateInvoice(new UpdateInvoiceOperationRequest
+    {
+        SubscriptionId = 1,
+        Uid = "some example string",
+        Body = new UpdateInvoiceRequest { Invoice = new UpdateInvoice { NetTerms = 30, Memo = "Updated memo" } },
+    });
     // TODO: Handle 'response' of type InvoiceResponse
 }
-catch (SdkException<UpdateInvoiceError> ex)
+catch (ApiException<UpdateInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -7790,16 +8892,12 @@ catch (SdkException<UpdateInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
-| <code>body</code> | <code>[UpdateInvoiceRequest?](Models/UpdateInvoiceRequest.cs)</code> | - |
+<code>[UpdateInvoiceOperationRequest](Requests/Invoices/UpdateInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7811,7 +8909,7 @@ catch (SdkException<UpdateInvoiceError> ex)
 
 **OnSuccess**: <code>[InvoiceResponse](Models/InvoiceResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateInvoiceError](Errors/UpdateInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateInvoiceError](Errors/UpdateInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7822,7 +8920,7 @@ catch (SdkException<UpdateInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;Invoice&gt; VoidInvoice(string uid, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;Invoice&gt; VoidInvoice(VoidInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7845,10 +8943,14 @@ Voids any invoice with the "open" or "canceled" status.  It will also allow void
 ```csharp
 try
 {
-    var response = await client.Invoices.VoidInvoice(uid, body);
+    var response = await client.Invoices.VoidInvoice(new VoidInvoiceOperationRequest
+    {
+        Uid = "some example string",
+        Body = new VoidInvoiceRequest { Void = new VoidInvoice { Reason = "Duplicate invoice" } },
+    });
     // TODO: Handle 'response' of type Invoice
 }
-catch (SdkException<VoidInvoiceError> ex)
+catch (ApiException<VoidInvoiceError> ex)
 {
     if (ex.Error.TryGetObject(out var error))
     {
@@ -7860,15 +8962,12 @@ catch (SdkException<VoidInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
-| <code>body</code> | <code>[VoidInvoiceRequest?](Models/VoidInvoiceRequest.cs)</code> | - |
+<code>[VoidInvoiceOperationRequest](Requests/Invoices/VoidInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7880,85 +8979,7 @@ catch (SdkException<VoidInvoiceError> ex)
 
 **OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[VoidInvoiceError](Errors/VoidInvoiceError.cs)&gt;</code>
-
-</dd>
-</dl>
-
-</dd>
-</dl>
-
-</details>
-
-## MaxioGateway
-
-> Source: [MaxioGateway](Api/MaxioGateway.cs)
-
-<details>
-<summary><code>Task&lt;MaxioGatewayOAuthAccessToken&gt; RequestAccessToken(MaxioGatewayOAuthTokenRequest body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
-
-<dl>
-<dd>
-
-### Description
-
-<dl>
-<dd>
-
-Exchanges your connector's OAuth 2.0 client credentials for a bearer access token.
-
-Authenticate with HTTP Basic auth (`client_id` as the username, `client_secret` as the password) or send `client_id` and `client_secret` in the form body. Then send the returned `access_token` as `Authorization: Bearer <access_token>` on every gateway request.
-
-The client-credentials grant does not issue a refresh token — when the token expires, request a new one with the same credentials.
-
-This endpoint is available only for connectors configured for OAuth2. It lives at your connector's root host (`https://{connector}.api.maxio.com/oauth/token`), not under the `/api/v1/billing` base path.
-
-</dd>
-</dl>
-
-### Usage
-
-<dl>
-<dd>
-
-```csharp
-try
-{
-    var response = await client.MaxioGateway.RequestAccessToken(body);
-    // TODO: Handle 'response' of type MaxioGatewayOAuthAccessToken
-}
-catch (SdkException<RequestAccessTokenError> ex)
-{
-    if (ex.Error.TryGetMaxioGatewayOAuthError(out var error))
-    {
-        // TODO: Handle 'error' of type MaxioGatewayOAuthError
-    }
-}
-```
-
-</dd>
-</dl>
-
-### Parameters
-
-<dl>
-<dd>
-
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[MaxioGatewayOAuthTokenRequest](Models/MaxioGatewayOAuthTokenRequest.cs)</code> | - |
-
-</dd>
-</dl>
-
-### Response
-
-<dl>
-<dd>
-
-**OnSuccess**: <code>[MaxioGatewayOAuthAccessToken](Models/MaxioGatewayOAuthAccessToken.cs)</code>
-
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RequestAccessTokenError](Errors/RequestAccessTokenError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VoidInvoiceError](Errors/VoidInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7973,7 +8994,7 @@ catch (SdkException<RequestAccessTokenError> ex)
 > Source: [Offers](Api/Offers.cs)
 
 <details>
-<summary><code>Task ArchiveOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task ArchiveOffer(ArchiveOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -7996,9 +9017,9 @@ Archives an existing offer. Please provide an `offer_id` in order to archive the
 ```csharp
 try
 {
-    await client.Offers.ArchiveOffer(offerId);
+    await client.Offers.ArchiveOffer(new ArchiveOfferRequest { OfferId = 1 });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -8007,14 +9028,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>offerId</code> | <code>int</code> | The Chargify id of the offer |
+<code>[ArchiveOfferRequest](Requests/Offers/ArchiveOfferRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8026,7 +9045,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8037,7 +9056,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;OfferResponse&gt; CreateOffer(CreateOfferRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;OfferResponse&gt; CreateOffer(CreateOfferOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8047,15 +9066,13 @@ catch (SdkException<RawError> ex)
 <dl>
 <dd>
 
-Creates an offer within your Advanced Billing site.
-
-## Documentation
+Creates an offer within your site.
 
 Offers allow you to package complicated combinations of products, components and coupons into a convenient package which can then be subscribed to just like products.
 
 Once an offer is defined it can be used as an alternative to the product when creating subscriptions.
 
-Full documentation on how to use offers in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261295098637-Offers-Overview).
+For more information, see [Offers](https://maxio.zendesk.com/hc/en-us/articles/24261295098637-Offers-Overview) in the product documentation.
 
 ## Using a Product Price Point
 
@@ -8072,10 +9089,25 @@ You can optionally pass in a `product_price_point_id` that corresponds with the 
 ```csharp
 try
 {
-    var response = await client.Offers.CreateOffer(body);
+    var response = await client.Offers.CreateOffer(new CreateOfferOperationRequest
+    {
+        Body = new CreateOfferRequest
+        {
+            Offer = new CreateOffer
+            {
+                Name = "Solo",
+                Handle = "han_shot_first",
+                Description = "A Star Wars Story",
+                ProductId = 31,
+                ProductPricePointId = 102,
+                Components = [new CreateOfferComponent { ComponentId = 24, StartingQuantity = 1 }],
+                Coupons = ["DEF456"],
+            },
+        },
+    });
     // TODO: Handle 'response' of type OfferResponse
 }
-catch (SdkException<CreateOfferError> ex)
+catch (ApiException<CreateOfferError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -8087,14 +9119,12 @@ catch (SdkException<CreateOfferError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateOfferRequest?](Models/CreateOfferRequest.cs)</code> | - |
+<code>[CreateOfferOperationRequest](Requests/Offers/CreateOfferOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8106,7 +9136,7 @@ catch (SdkException<CreateOfferError> ex)
 
 **OnSuccess**: <code>[OfferResponse](Models/OfferResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateOfferError](Errors/CreateOfferError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateOfferError](Errors/CreateOfferError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8117,7 +9147,7 @@ catch (SdkException<CreateOfferError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListOffersResponse&gt; ListOffers(bool? includeArchived, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListOffersResponse&gt; ListOffers(ListOffersRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8140,10 +9170,15 @@ Lists offers for a site.
 ```csharp
 try
 {
-    var response = await client.Offers.ListOffers(includeArchived);
+    var response = await client.Offers.ListOffers(new ListOffersRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        IncludeArchived = true,
+    });
     // TODO: Handle 'response' of type ListOffersResponse
 }
-catch (SdkException<ListOffersError> ex)
+catch (ApiException<ListOffersError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -8155,16 +9190,12 @@ catch (SdkException<ListOffersError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>includeArchived</code> | <code>bool?</code> | Include archived products. Use in query: `include_archived=true`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListOffersRequest](Requests/Offers/ListOffersRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8176,7 +9207,7 @@ catch (SdkException<ListOffersError> ex)
 
 **OnSuccess**: <code>[ListOffersResponse](Models/ListOffersResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListOffersError](Errors/ListOffersError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListOffersError](Errors/ListOffersError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8187,7 +9218,7 @@ catch (SdkException<ListOffersError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;OfferResponse&gt; ReadOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;OfferResponse&gt; ReadOffer(ReadOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8210,10 +9241,10 @@ Returns a specific offer's attributes. This is different from listing all offers
 ```csharp
 try
 {
-    var response = await client.Offers.ReadOffer(offerId);
+    var response = await client.Offers.ReadOffer(new ReadOfferRequest { OfferId = 1 });
     // TODO: Handle 'response' of type OfferResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -8222,14 +9253,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>offerId</code> | <code>int</code> | The Chargify id of the offer |
+<code>[ReadOfferRequest](Requests/Offers/ReadOfferRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8241,7 +9270,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[OfferResponse](Models/OfferResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8252,7 +9281,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task UnarchiveOffer(int offerId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task UnarchiveOffer(UnarchiveOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8275,9 +9304,9 @@ Unarchives a previously archived offer. Please provide an `offer_id` in order to
 ```csharp
 try
 {
-    await client.Offers.UnarchiveOffer(offerId);
+    await client.Offers.UnarchiveOffer(new UnarchiveOfferRequest { OfferId = 1 });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -8286,14 +9315,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>offerId</code> | <code>int</code> | The Chargify id of the offer |
+<code>[UnarchiveOfferRequest](Requests/Offers/UnarchiveOfferRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8305,7 +9332,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8320,7 +9347,7 @@ catch (SdkException<RawError> ex)
 > Source: [PaymentProfiles](Api/PaymentProfiles.cs)
 
 <details>
-<summary><code>Task&lt;PaymentProfileResponse&gt; ChangeSubscriptionDefaultPaymentProfile(int subscriptionId, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaymentProfileResponse&gt; ChangeSubscriptionDefaultPaymentProfile(ChangeSubscriptionDefaultPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8345,11 +9372,11 @@ You must elect to change the existing payment profile to a new payment profile I
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.ChangeSubscriptionDefaultPaymentProfile(subscriptionId,
-        paymentProfileId);
+    var response = await client.PaymentProfiles.ChangeSubscriptionDefaultPaymentProfile(
+        new ChangeSubscriptionDefaultPaymentProfileRequest { SubscriptionId = 1, PaymentProfileId = 1 });
     // TODO: Handle 'response' of type PaymentProfileResponse
 }
-catch (SdkException<ChangeSubscriptionDefaultPaymentProfileError> ex)
+catch (ApiException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -8361,15 +9388,12 @@ catch (SdkException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
+<code>[ChangeSubscriptionDefaultPaymentProfileRequest](Requests/PaymentProfiles/ChangeSubscriptionDefaultPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8381,7 +9405,7 @@ catch (SdkException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 
 **OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ChangeSubscriptionDefaultPaymentProfileError](Errors/ChangeSubscriptionDefaultPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ChangeSubscriptionDefaultPaymentProfileError](Errors/ChangeSubscriptionDefaultPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8392,7 +9416,7 @@ catch (SdkException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PaymentProfileResponse&gt; ChangeSubscriptionGroupDefaultPaymentProfile(string uid, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaymentProfileResponse&gt; ChangeSubscriptionGroupDefaultPaymentProfile(ChangeSubscriptionGroupDefaultPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8419,10 +9443,11 @@ The new payment profile must belong to the subscription group's customer, otherw
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.ChangeSubscriptionGroupDefaultPaymentProfile(uid, paymentProfileId);
+    var response = await client.PaymentProfiles.ChangeSubscriptionGroupDefaultPaymentProfile(
+        new ChangeSubscriptionGroupDefaultPaymentProfileRequest { Uid = "some example string", PaymentProfileId = 1 });
     // TODO: Handle 'response' of type PaymentProfileResponse
 }
-catch (SdkException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
+catch (ApiException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -8434,15 +9459,12 @@ catch (SdkException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
+<code>[ChangeSubscriptionGroupDefaultPaymentProfileRequest](Requests/PaymentProfiles/ChangeSubscriptionGroupDefaultPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8454,7 +9476,7 @@ catch (SdkException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 
 **OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ChangeSubscriptionGroupDefaultPaymentProfileError](Errors/ChangeSubscriptionGroupDefaultPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ChangeSubscriptionGroupDefaultPaymentProfileError](Errors/ChangeSubscriptionGroupDefaultPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8465,7 +9487,7 @@ catch (SdkException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PaymentProfileResponse&gt; CreatePaymentProfile(CreatePaymentProfileRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaymentProfileResponse&gt; CreatePaymentProfile(CreatePaymentProfileOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8520,10 +9542,20 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.CreatePaymentProfile(body);
+    var response = await client.PaymentProfiles.CreatePaymentProfile(new CreatePaymentProfileOperationRequest
+    {
+        Body = new CreatePaymentProfileRequest
+        {
+            PaymentProfile = new CreatePaymentProfile
+            {
+                ChargifyToken = "tok_w68qcpnftyv53jk33jv6wk3w",
+                CustomerId = 1036,
+            },
+        },
+    });
     // TODO: Handle 'response' of type PaymentProfileResponse
 }
-catch (SdkException<CreatePaymentProfileError> ex)
+catch (ApiException<CreatePaymentProfileError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -8535,14 +9567,12 @@ catch (SdkException<CreatePaymentProfileError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreatePaymentProfileRequest?](Models/CreatePaymentProfileRequest.cs)</code> | - |
+<code>[CreatePaymentProfileOperationRequest](Requests/PaymentProfiles/CreatePaymentProfileOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8554,7 +9584,7 @@ catch (SdkException<CreatePaymentProfileError> ex)
 
 **OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreatePaymentProfileError](Errors/CreatePaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreatePaymentProfileError](Errors/CreatePaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8565,7 +9595,7 @@ catch (SdkException<CreatePaymentProfileError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteSubscriptionGroupPaymentProfile(string uid, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteSubscriptionGroupPaymentProfile(DeleteSubscriptionGroupPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8590,9 +9620,13 @@ Deletes a Payment Profile belonging to a Subscription Group.
 ```csharp
 try
 {
-    await client.PaymentProfiles.DeleteSubscriptionGroupPaymentProfile(uid, paymentProfileId);
+    await client.PaymentProfiles.DeleteSubscriptionGroupPaymentProfile(new DeleteSubscriptionGroupPaymentProfileRequest
+    {
+        Uid = "some example string",
+        PaymentProfileId = 1,
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -8601,15 +9635,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
+<code>[DeleteSubscriptionGroupPaymentProfileRequest](Requests/PaymentProfiles/DeleteSubscriptionGroupPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8621,7 +9652,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8632,7 +9663,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteSubscriptionsPaymentProfile(int subscriptionId, int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteSubscriptionsPaymentProfile(DeleteSubscriptionsPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8644,9 +9675,9 @@ catch (SdkException<RawError> ex)
 
 Deletes a payment profile belonging to the customer on the subscription.
 
-+ If the customer has multiple subscriptions, the payment profile will be removed from all of them.
+If the customer has multiple subscriptions, the payment profile is removed from all of them.
 
-+ If you delete the default payment profile for a subscription, you will need to specify another payment profile to be the default through the api, or either prompt the user to enter a card in the billing portal or on the self-service page, or visit the Payment Details tab on the subscription in the Admin UI and use the “Add New Credit Card” or “Make Active Payment Method” link, (depending on whether there are other cards present).
+If you delete the default payment profile for a subscription, you need to specify another payment profile to be the default through the API, or either prompt the user to enter a card in the billing portal or on the self-service page, or visit the Payment Details tab on the subscription in the Admin UI and use the “Add New Credit Card” or “Make Active Payment Method” link, (depending on whether there are other cards present).
 
 </dd>
 </dl>
@@ -8659,9 +9690,13 @@ Deletes a payment profile belonging to the customer on the subscription.
 ```csharp
 try
 {
-    await client.PaymentProfiles.DeleteSubscriptionsPaymentProfile(subscriptionId, paymentProfileId);
+    await client.PaymentProfiles.DeleteSubscriptionsPaymentProfile(new DeleteSubscriptionsPaymentProfileRequest
+    {
+        SubscriptionId = 1,
+        PaymentProfileId = 1,
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -8670,15 +9705,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
+<code>[DeleteSubscriptionsPaymentProfileRequest](Requests/PaymentProfiles/DeleteSubscriptionsPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8690,7 +9722,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8701,7 +9733,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteUnusedPaymentProfile(int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteUnusedPaymentProfile(DeleteUnusedPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8713,7 +9745,7 @@ catch (SdkException<RawError> ex)
 
 Deletes an unused payment profile.
 
-If the payment profile is in use by one or more subscriptions or groups, a 422 and error message will be returned.
+If the payment profile is in use by one or more subscriptions or groups, an error message is returned.
 
 </dd>
 </dl>
@@ -8726,9 +9758,12 @@ If the payment profile is in use by one or more subscriptions or groups, a 422 a
 ```csharp
 try
 {
-    await client.PaymentProfiles.DeleteUnusedPaymentProfile(paymentProfileId);
+    await client.PaymentProfiles.DeleteUnusedPaymentProfile(new DeleteUnusedPaymentProfileRequest
+    {
+        PaymentProfileId = 1,
+    });
 }
-catch (SdkException<DeleteUnusedPaymentProfileError> ex)
+catch (ApiException<DeleteUnusedPaymentProfileError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -8740,14 +9775,12 @@ catch (SdkException<DeleteUnusedPaymentProfileError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
+<code>[DeleteUnusedPaymentProfileRequest](Requests/PaymentProfiles/DeleteUnusedPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8759,7 +9792,7 @@ catch (SdkException<DeleteUnusedPaymentProfileError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteUnusedPaymentProfileError](Errors/DeleteUnusedPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteUnusedPaymentProfileError](Errors/DeleteUnusedPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8770,7 +9803,7 @@ catch (SdkException<DeleteUnusedPaymentProfileError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;PaymentProfileResponse&gt;&gt; ListPaymentProfiles(int? customerId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;PaymentProfileResponse&gt;&gt; ListPaymentProfiles(ListPaymentProfilesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8780,7 +9813,7 @@ catch (SdkException<DeleteUnusedPaymentProfileError> ex)
 <dl>
 <dd>
 
-Lists all active payment profiles for a site, or for one customer within a site. If no payment profiles are found, this endpoint will return an empty array, not a 404.
+Lists all active payment profiles for a site, or for one customer within a site. If no payment profiles are found, this endpoint returns an empty array.
 
 </dd>
 </dl>
@@ -8793,10 +9826,14 @@ Lists all active payment profiles for a site, or for one customer within a site.
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.ListPaymentProfiles(customerId);
+    var response = await client.PaymentProfiles.ListPaymentProfiles(new ListPaymentProfilesRequest
+    {
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<PaymentProfileResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -8805,16 +9842,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>customerId</code> | <code>int?</code> | The ID of the customer for which you wish to list payment profiles |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListPaymentProfilesRequest](Requests/PaymentProfiles/ListPaymentProfilesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8826,7 +9859,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[PaymentProfileResponse](Models/PaymentProfileResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8837,7 +9870,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;GetOneTimeTokenRequest&gt; ReadOneTimeToken(string chargifyToken, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;GetOneTimeTokenRequest&gt; ReadOneTimeToken(ReadOneTimeTokenRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8864,10 +9897,13 @@ To obtain a One Time Token you have to use [Chargify.js](https://docs.maxio.com/
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.ReadOneTimeToken(chargifyToken);
+    var response = await client.PaymentProfiles.ReadOneTimeToken(new ReadOneTimeTokenRequest
+    {
+        ChargifyToken = "some example string",
+    });
     // TODO: Handle 'response' of type GetOneTimeTokenRequest
 }
-catch (SdkException<ReadOneTimeTokenError> ex)
+catch (ApiException<ReadOneTimeTokenError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -8879,14 +9915,12 @@ catch (SdkException<ReadOneTimeTokenError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>chargifyToken</code> | <code>string</code> | Advanced Billing Token |
+<code>[ReadOneTimeTokenRequest](Requests/PaymentProfiles/ReadOneTimeTokenRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8898,7 +9932,7 @@ catch (SdkException<ReadOneTimeTokenError> ex)
 
 **OnSuccess**: <code>[GetOneTimeTokenRequest](Models/GetOneTimeTokenRequest.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadOneTimeTokenError](Errors/ReadOneTimeTokenError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadOneTimeTokenError](Errors/ReadOneTimeTokenError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8909,7 +9943,7 @@ catch (SdkException<ReadOneTimeTokenError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PaymentProfileResponse&gt; ReadPaymentProfile(int paymentProfileId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaymentProfileResponse&gt; ReadPaymentProfile(ReadPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -8968,10 +10002,13 @@ Example response for Bank Account:
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.ReadPaymentProfile(paymentProfileId);
+    var response = await client.PaymentProfiles.ReadPaymentProfile(new ReadPaymentProfileRequest
+    {
+        PaymentProfileId = 1,
+    });
     // TODO: Handle 'response' of type PaymentProfileResponse
 }
-catch (SdkException<ReadPaymentProfileError> ex)
+catch (ApiException<ReadPaymentProfileError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -8983,14 +10020,12 @@ catch (SdkException<ReadPaymentProfileError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
+<code>[ReadPaymentProfileRequest](Requests/PaymentProfiles/ReadPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9002,7 +10037,7 @@ catch (SdkException<ReadPaymentProfileError> ex)
 
 **OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadPaymentProfileError](Errors/ReadPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadPaymentProfileError](Errors/ReadPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9013,7 +10048,7 @@ catch (SdkException<ReadPaymentProfileError> ex)
 </details>
 
 <details>
-<summary><code>Task SendRequestUpdatePaymentEmail(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task SendRequestUpdatePaymentEmail(SendRequestUpdatePaymentEmailRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9042,9 +10077,12 @@ These error responses are designed to prevent excessive or invalid requests, and
 ```csharp
 try
 {
-    await client.PaymentProfiles.SendRequestUpdatePaymentEmail(subscriptionId);
+    await client.PaymentProfiles.SendRequestUpdatePaymentEmail(new SendRequestUpdatePaymentEmailRequest
+    {
+        SubscriptionId = 1,
+    });
 }
-catch (SdkException<SendRequestUpdatePaymentEmailError> ex)
+catch (ApiException<SendRequestUpdatePaymentEmailError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -9056,14 +10094,12 @@ catch (SdkException<SendRequestUpdatePaymentEmailError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[SendRequestUpdatePaymentEmailRequest](Requests/PaymentProfiles/SendRequestUpdatePaymentEmailRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9075,7 +10111,7 @@ catch (SdkException<SendRequestUpdatePaymentEmailError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[SendRequestUpdatePaymentEmailError](Errors/SendRequestUpdatePaymentEmailError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[SendRequestUpdatePaymentEmailError](Errors/SendRequestUpdatePaymentEmailError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9086,7 +10122,7 @@ catch (SdkException<SendRequestUpdatePaymentEmailError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PaymentProfileResponse&gt; UpdatePaymentProfile(int paymentProfileId, UpdatePaymentProfileRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PaymentProfileResponse&gt; UpdatePaymentProfile(UpdatePaymentProfileOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9144,10 +10180,27 @@ The result will be that you have updated the billing information for the card, y
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.UpdatePaymentProfile(paymentProfileId, body);
+    var response = await client.PaymentProfiles.UpdatePaymentProfile(new UpdatePaymentProfileOperationRequest
+    {
+        PaymentProfileId = 1,
+        Body = new UpdatePaymentProfileRequest
+        {
+            PaymentProfile = new UpdatePaymentProfile
+            {
+                FirstName = "Graham",
+                LastName = "Test",
+                BillingAddress = "456 Juniper Court",
+                BillingCity = "Boulder",
+                BillingState = "CO",
+                BillingZip = "80302",
+                BillingCountry = "US",
+                BillingAddress2 = "some example string",
+            },
+        },
+    });
     // TODO: Handle 'response' of type PaymentProfileResponse
 }
-catch (SdkException<UpdatePaymentProfileError> ex)
+catch (ApiException<UpdatePaymentProfileError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -9159,15 +10212,12 @@ catch (SdkException<UpdatePaymentProfileError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>paymentProfileId</code> | <code>int</code> | The Chargify id of the payment profile |
-| <code>body</code> | <code>[UpdatePaymentProfileRequest?](Models/UpdatePaymentProfileRequest.cs)</code> | - |
+<code>[UpdatePaymentProfileOperationRequest](Requests/PaymentProfiles/UpdatePaymentProfileOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9179,7 +10229,7 @@ catch (SdkException<UpdatePaymentProfileError> ex)
 
 **OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdatePaymentProfileError](Errors/UpdatePaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdatePaymentProfileError](Errors/UpdatePaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9190,7 +10240,7 @@ catch (SdkException<UpdatePaymentProfileError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BankAccountResponse&gt; VerifyBankAccount(int bankAccountId, BankAccountVerificationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BankAccountResponse&gt; VerifyBankAccount(VerifyBankAccountRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9213,10 +10263,17 @@ Verifies a bank account. Submit the two small deposit amounts the customer recei
 ```csharp
 try
 {
-    var response = await client.PaymentProfiles.VerifyBankAccount(bankAccountId, body);
+    var response = await client.PaymentProfiles.VerifyBankAccount(new VerifyBankAccountRequest
+    {
+        BankAccountId = 1,
+        Body = new BankAccountVerificationRequest
+        {
+            BankAccountVerification = new BankAccountVerification { Deposit1InCents = 32L, Deposit2InCents = 45L },
+        },
+    });
     // TODO: Handle 'response' of type BankAccountResponse
 }
-catch (SdkException<VerifyBankAccountError> ex)
+catch (ApiException<VerifyBankAccountError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -9228,15 +10285,12 @@ catch (SdkException<VerifyBankAccountError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>bankAccountId</code> | <code>int</code> | Identifier of the bank account in the system. |
-| <code>body</code> | <code>[BankAccountVerificationRequest?](Models/BankAccountVerificationRequest.cs)</code> | - |
+<code>[VerifyBankAccountRequest](Requests/PaymentProfiles/VerifyBankAccountRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9248,7 +10302,7 @@ catch (SdkException<VerifyBankAccountError> ex)
 
 **OnSuccess**: <code>[BankAccountResponse](Models/BankAccountResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[VerifyBankAccountError](Errors/VerifyBankAccountError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VerifyBankAccountError](Errors/VerifyBankAccountError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9263,7 +10317,7 @@ catch (SdkException<VerifyBankAccountError> ex)
 > Source: [ProductFamilies](Api/ProductFamilies.cs)
 
 <details>
-<summary><code>Task&lt;ProductFamilyResponse&gt; CreateProductFamily(CreateProductFamilyRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductFamilyResponse&gt; CreateProductFamily(CreateProductFamilyOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9273,7 +10327,7 @@ catch (SdkException<VerifyBankAccountError> ex)
 <dl>
 <dd>
 
-Creates a Product Family within your Advanced Billing site. Create a Product Family to act as a container for your products, components, and coupons.
+Creates a Product Family within your site. Create a Product Family to act as a container for your products, components, and coupons.
 
 Full documentation on how Product Families operate within the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
 
@@ -9288,10 +10342,21 @@ Full documentation on how Product Families operate within the Advanced Billing U
 ```csharp
 try
 {
-    var response = await client.ProductFamilies.CreateProductFamily(body);
+    var response = await client.ProductFamilies.CreateProductFamily(new CreateProductFamilyOperationRequest
+    {
+        Body = new CreateProductFamilyRequest
+        {
+            ProductFamily = new CreateProductFamily
+            {
+                Name = "Acme Projects",
+                Description = "Amazing project management tool",
+                Surcharging = false,
+            },
+        },
+    });
     // TODO: Handle 'response' of type ProductFamilyResponse
 }
-catch (SdkException<CreateProductFamilyError> ex)
+catch (ApiException<CreateProductFamilyError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -9303,14 +10368,12 @@ catch (SdkException<CreateProductFamilyError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateProductFamilyRequest?](Models/CreateProductFamilyRequest.cs)</code> | - |
+<code>[CreateProductFamilyOperationRequest](Requests/ProductFamilies/CreateProductFamilyOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9322,7 +10385,7 @@ catch (SdkException<CreateProductFamilyError> ex)
 
 **OnSuccess**: <code>[ProductFamilyResponse](Models/ProductFamilyResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateProductFamilyError](Errors/CreateProductFamilyError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductFamilyError](Errors/CreateProductFamilyError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9333,7 +10396,7 @@ catch (SdkException<CreateProductFamilyError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ProductFamilyResponse&gt;&gt; ListProductFamilies(BasicDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ProductFamilyResponse&gt;&gt; ListProductFamilies(ListProductFamiliesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9356,14 +10419,13 @@ Lists Product Families for a site.
 ```csharp
 try
 {
-    var response = await client.ProductFamilies.ListProductFamilies(dateField,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime);
+    var response = await client.ProductFamilies.ListProductFamilies(new ListProductFamiliesRequest
+    {
+        DateField = BasicDateField.UpdatedAt,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ProductFamilyResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -9372,18 +10434,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
-| <code>startDate</code> | <code>DateTimeOffset?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>DateTimeOffset?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>DateTimeOffset?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>endDatetime</code> | <code>DateTimeOffset?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
+<code>[ListProductFamiliesRequest](Requests/ProductFamilies/ListProductFamiliesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9395,7 +10451,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ProductFamilyResponse](Models/ProductFamilyResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9406,7 +10462,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ProductResponse&gt;&gt; ListProductsForProductFamily(string productFamilyId, BasicDateField? dateField, ListProductsFilter? filter, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, bool? includeArchived, ListProductsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ProductResponse&gt;&gt; ListProductsForProductFamily(ListProductsForProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9429,18 +10485,17 @@ Retrieves a list of Products belonging to a Product Family.
 ```csharp
 try
 {
-    var response = await client.ProductFamilies.ListProductsForProductFamily(productFamilyId,
-        dateField,
-        filter,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime,
-        includeArchived,
-        include);
+    var response = await client.ProductFamilies.ListProductsForProductFamily(new ListProductsForProductFamilyRequest
+    {
+        ProductFamilyId = "some example string",
+        Page = 1,
+        PerPage = 50,
+        DateField = BasicDateField.UpdatedAt,
+        Include = ListProductsInclude.PrepaidProductPricePoint,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ProductResponse>
 }
-catch (SdkException<ListProductsForProductFamilyError> ex)
+catch (ApiException<ListProductsForProductFamilyError> ex)
 {
     if (ex.Error.TryGetString(out var error))
     {
@@ -9452,24 +10507,12 @@ catch (SdkException<ListProductsForProductFamilyError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
-| <code>filter</code> | <code>[ListProductsFilter?](Models/ListProductsFilter.cs)</code> | Filter to use for List Products operations |
-| <code>startDate</code> | <code>DateTimeOffset?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>endDate</code> | <code>DateTimeOffset?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>DateTimeOffset?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>endDatetime</code> | <code>DateTimeOffset?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>includeArchived</code> | <code>bool?</code> | Include archived products. |
-| <code>include</code> | <code>[ListProductsInclude?](Models/Enums/ListProductsInclude.cs)</code> | Allows including additional data in the response. Use in query `include=prepaid_product_price_point`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListProductsForProductFamilyRequest](Requests/ProductFamilies/ListProductsForProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9481,7 +10524,7 @@ catch (SdkException<ListProductsForProductFamilyError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ProductResponse](Models/ProductResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListProductsForProductFamilyError](Errors/ListProductsForProductFamilyError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListProductsForProductFamilyError](Errors/ListProductsForProductFamilyError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9492,7 +10535,7 @@ catch (SdkException<ListProductsForProductFamilyError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductFamilyResponse&gt; ReadProductFamily(int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductFamilyResponse&gt; ReadProductFamily(ReadProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9517,10 +10560,10 @@ The product family can be specified either with the id number, or with the `hand
 ```csharp
 try
 {
-    var response = await client.ProductFamilies.ReadProductFamily(id);
+    var response = await client.ProductFamilies.ReadProductFamily(new ReadProductFamilyRequest { Id = 1 });
     // TODO: Handle 'response' of type ProductFamilyResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -9529,14 +10572,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>id</code> | <code>int</code> | The Advanced Billing id of the product family |
+<code>[ReadProductFamilyRequest](Requests/ProductFamilies/ReadProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9548,7 +10589,418 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductFamilyResponse](Models/ProductFamilyResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+## ProductFeatures
+
+> Source: [ProductFeatures](Api/ProductFeatures.cs)
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; CreateProductFeature(CreateProductFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Attaches a feature template to this product with a concrete value. Pass `price_point_type: "ProductPricePoint"` and `price_point_id` to create an override scoped to a single product price point instead of the whole product.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ProductFeatures.CreateProductFeature(new CreateProductFeatureRequest { ProductId = 1 });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<CreateProductFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[CreateProductFeatureRequest](Requests/ProductFeatures/CreateProductFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductFeatureError](Errors/CreateProductFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemsListResponse&gt; ListProductFeatures(ListProductFeaturesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Lists the feature catalog items attached to this product, including price-point-specific overrides.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ProductFeatures.ListProductFeatures(new ListProductFeaturesRequest { ProductId = 1 });
+    // TODO: Handle 'response' of type FeatureCatalogItemsListResponse
+}
+catch (ApiException<ListProductFeaturesError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ListProductFeaturesRequest](Requests/ProductFeatures/ListProductFeaturesRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemsListResponse](Models/FeatureCatalogItemsListResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListProductFeaturesError](Errors/ListProductFeaturesError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; ReadProductFeature(ReadProductFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Returns a single feature catalog item attached to this product.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ProductFeatures.ReadProductFeature(new ReadProductFeatureRequest
+    {
+        ProductId = 1,
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<ReadProductFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[ReadProductFeatureRequest](Requests/ProductFeatures/ReadProductFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadProductFeatureError](Errors/ReadProductFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task RemoveProductFeature(RemoveProductFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Removes a feature catalog item from this product.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    await client.ProductFeatures.RemoveProductFeature(new RemoveProductFeatureRequest { ProductId = 1, Id = 1 });
+}
+catch (ApiException<RemoveProductFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[RemoveProductFeatureRequest](Requests/ProductFeatures/RemoveProductFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: No content
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveProductFeatureError](Errors/RemoveProductFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; RestoreProductFeature(RestoreProductFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Clears the archived state of a feature catalog item attached to this product. Returns `422` if the parent feature template is still archived. Restore the feature template first.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ProductFeatures.RestoreProductFeature(new RestoreProductFeatureRequest
+    {
+        ProductId = 1,
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<RestoreProductFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[RestoreProductFeatureRequest](Requests/ProductFeatures/RestoreProductFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RestoreProductFeatureError](Errors/RestoreProductFeatureError.cs)&gt;</code>
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</details>
+
+<details>
+<summary><code>Task&lt;FeatureCatalogItemResponse&gt; UpdateProductFeature(UpdateProductFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
+
+<dl>
+<dd>
+
+### Description
+
+<dl>
+<dd>
+
+Updates the value or periodicity of a feature catalog item attached to this product.
+
+</dd>
+</dl>
+
+### Usage
+
+<dl>
+<dd>
+
+```csharp
+try
+{
+    var response = await client.ProductFeatures.UpdateProductFeature(new UpdateProductFeatureRequest
+    {
+        ProductId = 1,
+        Id = 1,
+    });
+    // TODO: Handle 'response' of type FeatureCatalogItemResponse
+}
+catch (ApiException<UpdateProductFeatureError> ex)
+{
+    if (ex.Error.TryGetErrorListResponse1(out var error))
+    {
+        // TODO: Handle 'error' of type ErrorListResponse1
+    }
+}
+```
+
+</dd>
+</dl>
+
+### Request
+
+<dl>
+<dd>
+
+<code>[UpdateProductFeatureRequest](Requests/ProductFeatures/UpdateProductFeatureRequest.cs)</code>
+
+</dd>
+</dl>
+
+### Response
+
+<dl>
+<dd>
+
+**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductFeatureError](Errors/UpdateProductFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9563,7 +11015,7 @@ catch (SdkException<RawError> ex)
 > Source: [ProductPricePoints](Api/ProductPricePoints.cs)
 
 <details>
-<summary><code>Task&lt;ProductPricePointResponse&gt; ArchiveProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductPricePointResponse&gt; ArchiveProductPricePoint(ArchiveProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9586,10 +11038,14 @@ Archives a product price point.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.ArchiveProductPricePoint(productId, pricePointId);
+    var response = await client.ProductPricePoints.ArchiveProductPricePoint(new ArchiveProductPricePointRequest
+    {
+        ProductId = 1,
+        PricePointId = 1,
+    });
     // TODO: Handle 'response' of type ProductPricePointResponse
 }
-catch (SdkException<ArchiveProductPricePointError> ex)
+catch (ApiException<ArchiveProductPricePointError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -9601,15 +11057,12 @@ catch (SdkException<ArchiveProductPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>[ProductIdModel](Models/AnyOf/ProductIdModel.cs)</code> | The id or handle of the product. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-price-point-handle` for a string handle. |
+<code>[ArchiveProductPricePointRequest](Requests/ProductPricePoints/ArchiveProductPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9621,7 +11074,7 @@ catch (SdkException<ArchiveProductPricePointError> ex)
 
 **OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ArchiveProductPricePointError](Errors/ArchiveProductPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveProductPricePointError](Errors/ArchiveProductPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9632,7 +11085,7 @@ catch (SdkException<ArchiveProductPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BulkCreateProductPricePointsResponse&gt; BulkCreateProductPricePoints(int productId, BulkCreateProductPricePointsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BulkCreateProductPricePointsResponse&gt; BulkCreateProductPricePoints(BulkCreateProductPricePointsOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9655,10 +11108,51 @@ Creates multiple product price points in one request.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.BulkCreateProductPricePoints(productId, body);
+    var response = await client.ProductPricePoints.BulkCreateProductPricePoints(
+        new BulkCreateProductPricePointsOperationRequest
+        {
+            ProductId = 1,
+            Body = new BulkCreateProductPricePointsRequest
+            {
+                PricePoints = [
+                    new CreateProductPricePoint
+                    {
+                        Name = "Educational",
+                        Handle = "educational",
+                        PriceInCents = 1000L,
+                        Interval = 1,
+                        IntervalUnit = IntervalUnit.Month,
+                        TrialPriceInCents = 4900L,
+                        TrialInterval = 1,
+                        TrialIntervalUnit = IntervalUnit.Month,
+                        TrialType = TrialType.PaymentExpected,
+                        InitialChargeInCents = 120000L,
+                        InitialChargeAfterTrial = false,
+                        ExpirationInterval = 12,
+                        ExpirationIntervalUnit = ExpirationIntervalUnit.Month,
+                    },
+                    new CreateProductPricePoint
+                    {
+                        Name = "More Educational",
+                        Handle = "more-educational",
+                        PriceInCents = 2000L,
+                        Interval = 1,
+                        IntervalUnit = IntervalUnit.Month,
+                        TrialPriceInCents = 4900L,
+                        TrialInterval = 1,
+                        TrialIntervalUnit = IntervalUnit.Month,
+                        TrialType = TrialType.PaymentExpected,
+                        InitialChargeInCents = 120000L,
+                        InitialChargeAfterTrial = false,
+                        ExpirationInterval = 12,
+                        ExpirationIntervalUnit = ExpirationIntervalUnit.Month,
+                    },
+                ],
+            },
+        });
     // TODO: Handle 'response' of type BulkCreateProductPricePointsResponse
 }
-catch (SdkException<BulkCreateProductPricePointsError> ex)
+catch (ApiException<BulkCreateProductPricePointsError> ex)
 {
     if (ex.Error.TryGetMapOfJsonElement(out var error))
     {
@@ -9670,15 +11164,12 @@ catch (SdkException<BulkCreateProductPricePointsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>int</code> | The Advanced Billing id of the product to which the price points belong |
-| <code>body</code> | <code>[BulkCreateProductPricePointsRequest?](Models/BulkCreateProductPricePointsRequest.cs)</code> | - |
+<code>[BulkCreateProductPricePointsOperationRequest](Requests/ProductPricePoints/BulkCreateProductPricePointsOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9690,7 +11181,7 @@ catch (SdkException<BulkCreateProductPricePointsError> ex)
 
 **OnSuccess**: <code>[BulkCreateProductPricePointsResponse](Models/BulkCreateProductPricePointsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[BulkCreateProductPricePointsError](Errors/BulkCreateProductPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkCreateProductPricePointsError](Errors/BulkCreateProductPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9701,7 +11192,7 @@ catch (SdkException<BulkCreateProductPricePointsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CurrencyPricesResponse&gt; CreateProductCurrencyPrices(int productPricePointId, CreateProductCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CurrencyPricesResponse&gt; CreateProductCurrencyPrices(CreateProductCurrencyPricesOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9728,10 +11219,22 @@ Note: Currency Prices are not able to be created for custom product price points
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.CreateProductCurrencyPrices(productPricePointId, body);
+    var response = await client.ProductPricePoints.CreateProductCurrencyPrices(
+        new CreateProductCurrencyPricesOperationRequest
+        {
+            ProductPricePointId = 1,
+            Body = new CreateProductCurrencyPricesRequest
+            {
+                CurrencyPrices = [
+                    new CreateProductCurrencyPrice { Currency = "EUR", Price = 60, Role = CurrencyPriceRole.Baseline },
+                    new CreateProductCurrencyPrice { Currency = "EUR", Price = 30, Role = CurrencyPriceRole.Trial },
+                    new CreateProductCurrencyPrice { Currency = "EUR", Price = 100, Role = CurrencyPriceRole.Initial },
+                ],
+            },
+        });
     // TODO: Handle 'response' of type CurrencyPricesResponse
 }
-catch (SdkException<CreateProductCurrencyPricesError> ex)
+catch (ApiException<CreateProductCurrencyPricesError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -9743,15 +11246,12 @@ catch (SdkException<CreateProductCurrencyPricesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productPricePointId</code> | <code>int</code> | The Advanced Billing id of the product price point |
-| <code>body</code> | <code>[CreateProductCurrencyPricesRequest?](Models/CreateProductCurrencyPricesRequest.cs)</code> | - |
+<code>[CreateProductCurrencyPricesOperationRequest](Requests/ProductPricePoints/CreateProductCurrencyPricesOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9763,7 +11263,7 @@ catch (SdkException<CreateProductCurrencyPricesError> ex)
 
 **OnSuccess**: <code>[CurrencyPricesResponse](Models/CurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateProductCurrencyPricesError](Errors/CreateProductCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductCurrencyPricesError](Errors/CreateProductCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9774,7 +11274,7 @@ catch (SdkException<CreateProductCurrencyPricesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductPricePointResponse&gt; CreateProductPricePoint(ProductIdModel productId, CreateProductPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductPricePointResponse&gt; CreateProductPricePoint(CreateProductPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9797,10 +11297,32 @@ Creates a Product Price Point. See the [Product Price Point](https://maxio.zende
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.CreateProductPricePoint(productId, body);
+    var response = await client.ProductPricePoints.CreateProductPricePoint(new CreateProductPricePointOperationRequest
+    {
+        ProductId = 1,
+        Body = new CreateProductPricePointRequest
+        {
+            PricePoint = new CreateProductPricePoint
+            {
+                Name = "Educational",
+                Handle = "educational",
+                PriceInCents = 1000L,
+                Interval = 1,
+                IntervalUnit = IntervalUnit.Month,
+                TrialPriceInCents = 4900L,
+                TrialInterval = 1,
+                TrialIntervalUnit = IntervalUnit.Month,
+                TrialType = TrialType.PaymentExpected,
+                InitialChargeInCents = 120000L,
+                InitialChargeAfterTrial = false,
+                ExpirationInterval = 12,
+                ExpirationIntervalUnit = ExpirationIntervalUnit.Month,
+            },
+        },
+    });
     // TODO: Handle 'response' of type ProductPricePointResponse
 }
-catch (SdkException<CreateProductPricePointError> ex)
+catch (ApiException<CreateProductPricePointError> ex)
 {
     if (ex.Error.TryGetProductPricePointErrorResponse1(out var error))
     {
@@ -9812,15 +11334,12 @@ catch (SdkException<CreateProductPricePointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>[ProductIdModel](Models/AnyOf/ProductIdModel.cs)</code> | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
-| <code>body</code> | <code>[CreateProductPricePointRequest?](Models/CreateProductPricePointRequest.cs)</code> | - |
+<code>[CreateProductPricePointOperationRequest](Requests/ProductPricePoints/CreateProductPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9832,7 +11351,7 @@ catch (SdkException<CreateProductPricePointError> ex)
 
 **OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateProductPricePointError](Errors/CreateProductPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductPricePointError](Errors/CreateProductPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9843,7 +11362,7 @@ catch (SdkException<CreateProductPricePointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListProductPricePointsResponse&gt; ListAllProductPricePoints(SortingDirection? direction, ListPricePointsFilter? filter, ListProductsPricePointsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListProductPricePointsResponse&gt; ListAllProductPricePoints(ListAllProductPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9866,10 +11385,15 @@ Lists Product Price Points belonging to a site.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.ListAllProductPricePoints(direction, filter, include);
+    var response = await client.ProductPricePoints.ListAllProductPricePoints(new ListAllProductPricePointsRequest
+    {
+        Include = ListProductsPricePointsInclude.CurrencyPrices,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListProductPricePointsResponse
 }
-catch (SdkException<ListAllProductPricePointsError> ex)
+catch (ApiException<ListAllProductPricePointsError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -9881,18 +11405,12 @@ catch (SdkException<ListAllProductPricePointsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>filter</code> | <code>[ListPricePointsFilter?](Models/ListPricePointsFilter.cs)</code> | Filter to use for List PricePoints operations |
-| <code>include</code> | <code>[ListProductsPricePointsInclude?](Models/Enums/ListProductsPricePointsInclude.cs)</code> | Allows including additional data in the response. Use in query: `include=currency_prices`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListAllProductPricePointsRequest](Requests/ProductPricePoints/ListAllProductPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9904,7 +11422,7 @@ catch (SdkException<ListAllProductPricePointsError> ex)
 
 **OnSuccess**: <code>[ListProductPricePointsResponse](Models/ListProductPricePointsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListAllProductPricePointsError](Errors/ListAllProductPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListAllProductPricePointsError](Errors/ListAllProductPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9915,7 +11433,7 @@ catch (SdkException<ListAllProductPricePointsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListProductPricePointsResponse&gt; ListProductPricePoints(ProductIdModel productId, bool? currencyPrices, IReadOnlyList&lt;PricePointType&gt;? filterType, bool? archived, int? page = 1, int? perPage = 10, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListProductPricePointsResponse&gt; ListProductPricePoints(ListProductPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -9938,13 +11456,15 @@ Retrieves a list of product price points.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.ListProductPricePoints(productId,
-        currencyPrices,
-        filterType,
-        archived);
+    var response = await client.ProductPricePoints.ListProductPricePoints(new ListProductPricePointsRequest
+    {
+        ProductId = 1,
+        Page = 1,
+        FilterType = [PricePointType.Catalog, PricePointType.Default],
+    });
     // TODO: Handle 'response' of type ListProductPricePointsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -9953,19 +11473,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>[ProductIdModel](Models/AnyOf/ProductIdModel.cs)</code> | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
-| <code>currencyPrices</code> | <code>bool?</code> | (Optional) If you have defined multiple currencies at the site level, you can pass ?currency_prices=true to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
-| <code>filterType</code> | <code>IReadOnlyList&lt;[PricePointType](Models/Enums/PricePointType.cs)&gt;?</code> | Use in query: `filter[type]=catalog,default`. |
-| <code>archived</code> | <code>bool?</code> | Set to include archived price points in the response. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: 10 |
+<code>[ListProductPricePointsRequest](Requests/ProductPricePoints/ListProductPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9977,7 +11490,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListProductPricePointsResponse](Models/ListProductPricePointsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9988,7 +11501,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductResponse&gt; PromoteProductPricePointToDefault(int productId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductResponse&gt; PromoteProductPricePointToDefault(PromoteProductPricePointToDefaultRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10013,10 +11526,11 @@ Note: Custom product price points cannot be set as the default for a product.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.PromoteProductPricePointToDefault(productId, pricePointId);
+    var response = await client.ProductPricePoints.PromoteProductPricePointToDefault(
+        new PromoteProductPricePointToDefaultRequest { ProductId = 1, PricePointId = 1 });
     // TODO: Handle 'response' of type ProductResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10025,15 +11539,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>int</code> | The Advanced Billing id of the product to which the price point belongs |
-| <code>pricePointId</code> | <code>int</code> | The Advanced Billing id of the product price point |
+<code>[PromoteProductPricePointToDefaultRequest](Requests/ProductPricePoints/PromoteProductPricePointToDefaultRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10045,7 +11556,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10056,7 +11567,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductPricePointResponse&gt; ReadProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductPricePointResponse&gt; ReadProductPricePoint(ReadProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10079,10 +11590,14 @@ Returns details for a specific product price point. You can achieve this by usin
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.ReadProductPricePoint(productId, pricePointId, currencyPrices);
+    var response = await client.ProductPricePoints.ReadProductPricePoint(new ReadProductPricePointRequest
+    {
+        ProductId = 1,
+        PricePointId = 1,
+    });
     // TODO: Handle 'response' of type ProductPricePointResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10091,16 +11606,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>[ProductIdModel](Models/AnyOf/ProductIdModel.cs)</code> | The id or handle of the product. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-price-point-handle` for a string handle. |
-| <code>currencyPrices</code> | <code>bool?</code> | (Optional) If you have defined multiple currencies at the site level, you can pass ?currency_prices=true to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
+<code>[ReadProductPricePointRequest](Requests/ProductPricePoints/ReadProductPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10112,7 +11623,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10123,7 +11634,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductPricePointResponse&gt; UnarchiveProductPricePoint(int productId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductPricePointResponse&gt; UnarchiveProductPricePoint(UnarchiveProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10146,10 +11657,14 @@ Unarchives an archived product price point.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.UnarchiveProductPricePoint(productId, pricePointId);
+    var response = await client.ProductPricePoints.UnarchiveProductPricePoint(new UnarchiveProductPricePointRequest
+    {
+        ProductId = 1,
+        PricePointId = 1,
+    });
     // TODO: Handle 'response' of type ProductPricePointResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10158,15 +11673,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>int</code> | The Advanced Billing id of the product to which the price point belongs |
-| <code>pricePointId</code> | <code>int</code> | The Advanced Billing id of the product price point |
+<code>[UnarchiveProductPricePointRequest](Requests/ProductPricePoints/UnarchiveProductPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10178,7 +11690,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10189,7 +11701,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;CurrencyPricesResponse&gt; UpdateProductCurrencyPrices(int productPricePointId, UpdateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CurrencyPricesResponse&gt; UpdateProductCurrencyPrices(UpdateProductCurrencyPricesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10216,10 +11728,20 @@ Note: Currency Prices cannot be updated for custom product price points.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.UpdateProductCurrencyPrices(productPricePointId, body);
+    var response = await client.ProductPricePoints.UpdateProductCurrencyPrices(new UpdateProductCurrencyPricesRequest
+    {
+        ProductPricePointId = 1,
+        Body = new UpdateCurrencyPricesRequest
+        {
+            CurrencyPrices = [
+                new UpdateCurrencyPrice { Id = 200, Price = 15d },
+                new UpdateCurrencyPrice { Id = 201, Price = 5d },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type CurrencyPricesResponse
 }
-catch (SdkException<UpdateProductCurrencyPricesError> ex)
+catch (ApiException<UpdateProductCurrencyPricesError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -10231,15 +11753,12 @@ catch (SdkException<UpdateProductCurrencyPricesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productPricePointId</code> | <code>int</code> | The Advanced Billing id of the product price point |
-| <code>body</code> | <code>[UpdateCurrencyPricesRequest?](Models/UpdateCurrencyPricesRequest.cs)</code> | - |
+<code>[UpdateProductCurrencyPricesRequest](Requests/ProductPricePoints/UpdateProductCurrencyPricesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10251,7 +11770,7 @@ catch (SdkException<UpdateProductCurrencyPricesError> ex)
 
 **OnSuccess**: <code>[CurrencyPricesResponse](Models/CurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateProductCurrencyPricesError](Errors/UpdateProductCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductCurrencyPricesError](Errors/UpdateProductCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10262,7 +11781,7 @@ catch (SdkException<UpdateProductCurrencyPricesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductPricePointResponse&gt; UpdateProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, UpdateProductPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductPricePointResponse&gt; UpdateProductPricePoint(UpdateProductPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10287,10 +11806,18 @@ Note: Custom product price points cannot be updated.
 ```csharp
 try
 {
-    var response = await client.ProductPricePoints.UpdateProductPricePoint(productId, pricePointId, body);
+    var response = await client.ProductPricePoints.UpdateProductPricePoint(new UpdateProductPricePointOperationRequest
+    {
+        ProductId = 1,
+        PricePointId = 1,
+        Body = new UpdateProductPricePointRequest
+        {
+            PricePoint = new UpdateProductPricePoint { Handle = "educational", PriceInCents = 1250L },
+        },
+    });
     // TODO: Handle 'response' of type ProductPricePointResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10299,16 +11826,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>[ProductIdModel](Models/AnyOf/ProductIdModel.cs)</code> | The id or handle of the product. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-handle` for a string handle. |
-| <code>pricePointId</code> | <code>[PricePointIdModel](Models/AnyOf/PricePointIdModel.cs)</code> | The id or handle of the price point. When using the handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or `handle:example-product-price-point-handle` for a string handle. |
-| <code>body</code> | <code>[UpdateProductPricePointRequest?](Models/UpdateProductPricePointRequest.cs)</code> | - |
+<code>[UpdateProductPricePointOperationRequest](Requests/ProductPricePoints/UpdateProductPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10320,7 +11843,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10335,7 +11858,7 @@ catch (SdkException<RawError> ex)
 > Source: [Products](Api/Products.cs)
 
 <details>
-<summary><code>Task&lt;ProductResponse&gt; ArchiveProduct(int productId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductResponse&gt; ArchiveProduct(ArchiveProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10360,10 +11883,10 @@ This will restrict the option to chose the product for purchase via the Billing 
 ```csharp
 try
 {
-    var response = await client.Products.ArchiveProduct(productId);
+    var response = await client.Products.ArchiveProduct(new ArchiveProductRequest { ProductId = 1 });
     // TODO: Handle 'response' of type ProductResponse
 }
-catch (SdkException<ArchiveProductError> ex)
+catch (ApiException<ArchiveProductError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -10375,14 +11898,12 @@ catch (SdkException<ArchiveProductError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>int</code> | The Advanced Billing id of the product |
+<code>[ArchiveProductRequest](Requests/Products/ArchiveProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10394,7 +11915,7 @@ catch (SdkException<ArchiveProductError> ex)
 
 **OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ArchiveProductError](Errors/ArchiveProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveProductError](Errors/ArchiveProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10405,7 +11926,7 @@ catch (SdkException<ArchiveProductError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductResponse&gt; CreateProduct(string productFamilyId, CreateOrUpdateProductRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductResponse&gt; CreateProduct(CreateProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10415,13 +11936,13 @@ catch (SdkException<ArchiveProductError> ex)
 <dl>
 <dd>
 
-Creates a product in your Advanced Billing site.
+Creates a product in your site.
 
-If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, the `auto_create_signup_page` parameter is not supported. If `auto_create_signup_page` is included (with any value) an error is returned. 
+If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, the `auto_create_signup_page` parameter is not supported. If `auto_create_signup_page` is included (with any value) an error is returned.
 
-See the following product documentation for more information:
+For more information, see:
 
-+ [Products Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
++ [Products Overview](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
 + [Changing a Subscription's Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations)
 
 </dd>
@@ -10435,10 +11956,29 @@ See the following product documentation for more information:
 ```csharp
 try
 {
-    var response = await client.Products.CreateProduct(productFamilyId, body);
+    var response = await client.Products.CreateProduct(new CreateProductRequest
+    {
+        ProductFamilyId = "some example string",
+        Body = new CreateOrUpdateProductRequest
+        {
+            Product = new CreateOrUpdateProduct
+            {
+                Name = "Gold Plan",
+                Handle = "gold",
+                Description = "This is our gold plan.",
+                AccountingCode = "123",
+                RequireCreditCard = true,
+                PriceInCents = 1000L,
+                Interval = 1,
+                IntervalUnit = IntervalUnit.Month,
+                AutoCreateSignupPage = true,
+                TaxCode = "D0000000",
+            },
+        },
+    });
     // TODO: Handle 'response' of type ProductResponse
 }
-catch (SdkException<CreateProductError> ex)
+catch (ApiException<CreateProductError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -10450,15 +11990,12 @@ catch (SdkException<CreateProductError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productFamilyId</code> | <code>string</code> | Either the product family's id or its handle prefixed with `handle:` |
-| <code>body</code> | <code>[CreateOrUpdateProductRequest?](Models/CreateOrUpdateProductRequest.cs)</code> | - |
+<code>[CreateProductRequest](Requests/Products/CreateProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10470,7 +12007,7 @@ catch (SdkException<CreateProductError> ex)
 
 **OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateProductError](Errors/CreateProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductError](Errors/CreateProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10481,7 +12018,7 @@ catch (SdkException<CreateProductError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ProductResponse&gt;&gt; ListProducts(BasicDateField? dateField, ListProductsFilter? filter, DateTimeOffset? endDate, DateTimeOffset? endDatetime, DateTimeOffset? startDate, DateTimeOffset? startDatetime, bool? includeArchived, ListProductsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ProductResponse&gt;&gt; ListProducts(ListProductsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10504,17 +12041,17 @@ Lists products belonging to a site.
 ```csharp
 try
 {
-    var response = await client.Products.ListProducts(dateField,
-        filter,
-        endDate,
-        endDatetime,
-        startDate,
-        startDatetime,
-        includeArchived,
-        include);
+    var response = await client.Products.ListProducts(new ListProductsRequest
+    {
+        DateField = BasicDateField.UpdatedAt,
+        Page = 1,
+        PerPage = 50,
+        IncludeArchived = true,
+        Include = ListProductsInclude.PrepaidProductPricePoint,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ProductResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10523,23 +12060,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>dateField</code> | <code>[BasicDateField?](Models/Enums/BasicDateField.cs)</code> | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
-| <code>filter</code> | <code>[ListProductsFilter?](Models/ListProductsFilter.cs)</code> | Filter to use for List Products operations |
-| <code>endDate</code> | <code>DateTimeOffset?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>endDatetime</code> | <code>DateTimeOffset?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>startDate</code> | <code>DateTimeOffset?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>DateTimeOffset?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>includeArchived</code> | <code>bool?</code> | Include archived products. Use in query: `include_archived=true`. |
-| <code>include</code> | <code>[ListProductsInclude?](Models/Enums/ListProductsInclude.cs)</code> | Allows including additional data in the response. Use in query `include=prepaid_product_price_point`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListProductsRequest](Requests/Products/ListProductsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10551,7 +12077,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ProductResponse](Models/ProductResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10562,7 +12088,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductResponse&gt; ReadProduct(int productId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductResponse&gt; ReadProduct(ReadProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10585,10 +12111,10 @@ Reads the current details of a product.
 ```csharp
 try
 {
-    var response = await client.Products.ReadProduct(productId);
+    var response = await client.Products.ReadProduct(new ReadProductRequest { ProductId = 1 });
     // TODO: Handle 'response' of type ProductResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10597,14 +12123,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>int</code> | The Advanced Billing id of the product |
+<code>[ReadProductRequest](Requests/Products/ReadProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10616,7 +12140,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10627,7 +12151,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductResponse&gt; ReadProductByHandle(string apiHandle, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductResponse&gt; ReadProductByHandle(ReadProductByHandleRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10650,10 +12174,13 @@ Retrieves a Product object by its `api_handle`.
 ```csharp
 try
 {
-    var response = await client.Products.ReadProductByHandle(apiHandle);
+    var response = await client.Products.ReadProductByHandle(new ReadProductByHandleRequest
+    {
+        ApiHandle = "some example string",
+    });
     // TODO: Handle 'response' of type ProductResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -10662,14 +12189,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>apiHandle</code> | <code>string</code> | The handle of the product |
+<code>[ReadProductByHandleRequest](Requests/Products/ReadProductByHandleRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10681,7 +12206,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10692,7 +12217,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProductResponse&gt; UpdateProduct(int productId, CreateOrUpdateProductRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProductResponse&gt; UpdateProduct(UpdateProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10723,10 +12248,10 @@ Updating a product using this endpoint will create a new price point and set it 
 ```csharp
 try
 {
-    var response = await client.Products.UpdateProduct(productId, body);
+    var response = await client.Products.UpdateProduct(new UpdateProductRequest { ProductId = 1 });
     // TODO: Handle 'response' of type ProductResponse
 }
-catch (SdkException<UpdateProductError> ex)
+catch (ApiException<UpdateProductError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -10738,15 +12263,12 @@ catch (SdkException<UpdateProductError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>productId</code> | <code>int</code> | The Advanced Billing id of the product |
-| <code>body</code> | <code>[CreateOrUpdateProductRequest?](Models/CreateOrUpdateProductRequest.cs)</code> | - |
+<code>[UpdateProductRequest](Requests/Products/UpdateProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10758,7 +12280,7 @@ catch (SdkException<UpdateProductError> ex)
 
 **OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateProductError](Errors/UpdateProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductError](Errors/UpdateProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10773,7 +12295,7 @@ catch (SdkException<UpdateProductError> ex)
 > Source: [ProformaInvoices](Api/ProformaInvoices.cs)
 
 <details>
-<summary><code>Task CreateConsolidatedProformaInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task CreateConsolidatedProformaInvoice(CreateConsolidatedProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10783,7 +12305,7 @@ catch (SdkException<UpdateProductError> ex)
 <dl>
 <dd>
 
-Creates a consolidated proforma invoice asynchronously. It will return a 201 with no message, or a 422 with any errors. To find and view the new consolidated proforma invoice, you may poll the subscription group listing for proforma invoices; only one consolidated proforma invoice may be created per group at a time.
+Creates a consolidated proforma invoice asynchronously. To find and view the new consolidated proforma invoice, you can poll the subscription group listing for proforma invoices; only one consolidated proforma invoice can be created per group at a time.
 
 If the information becomes outdated, simply void the old consolidated proforma invoice and generate a new one.
 
@@ -10802,9 +12324,12 @@ Proforma invoices are only available on Relationship Invoicing sites. To create 
 ```csharp
 try
 {
-    await client.ProformaInvoices.CreateConsolidatedProformaInvoice(uid);
+    await client.ProformaInvoices.CreateConsolidatedProformaInvoice(new CreateConsolidatedProformaInvoiceRequest
+    {
+        Uid = "some example string",
+    });
 }
-catch (SdkException<CreateConsolidatedProformaInvoiceError> ex)
+catch (ApiException<CreateConsolidatedProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -10816,14 +12341,12 @@ catch (SdkException<CreateConsolidatedProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
+<code>[CreateConsolidatedProformaInvoiceRequest](Requests/ProformaInvoices/CreateConsolidatedProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10835,7 +12358,7 @@ catch (SdkException<CreateConsolidatedProformaInvoiceError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateConsolidatedProformaInvoiceError](Errors/CreateConsolidatedProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateConsolidatedProformaInvoiceError](Errors/CreateConsolidatedProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10846,7 +12369,7 @@ catch (SdkException<CreateConsolidatedProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProformaInvoice&gt; CreateProformaInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProformaInvoice&gt; CreateProformaInvoice(CreateProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10875,10 +12398,13 @@ Proforma invoices are only available on Relationship Invoicing sites. To create 
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.CreateProformaInvoice(subscriptionId);
+    var response = await client.ProformaInvoices.CreateProformaInvoice(new CreateProformaInvoiceRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type ProformaInvoice
 }
-catch (SdkException<CreateProformaInvoiceError> ex)
+catch (ApiException<CreateProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -10890,14 +12416,12 @@ catch (SdkException<CreateProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[CreateProformaInvoiceRequest](Requests/ProformaInvoices/CreateProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10909,7 +12433,7 @@ catch (SdkException<CreateProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateProformaInvoiceError](Errors/CreateProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProformaInvoiceError](Errors/CreateProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10920,7 +12444,7 @@ catch (SdkException<CreateProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProformaInvoice&gt; CreateSignupProformaInvoice(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProformaInvoice&gt; CreateSignupProformaInvoice(CreateSignupProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -10947,10 +12471,25 @@ A product and customer first name, last name, and email are the minimum requirem
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.CreateSignupProformaInvoice(body);
+    var response = await client.ProformaInvoices.CreateSignupProformaInvoice(new CreateSignupProformaInvoiceRequest
+    {
+        Body = new CreateSubscriptionRequest
+        {
+            Subscription = new CreateSubscription
+            {
+                ProductHandle = "gold-product",
+                CustomerAttributes = new CustomerAttributes
+                {
+                    FirstName = "Myra",
+                    LastName = "Maisel",
+                    Email = "mmaisel@example.com",
+                },
+            },
+        },
+    });
     // TODO: Handle 'response' of type ProformaInvoice
 }
-catch (SdkException<CreateSignupProformaInvoiceError> ex)
+catch (ApiException<CreateSignupProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetProformaBadRequestErrorResponse1(out var error))
     {
@@ -10962,14 +12501,12 @@ catch (SdkException<CreateSignupProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateSubscriptionRequest?](Models/CreateSubscriptionRequest.cs)</code> | - |
+<code>[CreateSignupProformaInvoiceRequest](Requests/ProformaInvoices/CreateSignupProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10981,7 +12518,7 @@ catch (SdkException<CreateSignupProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateSignupProformaInvoiceError](Errors/CreateSignupProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSignupProformaInvoiceError](Errors/CreateSignupProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10992,7 +12529,7 @@ catch (SdkException<CreateSignupProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProformaInvoice&gt; DeliverProformaInvoice(string proformaInvoiceUid, DeliverProformaInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProformaInvoice&gt; DeliverProformaInvoice(DeliverProformaInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11020,10 +12557,19 @@ empty body may still succeed when defaults are available.
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.DeliverProformaInvoice(proformaInvoiceUid, body);
+    var response = await client.ProformaInvoices.DeliverProformaInvoice(new DeliverProformaInvoiceOperationRequest
+    {
+        ProformaInvoiceUid = "some example string",
+        Body = new DeliverProformaInvoiceRequest
+        {
+            RecipientEmails = ["user0@example.com"],
+            CcRecipientEmails = ["user1@example.com"],
+            BccRecipientEmails = ["user2@example.com"],
+        },
+    });
     // TODO: Handle 'response' of type ProformaInvoice
 }
-catch (SdkException<DeliverProformaInvoiceError> ex)
+catch (ApiException<DeliverProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11035,15 +12581,12 @@ catch (SdkException<DeliverProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>proformaInvoiceUid</code> | <code>string</code> | The uid of the proforma invoice |
-| <code>body</code> | <code>[DeliverProformaInvoiceRequest?](Models/DeliverProformaInvoiceRequest.cs)</code> | - |
+<code>[DeliverProformaInvoiceOperationRequest](Requests/ProformaInvoices/DeliverProformaInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11055,7 +12598,7 @@ catch (SdkException<DeliverProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeliverProformaInvoiceError](Errors/DeliverProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeliverProformaInvoiceError](Errors/DeliverProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11066,7 +12609,7 @@ catch (SdkException<DeliverProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListProformaInvoicesResponse&gt; ListProformaInvoices(int subscriptionId, string? startDate, string? endDate, ProformaInvoiceStatus? status, Direction? direction, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListProformaInvoicesResponse&gt; ListProformaInvoices(ListProformaInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11089,14 +12632,15 @@ Lists proforma invoices for a subscription. By default, results only include tot
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.ListProformaInvoices(subscriptionId,
-        startDate,
-        endDate,
-        status,
-        direction);
+    var response = await client.ProformaInvoices.ListProformaInvoices(new ListProformaInvoicesRequest
+    {
+        SubscriptionId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListProformaInvoicesResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -11105,26 +12649,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>startDate</code> | <code>string?</code> | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
-| <code>endDate</code> | <code>string?</code> | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
-| <code>status</code> | <code>[ProformaInvoiceStatus?](Models/Enums/ProformaInvoiceStatus.cs)</code> | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
-| <code>direction</code> | <code>[Direction?](Models/Enums/Direction.cs)</code> | The sort direction of the returned invoices. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
-| <code>lineItems</code> | <code>bool?</code> | Include line items data.<br>**Default**: false |
-| <code>discounts</code> | <code>bool?</code> | Include discounts data.<br>**Default**: false |
-| <code>taxes</code> | <code>bool?</code> | Include taxes data.<br>**Default**: false |
-| <code>credits</code> | <code>bool?</code> | Include credits data.<br>**Default**: false |
-| <code>payments</code> | <code>bool?</code> | Include payments data.<br>**Default**: false |
-| <code>customFields</code> | <code>bool?</code> | Include custom fields data.<br>**Default**: false |
+<code>[ListProformaInvoicesRequest](Requests/ProformaInvoices/ListProformaInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11136,7 +12666,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListProformaInvoicesResponse](Models/ListProformaInvoicesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11147,7 +12677,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListProformaInvoicesResponse&gt; ListSubscriptionGroupProformaInvoices(string uid, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListProformaInvoicesResponse&gt; ListSubscriptionGroupProformaInvoices(ListSubscriptionGroupProformaInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11161,7 +12691,6 @@ Lists proforma invoices with a `consolidation_level` of parent for the subscript
 
 By default, proforma invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a value set to true.
 
-
 </dd>
 </dl>
 
@@ -11173,10 +12702,11 @@ By default, proforma invoices returned on the index will only include totals, no
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.ListSubscriptionGroupProformaInvoices(uid);
+    var response = await client.ProformaInvoices.ListSubscriptionGroupProformaInvoices(
+        new ListSubscriptionGroupProformaInvoicesRequest { Uid = "some example string" });
     // TODO: Handle 'response' of type ListProformaInvoicesResponse
 }
-catch (SdkException<ListSubscriptionGroupProformaInvoicesError> ex)
+catch (ApiException<ListSubscriptionGroupProformaInvoicesError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11188,20 +12718,12 @@ catch (SdkException<ListSubscriptionGroupProformaInvoicesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>lineItems</code> | <code>bool?</code> | Include line items data.<br>**Default**: false |
-| <code>discounts</code> | <code>bool?</code> | Include discounts data.<br>**Default**: false |
-| <code>taxes</code> | <code>bool?</code> | Include taxes data.<br>**Default**: false |
-| <code>credits</code> | <code>bool?</code> | Include credits data.<br>**Default**: false |
-| <code>payments</code> | <code>bool?</code> | Include payments data.<br>**Default**: false |
-| <code>customFields</code> | <code>bool?</code> | Include custom fields data.<br>**Default**: false |
+<code>[ListSubscriptionGroupProformaInvoicesRequest](Requests/ProformaInvoices/ListSubscriptionGroupProformaInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11213,7 +12735,7 @@ catch (SdkException<ListSubscriptionGroupProformaInvoicesError> ex)
 
 **OnSuccess**: <code>[ListProformaInvoicesResponse](Models/ListProformaInvoicesResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListSubscriptionGroupProformaInvoicesError](Errors/ListSubscriptionGroupProformaInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListSubscriptionGroupProformaInvoicesError](Errors/ListSubscriptionGroupProformaInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11224,7 +12746,7 @@ catch (SdkException<ListSubscriptionGroupProformaInvoicesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProformaInvoice&gt; PreviewProformaInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProformaInvoice&gt; PreviewProformaInvoice(PreviewProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11253,10 +12775,13 @@ Alternatively, if you have some proforma invoices already, you may make a previe
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.PreviewProformaInvoice(subscriptionId);
+    var response = await client.ProformaInvoices.PreviewProformaInvoice(new PreviewProformaInvoiceRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type ProformaInvoice
 }
-catch (SdkException<PreviewProformaInvoiceError> ex)
+catch (ApiException<PreviewProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11268,14 +12793,12 @@ catch (SdkException<PreviewProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[PreviewProformaInvoiceRequest](Requests/ProformaInvoices/PreviewProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11287,7 +12810,7 @@ catch (SdkException<PreviewProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PreviewProformaInvoiceError](Errors/PreviewProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewProformaInvoiceError](Errors/PreviewProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11298,7 +12821,7 @@ catch (SdkException<PreviewProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SignupProformaPreviewResponse&gt; PreviewSignupProformaInvoice(CreateSignupProformaPreviewInclude? include, CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SignupProformaPreviewResponse&gt; PreviewSignupProformaInvoice(PreviewSignupProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11325,10 +12848,26 @@ A product and customer first name, last name, and email are the minimum requirem
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.PreviewSignupProformaInvoice(include, body);
+    var response = await client.ProformaInvoices.PreviewSignupProformaInvoice(new PreviewSignupProformaInvoiceRequest
+    {
+        Include = CreateSignupProformaPreviewInclude.NextProformaInvoice,
+        Body = new CreateSubscriptionRequest
+        {
+            Subscription = new CreateSubscription
+            {
+                ProductHandle = "gold-plan",
+                CustomerAttributes = new CustomerAttributes
+                {
+                    FirstName = "first",
+                    LastName = "last",
+                    Email = "flast@example.com",
+                },
+            },
+        },
+    });
     // TODO: Handle 'response' of type SignupProformaPreviewResponse
 }
-catch (SdkException<PreviewSignupProformaInvoiceError> ex)
+catch (ApiException<PreviewSignupProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetProformaBadRequestErrorResponse1(out var error))
     {
@@ -11340,15 +12879,12 @@ catch (SdkException<PreviewSignupProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>include</code> | <code>[CreateSignupProformaPreviewInclude?](Models/Enums/CreateSignupProformaPreviewInclude.cs)</code> | Choose to include a proforma invoice preview for the first renewal. Use in query `include=next_proforma_invoice`. |
-| <code>body</code> | <code>[CreateSubscriptionRequest?](Models/CreateSubscriptionRequest.cs)</code> | - |
+<code>[PreviewSignupProformaInvoiceRequest](Requests/ProformaInvoices/PreviewSignupProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11360,7 +12896,7 @@ catch (SdkException<PreviewSignupProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[SignupProformaPreviewResponse](Models/SignupProformaPreviewResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PreviewSignupProformaInvoiceError](Errors/PreviewSignupProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewSignupProformaInvoiceError](Errors/PreviewSignupProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11371,7 +12907,7 @@ catch (SdkException<PreviewSignupProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProformaInvoice&gt; ReadProformaInvoice(string proformaInvoiceUid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProformaInvoice&gt; ReadProformaInvoice(ReadProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11398,10 +12934,13 @@ Proforma invoices are only available on Relationship Invoicing sites.
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.ReadProformaInvoice(proformaInvoiceUid);
+    var response = await client.ProformaInvoices.ReadProformaInvoice(new ReadProformaInvoiceRequest
+    {
+        ProformaInvoiceUid = "some example string",
+    });
     // TODO: Handle 'response' of type ProformaInvoice
 }
-catch (SdkException<ReadProformaInvoiceError> ex)
+catch (ApiException<ReadProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11413,14 +12952,12 @@ catch (SdkException<ReadProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>proformaInvoiceUid</code> | <code>string</code> | The uid of the proforma invoice |
+<code>[ReadProformaInvoiceRequest](Requests/ProformaInvoices/ReadProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11432,7 +12969,7 @@ catch (SdkException<ReadProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadProformaInvoiceError](Errors/ReadProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadProformaInvoiceError](Errors/ReadProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11443,7 +12980,7 @@ catch (SdkException<ReadProformaInvoiceError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ProformaInvoice&gt; VoidProformaInvoice(string proformaInvoiceUid, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ProformaInvoice&gt; VoidProformaInvoice(VoidProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11474,10 +13011,13 @@ A reason for the void operation is required to be included in the request body. 
 ```csharp
 try
 {
-    var response = await client.ProformaInvoices.VoidProformaInvoice(proformaInvoiceUid, body);
+    var response = await client.ProformaInvoices.VoidProformaInvoice(new VoidProformaInvoiceRequest
+    {
+        ProformaInvoiceUid = "some example string",
+    });
     // TODO: Handle 'response' of type ProformaInvoice
 }
-catch (SdkException<VoidProformaInvoiceError> ex)
+catch (ApiException<VoidProformaInvoiceError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11489,15 +13029,12 @@ catch (SdkException<VoidProformaInvoiceError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>proformaInvoiceUid</code> | <code>string</code> | The uid of the proforma invoice |
-| <code>body</code> | <code>[VoidInvoiceRequest?](Models/VoidInvoiceRequest.cs)</code> | - |
+<code>[VoidProformaInvoiceRequest](Requests/ProformaInvoices/VoidProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11509,7 +13046,7 @@ catch (SdkException<VoidProformaInvoiceError> ex)
 
 **OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[VoidProformaInvoiceError](Errors/VoidProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VoidProformaInvoiceError](Errors/VoidProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11524,7 +13061,7 @@ catch (SdkException<VoidProformaInvoiceError> ex)
 > Source: [ReasonCodes](Api/ReasonCodes.cs)
 
 <details>
-<summary><code>Task&lt;ReasonCodeResponse&gt; CreateReasonCode(CreateReasonCodeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ReasonCodeResponse&gt; CreateReasonCode(CreateReasonCodeOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11536,21 +13073,11 @@ catch (SdkException<VoidProformaInvoiceError> ex)
 
 Creates a reason code for a given site.
 
-# Reason Codes Intro
-
 Reason Codes are a way to gain a high-level view of why your customers are cancelling the subscription to your product or service.
 
 Add a set of churn reason codes to be displayed in-app and/or the Maxio Billing Portal. As your subscribers decide to cancel their subscription, learn why they decided to cancel.
 
-## Reason Code Documentation
-
-Full documentation on how Reason Codes operate within Advanced Billing can be located under the following links.
-
-[Churn Reason Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Reason-Codes)
-
-## Create Reason Code
-
-This method gives a merchant the option to create reason codes for a given site.
+For more information, see [Churn Reason Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Reason-Codes).
 
 </dd>
 </dl>
@@ -11563,10 +13090,16 @@ This method gives a merchant the option to create reason codes for a given site.
 ```csharp
 try
 {
-    var response = await client.ReasonCodes.CreateReasonCode(body);
+    var response = await client.ReasonCodes.CreateReasonCode(new CreateReasonCodeOperationRequest
+    {
+        Body = new CreateReasonCodeRequest
+        {
+            ReasonCode = new CreateReasonCode { Code = "NOTHANKYOU", Description = "No thank you!", Position = 5 },
+        },
+    });
     // TODO: Handle 'response' of type ReasonCodeResponse
 }
-catch (SdkException<CreateReasonCodeError> ex)
+catch (ApiException<CreateReasonCodeError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -11578,14 +13111,12 @@ catch (SdkException<CreateReasonCodeError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateReasonCodeRequest?](Models/CreateReasonCodeRequest.cs)</code> | - |
+<code>[CreateReasonCodeOperationRequest](Requests/ReasonCodes/CreateReasonCodeOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11597,7 +13128,7 @@ catch (SdkException<CreateReasonCodeError> ex)
 
 **OnSuccess**: <code>[ReasonCodeResponse](Models/ReasonCodeResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateReasonCodeError](Errors/CreateReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateReasonCodeError](Errors/CreateReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11608,7 +13139,7 @@ catch (SdkException<CreateReasonCodeError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;OkResponse&gt; DeleteReasonCode(int reasonCodeId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;OkResponse&gt; DeleteReasonCode(DeleteReasonCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11631,10 +13162,10 @@ Deletes a reason code from the Churn Reason Codes. This code will be immediately
 ```csharp
 try
 {
-    var response = await client.ReasonCodes.DeleteReasonCode(reasonCodeId);
+    var response = await client.ReasonCodes.DeleteReasonCode(new DeleteReasonCodeRequest { ReasonCodeId = 1 });
     // TODO: Handle 'response' of type OkResponse
 }
-catch (SdkException<DeleteReasonCodeError> ex)
+catch (ApiException<DeleteReasonCodeError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11646,14 +13177,12 @@ catch (SdkException<DeleteReasonCodeError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>reasonCodeId</code> | <code>int</code> | The Advanced Billing id of the reason code |
+<code>[DeleteReasonCodeRequest](Requests/ReasonCodes/DeleteReasonCodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11665,7 +13194,7 @@ catch (SdkException<DeleteReasonCodeError> ex)
 
 **OnSuccess**: <code>[OkResponse](Models/OkResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteReasonCodeError](Errors/DeleteReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteReasonCodeError](Errors/DeleteReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11676,7 +13205,7 @@ catch (SdkException<DeleteReasonCodeError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ReasonCodeResponse&gt;&gt; ListReasonCodes(int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ReasonCodeResponse&gt;&gt; ListReasonCodes(ListReasonCodesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11699,10 +13228,10 @@ Lists all current churn codes for a given site.
 ```csharp
 try
 {
-    var response = await client.ReasonCodes.ListReasonCodes();
+    var response = await client.ReasonCodes.ListReasonCodes(new ListReasonCodesRequest { Page = 1, PerPage = 50 });
     // TODO: Handle 'response' of type IReadOnlyList<ReasonCodeResponse>
 }
-catch (SdkException<ListReasonCodesError> ex)
+catch (ApiException<ListReasonCodesError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -11714,15 +13243,12 @@ catch (SdkException<ListReasonCodesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListReasonCodesRequest](Requests/ReasonCodes/ListReasonCodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11734,7 +13260,7 @@ catch (SdkException<ListReasonCodesError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ReasonCodeResponse](Models/ReasonCodeResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListReasonCodesError](Errors/ListReasonCodesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListReasonCodesError](Errors/ListReasonCodesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11745,7 +13271,7 @@ catch (SdkException<ListReasonCodesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ReasonCodeResponse&gt; ReadReasonCode(int reasonCodeId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ReasonCodeResponse&gt; ReadReasonCode(ReadReasonCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11768,10 +13294,10 @@ Returns a particular churn reason code for a given site by its unique ID.
 ```csharp
 try
 {
-    var response = await client.ReasonCodes.ReadReasonCode(reasonCodeId);
+    var response = await client.ReasonCodes.ReadReasonCode(new ReadReasonCodeRequest { ReasonCodeId = 1 });
     // TODO: Handle 'response' of type ReasonCodeResponse
 }
-catch (SdkException<ReadReasonCodeError> ex)
+catch (ApiException<ReadReasonCodeError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11783,14 +13309,12 @@ catch (SdkException<ReadReasonCodeError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>reasonCodeId</code> | <code>int</code> | The Advanced Billing id of the reason code |
+<code>[ReadReasonCodeRequest](Requests/ReasonCodes/ReadReasonCodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11802,7 +13326,7 @@ catch (SdkException<ReadReasonCodeError> ex)
 
 **OnSuccess**: <code>[ReasonCodeResponse](Models/ReasonCodeResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadReasonCodeError](Errors/ReadReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadReasonCodeError](Errors/ReadReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11813,7 +13337,7 @@ catch (SdkException<ReadReasonCodeError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ReasonCodeResponse&gt; UpdateReasonCode(int reasonCodeId, UpdateReasonCodeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ReasonCodeResponse&gt; UpdateReasonCode(UpdateReasonCodeOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11836,10 +13360,10 @@ Updates an existing reason code for a given site.
 ```csharp
 try
 {
-    var response = await client.ReasonCodes.UpdateReasonCode(reasonCodeId, body);
+    var response = await client.ReasonCodes.UpdateReasonCode(new UpdateReasonCodeOperationRequest { ReasonCodeId = 1 });
     // TODO: Handle 'response' of type ReasonCodeResponse
 }
-catch (SdkException<UpdateReasonCodeError> ex)
+catch (ApiException<UpdateReasonCodeError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -11851,15 +13375,12 @@ catch (SdkException<UpdateReasonCodeError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>reasonCodeId</code> | <code>int</code> | The Advanced Billing id of the reason code |
-| <code>body</code> | <code>[UpdateReasonCodeRequest?](Models/UpdateReasonCodeRequest.cs)</code> | - |
+<code>[UpdateReasonCodeOperationRequest](Requests/ReasonCodes/UpdateReasonCodeOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11871,7 +13392,7 @@ catch (SdkException<UpdateReasonCodeError> ex)
 
 **OnSuccess**: <code>[ReasonCodeResponse](Models/ReasonCodeResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateReasonCodeError](Errors/UpdateReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateReasonCodeError](Errors/UpdateReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11886,7 +13407,7 @@ catch (SdkException<UpdateReasonCodeError> ex)
 > Source: [ReferralCodes](Api/ReferralCodes.cs)
 
 <details>
-<summary><code>Task&lt;ReferralValidationResponse&gt; ValidateReferralCode(string code, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ReferralValidationResponse&gt; ValidateReferralCode(ValidateReferralCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11898,13 +13419,7 @@ catch (SdkException<UpdateReasonCodeError> ex)
 
 Validates whether a referral code is valid and applicable within your site. This method is useful for validating referral codes that are entered by a customer.
 
-## Referrals Documentation
-
-Full documentation on how to use the referrals feature in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/sections/24286965611405-Referrals).
-
-## Server Response
-
-If the referral code is valid the status code will be `200` and the referral code will be returned. If the referral code is invalid, a `404` response will be returned.
+For more information, see [Understanding Referrals](https://docs.maxio.com/hc/en-us/articles/24286981223693-Understanding-Referrals) in the product documentation.
 
 </dd>
 </dl>
@@ -11917,10 +13432,13 @@ If the referral code is valid the status code will be `200` and the referral cod
 ```csharp
 try
 {
-    var response = await client.ReferralCodes.ValidateReferralCode(code);
+    var response = await client.ReferralCodes.ValidateReferralCode(new ValidateReferralCodeRequest
+    {
+        Code = "some example string",
+    });
     // TODO: Handle 'response' of type ReferralValidationResponse
 }
-catch (SdkException<ValidateReferralCodeError> ex)
+catch (ApiException<ValidateReferralCodeError> ex)
 {
     if (ex.Error.TryGetSingleStringErrorResponse1(out var error))
     {
@@ -11932,14 +13450,12 @@ catch (SdkException<ValidateReferralCodeError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>code</code> | <code>string</code> | The referral code you are trying to validate |
+<code>[ValidateReferralCodeRequest](Requests/ReferralCodes/ValidateReferralCodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11951,7 +13467,7 @@ catch (SdkException<ValidateReferralCodeError> ex)
 
 **OnSuccess**: <code>[ReferralValidationResponse](Models/ReferralValidationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ValidateReferralCodeError](Errors/ValidateReferralCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ValidateReferralCodeError](Errors/ValidateReferralCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11966,7 +13482,7 @@ catch (SdkException<ValidateReferralCodeError> ex)
 > Source: [SalesCommissions](Api/SalesCommissions.cs)
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;SaleRepSettings&gt;&gt; ListSalesCommissionSettings(string sellerId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer &lt;&lt;apiKey&gt;&gt;", RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;SaleRepSettings&gt;&gt; ListSalesCommissionSettings(ListSalesCommissionSettingsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -11997,10 +13513,14 @@ Access to the Sales Commission API endpoints is available to users with financia
 ```csharp
 try
 {
-    var response = await client.SalesCommissions.ListSalesCommissionSettings(sellerId, liveMode);
+    var response = await client.SalesCommissions.ListSalesCommissionSettings(new ListSalesCommissionSettingsRequest
+    {
+        SellerId = "some example string",
+        Page = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<SaleRepSettings>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12009,18 +13529,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sellerId</code> | <code>string</code> | The Chargify id of your seller account |
-| <code>liveMode</code> | <code>bool?</code> | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: 100 |
-| <code>authorization</code> | <code>string?</code> | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: "Bearer <<apiKey>>" |
+<code>[ListSalesCommissionSettingsRequest](Requests/SalesCommissions/ListSalesCommissionSettingsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12032,7 +13546,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[SaleRepSettings](Models/SaleRepSettings.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12043,7 +13557,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;ListSaleRepItem&gt;&gt; ListSalesReps(string sellerId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer &lt;&lt;apiKey&gt;&gt;", RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;ListSaleRepItem&gt;&gt; ListSalesReps(ListSalesRepsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12074,10 +13588,14 @@ Access to the Sales Commission API endpoints is available to users with financia
 ```csharp
 try
 {
-    var response = await client.SalesCommissions.ListSalesReps(sellerId, liveMode);
+    var response = await client.SalesCommissions.ListSalesReps(new ListSalesRepsRequest
+    {
+        SellerId = "some example string",
+        Page = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<ListSaleRepItem>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12086,18 +13604,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sellerId</code> | <code>string</code> | The Chargify id of your seller account |
-| <code>liveMode</code> | <code>bool?</code> | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: 100 |
-| <code>authorization</code> | <code>string?</code> | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: "Bearer <<apiKey>>" |
+<code>[ListSalesRepsRequest](Requests/SalesCommissions/ListSalesRepsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12109,7 +13621,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[ListSaleRepItem](Models/ListSaleRepItem.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12120,7 +13632,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SaleRep&gt; ReadSalesRep(string sellerId, string salesRepId, bool? liveMode, int? page = 1, int? perPage = 100, string? authorization = "Bearer &lt;&lt;apiKey&gt;&gt;", RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SaleRep&gt; ReadSalesRep(ReadSalesRepRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12151,10 +13663,15 @@ Access to the Sales Commission API endpoints is available to users with financia
 ```csharp
 try
 {
-    var response = await client.SalesCommissions.ReadSalesRep(sellerId, salesRepId, liveMode);
+    var response = await client.SalesCommissions.ReadSalesRep(new ReadSalesRepRequest
+    {
+        SellerId = "some example string",
+        SalesRepId = "some example string",
+        Page = 1,
+    });
     // TODO: Handle 'response' of type SaleRep
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12163,19 +13680,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sellerId</code> | <code>string</code> | The Chargify id of your seller account |
-| <code>salesRepId</code> | <code>string</code> | The Advanced Billing id of sales rep. |
-| <code>liveMode</code> | <code>bool?</code> | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: 100 |
-| <code>authorization</code> | <code>string?</code> | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: "Bearer <<apiKey>>" |
+<code>[ReadSalesRepRequest](Requests/SalesCommissions/ReadSalesRepRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12187,7 +13697,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SaleRep](Models/SaleRep.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12202,7 +13712,7 @@ catch (SdkException<RawError> ex)
 > Source: [Sites](Api/Sites.cs)
 
 <details>
-<summary><code>Task ClearSite(CleanupScope? cleanupScope, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task ClearSite(ClearSiteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12216,7 +13726,6 @@ Clears all data from a test site asynchronously. This call is asynchronous and t
 
 **This functionality will only work on sites in TEST mode. Attempts to perform this on sites in “live” mode will result in a response of 403 FORBIDDEN.**
 
-
 </dd>
 </dl>
 
@@ -12228,9 +13737,9 @@ Clears all data from a test site asynchronously. This call is asynchronous and t
 ```csharp
 try
 {
-    await client.Sites.ClearSite(cleanupScope);
+    await client.Sites.ClearSite(new ClearSiteRequest());
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12239,14 +13748,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>cleanupScope</code> | <code>[CleanupScope?](Models/Enums/CleanupScope.cs)</code> | `all`: Will clear all products, customers, and related subscriptions from the site. <br>`customers`: Will clear only customers and related subscriptions (leaving the products untouched) for the site. <br>Revenue will also be reset to 0.<br>Use in query `cleanup_scope=all`. |
+<code>[ClearSiteRequest](Requests/Sites/ClearSiteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12258,7 +13765,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12269,7 +13776,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListPublicKeysResponse&gt; ListChargifyJsPublicKeys(int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListPublicKeysResponse&gt; ListChargifyJsPublicKeys(ListChargifyJsPublicKeysRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12292,10 +13799,14 @@ Lists public keys used for Maxio.js (formerly Chargify.js).
 ```csharp
 try
 {
-    var response = await client.Sites.ListChargifyJsPublicKeys();
+    var response = await client.Sites.ListChargifyJsPublicKeys(new ListChargifyJsPublicKeysRequest
+    {
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListPublicKeysResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12304,15 +13815,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListChargifyJsPublicKeysRequest](Requests/Sites/ListChargifyJsPublicKeysRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12324,7 +13832,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListPublicKeysResponse](Models/ListPublicKeysResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12335,7 +13843,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SiteResponse&gt; ReadSite(RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SiteResponse&gt; ReadSite(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12347,18 +13855,18 @@ catch (SdkException<RawError> ex)
 
 Retrieves site data.
 
-Full documentation on Sites in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/sections/24250550707085-Sites).
-
-Specifically, the [Clearing Site Data](https://maxio.zendesk.com/hc/en-us/articles/24250617028365-Clearing-Site-Data) section is relevant to this endpoint documentation.
+For more information, see [Sites](https://maxio.zendesk.com/hc/en-us/sections/24250550707085-Sites) in the product documentation. Specifically, the [Clearing Site Data](https://maxio.zendesk.com/hc/en-us/articles/24250617028365-Clearing-Site-Data) section is relevant to this endpoint.
 
 #### Relationship invoicing enabled
-If the site has RI enabled then you will see more settings like:
+If the site has Relationship invoicing enabled, additional properties are returned in the response:
 
-    "customer_hierarchy_enabled": true,
-    "whopays_enabled": true,
-    "whopays_default_payer": "self"
-You can read more about these settings here:
- [Who Pays & Customer Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays).
+```
+"customer_hierarchy_enabled": true,
+"whopays_enabled": true,
+"whopays_default_payer": "self"
+```
+
+For more information, see [Who Pays & Customer Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays).
 
 </dd>
 </dl>
@@ -12374,7 +13882,7 @@ try
     var response = await client.Sites.ReadSite();
     // TODO: Handle 'response' of type SiteResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12390,7 +13898,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SiteResponse](Models/SiteResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12405,7 +13913,7 @@ catch (SdkException<RawError> ex)
 > Source: [SubscriptionComponents](Api/SubscriptionComponents.cs)
 
 <details>
-<summary><code>Task ActivateEventBasedComponent(int subscriptionId, int componentId, ActivateEventBasedComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task ActivateEventBasedComponent(ActivateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12417,13 +13925,13 @@ catch (SdkException<RawError> ex)
 
 Activates an event-based component for a single subscription.
 
-In order to bill your subscribers on your Events data under the Events-Based Billing feature, the components must be activated for the subscriber.
+To bill your subscribers on your Events data under the Events-Based Billing feature, the components must be activated for the subscriber.
 
-Learn more about the role of activation in the [Events-Based Billing docs](https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Based-Billing-Overview).
+For more information, see [Design Your Catalog](https://docs.maxio.com/hc/en-us/articles/24181036583053-Design-Your-Catalog?method=componenttypes).
 
-Use this endpoint to activate an event-based component for a single subscription. Activating an event-based component causes Advanced Billing to bill for events when the subscription is renewed.
+Use this endpoint to activate an event-based component for a single subscription. Activating an event-based component causes billing for events when the subscription is renewed.
 
-*Note: it is possible to stream events for a subscription at any time, regardless of component activation status. The activation status only determines if the subscription should be billed for event-based component usage at renewal.*
+Note: it is possible to stream events for a subscription at any time, regardless of component activation status. The activation status only determines if the subscription should be billed for event-based component usage at renewal.
 
 </dd>
 </dl>
@@ -12436,9 +13944,26 @@ Use this endpoint to activate an event-based component for a single subscription
 ```csharp
 try
 {
-    await client.SubscriptionComponents.ActivateEventBasedComponent(subscriptionId, componentId, body);
+    await client.SubscriptionComponents.ActivateEventBasedComponent(new ActivateEventBasedComponentRequest
+    {
+        SubscriptionId = 1,
+        ComponentId = 1,
+        Body = new ActivateEventBasedComponent
+        {
+            PricePointId = 1,
+            BillingSchedule = new BillingSchedule { InitialBillingAt = DateTimeOffset.Parse("2022-01-01T00:00:00Z") },
+            CustomPrice = new ComponentCustomPrice
+            {
+                TaxIncluded = false,
+                PricingScheme = PricingScheme.PerUnit,
+                Interval = 30,
+                IntervalUnit = IntervalUnit.Day,
+                Prices = [new Price { StartingQuantity = 1, EndingQuantity = 1, UnitPrice = "5.0" }],
+            },
+        },
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12447,16 +13972,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Advanced Billing id of the subscription |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>body</code> | <code>[ActivateEventBasedComponent?](Models/ActivateEventBasedComponent.cs)</code> | - |
+<code>[ActivateEventBasedComponentRequest](Requests/SubscriptionComponents/ActivateEventBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12468,7 +13989,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12479,7 +14000,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;AllocationResponse&gt; AllocateComponent(int subscriptionId, int componentId, CreateAllocationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;AllocationResponse&gt; AllocateComponent(AllocateComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12524,10 +14045,52 @@ For more information, see the [Component Allocations](https://maxio.zendesk.com/
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.AllocateComponent(subscriptionId, componentId, body);
+    var response = await client.SubscriptionComponents.AllocateComponent(new AllocateComponentRequest
+    {
+        SubscriptionId = 1,
+        ComponentId = 1,
+        Body = new CreateAllocationRequest
+        {
+            Allocation = new CreateAllocation
+            {
+                Quantity = 10d,
+                DecimalQuantity = "10.0",
+                PreviousQuantity = 5d,
+                DecimalPreviousQuantity = "5.0",
+                Memo = "Increase seats to 10",
+                ProrationDowngradeScheme = "prorate",
+                ProrationUpgradeScheme = "full-price-attempt-capture",
+                DowngradeCredit = DowngradeCreditCreditType.Prorated,
+                UpgradeCharge = UpgradeChargeCreditType.Full,
+                AccrueCharge = false,
+                PricePointId = 789,
+                BillingSchedule = new BillingSchedule
+                {
+                    InitialBillingAt = DateTimeOffset.Parse("2025-02-28T00:00:00Z"),
+                },
+                CustomPrice = new ComponentCustomPrice
+                {
+                    TaxIncluded = false,
+                    PricingScheme = PricingScheme.PerUnit,
+                    Interval = 1,
+                    IntervalUnit = IntervalUnit.Month,
+                    ListPricePointId = 4321,
+                    UseDefaultListPrice = false,
+                    Prices = [
+                        new Price { StartingQuantity = startingQuantity, UnitPrice = unitPrice },
+                        new Price { StartingQuantity = startingQuantity, UnitPrice = unitPrice },
+                    ],
+                    RenewPrepaidAllocation = false,
+                    RolloverPrepaidRemainder = false,
+                    ExpirationInterval = 1,
+                    ExpirationIntervalUnit = ExpirationIntervalUnit.Never,
+                },
+            },
+        },
+    });
     // TODO: Handle 'response' of type AllocationResponse
 }
-catch (SdkException<AllocateComponentError> ex)
+catch (ApiException<AllocateComponentError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -12539,16 +14102,12 @@ catch (SdkException<AllocateComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>body</code> | <code>[CreateAllocationRequest?](Models/CreateAllocationRequest.cs)</code> | - |
+<code>[AllocateComponentRequest](Requests/SubscriptionComponents/AllocateComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12560,7 +14119,7 @@ catch (SdkException<AllocateComponentError> ex)
 
 **OnSuccess**: <code>[AllocationResponse](Models/AllocationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[AllocateComponentError](Errors/AllocateComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[AllocateComponentError](Errors/AllocateComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12571,7 +14130,7 @@ catch (SdkException<AllocateComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;AllocationResponse&gt;&gt; AllocateComponents(int subscriptionId, AllocateComponents? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;AllocationResponse&gt;&gt; AllocateComponents(AllocateComponentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12612,10 +14171,22 @@ For more information, see the [Component Allocations](https://maxio.zendesk.com/
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.AllocateComponents(subscriptionId, body);
+    var response = await client.SubscriptionComponents.AllocateComponents(new AllocateComponentsRequest
+    {
+        SubscriptionId = 1,
+        Body = new AllocateComponents
+        {
+            ProrationUpgradeScheme = "prorate-attempt-capture",
+            ProrationDowngradeScheme = "no-prorate",
+            Allocations = [
+                new CreateAllocation { Quantity = 10d, ComponentId = 123, Memo = "foo" },
+                new CreateAllocation { Quantity = 5d, ComponentId = 456, Memo = "bar" },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type IReadOnlyList<AllocationResponse>
 }
-catch (SdkException<AllocateComponentsError> ex)
+catch (ApiException<AllocateComponentsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -12627,15 +14198,12 @@ catch (SdkException<AllocateComponentsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[AllocateComponents?](Models/AllocateComponents.cs)</code> | - |
+<code>[AllocateComponentsRequest](Requests/SubscriptionComponents/AllocateComponentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12647,7 +14215,7 @@ catch (SdkException<AllocateComponentsError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[AllocationResponse](Models/AllocationResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[AllocateComponentsError](Errors/AllocateComponentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[AllocateComponentsError](Errors/AllocateComponentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12658,7 +14226,7 @@ catch (SdkException<AllocateComponentsError> ex)
 </details>
 
 <details>
-<summary><code>Task BulkRecordEvents(string apiHandle, string? storeUid, IReadOnlyList&lt;EbbEvent&gt;? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task BulkRecordEvents(BulkRecordEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12670,7 +14238,7 @@ catch (SdkException<AllocateComponentsError> ex)
 
 Records a collection of events.
 
-*Note: this endpoint differs from the standard Chargify API endpoints in that the subdomain will be `events` and your site subdomain will be included in the URL path.*
+Note: this endpoint differs from the standard URL for this API in that `events` and your site subdomain are included in the path.
 
 A maximum of 1000 events can be published in a single request. A 422 will be returned if this limit is exceeded.
 
@@ -12685,9 +14253,12 @@ A maximum of 1000 events can be published in a single request. A 422 will be ret
 ```csharp
 try
 {
-    await client.SubscriptionComponents.BulkRecordEvents(apiHandle, storeUid, body);
+    await client.SubscriptionComponents.BulkRecordEvents(new BulkRecordEventsRequest
+    {
+        ApiHandle = "some example string",
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12696,16 +14267,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>apiHandle</code> | <code>string</code> | Identifies the Stream for which the events should be published. |
-| <code>storeUid</code> | <code>string?</code> | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
-| <code>body</code> | <code>IReadOnlyList&lt;[EbbEvent](Models/EbbEvent.cs)&gt;?</code> | - |
+<code>[BulkRecordEventsRequest](Requests/SubscriptionComponents/BulkRecordEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12717,7 +14284,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12728,7 +14295,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; BulkResetSubscriptionComponentsPricePoints(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; BulkResetSubscriptionComponentsPricePoints(BulkResetSubscriptionComponentsPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12753,10 +14320,11 @@ Resets all of a subscription's components to use the current default.
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.BulkResetSubscriptionComponentsPricePoints(subscriptionId);
+    var response = await client.SubscriptionComponents.BulkResetSubscriptionComponentsPricePoints(
+        new BulkResetSubscriptionComponentsPricePointsRequest { SubscriptionId = 1 });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -12765,14 +14333,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[BulkResetSubscriptionComponentsPricePointsRequest](Requests/SubscriptionComponents/BulkResetSubscriptionComponentsPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12784,7 +14350,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12795,7 +14361,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;BulkComponentsPricePointAssignment&gt; BulkUpdateSubscriptionComponentsPricePoints(int subscriptionId, BulkComponentsPricePointAssignment? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;BulkComponentsPricePointAssignment&gt; BulkUpdateSubscriptionComponentsPricePoints(BulkUpdateSubscriptionComponentsPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12823,11 +14389,22 @@ The `price_point` key can take either a:
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.BulkUpdateSubscriptionComponentsPricePoints(subscriptionId,
-        body);
+    var response = await client.SubscriptionComponents.BulkUpdateSubscriptionComponentsPricePoints(
+        new BulkUpdateSubscriptionComponentsPricePointsRequest
+        {
+            SubscriptionId = 1,
+            Body = new BulkComponentsPricePointAssignment
+            {
+                Components = [
+                    new ComponentPricePointAssignment { ComponentId = 997, PricePoint = 1022 },
+                    new ComponentPricePointAssignment { ComponentId = 998, PricePoint = "wholesale-handle" },
+                    new ComponentPricePointAssignment { ComponentId = 999, PricePoint = "_default" },
+                ],
+            },
+        });
     // TODO: Handle 'response' of type BulkComponentsPricePointAssignment
 }
-catch (SdkException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
+catch (ApiException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 {
     if (ex.Error.TryGetComponentPricePointError1(out var error))
     {
@@ -12839,15 +14416,12 @@ catch (SdkException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[BulkComponentsPricePointAssignment?](Models/BulkComponentsPricePointAssignment.cs)</code> | - |
+<code>[BulkUpdateSubscriptionComponentsPricePointsRequest](Requests/SubscriptionComponents/BulkUpdateSubscriptionComponentsPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12859,7 +14433,7 @@ catch (SdkException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 
 **OnSuccess**: <code>[BulkComponentsPricePointAssignment](Models/BulkComponentsPricePointAssignment.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[BulkUpdateSubscriptionComponentsPricePointsError](Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkUpdateSubscriptionComponentsPricePointsError](Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12870,7 +14444,7 @@ catch (SdkException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;UsageResponse&gt; CreateUsage(SubscriptionIdOrReference subscriptionIdOrReference, ComponentIdModel componentId, CreateUsageRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;UsageResponse&gt; CreateUsage(CreateUsageOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -12942,10 +14516,18 @@ The `unit_balance` has a floor of `0`; negative unit balances are never allowed.
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.CreateUsage(subscriptionIdOrReference, componentId, body);
+    var response = await client.SubscriptionComponents.CreateUsage(new CreateUsageOperationRequest
+    {
+        SubscriptionIdOrReference = 1,
+        ComponentId = 1,
+        Body = new CreateUsageRequest
+        {
+            Usage = new CreateUsage { Quantity = 1000d, PricePointId = "149416", Memo = "My memo" },
+        },
+    });
     // TODO: Handle 'response' of type UsageResponse
 }
-catch (SdkException<CreateUsageError> ex)
+catch (ApiException<CreateUsageError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -12957,16 +14539,12 @@ catch (SdkException<CreateUsageError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionIdOrReference</code> | <code>[SubscriptionIdOrReference](Models/AnyOf/SubscriptionIdOrReference.cs)</code> | Either the Advanced Billing subscription ID (integer) or the subscription reference (string). Important: In cases where a numeric string value matches both an existing subscription ID and an existing subscription reference, the system will prioritize the subscription ID lookup. For example, if both subscription ID 123 and subscription reference "123" exist, passing "123" will return the subscription with ID 123. |
-| <code>componentId</code> | <code>[ComponentIdModel](Models/AnyOf/ComponentIdModel.cs)</code> | Either the Advanced Billing id for the component or the component's handle prefixed by `handle:` |
-| <code>body</code> | <code>[CreateUsageRequest?](Models/CreateUsageRequest.cs)</code> | - |
+<code>[CreateUsageOperationRequest](Requests/SubscriptionComponents/CreateUsageOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12978,7 +14556,7 @@ catch (SdkException<CreateUsageError> ex)
 
 **OnSuccess**: <code>[UsageResponse](Models/UsageResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateUsageError](Errors/CreateUsageError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateUsageError](Errors/CreateUsageError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12989,7 +14567,7 @@ catch (SdkException<CreateUsageError> ex)
 </details>
 
 <details>
-<summary><code>Task DeactivateEventBasedComponent(int subscriptionId, int componentId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeactivateEventBasedComponent(DeactivateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13012,9 +14590,13 @@ Deactivates an event-based component for a single subscription. Deactivating the
 ```csharp
 try
 {
-    await client.SubscriptionComponents.DeactivateEventBasedComponent(subscriptionId, componentId);
+    await client.SubscriptionComponents.DeactivateEventBasedComponent(new DeactivateEventBasedComponentRequest
+    {
+        SubscriptionId = 1,
+        ComponentId = 1,
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -13023,15 +14605,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Advanced Billing id of the subscription |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
+<code>[DeactivateEventBasedComponentRequest](Requests/SubscriptionComponents/DeactivateEventBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13043,7 +14622,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13054,7 +14633,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task DeletePrepaidUsageAllocation(int subscriptionId, int componentId, int allocationId, CreditSchemeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeletePrepaidUsageAllocation(DeletePrepaidUsageAllocationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13087,12 +14666,15 @@ By default, destroying an allocation will generate a service credit on the subsc
 ```csharp
 try
 {
-    await client.SubscriptionComponents.DeletePrepaidUsageAllocation(subscriptionId,
-        componentId,
-        allocationId,
-        body);
+    await client.SubscriptionComponents.DeletePrepaidUsageAllocation(new DeletePrepaidUsageAllocationRequest
+    {
+        SubscriptionId = 1,
+        ComponentId = 1,
+        AllocationId = 1,
+        Body = new CreditSchemeRequest { CreditScheme = CreditScheme.None },
+    });
 }
-catch (SdkException<DeletePrepaidUsageAllocationError> ex)
+catch (ApiException<DeletePrepaidUsageAllocationError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -13104,17 +14686,12 @@ catch (SdkException<DeletePrepaidUsageAllocationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>allocationId</code> | <code>int</code> | The Advanced Billing id of the allocation |
-| <code>body</code> | <code>[CreditSchemeRequest?](Models/CreditSchemeRequest.cs)</code> | - |
+<code>[DeletePrepaidUsageAllocationRequest](Requests/SubscriptionComponents/DeletePrepaidUsageAllocationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13126,7 +14703,7 @@ catch (SdkException<DeletePrepaidUsageAllocationError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeletePrepaidUsageAllocationError](Errors/DeletePrepaidUsageAllocationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeletePrepaidUsageAllocationError](Errors/DeletePrepaidUsageAllocationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13137,7 +14714,7 @@ catch (SdkException<DeletePrepaidUsageAllocationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;AllocationResponse&gt;&gt; ListAllocations(int subscriptionId, int componentId, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;AllocationResponse&gt;&gt; ListAllocations(ListAllocationsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13164,10 +14741,15 @@ When a subscription's on/off component has been toggled to on (`1`) or off (`0`)
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.ListAllocations(subscriptionId, componentId);
+    var response = await client.SubscriptionComponents.ListAllocations(new ListAllocationsRequest
+    {
+        SubscriptionId = 1,
+        ComponentId = 1,
+        Page = 1,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<AllocationResponse>
 }
-catch (SdkException<ListAllocationsError> ex)
+catch (ApiException<ListAllocationsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -13179,16 +14761,12 @@ catch (SdkException<ListAllocationsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
+<code>[ListAllocationsRequest](Requests/SubscriptionComponents/ListAllocationsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13200,7 +14778,7 @@ catch (SdkException<ListAllocationsError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[AllocationResponse](Models/AllocationResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListAllocationsError](Errors/ListAllocationsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListAllocationsError](Errors/ListAllocationsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13211,7 +14789,7 @@ catch (SdkException<ListAllocationsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionComponentResponse&gt;&gt; ListSubscriptionComponents(int subscriptionId, SubscriptionListDateField? dateField, SortingDirection? direction, ListSubscriptionComponentsFilter? filter, string? endDate, string? endDatetime, IncludeNotNull? pricePointIds, IReadOnlyList&lt;int&gt;? productFamilyIds, ListSubscriptionComponentsSort? sort, string? startDate, string? startDatetime, IReadOnlyList&lt;ListSubscriptionComponentsInclude&gt;? include, bool? inUse, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionComponentResponse&gt;&gt; ListSubscriptionComponents(ListSubscriptionComponentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13238,22 +14816,19 @@ When requesting to list components for a given subscription, if the subscription
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.ListSubscriptionComponents(subscriptionId,
-        dateField,
-        direction,
-        filter,
-        endDate,
-        endDatetime,
-        pricePointIds,
-        productFamilyIds,
-        sort,
-        startDate,
-        startDatetime,
-        include,
-        inUse);
+    var response = await client.SubscriptionComponents.ListSubscriptionComponents(new ListSubscriptionComponentsRequest
+    {
+        SubscriptionId = 1,
+        DateField = SubscriptionListDateField.UpdatedAt,
+        PricePointIds = IncludeNotNull.NotNull,
+        ProductFamilyIds = [1, 2, 3],
+        Sort = ListSubscriptionComponentsSort.UpdatedAt,
+        Include = [ListSubscriptionComponentsInclude.Subscription, ListSubscriptionComponentsInclude.HistoricUsages],
+        InUse = true,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<SubscriptionComponentResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -13262,26 +14837,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>dateField</code> | <code>[SubscriptionListDateField?](Models/Enums/SubscriptionListDateField.cs)</code> | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>filter</code> | <code>[ListSubscriptionComponentsFilter?](Models/ListSubscriptionComponentsFilter.cs)</code> | Filter to use for List Subscription Components operation |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
-| <code>pricePointIds</code> | <code>[IncludeNotNull?](Models/Enums/IncludeNotNull.cs)</code> | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
-| <code>productFamilyIds</code> | <code>IReadOnlyList&lt;int&gt;?</code> | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
-| <code>sort</code> | <code>[ListSubscriptionComponentsSort?](Models/Enums/ListSubscriptionComponentsSort.cs)</code> | The attribute by which to sort. Use in query `sort=updated_at`. |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
-| <code>include</code> | <code>IReadOnlyList&lt;[ListSubscriptionComponentsInclude](Models/Enums/ListSubscriptionComponentsInclude.cs)&gt;?</code> | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
-| <code>inUse</code> | <code>bool?</code> | If in_use is set to true, it returns only components that are currently in use. However, if it's set to false or not provided, it returns all components connected with the subscription. |
+<code>[ListSubscriptionComponentsRequest](Requests/SubscriptionComponents/ListSubscriptionComponentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13293,7 +14854,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionComponentResponse](Models/SubscriptionComponentResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13304,7 +14865,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListSubscriptionComponentsResponse&gt; ListSubscriptionComponentsForSite(ListSubscriptionComponentsSort? sort, SortingDirection? direction, ListSubscriptionComponentsForSiteFilter? filter, SubscriptionListDateField? dateField, string? startDate, string? startDatetime, string? endDate, string? endDatetime, IReadOnlyList&lt;int&gt;? subscriptionIds, IncludeNotNull? pricePointIds, IReadOnlyList&lt;int&gt;? productFamilyIds, ListSubscriptionComponentsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListSubscriptionComponentsResponse&gt; ListSubscriptionComponentsForSite(ListSubscriptionComponentsForSiteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13327,21 +14888,21 @@ Lists components applied to each subscription.
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.ListSubscriptionComponentsForSite(sort,
-        direction,
-        filter,
-        dateField,
-        startDate,
-        startDatetime,
-        endDate,
-        endDatetime,
-        subscriptionIds,
-        pricePointIds,
-        productFamilyIds,
-        include);
+    var response = await client.SubscriptionComponents.ListSubscriptionComponentsForSite(
+        new ListSubscriptionComponentsForSiteRequest
+        {
+            Page = 1,
+            PerPage = 50,
+            Sort = ListSubscriptionComponentsSort.UpdatedAt,
+            DateField = SubscriptionListDateField.UpdatedAt,
+            SubscriptionIds = [1, 2, 3],
+            PricePointIds = IncludeNotNull.NotNull,
+            ProductFamilyIds = [1, 2, 3],
+            Include = ListSubscriptionComponentsInclude.Subscription,
+        });
     // TODO: Handle 'response' of type ListSubscriptionComponentsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -13350,27 +14911,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>sort</code> | <code>[ListSubscriptionComponentsSort?](Models/Enums/ListSubscriptionComponentsSort.cs)</code> | The attribute by which to sort. Use in query: `sort=updated_at`. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>filter</code> | <code>[ListSubscriptionComponentsForSiteFilter?](Models/ListSubscriptionComponentsForSiteFilter.cs)</code> | Filter to use for List Subscription Components For Site operation |
-| <code>dateField</code> | <code>[SubscriptionListDateField?](Models/Enums/SubscriptionListDateField.cs)</code> | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
-| <code>startDate</code> | <code>string?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2011-12-15`. |
-| <code>startDatetime</code> | <code>string?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
-| <code>endDate</code> | <code>string?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2011-12-16`. |
-| <code>endDatetime</code> | <code>string?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-07-01 09:00:05`. |
-| <code>subscriptionIds</code> | <code>IReadOnlyList&lt;int&gt;?</code> | Allows fetching components allocation with matching subscription id based on provided ids. Use in query `subscription_ids=1,2,3`. |
-| <code>pricePointIds</code> | <code>[IncludeNotNull?](Models/Enums/IncludeNotNull.cs)</code> | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
-| <code>productFamilyIds</code> | <code>IReadOnlyList&lt;int&gt;?</code> | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
-| <code>include</code> | <code>[ListSubscriptionComponentsInclude?](Models/Enums/ListSubscriptionComponentsInclude.cs)</code> | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListSubscriptionComponentsForSiteRequest](Requests/SubscriptionComponents/ListSubscriptionComponentsForSiteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13382,7 +14928,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListSubscriptionComponentsResponse](Models/ListSubscriptionComponentsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13393,7 +14939,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;UsageResponse&gt;&gt; ListUsages(SubscriptionIdOrReference subscriptionIdOrReference, ComponentIdModel componentId, long? sinceId, long? maxId, DateTimeOffset? sinceDate, DateTimeOffset? untilDate, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;UsageResponse&gt;&gt; ListUsages(ListUsagesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13430,15 +14976,16 @@ Use this endpoint to read the previously recorded components for a subscription.
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.ListUsages(subscriptionIdOrReference,
-        componentId,
-        sinceId,
-        maxId,
-        sinceDate,
-        untilDate);
+    var response = await client.SubscriptionComponents.ListUsages(new ListUsagesRequest
+    {
+        SubscriptionIdOrReference = 1,
+        ComponentId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<UsageResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -13447,21 +14994,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionIdOrReference</code> | <code>[SubscriptionIdOrReference](Models/AnyOf/SubscriptionIdOrReference.cs)</code> | Either the Advanced Billing subscription ID (integer) or the subscription reference (string). Important: In cases where a numeric string value matches both an existing subscription ID and an existing subscription reference, the system will prioritize the subscription ID lookup. For example, if both subscription ID 123 and subscription reference "123" exist, passing "123" will return the subscription with ID 123. |
-| <code>componentId</code> | <code>[ComponentIdModel](Models/AnyOf/ComponentIdModel.cs)</code> | Either the Advanced Billing id for the component or the component's handle prefixed by `handle:` |
-| <code>sinceId</code> | <code>long?</code> | Returns usages with an id greater than or equal to the one specified. |
-| <code>maxId</code> | <code>long?</code> | Returns usages with an id less than or equal to the one specified. |
-| <code>sinceDate</code> | <code>DateTimeOffset?</code> | Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified. |
-| <code>untilDate</code> | <code>DateTimeOffset?</code> | Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListUsagesRequest](Requests/SubscriptionComponents/ListUsagesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13473,7 +15011,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[UsageResponse](Models/UsageResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13484,7 +15022,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;AllocationPreviewResponse&gt; PreviewAllocations(int subscriptionId, PreviewAllocationsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;AllocationPreviewResponse&gt; PreviewAllocations(PreviewAllocationsOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13513,10 +15051,28 @@ See example below for Fine-Grained Component Control response.
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.PreviewAllocations(subscriptionId, body);
+    var response = await client.SubscriptionComponents.PreviewAllocations(new PreviewAllocationsOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new PreviewAllocationsRequest
+        {
+            Allocations = [
+                new CreateAllocation
+                {
+                    Quantity = 10d,
+                    ComponentId = 554108,
+                    Memo = "NOW",
+                    ProrationDowngradeScheme = "prorate",
+                    ProrationUpgradeScheme = "prorate-attempt-capture",
+                    PricePointId = 325826,
+                },
+            ],
+            EffectiveProrationDate = DateTimeOffset.Parse("2023-11-01T00:00:00Z"),
+        },
+    });
     // TODO: Handle 'response' of type AllocationPreviewResponse
 }
-catch (SdkException<PreviewAllocationsError> ex)
+catch (ApiException<PreviewAllocationsError> ex)
 {
     if (ex.Error.TryGetComponentAllocationError1(out var error))
     {
@@ -13528,15 +15084,12 @@ catch (SdkException<PreviewAllocationsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[PreviewAllocationsRequest?](Models/PreviewAllocationsRequest.cs)</code> | - |
+<code>[PreviewAllocationsOperationRequest](Requests/SubscriptionComponents/PreviewAllocationsOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13548,7 +15101,7 @@ catch (SdkException<PreviewAllocationsError> ex)
 
 **OnSuccess**: <code>[AllocationPreviewResponse](Models/AllocationPreviewResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PreviewAllocationsError](Errors/PreviewAllocationsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewAllocationsError](Errors/PreviewAllocationsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13559,7 +15112,7 @@ catch (SdkException<PreviewAllocationsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionComponentResponse&gt; ReadSubscriptionComponent(int subscriptionId, int componentId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionComponentResponse&gt; ReadSubscriptionComponent(ReadSubscriptionComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13582,10 +15135,14 @@ Returns information for a specific component on a subscription.
 ```csharp
 try
 {
-    var response = await client.SubscriptionComponents.ReadSubscriptionComponent(subscriptionId, componentId);
+    var response = await client.SubscriptionComponents.ReadSubscriptionComponent(new ReadSubscriptionComponentRequest
+    {
+        SubscriptionId = 1,
+        ComponentId = 1,
+    });
     // TODO: Handle 'response' of type SubscriptionComponentResponse
 }
-catch (SdkException<ReadSubscriptionComponentError> ex)
+catch (ApiException<ReadSubscriptionComponentError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -13597,15 +15154,12 @@ catch (SdkException<ReadSubscriptionComponentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component. Alternatively, the component's handle prefixed by `handle:` |
+<code>[ReadSubscriptionComponentRequest](Requests/SubscriptionComponents/ReadSubscriptionComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13617,7 +15171,7 @@ catch (SdkException<ReadSubscriptionComponentError> ex)
 
 **OnSuccess**: <code>[SubscriptionComponentResponse](Models/SubscriptionComponentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReadSubscriptionComponentError](Errors/ReadSubscriptionComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionComponentError](Errors/ReadSubscriptionComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13628,7 +15182,7 @@ catch (SdkException<ReadSubscriptionComponentError> ex)
 </details>
 
 <details>
-<summary><code>Task RecordEvent(string apiHandle, string? storeUid, EbbEvent? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task RecordEvent(RecordEventRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13640,21 +15194,15 @@ catch (SdkException<ReadSubscriptionComponentError> ex)
 
 Records a single event for Events-Based Billing.
 
-## Documentation
-
 Events-Based Billing is an evolved form of metered billing that is based on data-rich events streamed in real-time from your system to Advanced Billing.
 
 These events can then be transformed, enriched, or analyzed to form the computed totals of usage charges billed to your customers.
 
 This API allows you to stream events into the Advanced Billing data ingestion engine.
 
-Learn more about the feature in general in the [Events-Based Billing help docs](https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Based-Billing-Overview).
+For more information, see [Design Your Catalog](https://docs.maxio.com/hc/en-us/articles/24181036583053-Design-Your-Catalog?method=componenttypes).
 
-## Record Event
-
-Use this endpoint to record a single event.
-
-*Note: this endpoint differs from the standard Chargify API endpoints in that the URL subdomain will be `events` and your site subdomain will be included in the URL path. For example:*
+Note: this endpoint differs from the standard URL for this API in that `events` and your site subdomain are included in the path. For example:
 
 ```
 https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
@@ -13671,9 +15219,16 @@ https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
 ```csharp
 try
 {
-    await client.SubscriptionComponents.RecordEvent(apiHandle, storeUid, body);
+    await client.SubscriptionComponents.RecordEvent(new RecordEventRequest
+    {
+        ApiHandle = "some example string",
+        Body = new EbbEvent
+        {
+            Chargify = new ChargifyEbb { Timestamp = DateTimeOffset.Parse("2020-02-27T22:45:50Z"), SubscriptionId = 1 },
+        },
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -13682,16 +15237,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>apiHandle</code> | <code>string</code> | Identifies the Stream for which the event should be published. |
-| <code>storeUid</code> | <code>string?</code> | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
-| <code>body</code> | <code>[EbbEvent?](Models/EbbEvent.cs)</code> | - |
+<code>[RecordEventRequest](Requests/SubscriptionComponents/RecordEventRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13703,7 +15254,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13714,7 +15265,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task UpdatePrepaidUsageAllocationExpirationDate(int subscriptionId, int componentId, int allocationId, UpdateAllocationExpirationDate? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task UpdatePrepaidUsageAllocationExpirationDate(UpdatePrepaidUsageAllocationExpirationDateRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13747,12 +15298,19 @@ A few limitations exist when changing an allocation's expiration date:
 ```csharp
 try
 {
-    await client.SubscriptionComponents.UpdatePrepaidUsageAllocationExpirationDate(subscriptionId,
-        componentId,
-        allocationId,
-        body);
+    await client.SubscriptionComponents.UpdatePrepaidUsageAllocationExpirationDate(
+        new UpdatePrepaidUsageAllocationExpirationDateRequest
+        {
+            SubscriptionId = 1,
+            ComponentId = 1,
+            AllocationId = 1,
+            Body = new UpdateAllocationExpirationDate
+            {
+                Allocation = new AllocationExpirationDate { ExpiresAt = DateTimeOffset.Parse("2021-05-05T16:00:00Z") },
+            },
+        });
 }
-catch (SdkException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
+catch (ApiException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -13764,17 +15322,12 @@ catch (SdkException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>componentId</code> | <code>int</code> | The Advanced Billing id of the component |
-| <code>allocationId</code> | <code>int</code> | The Advanced Billing id of the allocation |
-| <code>body</code> | <code>[UpdateAllocationExpirationDate?](Models/UpdateAllocationExpirationDate.cs)</code> | - |
+<code>[UpdatePrepaidUsageAllocationExpirationDateRequest](Requests/SubscriptionComponents/UpdatePrepaidUsageAllocationExpirationDateRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13786,7 +15339,7 @@ catch (SdkException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdatePrepaidUsageAllocationExpirationDateError](Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdatePrepaidUsageAllocationExpirationDateError](Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13801,7 +15354,7 @@ catch (SdkException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 > Source: [SubscriptionGroupInvoiceAccount](Api/SubscriptionGroupInvoiceAccount.cs)
 
 <details>
-<summary><code>Task&lt;SubscriptionGroupPrepaymentResponse&gt; CreateSubscriptionGroupPrepayment(string uid, SubscriptionGroupPrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionGroupPrepaymentResponse&gt; CreateSubscriptionGroupPrepayment(CreateSubscriptionGroupPrepaymentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13824,10 +15377,11 @@ Adds a prepayment for a subscription group. This endpoint requires an `amount`, 
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroupInvoiceAccount.CreateSubscriptionGroupPrepayment(uid, body);
+    var response = await client.SubscriptionGroupInvoiceAccount.CreateSubscriptionGroupPrepayment(
+        new CreateSubscriptionGroupPrepaymentRequest { Uid = "some example string" });
     // TODO: Handle 'response' of type SubscriptionGroupPrepaymentResponse
 }
-catch (SdkException<CreateSubscriptionGroupPrepaymentError> ex)
+catch (ApiException<CreateSubscriptionGroupPrepaymentError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -13839,15 +15393,12 @@ catch (SdkException<CreateSubscriptionGroupPrepaymentError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>body</code> | <code>[SubscriptionGroupPrepaymentRequest?](Models/SubscriptionGroupPrepaymentRequest.cs)</code> | - |
+<code>[CreateSubscriptionGroupPrepaymentRequest](Requests/SubscriptionGroupInvoiceAccount/CreateSubscriptionGroupPrepaymentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13859,7 +15410,7 @@ catch (SdkException<CreateSubscriptionGroupPrepaymentError> ex)
 
 **OnSuccess**: <code>[SubscriptionGroupPrepaymentResponse](Models/SubscriptionGroupPrepaymentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateSubscriptionGroupPrepaymentError](Errors/CreateSubscriptionGroupPrepaymentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionGroupPrepaymentError](Errors/CreateSubscriptionGroupPrepaymentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13870,7 +15421,7 @@ catch (SdkException<CreateSubscriptionGroupPrepaymentError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ServiceCredit&gt; DeductSubscriptionGroupServiceCredit(string uid, DeductServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ServiceCredit&gt; DeductSubscriptionGroupServiceCredit(DeductSubscriptionGroupServiceCreditRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13893,10 +15444,18 @@ Deducts service credit for a subscription group. Credit will be deducted from th
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroupInvoiceAccount.DeductSubscriptionGroupServiceCredit(uid, body);
+    var response = await client.SubscriptionGroupInvoiceAccount.DeductSubscriptionGroupServiceCredit(
+        new DeductSubscriptionGroupServiceCreditRequest
+        {
+            Uid = "some example string",
+            Body = new DeductServiceCreditRequest
+            {
+                Deduction = new DeductServiceCredit { Amount = 10d, Memo = "Deduct from group account" },
+            },
+        });
     // TODO: Handle 'response' of type ServiceCredit
 }
-catch (SdkException<DeductSubscriptionGroupServiceCreditError> ex)
+catch (ApiException<DeductSubscriptionGroupServiceCreditError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -13908,15 +15467,12 @@ catch (SdkException<DeductSubscriptionGroupServiceCreditError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>body</code> | <code>[DeductServiceCreditRequest?](Models/DeductServiceCreditRequest.cs)</code> | - |
+<code>[DeductSubscriptionGroupServiceCreditRequest](Requests/SubscriptionGroupInvoiceAccount/DeductSubscriptionGroupServiceCreditRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13928,7 +15484,7 @@ catch (SdkException<DeductSubscriptionGroupServiceCreditError> ex)
 
 **OnSuccess**: <code>[ServiceCredit](Models/ServiceCredit.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeductSubscriptionGroupServiceCreditError](Errors/DeductSubscriptionGroupServiceCreditError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeductSubscriptionGroupServiceCreditError](Errors/DeductSubscriptionGroupServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13939,7 +15495,7 @@ catch (SdkException<DeductSubscriptionGroupServiceCreditError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ServiceCreditResponse&gt; IssueSubscriptionGroupServiceCredit(string uid, IssueServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ServiceCreditResponse&gt; IssueSubscriptionGroupServiceCredit(IssueSubscriptionGroupServiceCreditRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -13962,10 +15518,18 @@ Issues service credit for a subscription group. Credit will be added to the grou
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroupInvoiceAccount.IssueSubscriptionGroupServiceCredit(uid, body);
+    var response = await client.SubscriptionGroupInvoiceAccount.IssueSubscriptionGroupServiceCredit(
+        new IssueSubscriptionGroupServiceCreditRequest
+        {
+            Uid = "some example string",
+            Body = new IssueServiceCreditRequest
+            {
+                ServiceCredit = new IssueServiceCredit { Amount = 10d, Memo = "Credit the group account" },
+            },
+        });
     // TODO: Handle 'response' of type ServiceCreditResponse
 }
-catch (SdkException<IssueSubscriptionGroupServiceCreditError> ex)
+catch (ApiException<IssueSubscriptionGroupServiceCreditError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -13977,15 +15541,12 @@ catch (SdkException<IssueSubscriptionGroupServiceCreditError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>body</code> | <code>[IssueServiceCreditRequest?](Models/IssueServiceCreditRequest.cs)</code> | - |
+<code>[IssueSubscriptionGroupServiceCreditRequest](Requests/SubscriptionGroupInvoiceAccount/IssueSubscriptionGroupServiceCreditRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13997,7 +15558,7 @@ catch (SdkException<IssueSubscriptionGroupServiceCreditError> ex)
 
 **OnSuccess**: <code>[ServiceCreditResponse](Models/ServiceCreditResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[IssueSubscriptionGroupServiceCreditError](Errors/IssueSubscriptionGroupServiceCreditError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueSubscriptionGroupServiceCreditError](Errors/IssueSubscriptionGroupServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14008,7 +15569,7 @@ catch (SdkException<IssueSubscriptionGroupServiceCreditError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListSubscriptionGroupPrepaymentResponse&gt; ListPrepaymentsForSubscriptionGroup(string uid, ListPrepaymentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListSubscriptionGroupPrepaymentResponse&gt; ListPrepaymentsForSubscriptionGroup(ListPrepaymentsForSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14031,10 +15592,11 @@ Lists a subscription group's prepayments.
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroupInvoiceAccount.ListPrepaymentsForSubscriptionGroup(uid, filter);
+    var response = await client.SubscriptionGroupInvoiceAccount.ListPrepaymentsForSubscriptionGroup(
+        new ListPrepaymentsForSubscriptionGroupRequest { Uid = "some example string", Page = 1, PerPage = 50 });
     // TODO: Handle 'response' of type ListSubscriptionGroupPrepaymentResponse
 }
-catch (SdkException<ListPrepaymentsForSubscriptionGroupError> ex)
+catch (ApiException<ListPrepaymentsForSubscriptionGroupError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -14046,17 +15608,12 @@ catch (SdkException<ListPrepaymentsForSubscriptionGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>filter</code> | <code>[ListPrepaymentsFilter?](Models/ListPrepaymentsFilter.cs)</code> | Filter to use for List Prepayments operations |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListPrepaymentsForSubscriptionGroupRequest](Requests/SubscriptionGroupInvoiceAccount/ListPrepaymentsForSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14068,7 +15625,7 @@ catch (SdkException<ListPrepaymentsForSubscriptionGroupError> ex)
 
 **OnSuccess**: <code>[ListSubscriptionGroupPrepaymentResponse](Models/ListSubscriptionGroupPrepaymentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListPrepaymentsForSubscriptionGroupError](Errors/ListPrepaymentsForSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListPrepaymentsForSubscriptionGroupError](Errors/ListPrepaymentsForSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14083,7 +15640,7 @@ catch (SdkException<ListPrepaymentsForSubscriptionGroupError> ex)
 > Source: [SubscriptionGroupStatus](Api/SubscriptionGroupStatus.cs)
 
 <details>
-<summary><code>Task CancelDelayedCancellationForGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task CancelDelayedCancellationForGroup(CancelDelayedCancellationForGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14108,9 +15665,12 @@ Removing the delayed cancellation on a subscription group will ensure that the s
 ```csharp
 try
 {
-    await client.SubscriptionGroupStatus.CancelDelayedCancellationForGroup(uid);
+    await client.SubscriptionGroupStatus.CancelDelayedCancellationForGroup(new CancelDelayedCancellationForGroupRequest
+    {
+        Uid = "some example string",
+    });
 }
-catch (SdkException<CancelDelayedCancellationForGroupError> ex)
+catch (ApiException<CancelDelayedCancellationForGroupError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -14122,14 +15682,12 @@ catch (SdkException<CancelDelayedCancellationForGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
+<code>[CancelDelayedCancellationForGroupRequest](Requests/SubscriptionGroupStatus/CancelDelayedCancellationForGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14141,7 +15699,7 @@ catch (SdkException<CancelDelayedCancellationForGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CancelDelayedCancellationForGroupError](Errors/CancelDelayedCancellationForGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelDelayedCancellationForGroupError](Errors/CancelDelayedCancellationForGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14152,7 +15710,7 @@ catch (SdkException<CancelDelayedCancellationForGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task CancelSubscriptionsInGroup(string uid, CancelGroupedSubscriptionsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task CancelSubscriptionsInGroup(CancelSubscriptionsInGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14177,9 +15735,13 @@ To cancel a subscription group while also charging for any unbilled usage on met
 ```csharp
 try
 {
-    await client.SubscriptionGroupStatus.CancelSubscriptionsInGroup(uid, body);
+    await client.SubscriptionGroupStatus.CancelSubscriptionsInGroup(new CancelSubscriptionsInGroupRequest
+    {
+        Uid = "some example string",
+        Body = new CancelGroupedSubscriptionsRequest { ChargeUnbilledUsage = true },
+    });
 }
-catch (SdkException<CancelSubscriptionsInGroupError> ex)
+catch (ApiException<CancelSubscriptionsInGroupError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -14191,15 +15753,12 @@ catch (SdkException<CancelSubscriptionsInGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>body</code> | <code>[CancelGroupedSubscriptionsRequest?](Models/CancelGroupedSubscriptionsRequest.cs)</code> | - |
+<code>[CancelSubscriptionsInGroupRequest](Requests/SubscriptionGroupStatus/CancelSubscriptionsInGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14211,7 +15770,7 @@ catch (SdkException<CancelSubscriptionsInGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CancelSubscriptionsInGroupError](Errors/CancelSubscriptionsInGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelSubscriptionsInGroupError](Errors/CancelSubscriptionsInGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14222,7 +15781,7 @@ catch (SdkException<CancelSubscriptionsInGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task InitiateDelayedCancellationForGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task InitiateDelayedCancellationForGroup(InitiateDelayedCancellationForGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14247,9 +15806,10 @@ All subscriptions in the group must be on automatic billing in order to successf
 ```csharp
 try
 {
-    await client.SubscriptionGroupStatus.InitiateDelayedCancellationForGroup(uid);
+    await client.SubscriptionGroupStatus.InitiateDelayedCancellationForGroup(
+        new InitiateDelayedCancellationForGroupRequest { Uid = "some example string" });
 }
-catch (SdkException<InitiateDelayedCancellationForGroupError> ex)
+catch (ApiException<InitiateDelayedCancellationForGroupError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -14261,14 +15821,12 @@ catch (SdkException<InitiateDelayedCancellationForGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
+<code>[InitiateDelayedCancellationForGroupRequest](Requests/SubscriptionGroupStatus/InitiateDelayedCancellationForGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14280,7 +15838,7 @@ catch (SdkException<InitiateDelayedCancellationForGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[InitiateDelayedCancellationForGroupError](Errors/InitiateDelayedCancellationForGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[InitiateDelayedCancellationForGroupError](Errors/InitiateDelayedCancellationForGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14291,7 +15849,7 @@ catch (SdkException<InitiateDelayedCancellationForGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ReactivateSubscriptionGroupResponse&gt; ReactivateSubscriptionGroup(string uid, ReactivateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ReactivateSubscriptionGroupResponse&gt; ReactivateSubscriptionGroup(ReactivateSubscriptionGroupOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14339,10 +15897,15 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroupStatus.ReactivateSubscriptionGroup(uid, body);
+    var response = await client.SubscriptionGroupStatus.ReactivateSubscriptionGroup(
+        new ReactivateSubscriptionGroupOperationRequest
+        {
+            Uid = "some example string",
+            Body = new ReactivateSubscriptionGroupRequest { Resume = true },
+        });
     // TODO: Handle 'response' of type ReactivateSubscriptionGroupResponse
 }
-catch (SdkException<ReactivateSubscriptionGroupError> ex)
+catch (ApiException<ReactivateSubscriptionGroupError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -14354,15 +15917,12 @@ catch (SdkException<ReactivateSubscriptionGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>body</code> | <code>[ReactivateSubscriptionGroupRequest?](Models/ReactivateSubscriptionGroupRequest.cs)</code> | - |
+<code>[ReactivateSubscriptionGroupOperationRequest](Requests/SubscriptionGroupStatus/ReactivateSubscriptionGroupOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14374,7 +15934,7 @@ catch (SdkException<ReactivateSubscriptionGroupError> ex)
 
 **OnSuccess**: <code>[ReactivateSubscriptionGroupResponse](Models/ReactivateSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReactivateSubscriptionGroupError](Errors/ReactivateSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReactivateSubscriptionGroupError](Errors/ReactivateSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14389,7 +15949,7 @@ catch (SdkException<ReactivateSubscriptionGroupError> ex)
 > Source: [SubscriptionGroups](Api/SubscriptionGroups.cs)
 
 <details>
-<summary><code>Task&lt;SubscriptionGroupResponse&gt; AddSubscriptionToGroup(int subscriptionId, AddSubscriptionToAGroup? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionGroupResponse&gt; AddSubscriptionToGroup(AddSubscriptionToGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14413,7 +15973,6 @@ Rather than specifying a customer, the `target` parameter could instead simply h
 To create a new subscription into a subscription group, reference the following:
 [Create Subscription in a Subscription Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-subscription#subscription-in-a-subscription-group)
 
-
 </dd>
 </dl>
 
@@ -14425,10 +15984,21 @@ To create a new subscription into a subscription group, reference the following:
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.AddSubscriptionToGroup(subscriptionId, body);
+    var response = await client.SubscriptionGroups.AddSubscriptionToGroup(new AddSubscriptionToGroupRequest
+    {
+        SubscriptionId = 1,
+        Body = new AddSubscriptionToAGroup
+        {
+            Group = new GroupSettings
+            {
+                Target = new GroupTarget { Type = GroupTargetType.Subscription, Id = 32987 },
+                Billing = new GroupBilling { Accrue = true, AlignDate = true, Prorate = true },
+            },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionGroupResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -14437,15 +16007,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[AddSubscriptionToAGroup?](Models/AddSubscriptionToAGroup.cs)</code> | - |
+<code>[AddSubscriptionToGroupRequest](Requests/SubscriptionGroups/AddSubscriptionToGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14457,7 +16024,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SubscriptionGroupResponse](Models/SubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14468,7 +16035,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionGroupResponse&gt; CreateSubscriptionGroup(CreateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionGroupResponse&gt; CreateSubscriptionGroup(CreateSubscriptionGroupOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14491,10 +16058,16 @@ Creates a subscription group with given members.
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.CreateSubscriptionGroup(body);
+    var response = await client.SubscriptionGroups.CreateSubscriptionGroup(new CreateSubscriptionGroupOperationRequest
+    {
+        Body = new CreateSubscriptionGroupRequest
+        {
+            SubscriptionGroup = new CreateSubscriptionGroup { SubscriptionId = 1, MemberIds = [2, 3, 4] },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionGroupResponse
 }
-catch (SdkException<CreateSubscriptionGroupError> ex)
+catch (ApiException<CreateSubscriptionGroupError> ex)
 {
     if (ex.Error.TryGetSubscriptionGroupCreateErrorResponse1(out var error))
     {
@@ -14506,14 +16079,12 @@ catch (SdkException<CreateSubscriptionGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateSubscriptionGroupRequest?](Models/CreateSubscriptionGroupRequest.cs)</code> | - |
+<code>[CreateSubscriptionGroupOperationRequest](Requests/SubscriptionGroups/CreateSubscriptionGroupOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14525,7 +16096,7 @@ catch (SdkException<CreateSubscriptionGroupError> ex)
 
 **OnSuccess**: <code>[SubscriptionGroupResponse](Models/SubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateSubscriptionGroupError](Errors/CreateSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionGroupError](Errors/CreateSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14536,7 +16107,7 @@ catch (SdkException<CreateSubscriptionGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;DeleteSubscriptionGroupResponse&gt; DeleteSubscriptionGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;DeleteSubscriptionGroupResponse&gt; DeleteSubscriptionGroup(DeleteSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14560,10 +16131,13 @@ Deletes a subscription group.
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.DeleteSubscriptionGroup(uid);
+    var response = await client.SubscriptionGroups.DeleteSubscriptionGroup(new DeleteSubscriptionGroupRequest
+    {
+        Uid = "some example string",
+    });
     // TODO: Handle 'response' of type DeleteSubscriptionGroupResponse
 }
-catch (SdkException<DeleteSubscriptionGroupError> ex)
+catch (ApiException<DeleteSubscriptionGroupError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -14575,14 +16149,12 @@ catch (SdkException<DeleteSubscriptionGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
+<code>[DeleteSubscriptionGroupRequest](Requests/SubscriptionGroups/DeleteSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14594,7 +16166,7 @@ catch (SdkException<DeleteSubscriptionGroupError> ex)
 
 **OnSuccess**: <code>[DeleteSubscriptionGroupResponse](Models/DeleteSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteSubscriptionGroupError](Errors/DeleteSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteSubscriptionGroupError](Errors/DeleteSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14605,7 +16177,7 @@ catch (SdkException<DeleteSubscriptionGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;FullSubscriptionGroupResponse&gt; FindSubscriptionGroup(string subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;FullSubscriptionGroupResponse&gt; FindSubscriptionGroup(FindSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14617,7 +16189,7 @@ catch (SdkException<DeleteSubscriptionGroupError> ex)
 
 Finds the subscription group associated with a subscription.
 
-If the subscription is not in a group, the endpoint will return a 404 code.
+If the subscription is not in a group, this endpoint returns an error.
 
 </dd>
 </dl>
@@ -14630,10 +16202,13 @@ If the subscription is not in a group, the endpoint will return a 404 code.
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.FindSubscriptionGroup(subscriptionId);
+    var response = await client.SubscriptionGroups.FindSubscriptionGroup(new FindSubscriptionGroupRequest
+    {
+        SubscriptionId = "some example string",
+    });
     // TODO: Handle 'response' of type FullSubscriptionGroupResponse
 }
-catch (SdkException<FindSubscriptionGroupError> ex)
+catch (ApiException<FindSubscriptionGroupError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -14645,14 +16220,12 @@ catch (SdkException<FindSubscriptionGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>string</code> | The Advanced Billing id of the subscription associated with the subscription group |
+<code>[FindSubscriptionGroupRequest](Requests/SubscriptionGroups/FindSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14664,7 +16237,7 @@ catch (SdkException<FindSubscriptionGroupError> ex)
 
 **OnSuccess**: <code>[FullSubscriptionGroupResponse](Models/FullSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[FindSubscriptionGroupError](Errors/FindSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[FindSubscriptionGroupError](Errors/FindSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14675,7 +16248,7 @@ catch (SdkException<FindSubscriptionGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListSubscriptionGroupsResponse&gt; ListSubscriptionGroups(IReadOnlyList&lt;SubscriptionGroupsListInclude&gt;? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListSubscriptionGroupsResponse&gt; ListSubscriptionGroups(ListSubscriptionGroupsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14702,10 +16275,15 @@ Account balance information for the subscription groups is not returned by defau
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.ListSubscriptionGroups(include);
+    var response = await client.SubscriptionGroups.ListSubscriptionGroups(new ListSubscriptionGroupsRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        Include = [SubscriptionGroupsListInclude.AccountBalances],
+    });
     // TODO: Handle 'response' of type ListSubscriptionGroupsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -14714,16 +16292,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>include</code> | <code>IReadOnlyList&lt;[SubscriptionGroupsListInclude](Models/Enums/SubscriptionGroupsListInclude.cs)&gt;?</code> | A list of additional information to include in the response. The following values are supported:<br><br>- `account_balances`: Account balance information for the subscription groups. Use in query: `include[]=account_balances` |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListSubscriptionGroupsRequest](Requests/SubscriptionGroups/ListSubscriptionGroupsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14735,7 +16309,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ListSubscriptionGroupsResponse](Models/ListSubscriptionGroupsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14746,7 +16320,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;FullSubscriptionGroupResponse&gt; ReadSubscriptionGroup(string uid, IReadOnlyList&lt;SubscriptionGroupInclude&gt;? include, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;FullSubscriptionGroupResponse&gt; ReadSubscriptionGroup(ReadSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14773,10 +16347,14 @@ Current billing amount for the subscription group is not returned by default. If
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.ReadSubscriptionGroup(uid, include);
+    var response = await client.SubscriptionGroups.ReadSubscriptionGroup(new ReadSubscriptionGroupRequest
+    {
+        Uid = "some example string",
+        Include = [SubscriptionGroupInclude.CurrentBillingAmountInCents],
+    });
     // TODO: Handle 'response' of type FullSubscriptionGroupResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -14785,15 +16363,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>include</code> | <code>IReadOnlyList&lt;[SubscriptionGroupInclude](Models/Enums/SubscriptionGroupInclude.cs)&gt;?</code> | Allows including additional data in the response. Use in query: `include[]=current_billing_amount_in_cents`. |
+<code>[ReadSubscriptionGroupRequest](Requests/SubscriptionGroups/ReadSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14805,7 +16380,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[FullSubscriptionGroupResponse](Models/FullSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14816,7 +16391,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task RemoveSubscriptionFromGroup(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task RemoveSubscriptionFromGroup(RemoveSubscriptionFromGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14839,9 +16414,12 @@ Removes an existing subscription from a subscription group. For sites making use
 ```csharp
 try
 {
-    await client.SubscriptionGroups.RemoveSubscriptionFromGroup(subscriptionId);
+    await client.SubscriptionGroups.RemoveSubscriptionFromGroup(new RemoveSubscriptionFromGroupRequest
+    {
+        SubscriptionId = 1,
+    });
 }
-catch (SdkException<RemoveSubscriptionFromGroupError> ex)
+catch (ApiException<RemoveSubscriptionFromGroupError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -14853,14 +16431,12 @@ catch (SdkException<RemoveSubscriptionFromGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[RemoveSubscriptionFromGroupRequest](Requests/SubscriptionGroups/RemoveSubscriptionFromGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14872,7 +16448,7 @@ catch (SdkException<RemoveSubscriptionFromGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RemoveSubscriptionFromGroupError](Errors/RemoveSubscriptionFromGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveSubscriptionFromGroupError](Errors/RemoveSubscriptionFromGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14883,7 +16459,7 @@ catch (SdkException<RemoveSubscriptionFromGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionGroupSignupResponse&gt; SignupWithSubscriptionGroup(SubscriptionGroupSignupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionGroupSignupResponse&gt; SignupWithSubscriptionGroup(SignupWithSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14916,10 +16492,25 @@ The first section, "Subscription Customization", will focus on passing different
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.SignupWithSubscriptionGroup(body);
+    var response = await client.SubscriptionGroups.SignupWithSubscriptionGroup(new SignupWithSubscriptionGroupRequest
+    {
+        Body = new SubscriptionGroupSignupRequest
+        {
+            SubscriptionGroup = new SubscriptionGroupSignup
+            {
+                PaymentProfileId = 123,
+                PayerId = 123,
+                Subscriptions = [
+                    new SubscriptionGroupSignupItem { ProductId = 11, Primary = true },
+                    new SubscriptionGroupSignupItem { ProductId = 12 },
+                    new SubscriptionGroupSignupItem { ProductId = 13 },
+                ],
+            },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionGroupSignupResponse
 }
-catch (SdkException<SignupWithSubscriptionGroupError> ex)
+catch (ApiException<SignupWithSubscriptionGroupError> ex)
 {
     if (ex.Error.TryGetSubscriptionGroupSignupErrorResponse1(out var error))
     {
@@ -14931,14 +16522,12 @@ catch (SdkException<SignupWithSubscriptionGroupError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[SubscriptionGroupSignupRequest?](Models/SubscriptionGroupSignupRequest.cs)</code> | - |
+<code>[SignupWithSubscriptionGroupRequest](Requests/SubscriptionGroups/SignupWithSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14950,7 +16539,7 @@ catch (SdkException<SignupWithSubscriptionGroupError> ex)
 
 **OnSuccess**: <code>[SubscriptionGroupSignupResponse](Models/SubscriptionGroupSignupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[SignupWithSubscriptionGroupError](Errors/SignupWithSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[SignupWithSubscriptionGroupError](Errors/SignupWithSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14961,7 +16550,7 @@ catch (SdkException<SignupWithSubscriptionGroupError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionGroupResponse&gt; UpdateSubscriptionGroupMembers(string uid, UpdateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionGroupResponse&gt; UpdateSubscriptionGroupMembers(UpdateSubscriptionGroupMembersRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -14985,10 +16574,18 @@ Updates subscription group members.
 ```csharp
 try
 {
-    var response = await client.SubscriptionGroups.UpdateSubscriptionGroupMembers(uid, body);
+    var response = await client.SubscriptionGroups.UpdateSubscriptionGroupMembers(
+        new UpdateSubscriptionGroupMembersRequest
+        {
+            Uid = "some example string",
+            Body = new UpdateSubscriptionGroupRequest
+            {
+                SubscriptionGroup = new UpdateSubscriptionGroup { MemberIds = [1, 2, 3] },
+            },
+        });
     // TODO: Handle 'response' of type SubscriptionGroupResponse
 }
-catch (SdkException<UpdateSubscriptionGroupMembersError> ex)
+catch (ApiException<UpdateSubscriptionGroupMembersError> ex)
 {
     if (ex.Error.TryGetSubscriptionGroupUpdateErrorResponse1(out var error))
     {
@@ -15000,15 +16597,12 @@ catch (SdkException<UpdateSubscriptionGroupMembersError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>uid</code> | <code>string</code> | The uid of the subscription group |
-| <code>body</code> | <code>[UpdateSubscriptionGroupRequest?](Models/UpdateSubscriptionGroupRequest.cs)</code> | - |
+<code>[UpdateSubscriptionGroupMembersRequest](Requests/SubscriptionGroups/UpdateSubscriptionGroupMembersRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15020,7 +16614,7 @@ catch (SdkException<UpdateSubscriptionGroupMembersError> ex)
 
 **OnSuccess**: <code>[SubscriptionGroupResponse](Models/SubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateSubscriptionGroupMembersError](Errors/UpdateSubscriptionGroupMembersError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionGroupMembersError](Errors/UpdateSubscriptionGroupMembersError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15035,7 +16629,7 @@ catch (SdkException<UpdateSubscriptionGroupMembersError> ex)
 > Source: [SubscriptionInvoiceAccount](Api/SubscriptionInvoiceAccount.cs)
 
 <details>
-<summary><code>Task&lt;CreatePrepaymentResponse&gt; CreatePrepayment(int subscriptionId, CreatePrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;CreatePrepaymentResponse&gt; CreatePrepayment(CreatePrepaymentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15059,7 +16653,6 @@ When a payment requires 3DS Authentication to adhere to Strong Customer Authenti
 
 See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow) article in the product documentation to learn how to manage the redirect flow.
 
-
 </dd>
 </dl>
 
@@ -15071,10 +16664,23 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.SubscriptionInvoiceAccount.CreatePrepayment(subscriptionId, body);
+    var response = await client.SubscriptionInvoiceAccount.CreatePrepayment(new CreatePrepaymentOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new CreatePrepaymentRequest
+        {
+            Prepayment = new CreatePrepayment
+            {
+                Amount = 100d,
+                Details = "John Doe signup for $100",
+                Memo = "Signup for $100",
+                Method = CreatePrepaymentMethod.Check,
+            },
+        },
+    });
     // TODO: Handle 'response' of type CreatePrepaymentResponse
 }
-catch (SdkException<CreatePrepaymentApiError> ex)
+catch (ApiException<CreatePrepaymentError> ex)
 {
     if (ex.Error.TryGetCreatePrepaymentErrorResponse(out var error))
     {
@@ -15086,15 +16692,12 @@ catch (SdkException<CreatePrepaymentApiError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[CreatePrepaymentRequest?](Models/CreatePrepaymentRequest.cs)</code> | - |
+<code>[CreatePrepaymentOperationRequest](Requests/SubscriptionInvoiceAccount/CreatePrepaymentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15106,7 +16709,7 @@ catch (SdkException<CreatePrepaymentApiError> ex)
 
 **OnSuccess**: <code>[CreatePrepaymentResponse](Models/CreatePrepaymentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreatePrepaymentApiError](Errors/CreatePrepaymentApiError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreatePrepaymentError](Errors/CreatePrepaymentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15117,7 +16720,7 @@ catch (SdkException<CreatePrepaymentApiError> ex)
 </details>
 
 <details>
-<summary><code>Task DeductServiceCredit(int subscriptionId, DeductServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeductServiceCredit(DeductServiceCreditOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15140,9 +16743,16 @@ Deducts a service credit from the subscription in the specified amount. The cred
 ```csharp
 try
 {
-    await client.SubscriptionInvoiceAccount.DeductServiceCredit(subscriptionId, body);
+    await client.SubscriptionInvoiceAccount.DeductServiceCredit(new DeductServiceCreditOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new DeductServiceCreditRequest
+        {
+            Deduction = new DeductServiceCredit { Amount = "1", Memo = "Deduction" },
+        },
+    });
 }
-catch (SdkException<DeductServiceCreditApiError> ex)
+catch (ApiException<DeductServiceCreditError> ex)
 {
     if (ex.Error.TryGetDeductServiceCreditErrorResponse(out var error))
     {
@@ -15154,15 +16764,12 @@ catch (SdkException<DeductServiceCreditApiError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[DeductServiceCreditRequest?](Models/DeductServiceCreditRequest.cs)</code> | - |
+<code>[DeductServiceCreditOperationRequest](Requests/SubscriptionInvoiceAccount/DeductServiceCreditOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15174,7 +16781,7 @@ catch (SdkException<DeductServiceCreditApiError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeductServiceCreditApiError](Errors/DeductServiceCreditApiError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeductServiceCreditError](Errors/DeductServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15185,7 +16792,7 @@ catch (SdkException<DeductServiceCreditApiError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ServiceCredit&gt; IssueServiceCredit(int subscriptionId, IssueServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ServiceCredit&gt; IssueServiceCredit(IssueServiceCreditOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15208,10 +16815,14 @@ Adds a service credit to the subscription in the specified amount. The credit is
 ```csharp
 try
 {
-    var response = await client.SubscriptionInvoiceAccount.IssueServiceCredit(subscriptionId, body);
+    var response = await client.SubscriptionInvoiceAccount.IssueServiceCredit(new IssueServiceCreditOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new IssueServiceCreditRequest { ServiceCredit = new IssueServiceCredit { Amount = "1" } },
+    });
     // TODO: Handle 'response' of type ServiceCredit
 }
-catch (SdkException<IssueServiceCreditApiError> ex)
+catch (ApiException<IssueServiceCreditError> ex)
 {
     if (ex.Error.TryGetIssueServiceCreditErrorResponse(out var error))
     {
@@ -15223,15 +16834,12 @@ catch (SdkException<IssueServiceCreditApiError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[IssueServiceCreditRequest?](Models/IssueServiceCreditRequest.cs)</code> | - |
+<code>[IssueServiceCreditOperationRequest](Requests/SubscriptionInvoiceAccount/IssueServiceCreditOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15243,7 +16851,7 @@ catch (SdkException<IssueServiceCreditApiError> ex)
 
 **OnSuccess**: <code>[ServiceCredit](Models/ServiceCredit.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[IssueServiceCreditApiError](Errors/IssueServiceCreditApiError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueServiceCreditError](Errors/IssueServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15254,7 +16862,7 @@ catch (SdkException<IssueServiceCreditApiError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PrepaymentsResponse&gt; ListPrepayments(int subscriptionId, ListPrepaymentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PrepaymentsResponse&gt; ListPrepayments(ListPrepaymentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15277,10 +16885,15 @@ Lists a subscription's prepayments.
 ```csharp
 try
 {
-    var response = await client.SubscriptionInvoiceAccount.ListPrepayments(subscriptionId, filter);
+    var response = await client.SubscriptionInvoiceAccount.ListPrepayments(new ListPrepaymentsRequest
+    {
+        SubscriptionId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type PrepaymentsResponse
 }
-catch (SdkException<ListPrepaymentsError> ex)
+catch (ApiException<ListPrepaymentsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -15292,17 +16905,12 @@ catch (SdkException<ListPrepaymentsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>filter</code> | <code>[ListPrepaymentsFilter?](Models/ListPrepaymentsFilter.cs)</code> | Filter to use for List Prepayments operations |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListPrepaymentsRequest](Requests/SubscriptionInvoiceAccount/ListPrepaymentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15314,7 +16922,7 @@ catch (SdkException<ListPrepaymentsError> ex)
 
 **OnSuccess**: <code>[PrepaymentsResponse](Models/PrepaymentsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListPrepaymentsError](Errors/ListPrepaymentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListPrepaymentsError](Errors/ListPrepaymentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15325,7 +16933,7 @@ catch (SdkException<ListPrepaymentsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ListServiceCreditsResponse&gt; ListServiceCredits(int subscriptionId, SortingDirection? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ListServiceCreditsResponse&gt; ListServiceCredits(ListServiceCreditsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15348,10 +16956,15 @@ Lists a subscription's service credits.
 ```csharp
 try
 {
-    var response = await client.SubscriptionInvoiceAccount.ListServiceCredits(subscriptionId, direction);
+    var response = await client.SubscriptionInvoiceAccount.ListServiceCredits(new ListServiceCreditsRequest
+    {
+        SubscriptionId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type ListServiceCreditsResponse
 }
-catch (SdkException<ListServiceCreditsError> ex)
+catch (ApiException<ListServiceCreditsError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -15363,17 +16976,12 @@ catch (SdkException<ListServiceCreditsError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListServiceCreditsRequest](Requests/SubscriptionInvoiceAccount/ListServiceCreditsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15385,7 +16993,7 @@ catch (SdkException<ListServiceCreditsError> ex)
 
 **OnSuccess**: <code>[ListServiceCreditsResponse](Models/ListServiceCreditsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListServiceCreditsError](Errors/ListServiceCreditsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListServiceCreditsError](Errors/ListServiceCreditsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15396,7 +17004,7 @@ catch (SdkException<ListServiceCreditsError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;AccountBalances&gt; ReadAccountBalances(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;AccountBalances&gt; ReadAccountBalances(ReadAccountBalancesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15419,10 +17027,13 @@ Returns the `balance_in_cents` of the Subscription's Pending Discount, Service C
 ```csharp
 try
 {
-    var response = await client.SubscriptionInvoiceAccount.ReadAccountBalances(subscriptionId);
+    var response = await client.SubscriptionInvoiceAccount.ReadAccountBalances(new ReadAccountBalancesRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type AccountBalances
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -15431,14 +17042,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[ReadAccountBalancesRequest](Requests/SubscriptionInvoiceAccount/ReadAccountBalancesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15450,7 +17059,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[AccountBalances](Models/AccountBalances.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15461,7 +17070,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PrepaymentResponse&gt; RefundPrepayment(int subscriptionId, long prepaymentId, RefundPrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PrepaymentResponse&gt; RefundPrepayment(RefundPrepaymentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15486,10 +17095,14 @@ The amount may be passed either as a decimal, with `amount`, or an integer in ce
 ```csharp
 try
 {
-    var response = await client.SubscriptionInvoiceAccount.RefundPrepayment(subscriptionId, prepaymentId, body);
+    var response = await client.SubscriptionInvoiceAccount.RefundPrepayment(new RefundPrepaymentOperationRequest
+    {
+        SubscriptionId = 1,
+        PrepaymentId = 1L,
+    });
     // TODO: Handle 'response' of type PrepaymentResponse
 }
-catch (SdkException<RefundPrepaymentApiError> ex)
+catch (ApiException<RefundPrepaymentError> ex)
 {
     if (ex.Error.TryGetRefundPrepaymentBaseErrorsResponse1(out var error))
     {
@@ -15501,16 +17114,12 @@ catch (SdkException<RefundPrepaymentApiError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>prepaymentId</code> | <code>long</code> | id of prepayment |
-| <code>body</code> | <code>[RefundPrepaymentRequest?](Models/RefundPrepaymentRequest.cs)</code> | - |
+<code>[RefundPrepaymentOperationRequest](Requests/SubscriptionInvoiceAccount/RefundPrepaymentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15522,7 +17131,7 @@ catch (SdkException<RefundPrepaymentApiError> ex)
 
 **OnSuccess**: <code>[PrepaymentResponse](Models/PrepaymentResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RefundPrepaymentApiError](Errors/RefundPrepaymentApiError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RefundPrepaymentError](Errors/RefundPrepaymentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15537,7 +17146,7 @@ catch (SdkException<RefundPrepaymentApiError> ex)
 > Source: [SubscriptionNotes](Api/SubscriptionNotes.cs)
 
 <details>
-<summary><code>Task&lt;SubscriptionNoteResponse&gt; CreateSubscriptionNote(int subscriptionId, UpdateSubscriptionNoteRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionNoteResponse&gt; CreateSubscriptionNote(CreateSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15549,13 +17158,11 @@ catch (SdkException<RefundPrepaymentApiError> ex)
 
 Creates a note for a subscription.
 
-## How to Use Subscription Notes
-
 Notes allow you to record information about a particular Subscription in a free text format.
 
-If you have structured data such as birth date, color, etc., consider using Metadata instead.
+If you have structured data such as birth date, color, etc., consider using [Metadata]($e/Custom%20Fields/createMetadata) instead.
 
-Full documentation on how to use Notes in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24251712214413-Subscription-Summary-Overview).
+For more information, see [Adding Notes](https://docs.maxio.com/hc/en-us/articles/24251654953997-Understanding-the-Subscription-Summary-Page#billing-portal-status:~:text=documentation%20for%20more.-,Adding%20Notes,-Notes%20are%20optional) in the product documentation.
 
 </dd>
 </dl>
@@ -15568,10 +17175,17 @@ Full documentation on how to use Notes in the Advanced Billing UI can be located
 ```csharp
 try
 {
-    var response = await client.SubscriptionNotes.CreateSubscriptionNote(subscriptionId, body);
+    var response = await client.SubscriptionNotes.CreateSubscriptionNote(new CreateSubscriptionNoteRequest
+    {
+        SubscriptionId = 1,
+        Body = new UpdateSubscriptionNoteRequest
+        {
+            Note = new UpdateSubscriptionNote { Body = "New test note.", Sticky = true },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionNoteResponse
 }
-catch (SdkException<CreateSubscriptionNoteError> ex)
+catch (ApiException<CreateSubscriptionNoteError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -15583,15 +17197,12 @@ catch (SdkException<CreateSubscriptionNoteError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[UpdateSubscriptionNoteRequest?](Models/UpdateSubscriptionNoteRequest.cs)</code> | - |
+<code>[CreateSubscriptionNoteRequest](Requests/SubscriptionNotes/CreateSubscriptionNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15603,7 +17214,7 @@ catch (SdkException<CreateSubscriptionNoteError> ex)
 
 **OnSuccess**: <code>[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateSubscriptionNoteError](Errors/CreateSubscriptionNoteError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionNoteError](Errors/CreateSubscriptionNoteError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15614,7 +17225,7 @@ catch (SdkException<CreateSubscriptionNoteError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteSubscriptionNote(int subscriptionId, int noteId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteSubscriptionNote(DeleteSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15637,9 +17248,13 @@ Deletes a note for a Subscription.
 ```csharp
 try
 {
-    await client.SubscriptionNotes.DeleteSubscriptionNote(subscriptionId, noteId);
+    await client.SubscriptionNotes.DeleteSubscriptionNote(new DeleteSubscriptionNoteRequest
+    {
+        SubscriptionId = 1,
+        NoteId = 1,
+    });
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -15648,15 +17263,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>noteId</code> | <code>int</code> | The Advanced Billing id of the note |
+<code>[DeleteSubscriptionNoteRequest](Requests/SubscriptionNotes/DeleteSubscriptionNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15668,7 +17280,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15679,7 +17291,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionNoteResponse&gt;&gt; ListSubscriptionNotes(int subscriptionId, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionNoteResponse&gt;&gt; ListSubscriptionNotes(ListSubscriptionNotesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15702,10 +17314,15 @@ Retrieves a list of notes associated with a subscription. The response will be a
 ```csharp
 try
 {
-    var response = await client.SubscriptionNotes.ListSubscriptionNotes(subscriptionId);
+    var response = await client.SubscriptionNotes.ListSubscriptionNotes(new ListSubscriptionNotesRequest
+    {
+        SubscriptionId = 1,
+        Page = 1,
+        PerPage = 50,
+    });
     // TODO: Handle 'response' of type IReadOnlyList<SubscriptionNoteResponse>
 }
-catch (SdkException<ListSubscriptionNotesError> ex)
+catch (ApiException<ListSubscriptionNotesError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -15717,16 +17334,12 @@ catch (SdkException<ListSubscriptionNotesError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListSubscriptionNotesRequest](Requests/SubscriptionNotes/ListSubscriptionNotesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15738,7 +17351,7 @@ catch (SdkException<ListSubscriptionNotesError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ListSubscriptionNotesError](Errors/ListSubscriptionNotesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListSubscriptionNotesError](Errors/ListSubscriptionNotesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15749,7 +17362,7 @@ catch (SdkException<ListSubscriptionNotesError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionNoteResponse&gt; ReadSubscriptionNote(int subscriptionId, int noteId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionNoteResponse&gt; ReadSubscriptionNote(ReadSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15772,10 +17385,14 @@ Retrieves a specific note attached to a subscription.
 ```csharp
 try
 {
-    var response = await client.SubscriptionNotes.ReadSubscriptionNote(subscriptionId, noteId);
+    var response = await client.SubscriptionNotes.ReadSubscriptionNote(new ReadSubscriptionNoteRequest
+    {
+        SubscriptionId = 1,
+        NoteId = 1,
+    });
     // TODO: Handle 'response' of type SubscriptionNoteResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -15784,15 +17401,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>noteId</code> | <code>int</code> | The Advanced Billing id of the note |
+<code>[ReadSubscriptionNoteRequest](Requests/SubscriptionNotes/ReadSubscriptionNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15804,7 +17418,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15815,7 +17429,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionNoteResponse&gt; UpdateSubscriptionNote(int subscriptionId, int noteId, UpdateSubscriptionNoteRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionNoteResponse&gt; UpdateSubscriptionNote(UpdateSubscriptionNoteOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15838,10 +17452,18 @@ Updates a note for a subscription.
 ```csharp
 try
 {
-    var response = await client.SubscriptionNotes.UpdateSubscriptionNote(subscriptionId, noteId, body);
+    var response = await client.SubscriptionNotes.UpdateSubscriptionNote(new UpdateSubscriptionNoteOperationRequest
+    {
+        SubscriptionId = 1,
+        NoteId = 1,
+        Body = new UpdateSubscriptionNoteRequest
+        {
+            Note = new UpdateSubscriptionNote { Body = "Modified test note.", Sticky = true },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionNoteResponse
 }
-catch (SdkException<UpdateSubscriptionNoteError> ex)
+catch (ApiException<UpdateSubscriptionNoteError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -15853,16 +17475,12 @@ catch (SdkException<UpdateSubscriptionNoteError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>noteId</code> | <code>int</code> | The Advanced Billing id of the note |
-| <code>body</code> | <code>[UpdateSubscriptionNoteRequest?](Models/UpdateSubscriptionNoteRequest.cs)</code> | - |
+<code>[UpdateSubscriptionNoteOperationRequest](Requests/SubscriptionNotes/UpdateSubscriptionNoteOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15874,7 +17492,7 @@ catch (SdkException<UpdateSubscriptionNoteError> ex)
 
 **OnSuccess**: <code>[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateSubscriptionNoteError](Errors/UpdateSubscriptionNoteError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionNoteError](Errors/UpdateSubscriptionNoteError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15889,7 +17507,7 @@ catch (SdkException<UpdateSubscriptionNoteError> ex)
 > Source: [SubscriptionProducts](Api/SubscriptionProducts.cs)
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; MigrateSubscriptionProduct(int subscriptionId, SubscriptionProductMigrationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; MigrateSubscriptionProduct(MigrateSubscriptionProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -15901,17 +17519,15 @@ catch (SdkException<UpdateSubscriptionNoteError> ex)
 
 Migrates a subscription to a different product.
 
-In order to create a migration, you must pass the `product_id` or `product_handle` in the object when you send a POST request. You may also pass either a `product_price_point_id` or `product_price_point_handle` to choose which price point the subscription is moved to. If no price point identifier is passed the subscription will be moved to the products default price point. The response will be the updated subscription.
+To create a migration, you must pass the `product_id` or `product_handle` in the object when you send a POST request. You can also pass either a `product_price_point_id` or `product_price_point_handle` to choose which price point the subscription is moved to. If no price point identifier is passed, the subscription is moved to the product's default price point. The response is the updated subscription.
 
 ## Valid Subscriptions
 
-Subscriptions should be in the `active` or `trialing` state in order to be migrated.
+Subscriptions should be in the `active` or `trialing` state to be migrated.
 
 (For backwards compatibility reasons, it is possible to migrate a subscription that is in the `trial_ended` state via the API, however this is not recommended.  Since `trial_ended` is an end-of-life state, the subscription should be canceled, the product changed, and then the subscription can be reactivated.)
 
-## Migrations Documentation
-
-Full documentation on how to record Migrations in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24181589372429-Data-Migration-to-Advanced-Billing).
+For more information, see [Product Changes and Migrations](https://docs.maxio.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations).
 
 ## Failed Migrations
 
@@ -15934,10 +17550,24 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.SubscriptionProducts.MigrateSubscriptionProduct(subscriptionId, body);
+    var response = await client.SubscriptionProducts.MigrateSubscriptionProduct(new MigrateSubscriptionProductRequest
+    {
+        SubscriptionId = 1,
+        Body = new SubscriptionProductMigrationRequest
+        {
+            Migration = new SubscriptionProductMigration
+            {
+                ProductId = 3801242,
+                IncludeTrial = false,
+                IncludeInitialCharge = false,
+                IncludeCoupons = true,
+                PreservePeriod = true,
+            },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<MigrateSubscriptionProductError> ex)
+catch (ApiException<MigrateSubscriptionProductError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -15949,15 +17579,12 @@ catch (SdkException<MigrateSubscriptionProductError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[SubscriptionProductMigrationRequest?](Models/SubscriptionProductMigrationRequest.cs)</code> | - |
+<code>[MigrateSubscriptionProductRequest](Requests/SubscriptionProducts/MigrateSubscriptionProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15969,7 +17596,7 @@ catch (SdkException<MigrateSubscriptionProductError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[MigrateSubscriptionProductError](Errors/MigrateSubscriptionProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[MigrateSubscriptionProductError](Errors/MigrateSubscriptionProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15980,7 +17607,7 @@ catch (SdkException<MigrateSubscriptionProductError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionMigrationPreviewResponse&gt; PreviewSubscriptionProductMigration(int subscriptionId, SubscriptionMigrationPreviewRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionMigrationPreviewResponse&gt; PreviewSubscriptionProductMigration(PreviewSubscriptionProductMigrationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16008,10 +17635,11 @@ This will calculate the prorated adjustment, charge, payment and credit applied 
 ```csharp
 try
 {
-    var response = await client.SubscriptionProducts.PreviewSubscriptionProductMigration(subscriptionId, body);
+    var response = await client.SubscriptionProducts.PreviewSubscriptionProductMigration(
+        new PreviewSubscriptionProductMigrationRequest { SubscriptionId = 1 });
     // TODO: Handle 'response' of type SubscriptionMigrationPreviewResponse
 }
-catch (SdkException<PreviewSubscriptionProductMigrationError> ex)
+catch (ApiException<PreviewSubscriptionProductMigrationError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16023,15 +17651,12 @@ catch (SdkException<PreviewSubscriptionProductMigrationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[SubscriptionMigrationPreviewRequest?](Models/SubscriptionMigrationPreviewRequest.cs)</code> | - |
+<code>[PreviewSubscriptionProductMigrationRequest](Requests/SubscriptionProducts/PreviewSubscriptionProductMigrationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16043,7 +17668,7 @@ catch (SdkException<PreviewSubscriptionProductMigrationError> ex)
 
 **OnSuccess**: <code>[SubscriptionMigrationPreviewResponse](Models/SubscriptionMigrationPreviewResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PreviewSubscriptionProductMigrationError](Errors/PreviewSubscriptionProductMigrationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewSubscriptionProductMigrationError](Errors/PreviewSubscriptionProductMigrationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16058,7 +17683,7 @@ catch (SdkException<PreviewSubscriptionProductMigrationError> ex)
 > Source: [SubscriptionRenewals](Api/SubscriptionRenewals.cs)
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; CancelScheduledRenewalConfiguration(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; CancelScheduledRenewalConfiguration(CancelScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16081,10 +17706,11 @@ Cancels a scheduled renewal configuration.
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.CancelScheduledRenewalConfiguration(subscriptionId, id);
+    var response = await client.SubscriptionRenewals.CancelScheduledRenewalConfiguration(
+        new CancelScheduledRenewalConfigurationRequest { SubscriptionId = 1, Id = 1 });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<CancelScheduledRenewalConfigurationError> ex)
+catch (ApiException<CancelScheduledRenewalConfigurationError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16096,15 +17722,12 @@ catch (SdkException<CancelScheduledRenewalConfigurationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>id</code> | <code>int</code> | The renewal id. |
+<code>[CancelScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/CancelScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16116,7 +17739,7 @@ catch (SdkException<CancelScheduledRenewalConfigurationError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CancelScheduledRenewalConfigurationError](Errors/CancelScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelScheduledRenewalConfigurationError](Errors/CancelScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16127,7 +17750,7 @@ catch (SdkException<CancelScheduledRenewalConfigurationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; CreateScheduledRenewalConfiguration(int subscriptionId, ScheduledRenewalConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; CreateScheduledRenewalConfiguration(CreateScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16150,10 +17773,24 @@ Creates a scheduled renewal configuration for a subscription. The scheduled rene
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.CreateScheduledRenewalConfiguration(subscriptionId, body);
+    var response = await client.SubscriptionRenewals.CreateScheduledRenewalConfiguration(
+        new CreateScheduledRenewalConfigurationRequest
+        {
+            SubscriptionId = 1,
+            Body = new ScheduledRenewalConfigurationRequest
+            {
+                RenewalConfiguration = new ScheduledRenewalConfigurationRequestBody
+                {
+                    StartsAt = DateTimeOffset.Parse("2024-12-01T00:00:00Z"),
+                    EndsAt = DateTimeOffset.Parse("2025-12-01T00:00:00Z"),
+                    LockInAt = DateTimeOffset.Parse("2024-11-15T00:00:00Z"),
+                    ContractId = 222,
+                },
+            },
+        });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<CreateScheduledRenewalConfigurationError> ex)
+catch (ApiException<CreateScheduledRenewalConfigurationError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16165,15 +17802,12 @@ catch (SdkException<CreateScheduledRenewalConfigurationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[ScheduledRenewalConfigurationRequest?](Models/ScheduledRenewalConfigurationRequest.cs)</code> | - |
+<code>[CreateScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16185,7 +17819,7 @@ catch (SdkException<CreateScheduledRenewalConfigurationError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateScheduledRenewalConfigurationError](Errors/CreateScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateScheduledRenewalConfigurationError](Errors/CreateScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16196,7 +17830,7 @@ catch (SdkException<CreateScheduledRenewalConfigurationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationItemResponse&gt; CreateScheduledRenewalConfigurationItem(int subscriptionId, int scheduledRenewalsConfigurationId, ScheduledRenewalConfigurationItemRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationItemResponse&gt; CreateScheduledRenewalConfigurationItem(CreateScheduledRenewalConfigurationItemRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16221,12 +17855,29 @@ If your site has list vs sales pricing enabled, accepts renewal_configuration_it
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.CreateScheduledRenewalConfigurationItem(subscriptionId,
-        scheduledRenewalsConfigurationId,
-        body);
+    var response = await client.SubscriptionRenewals.CreateScheduledRenewalConfigurationItem(
+        new CreateScheduledRenewalConfigurationItemRequest
+        {
+            SubscriptionId = 1,
+            ScheduledRenewalsConfigurationId = 1,
+            Body = new ScheduledRenewalConfigurationItemRequest
+            {
+                RenewalConfigurationItem = new ScheduledRenewalItemRequestBodyComponent
+                {
+                    ItemType = ItemType.Component,
+                    ItemId = 57,
+                    Quantity = 1,
+                    CustomPrice = new ScheduledRenewalComponentCustomPrice
+                    {
+                        PricingScheme = PricingScheme.Stairstep,
+                        Prices = [new Price { StartingQuantity = startingQuantity, UnitPrice = unitPrice }],
+                    },
+                },
+            },
+        });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationItemResponse
 }
-catch (SdkException<CreateScheduledRenewalConfigurationItemError> ex)
+catch (ApiException<CreateScheduledRenewalConfigurationItemError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16238,16 +17889,12 @@ catch (SdkException<CreateScheduledRenewalConfigurationItemError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>scheduledRenewalsConfigurationId</code> | <code>int</code> | The scheduled renewal configuration id. |
-| <code>body</code> | <code>[ScheduledRenewalConfigurationItemRequest?](Models/ScheduledRenewalConfigurationItemRequest.cs)</code> | - |
+<code>[CreateScheduledRenewalConfigurationItemRequest](Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationItemRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16259,7 +17906,7 @@ catch (SdkException<CreateScheduledRenewalConfigurationItemError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationItemResponse](Models/ScheduledRenewalConfigurationItemResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateScheduledRenewalConfigurationItemError](Errors/CreateScheduledRenewalConfigurationItemError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateScheduledRenewalConfigurationItemError](Errors/CreateScheduledRenewalConfigurationItemError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16270,7 +17917,7 @@ catch (SdkException<CreateScheduledRenewalConfigurationItemError> ex)
 </details>
 
 <details>
-<summary><code>Task DeleteScheduledRenewalConfigurationItem(int subscriptionId, int scheduledRenewalsConfigurationId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task DeleteScheduledRenewalConfigurationItem(DeleteScheduledRenewalConfigurationItemRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16293,11 +17940,15 @@ Removes an item from the pending renewal configuration.
 ```csharp
 try
 {
-    await client.SubscriptionRenewals.DeleteScheduledRenewalConfigurationItem(subscriptionId,
-        scheduledRenewalsConfigurationId,
-        id);
+    await client.SubscriptionRenewals.DeleteScheduledRenewalConfigurationItem(
+        new DeleteScheduledRenewalConfigurationItemRequest
+        {
+            SubscriptionId = 1,
+            ScheduledRenewalsConfigurationId = 1,
+            Id = 1,
+        });
 }
-catch (SdkException<DeleteScheduledRenewalConfigurationItemError> ex)
+catch (ApiException<DeleteScheduledRenewalConfigurationItemError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16309,16 +17960,12 @@ catch (SdkException<DeleteScheduledRenewalConfigurationItemError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>scheduledRenewalsConfigurationId</code> | <code>int</code> | The scheduled renewal configuration id. |
-| <code>id</code> | <code>int</code> | The scheduled renewal configuration item id. |
+<code>[DeleteScheduledRenewalConfigurationItemRequest](Requests/SubscriptionRenewals/DeleteScheduledRenewalConfigurationItemRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16330,7 +17977,7 @@ catch (SdkException<DeleteScheduledRenewalConfigurationItemError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[DeleteScheduledRenewalConfigurationItemError](Errors/DeleteScheduledRenewalConfigurationItemError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteScheduledRenewalConfigurationItemError](Errors/DeleteScheduledRenewalConfigurationItemError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16341,7 +17988,7 @@ catch (SdkException<DeleteScheduledRenewalConfigurationItemError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationsResponse&gt; ListScheduledRenewalConfigurations(int subscriptionId, Status? status, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationsResponse&gt; ListScheduledRenewalConfigurations(ListScheduledRenewalConfigurationsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16364,10 +18011,11 @@ Lists scheduled renewal configurations for the subscription and permits an optio
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.ListScheduledRenewalConfigurations(subscriptionId, status);
+    var response = await client.SubscriptionRenewals.ListScheduledRenewalConfigurations(
+        new ListScheduledRenewalConfigurationsRequest { SubscriptionId = 1 });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationsResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -16376,15 +18024,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>status</code> | <code>[Status?](Models/Enums/Status.cs)</code> | (Optional) Status filter for scheduled renewal configurations. |
+<code>[ListScheduledRenewalConfigurationsRequest](Requests/SubscriptionRenewals/ListScheduledRenewalConfigurationsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16396,7 +18041,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationsResponse](Models/ScheduledRenewalConfigurationsResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16407,7 +18052,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; LockInScheduledRenewalImmediately(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; LockInScheduledRenewalImmediately(LockInScheduledRenewalImmediatelyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16430,10 +18075,11 @@ Locks in the renewal immediately.
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.LockInScheduledRenewalImmediately(subscriptionId, id);
+    var response = await client.SubscriptionRenewals.LockInScheduledRenewalImmediately(
+        new LockInScheduledRenewalImmediatelyRequest { SubscriptionId = 1, Id = 1 });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<LockInScheduledRenewalImmediatelyError> ex)
+catch (ApiException<LockInScheduledRenewalImmediatelyError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16445,15 +18091,12 @@ catch (SdkException<LockInScheduledRenewalImmediatelyError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>id</code> | <code>int</code> | The renewal id. |
+<code>[LockInScheduledRenewalImmediatelyRequest](Requests/SubscriptionRenewals/LockInScheduledRenewalImmediatelyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16465,7 +18108,7 @@ catch (SdkException<LockInScheduledRenewalImmediatelyError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[LockInScheduledRenewalImmediatelyError](Errors/LockInScheduledRenewalImmediatelyError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[LockInScheduledRenewalImmediatelyError](Errors/LockInScheduledRenewalImmediatelyError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16476,7 +18119,7 @@ catch (SdkException<LockInScheduledRenewalImmediatelyError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; ReadScheduledRenewalConfiguration(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; ReadScheduledRenewalConfiguration(ReadScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16499,10 +18142,11 @@ Retrieves the configuration settings for the scheduled renewal.
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.ReadScheduledRenewalConfiguration(subscriptionId, id);
+    var response = await client.SubscriptionRenewals.ReadScheduledRenewalConfiguration(
+        new ReadScheduledRenewalConfigurationRequest { SubscriptionId = 1, Id = 1 });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -16511,15 +18155,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>id</code> | <code>int</code> | The renewal id. |
+<code>[ReadScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/ReadScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16531,7 +18172,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16542,7 +18183,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; ScheduleScheduledRenewalLockIn(int subscriptionId, int id, ScheduledRenewalLockInRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; ScheduleScheduledRenewalLockIn(ScheduleScheduledRenewalLockInRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16565,10 +18206,16 @@ Schedules a future lock-in date for the renewal.
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.ScheduleScheduledRenewalLockIn(subscriptionId, id, body);
+    var response = await client.SubscriptionRenewals.ScheduleScheduledRenewalLockIn(
+        new ScheduleScheduledRenewalLockInRequest
+        {
+            SubscriptionId = 1,
+            Id = 1,
+            Body = new ScheduledRenewalLockInRequest { LockInAt = DateTimeOffset.Parse("2025-11-15T00:00:00Z") },
+        });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<ScheduleScheduledRenewalLockInError> ex)
+catch (ApiException<ScheduleScheduledRenewalLockInError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16580,16 +18227,12 @@ catch (SdkException<ScheduleScheduledRenewalLockInError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>id</code> | <code>int</code> | The renewal id. |
-| <code>body</code> | <code>[ScheduledRenewalLockInRequest?](Models/ScheduledRenewalLockInRequest.cs)</code> | - |
+<code>[ScheduleScheduledRenewalLockInRequest](Requests/SubscriptionRenewals/ScheduleScheduledRenewalLockInRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16601,7 +18244,7 @@ catch (SdkException<ScheduleScheduledRenewalLockInError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ScheduleScheduledRenewalLockInError](Errors/ScheduleScheduledRenewalLockInError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ScheduleScheduledRenewalLockInError](Errors/ScheduleScheduledRenewalLockInError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16612,7 +18255,7 @@ catch (SdkException<ScheduleScheduledRenewalLockInError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; UnpublishScheduledRenewalConfiguration(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; UnpublishScheduledRenewalConfiguration(UnpublishScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16635,10 +18278,11 @@ Restores a scheduled renewal configuration to an editable state.
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.UnpublishScheduledRenewalConfiguration(subscriptionId, id);
+    var response = await client.SubscriptionRenewals.UnpublishScheduledRenewalConfiguration(
+        new UnpublishScheduledRenewalConfigurationRequest { SubscriptionId = 1, Id = 1 });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<UnpublishScheduledRenewalConfigurationError> ex)
+catch (ApiException<UnpublishScheduledRenewalConfigurationError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16650,15 +18294,12 @@ catch (SdkException<UnpublishScheduledRenewalConfigurationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>id</code> | <code>int</code> | The renewal id. |
+<code>[UnpublishScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/UnpublishScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16670,7 +18311,7 @@ catch (SdkException<UnpublishScheduledRenewalConfigurationError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UnpublishScheduledRenewalConfigurationError](Errors/UnpublishScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UnpublishScheduledRenewalConfigurationError](Errors/UnpublishScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16681,7 +18322,7 @@ catch (SdkException<UnpublishScheduledRenewalConfigurationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; UpdateScheduledRenewalConfiguration(int subscriptionId, int id, ScheduledRenewalConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; UpdateScheduledRenewalConfiguration(UpdateScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16704,10 +18345,24 @@ Updates an existing configuration.
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.UpdateScheduledRenewalConfiguration(subscriptionId, id, body);
+    var response = await client.SubscriptionRenewals.UpdateScheduledRenewalConfiguration(
+        new UpdateScheduledRenewalConfigurationRequest
+        {
+            SubscriptionId = 1,
+            Id = 1,
+            Body = new ScheduledRenewalConfigurationRequest
+            {
+                RenewalConfiguration = new ScheduledRenewalConfigurationRequestBody
+                {
+                    StartsAt = DateTimeOffset.Parse("2025-12-01T00:00:00Z"),
+                    EndsAt = DateTimeOffset.Parse("2026-12-01T00:00:00Z"),
+                    LockInAt = DateTimeOffset.Parse("2025-11-15T00:00:00Z"),
+                },
+            },
+        });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationResponse
 }
-catch (SdkException<UpdateScheduledRenewalConfigurationError> ex)
+catch (ApiException<UpdateScheduledRenewalConfigurationError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16719,16 +18374,12 @@ catch (SdkException<UpdateScheduledRenewalConfigurationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>id</code> | <code>int</code> | The renewal id. |
-| <code>body</code> | <code>[ScheduledRenewalConfigurationRequest?](Models/ScheduledRenewalConfigurationRequest.cs)</code> | - |
+<code>[UpdateScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16740,7 +18391,7 @@ catch (SdkException<UpdateScheduledRenewalConfigurationError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateScheduledRenewalConfigurationError](Errors/UpdateScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateScheduledRenewalConfigurationError](Errors/UpdateScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16751,7 +18402,7 @@ catch (SdkException<UpdateScheduledRenewalConfigurationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ScheduledRenewalConfigurationItemResponse&gt; UpdateScheduledRenewalConfigurationItem(int subscriptionId, int scheduledRenewalsConfigurationId, int id, ScheduledRenewalUpdateRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ScheduledRenewalConfigurationItemResponse&gt; UpdateScheduledRenewalConfigurationItem(UpdateScheduledRenewalConfigurationItemRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16776,13 +18427,30 @@ If you site has list vs sales pricing enabled, accepts renewal_configuration_ite
 ```csharp
 try
 {
-    var response = await client.SubscriptionRenewals.UpdateScheduledRenewalConfigurationItem(subscriptionId,
-        scheduledRenewalsConfigurationId,
-        id,
-        body);
+    var response = await client.SubscriptionRenewals.UpdateScheduledRenewalConfigurationItem(
+        new UpdateScheduledRenewalConfigurationItemRequest
+        {
+            SubscriptionId = 1,
+            ScheduledRenewalsConfigurationId = 1,
+            Id = 1,
+            Body = new ScheduledRenewalUpdateRequest
+            {
+                RenewalConfigurationItem = new ScheduledRenewalItemRequestBodyComponent
+                {
+                    ItemType = ItemType.Component,
+                    ItemId = 57,
+                    Quantity = 2,
+                    CustomPrice = new ScheduledRenewalComponentCustomPrice
+                    {
+                        PricingScheme = PricingScheme.Stairstep,
+                        Prices = [new Price { StartingQuantity = startingQuantity, UnitPrice = unitPrice }],
+                    },
+                },
+            },
+        });
     // TODO: Handle 'response' of type ScheduledRenewalConfigurationItemResponse
 }
-catch (SdkException<UpdateScheduledRenewalConfigurationItemError> ex)
+catch (ApiException<UpdateScheduledRenewalConfigurationItemError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16794,17 +18462,12 @@ catch (SdkException<UpdateScheduledRenewalConfigurationItemError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>scheduledRenewalsConfigurationId</code> | <code>int</code> | The scheduled renewal configuration id. |
-| <code>id</code> | <code>int</code> | The scheduled renewal configuration item id. |
-| <code>body</code> | <code>[ScheduledRenewalUpdateRequest?](Models/ScheduledRenewalUpdateRequest.cs)</code> | - |
+<code>[UpdateScheduledRenewalConfigurationItemRequest](Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationItemRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16816,7 +18479,7 @@ catch (SdkException<UpdateScheduledRenewalConfigurationItemError> ex)
 
 **OnSuccess**: <code>[ScheduledRenewalConfigurationItemResponse](Models/ScheduledRenewalConfigurationItemResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateScheduledRenewalConfigurationItemError](Errors/UpdateScheduledRenewalConfigurationItemError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateScheduledRenewalConfigurationItemError](Errors/UpdateScheduledRenewalConfigurationItemError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16831,7 +18494,7 @@ catch (SdkException<UpdateScheduledRenewalConfigurationItemError> ex)
 > Source: [SubscriptionStatus](Api/SubscriptionStatus.cs)
 
 <details>
-<summary><code>Task&lt;DelayedCancellationResponse&gt; CancelDelayedCancellation(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;DelayedCancellationResponse&gt; CancelDelayedCancellation(CancelDelayedCancellationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16856,10 +18519,13 @@ This endpoint is idempotent. If the subscription was not set to cancel in the fu
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.CancelDelayedCancellation(subscriptionId);
+    var response = await client.SubscriptionStatus.CancelDelayedCancellation(new CancelDelayedCancellationRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type DelayedCancellationResponse
 }
-catch (SdkException<CancelDelayedCancellationError> ex)
+catch (ApiException<CancelDelayedCancellationError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -16871,14 +18537,12 @@ catch (SdkException<CancelDelayedCancellationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[CancelDelayedCancellationRequest](Requests/SubscriptionStatus/CancelDelayedCancellationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16890,7 +18554,7 @@ catch (SdkException<CancelDelayedCancellationError> ex)
 
 **OnSuccess**: <code>[DelayedCancellationResponse](Models/DelayedCancellationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CancelDelayedCancellationError](Errors/CancelDelayedCancellationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelDelayedCancellationError](Errors/CancelDelayedCancellationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16901,7 +18565,7 @@ catch (SdkException<CancelDelayedCancellationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; CancelDunning(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; CancelDunning(CancelDunningRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16924,10 +18588,10 @@ Cancels the active dunning process for a subscription and sets it to active.
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.CancelDunning(subscriptionId);
+    var response = await client.SubscriptionStatus.CancelDunning(new CancelDunningRequest { SubscriptionId = 1 });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<CancelDunningError> ex)
+catch (ApiException<CancelDunningError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -16939,14 +18603,12 @@ catch (SdkException<CancelDunningError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[CancelDunningRequest](Requests/SubscriptionStatus/CancelDunningRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16958,7 +18620,7 @@ catch (SdkException<CancelDunningError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CancelDunningError](Errors/CancelDunningError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelDunningError](Errors/CancelDunningError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16969,7 +18631,7 @@ catch (SdkException<CancelDunningError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; CancelSubscription(int subscriptionId, CancellationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; CancelSubscription(CancelSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -16993,10 +18655,13 @@ To cancel the subscription immediately, omit any schedule parameters from the re
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.CancelSubscription(subscriptionId, body);
+    var response = await client.SubscriptionStatus.CancelSubscription(new CancelSubscriptionRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<CancelSubscriptionApiError> ex)
+catch (ApiException<CancelSubscriptionError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -17008,15 +18673,12 @@ catch (SdkException<CancelSubscriptionApiError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[CancellationRequest?](Models/CancellationRequest.cs)</code> | - |
+<code>[CancelSubscriptionRequest](Requests/SubscriptionStatus/CancelSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17028,7 +18690,7 @@ catch (SdkException<CancelSubscriptionApiError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CancelSubscriptionApiError](Errors/CancelSubscriptionApiError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelSubscriptionError](Errors/CancelSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17039,7 +18701,7 @@ catch (SdkException<CancelSubscriptionApiError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;DelayedCancellationResponse&gt; InitiateDelayedCancellation(int subscriptionId, CancellationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;DelayedCancellationResponse&gt; InitiateDelayedCancellation(InitiateDelayedCancellationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17062,10 +18724,13 @@ Cancels a subscription at the end of the current billing period based on the sub
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.InitiateDelayedCancellation(subscriptionId, body);
+    var response = await client.SubscriptionStatus.InitiateDelayedCancellation(new InitiateDelayedCancellationRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type DelayedCancellationResponse
 }
-catch (SdkException<InitiateDelayedCancellationError> ex)
+catch (ApiException<InitiateDelayedCancellationError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -17077,15 +18742,12 @@ catch (SdkException<InitiateDelayedCancellationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[CancellationRequest?](Models/CancellationRequest.cs)</code> | - |
+<code>[InitiateDelayedCancellationRequest](Requests/SubscriptionStatus/InitiateDelayedCancellationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17097,7 +18759,7 @@ catch (SdkException<InitiateDelayedCancellationError> ex)
 
 **OnSuccess**: <code>[DelayedCancellationResponse](Models/DelayedCancellationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[InitiateDelayedCancellationError](Errors/InitiateDelayedCancellationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[InitiateDelayedCancellationError](Errors/InitiateDelayedCancellationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17108,7 +18770,7 @@ catch (SdkException<InitiateDelayedCancellationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; PauseSubscription(int subscriptionId, PauseRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; PauseSubscription(PauseSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17135,10 +18797,17 @@ You may not place a subscription on hold if the `next_billing_at` date is within
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.PauseSubscription(subscriptionId, body);
+    var response = await client.SubscriptionStatus.PauseSubscription(new PauseSubscriptionRequest
+    {
+        SubscriptionId = 1,
+        Body = new PauseRequest
+        {
+            Hold = new AutoResume { AutomaticallyResumeAt = DateTimeOffset.Parse("2017-05-25T11:25:00Z") },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<PauseSubscriptionError> ex)
+catch (ApiException<PauseSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -17150,15 +18819,12 @@ catch (SdkException<PauseSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[PauseRequest?](Models/PauseRequest.cs)</code> | - |
+<code>[PauseSubscriptionRequest](Requests/SubscriptionStatus/PauseSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17170,7 +18836,7 @@ catch (SdkException<PauseSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PauseSubscriptionError](Errors/PauseSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PauseSubscriptionError](Errors/PauseSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17181,7 +18847,7 @@ catch (SdkException<PauseSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;RenewalPreviewResponse&gt; PreviewRenewal(int subscriptionId, RenewalPreviewRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;RenewalPreviewResponse&gt; PreviewRenewal(PreviewRenewalRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17193,26 +18859,26 @@ catch (SdkException<PauseSubscriptionError> ex)
 
 Previews a subscription’s next renewal assessment. Renewal Preview is an object representing a subscription’s next assessment. You can retrieve it to see a snapshot of how much your customer will be charged on their next renewal.
 
-The "Next Billing" amount and "Next Billing" date are already represented in the UI on each Subscriber's Summary. For more information, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
+The "Next Billing" amount and "Next Billing" date are already represented in the UI on each Subscriber's Summary. For more information, see [Subscriber Interface Overview](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
 
 ## Optional Component Fields
 
-This endpoint is particularly useful due to the fact that it will return the computed billing amount for the base product and the components which are in use by a subscriber.
+This endpoint is particularly useful because it returns the computed billing amount for the base product and the components which are in use by a subscriber.
 
-By default, the preview will include billing details for all components _at their **current** quantities_. This means:
+By default, the preview includes billing details for all components _at their **current** quantities_. This means:
 
 * Current `allocated_quantity` for quantity-based components
 * Current enabled/disabled status for on/off components
 * Current metered usage `unit_balance` for metered components
 * Current metric quantity value for events recorded thus far for events-based components
 
-In the above statements, "current" means the quantity or value as of the call to the renewal preview endpoint. We do not predict end-of-period values for components, so metered or events-based usage may be less than it will eventually be at the end of the period.
+In the above statements, "current" means the quantity or value as of the call to the renewal preview endpoint. End-of-period values for components are not predicted, so metered or events-based usage may be less than it will eventually be at the end of the period.
 
-Optionally, **you may provide your own custom quantities** for any component to see a billing preview for non-current quantities. This is accomplished by sending a request body with data under the `components` key. See the request body documentation below.
+Optionally, **you can provide your own custom quantities** for any component to see a billing preview for non-current quantities. This is accomplished by sending a request body with data under the `components` key. See the request body documentation below.
 
-## Subscription Side Effects
+## Preview Behavior
 
-You can request a `POST` to obtain this data from the endpoint without any side effects. This method allows you to preview data, but does not log any changes against a subscription.
+Sending a `POST` request to this endpoint returns preview data without modifying the subscription. This method previews data, but does not log any changes against a subscription.
 
 </dd>
 </dl>
@@ -17225,10 +18891,31 @@ You can request a `POST` to obtain this data from the endpoint without any side 
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.PreviewRenewal(subscriptionId, body);
+    var response = await client.SubscriptionStatus.PreviewRenewal(new PreviewRenewalRequest
+    {
+        SubscriptionId = 1,
+        Body = new RenewalPreviewRequest
+        {
+            Components = [
+                new RenewalPreviewComponent { ComponentId = 10708, Quantity = 10000 },
+                new RenewalPreviewComponent
+                {
+                    ComponentId = "handle:small-instance-hours",
+                    Quantity = 10000,
+                    PricePointId = 8712,
+                },
+                new RenewalPreviewComponent
+                {
+                    ComponentId = "handle:large-instance-hours",
+                    Quantity = 100,
+                    PricePointId = "handle:startup-pricing",
+                },
+            ],
+        },
+    });
     // TODO: Handle 'response' of type RenewalPreviewResponse
 }
-catch (SdkException<PreviewRenewalError> ex)
+catch (ApiException<PreviewRenewalError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -17240,15 +18927,12 @@ catch (SdkException<PreviewRenewalError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[RenewalPreviewRequest?](Models/RenewalPreviewRequest.cs)</code> | - |
+<code>[PreviewRenewalRequest](Requests/SubscriptionStatus/PreviewRenewalRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17260,7 +18944,7 @@ catch (SdkException<PreviewRenewalError> ex)
 
 **OnSuccess**: <code>[RenewalPreviewResponse](Models/RenewalPreviewResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PreviewRenewalError](Errors/PreviewRenewalError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewRenewalError](Errors/PreviewRenewalError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17271,7 +18955,7 @@ catch (SdkException<PreviewRenewalError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; ReactivateSubscription(int subscriptionId, ReactivateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; ReactivateSubscription(ReactivateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17453,10 +19137,22 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.ReactivateSubscription(subscriptionId, body);
+    var response = await client.SubscriptionStatus.ReactivateSubscription(new ReactivateSubscriptionOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new ReactivateSubscriptionRequest
+        {
+            CalendarBilling = new ReactivationBilling { ReactivationCharge = ReactivationCharge.Prorated },
+            IncludeTrial = true,
+            PreserveBalance = true,
+            CouponCode = "10OFF",
+            UseCreditsAndPrepayments = true,
+            Resume = true,
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<ReactivateSubscriptionError> ex)
+catch (ApiException<ReactivateSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -17468,15 +19164,12 @@ catch (SdkException<ReactivateSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[ReactivateSubscriptionRequest?](Models/ReactivateSubscriptionRequest.cs)</code> | - |
+<code>[ReactivateSubscriptionOperationRequest](Requests/SubscriptionStatus/ReactivateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17488,7 +19181,7 @@ catch (SdkException<ReactivateSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ReactivateSubscriptionError](Errors/ReactivateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReactivateSubscriptionError](Errors/ReactivateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17499,7 +19192,7 @@ catch (SdkException<ReactivateSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; ResumeSubscription(int subscriptionId, ResumptionCharge? calendarBillingResumptionCharge, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; ResumeSubscription(ResumeSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17522,10 +19215,13 @@ Resumes a paused (on-hold) subscription. If the normal next renewal date has not
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.ResumeSubscription(subscriptionId, calendarBillingResumptionCharge);
+    var response = await client.SubscriptionStatus.ResumeSubscription(new ResumeSubscriptionRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<ResumeSubscriptionError> ex)
+catch (ApiException<ResumeSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -17537,15 +19233,12 @@ catch (SdkException<ResumeSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>calendarBillingResumptionCharge</code> | <code>[ResumptionCharge?](Models/Enums/ResumptionCharge.cs)</code> | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled. |
+<code>[ResumeSubscriptionRequest](Requests/SubscriptionStatus/ResumeSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17557,7 +19250,7 @@ catch (SdkException<ResumeSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ResumeSubscriptionError](Errors/ResumeSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ResumeSubscriptionError](Errors/ResumeSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17568,7 +19261,7 @@ catch (SdkException<ResumeSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; RetrySubscription(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; RetrySubscription(RetrySubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17597,10 +19290,13 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.RetrySubscription(subscriptionId);
+    var response = await client.SubscriptionStatus.RetrySubscription(new RetrySubscriptionRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<RetrySubscriptionError> ex)
+catch (ApiException<RetrySubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -17612,14 +19308,12 @@ catch (SdkException<RetrySubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
+<code>[RetrySubscriptionRequest](Requests/SubscriptionStatus/RetrySubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17631,7 +19325,7 @@ catch (SdkException<RetrySubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RetrySubscriptionError](Errors/RetrySubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RetrySubscriptionError](Errors/RetrySubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17642,7 +19336,7 @@ catch (SdkException<RetrySubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; UpdateAutomaticSubscriptionResumption(int subscriptionId, PauseRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; UpdateAutomaticSubscriptionResumption(UpdateAutomaticSubscriptionResumptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17671,10 +19365,18 @@ Alternatively, you can change the `automatically_resume_at` to `null` if you wou
 ```csharp
 try
 {
-    var response = await client.SubscriptionStatus.UpdateAutomaticSubscriptionResumption(subscriptionId, body);
+    var response = await client.SubscriptionStatus.UpdateAutomaticSubscriptionResumption(
+        new UpdateAutomaticSubscriptionResumptionRequest
+        {
+            SubscriptionId = 1,
+            Body = new PauseRequest
+            {
+                Hold = new AutoResume { AutomaticallyResumeAt = DateTimeOffset.Parse("2019-01-20T00:00:00Z") },
+            },
+        });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<UpdateAutomaticSubscriptionResumptionError> ex)
+catch (ApiException<UpdateAutomaticSubscriptionResumptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -17686,15 +19388,12 @@ catch (SdkException<UpdateAutomaticSubscriptionResumptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[PauseRequest?](Models/PauseRequest.cs)</code> | - |
+<code>[UpdateAutomaticSubscriptionResumptionRequest](Requests/SubscriptionStatus/UpdateAutomaticSubscriptionResumptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17706,7 +19405,7 @@ catch (SdkException<UpdateAutomaticSubscriptionResumptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateAutomaticSubscriptionResumptionError](Errors/UpdateAutomaticSubscriptionResumptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateAutomaticSubscriptionResumptionError](Errors/UpdateAutomaticSubscriptionResumptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17721,7 +19420,7 @@ catch (SdkException<UpdateAutomaticSubscriptionResumptionError> ex)
 > Source: [Subscriptions](Api/Subscriptions.cs)
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; ActivateSubscription(int subscriptionId, ActivateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; ActivateSubscription(ActivateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17731,15 +19430,13 @@ catch (SdkException<UpdateAutomaticSubscriptionResumptionError> ex)
 <dl>
 <dd>
 
-Activates awaiting signup and trialing subscriptions. This feature is only available on the Relationship Invoicing architecture. Subscriptions in a group may not be activated immediately.
-
-For details on how the activation works, and how to activate subscriptions through the application, see [activation](#).
+Activates awaiting signup and trialing subscriptions. This feature is only available on the Relationship Invoicing architecture. Subscriptions in a group cannot be activated immediately.
 
 The `revert_on_failure` parameter controls the behavior upon activation failure.
-- If set to `true` and something goes wrong i.e. payment fails, then Advanced Billing will not change the subscription's state. The subscription’s billing period will also remain the same.
-- If set to `false` and something goes wrong i.e. payment fails, then Advanced Billing will continue through with the activation and enter an end of life state. For trialing subscriptions, that will either be trial ended (if the trial is no obligation), past due (if the trial has an obligation), or canceled (if the site has no dunning strategy, or has a strategy that says to cancel immediately). For awaiting signup subscriptions, that will always be canceled.
+- If set to `true` and something goes wrong i.e. payment fails, the subscription's state does not change. The subscription’s billing period also remains the same.
+- If set to `false` and something goes wrong i.e. payment fails, the activation continues and enters an end of life state. For trialing subscriptions, that is either trial ended (if the trial is no obligation), past due (if the trial has an obligation), or canceled (if the site has no dunning strategy, or has a strategy that says to cancel immediately). For awaiting signup subscriptions, that is always canceled.
 
-The default activation failure behavior can be configured per activation attempt, or you may set a default value under Config > Settings > Subscription Activation Settings.
+The default activation failure behavior can be configured per activation attempt, or you can set a default value under Config > Settings > Subscription Activation Settings.
 
 ## Activation Scenarios
 
@@ -17771,9 +19468,8 @@ The default activation failure behavior can be configured per activation attempt
 
 ### Activate Trialing subscription
 
-You can read more about the behavior of trialing subscriptions [here](https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions).
-When the `revert_on_failure` parameter is set to `true`, the subscription's state will remain as Trialing, we will void the invoice from activation and return any prepayments and credits applied to the invoice back to the subscription.
-
+For more information about the behavior of trialing subscriptions, see [Trialing Subscriptions](https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions).
+When the `revert_on_failure` parameter is set to `true`, the subscription's state remains Trialing; the invoice from activation is voided, and any prepayments and credits applied to the invoice are returned to the subscription.
 
 </dd>
 </dl>
@@ -17786,10 +19482,13 @@ When the `revert_on_failure` parameter is set to `true`, the subscription's stat
 ```csharp
 try
 {
-    var response = await client.Subscriptions.ActivateSubscription(subscriptionId, body);
+    var response = await client.Subscriptions.ActivateSubscription(new ActivateSubscriptionOperationRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<ActivateSubscriptionError> ex)
+catch (ApiException<ActivateSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorArrayMapResponse1(out var error))
     {
@@ -17801,15 +19500,12 @@ catch (SdkException<ActivateSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[ActivateSubscriptionRequest?](Models/ActivateSubscriptionRequest.cs)</code> | - |
+<code>[ActivateSubscriptionOperationRequest](Requests/Subscriptions/ActivateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17821,7 +19517,7 @@ catch (SdkException<ActivateSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ActivateSubscriptionError](Errors/ActivateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ActivateSubscriptionError](Errors/ActivateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17832,7 +19528,7 @@ catch (SdkException<ActivateSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; ApplyCouponsToSubscription(int subscriptionId, string? code, AddCouponsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; ApplyCouponsToSubscription(ApplyCouponsToSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17863,10 +19559,14 @@ For this reason, using this query parameter on this endpoint has been deprecated
 ```csharp
 try
 {
-    var response = await client.Subscriptions.ApplyCouponsToSubscription(subscriptionId, code, body);
+    var response = await client.Subscriptions.ApplyCouponsToSubscription(new ApplyCouponsToSubscriptionRequest
+    {
+        SubscriptionId = 1,
+        Body = new AddCouponsRequest { Codes = ["COUPON_1", "COUPON_2"] },
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<ApplyCouponsToSubscriptionError> ex)
+catch (ApiException<ApplyCouponsToSubscriptionError> ex)
 {
     if (ex.Error.TryGetSubscriptionAddCouponError1(out var error))
     {
@@ -17878,16 +19578,12 @@ catch (SdkException<ApplyCouponsToSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>code</code> | <code>string?</code> | A code for the coupon that would be applied to a subscription |
-| <code>body</code> | <code>[AddCouponsRequest?](Models/AddCouponsRequest.cs)</code> | - |
+<code>[ApplyCouponsToSubscriptionRequest](Requests/Subscriptions/ApplyCouponsToSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17899,7 +19595,7 @@ catch (SdkException<ApplyCouponsToSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[ApplyCouponsToSubscriptionError](Errors/ApplyCouponsToSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ApplyCouponsToSubscriptionError](Errors/ApplyCouponsToSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17910,7 +19606,7 @@ catch (SdkException<ApplyCouponsToSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; CreateSubscription(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; CreateSubscription(CreateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -17919,7 +19615,6 @@ catch (SdkException<ApplyCouponsToSubscriptionError> ex)
 
 <dl>
 <dd>
-
 
 Creates a Subscription for a customer and product.
 
@@ -17997,10 +19692,35 @@ See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/art
 ```csharp
 try
 {
-    var response = await client.Subscriptions.CreateSubscription(body);
+    var response = await client.Subscriptions.CreateSubscription(new CreateSubscriptionOperationRequest
+    {
+        Body = new CreateSubscriptionRequest
+        {
+            Subscription = new CreateSubscription
+            {
+                ProductHandle = "basic",
+                PaymentCollectionMethod = CollectionMethod.Remittance,
+                CustomerAttributes = new CustomerAttributes
+                {
+                    FirstName = "Joe",
+                    LastName = "Smith",
+                    Email = "joe@example.com",
+                    Organization = "Acme",
+                    Reference = "XYZ",
+                    Address = "123 Mass Ave.",
+                    Address2 = "some example string",
+                    City = "Boston",
+                    State = "MA",
+                    Zip = "02120",
+                    Country = "US",
+                    Phone = "(617) 111 - 0000",
+                },
+            },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<CreateSubscriptionError> ex)
+catch (ApiException<CreateSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -18012,14 +19732,12 @@ catch (SdkException<CreateSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateSubscriptionRequest?](Models/CreateSubscriptionRequest.cs)</code> | - |
+<code>[CreateSubscriptionOperationRequest](Requests/Subscriptions/CreateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18031,7 +19749,7 @@ catch (SdkException<CreateSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateSubscriptionError](Errors/CreateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionError](Errors/CreateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18042,7 +19760,7 @@ catch (SdkException<CreateSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; FindSubscription(string? reference, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; FindSubscription(FindSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18065,10 +19783,10 @@ Finds a subscription by its reference.
 ```csharp
 try
 {
-    var response = await client.Subscriptions.FindSubscription(reference);
+    var response = await client.Subscriptions.FindSubscription(new FindSubscriptionRequest());
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<FindSubscriptionError> ex)
+catch (ApiException<FindSubscriptionError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -18080,14 +19798,12 @@ catch (SdkException<FindSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>reference</code> | <code>string?</code> | Subscription reference |
+<code>[FindSubscriptionRequest](Requests/Subscriptions/FindSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18099,7 +19815,7 @@ catch (SdkException<FindSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[FindSubscriptionError](Errors/FindSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[FindSubscriptionError](Errors/FindSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18110,7 +19826,7 @@ catch (SdkException<FindSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionResponse&gt;&gt; ListSubscriptions(SubscriptionStateFilter? state, int? product, int? productPricePointId, int? coupon, string? couponCode, int? brandingThemeId, SubscriptionDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, IReadOnlyDictionary&lt;string, string&gt;? metadata, SortingDirection? direction, SubscriptionSort? sort, IReadOnlyList&lt;SubscriptionListInclude&gt;? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;SubscriptionResponse&gt;&gt; ListSubscriptions(ListSubscriptionsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18120,7 +19836,7 @@ catch (SdkException<FindSubscriptionError> ex)
 <dl>
 <dd>
 
-Lists subscriptions for a site. Pay close attention to query string filters and pagination in order to control responses from the server.
+Lists subscriptions for a site. Use the query string filters and pagination to control responses from the server.
 
 If you have the new [Catalog experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology) enabled, some subscriptions may not have an associated product. For subscriptions without an associated product, 'product', 'product_price_point_id', and 'product_price_point_type' are returned as 'null'.
 
@@ -18143,24 +19859,15 @@ Self-Service Page token for the subscriptions is not returned by default. If thi
 ```csharp
 try
 {
-    var response = await client.Subscriptions.ListSubscriptions(state,
-        product,
-        productPricePointId,
-        coupon,
-        couponCode,
-        brandingThemeId,
-        dateField,
-        startDate,
-        endDate,
-        startDatetime,
-        endDatetime,
-        metadata,
-        direction,
-        sort,
-        include);
+    var response = await client.Subscriptions.ListSubscriptions(new ListSubscriptionsRequest
+    {
+        Page = 1,
+        PerPage = 50,
+        Include = [SubscriptionListInclude.SelfServicePageToken],
+    });
     // TODO: Handle 'response' of type IReadOnlyList<SubscriptionResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -18169,30 +19876,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>state</code> | <code>[SubscriptionStateFilter?](Models/Enums/SubscriptionStateFilter.cs)</code> | The current state of the subscription |
-| <code>product</code> | <code>int?</code> | The product id of the subscription. (Note that the product handle cannot be used.) |
-| <code>productPricePointId</code> | <code>int?</code> | The ID of the product price point. If supplied, product is required. |
-| <code>coupon</code> | <code>int?</code> | The numeric id of the coupon currently applied to the subscription. (This can be found in the URL when editing a coupon. Note that the coupon code cannot be used.) |
-| <code>couponCode</code> | <code>string?</code> | The coupon code currently applied to the subscription |
-| <code>brandingThemeId</code> | <code>int?</code> | Filter subscriptions by the ID of an assigned Branding Theme. Branding Themes is a beta feature. See [Understand Branding Themes](https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand-Branding-Themes#understand-branding-themes-0-0) for more information. |
-| <code>dateField</code> | <code>[SubscriptionDateField?](Models/Enums/SubscriptionDateField.cs)</code> | The type of filter you'd like to apply to your search.  Allowed Values: , current_period_ends_at, current_period_starts_at, created_at, activated_at, canceled_at, expires_at, trial_started_at, trial_ended_at, updated_at |
-| <code>startDate</code> | <code>DateTimeOffset?</code> | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2022-07-01`. |
-| <code>endDate</code> | <code>DateTimeOffset?</code> | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2022-08-01`. |
-| <code>startDatetime</code> | <code>DateTimeOffset?</code> | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
-| <code>endDatetime</code> | <code>DateTimeOffset?</code> | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`. |
-| <code>metadata</code> | <code>IReadOnlyDictionary&lt;string, string&gt;?</code> | The value of the metadata field specified in the parameter. Use in query `metadata[my-field]=value&metadata[other-field]=another_value`. |
-| <code>direction</code> | <code>[SortingDirection?](Models/Enums/SortingDirection.cs)</code> | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| <code>sort</code> | <code>[SubscriptionSort?](Models/Enums/SubscriptionSort.cs)</code> | The attribute by which to sort |
-| <code>include</code> | <code>IReadOnlyList&lt;[SubscriptionListInclude](Models/Enums/SubscriptionListInclude.cs)&gt;?</code> | Allows including additional data in the response. Use in query: `include[]=self_service_page_token`. |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListSubscriptionsRequest](Requests/Subscriptions/ListSubscriptionsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18204,7 +19893,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionResponse](Models/SubscriptionResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18215,7 +19904,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task OverrideSubscription(int subscriptionId, OverrideSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task OverrideSubscription(OverrideSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18256,9 +19945,22 @@ If unpermitted parameters are sent, a 400 HTTP response is sent along with a str
 ```csharp
 try
 {
-    await client.Subscriptions.OverrideSubscription(subscriptionId, body);
+    await client.Subscriptions.OverrideSubscription(new OverrideSubscriptionOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new OverrideSubscriptionRequest
+        {
+            Subscription = new OverrideSubscription
+            {
+                ActivatedAt = DateTimeOffset.Parse("1999-12-01T15:28:34Z"),
+                CanceledAt = DateTimeOffset.Parse("2000-12-31T15:28:34Z"),
+                CancellationMessage = "Original cancellation in 2000",
+                ExpiresAt = DateTimeOffset.Parse("2001-07-15T15:28:34Z"),
+            },
+        },
+    });
 }
-catch (SdkException<OverrideSubscriptionError> ex)
+catch (ApiException<OverrideSubscriptionError> ex)
 {
     if (ex.Error.TryGetSingleErrorResponse1(out var error))
     {
@@ -18270,15 +19972,12 @@ catch (SdkException<OverrideSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[OverrideSubscriptionRequest?](Models/OverrideSubscriptionRequest.cs)</code> | - |
+<code>[OverrideSubscriptionOperationRequest](Requests/Subscriptions/OverrideSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18290,7 +19989,7 @@ catch (SdkException<OverrideSubscriptionError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[OverrideSubscriptionError](Errors/OverrideSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[OverrideSubscriptionError](Errors/OverrideSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18301,7 +20000,7 @@ catch (SdkException<OverrideSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionPreviewResponse&gt; PreviewSubscription(CreateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionPreviewResponse&gt; PreviewSubscription(PreviewSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18315,9 +20014,9 @@ Previews a subscription by POSTing the same JSON or XML as for a subscription cr
 
 The "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary.
 
-A subscription will not be created by utilizing this endpoint; it is meant to serve as a prediction.
+This endpoint does not create a subscription; it is meant to serve as a prediction.
 
-For more information, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
+For more information, see [Subscriber Interface Overview](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
 
 ## Subscriptions can now work independently from the catalog
 
@@ -18336,21 +20035,21 @@ This functionality is supported in the API, but is not currently supported in SD
 
 ## Taxable Subscriptions
 
-This endpoint will preview taxes applicable to a purchase. In order for taxes to be previewed, the following conditions must be met:
+This endpoint previews taxes applicable to a purchase. For taxes to be previewed, the following conditions must be met:
 
 + Taxes must be configured on the subscription
 + The preview must be for the purchase of a taxable product or component, or combination of the two.
-+ The subscription payload must contain a full billing or shipping address in order to calculate tax
++ The subscription payload must contain a full billing or shipping address to calculate tax
 
-For more information about creating taxable previews, see our documentation guide on how to create [taxable subscriptions.](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes)
+For more information about creating taxable previews, see [Taxes](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes).
 
-You do **not** need to include a card number to generate tax information when you are previewing a subscription. However, when you actually want to create the subscription, you must include the credit card information if you want the billing address to be stored in Advanced Billing. The billing address and the credit card information are stored together within the payment profile object. Also, you may not send a billing address to Advanced Billing without payment profile information, as the address is stored on the card.
+You do **not** need to include a card number to generate tax information when you are previewing a subscription. However, when you actually want to create the subscription, you must include the credit card information if you want the billing address to be stored. The billing address and the credit card information are stored together within the payment profile object. Also, you cannot send a billing address without payment profile information, as the address is stored on the card.
 
 You can pass shipping and billing addresses and still decide not to calculate taxes. To do that, pass `skip_billing_manifest_taxes: true` attribute.
 
 ## Non-taxable Subscriptions
 
-If you'd like to calculate subscriptions that do not include tax you may leave off the billing information.
+If you'd like to calculate subscriptions that do not include tax, you can leave off the billing information.
 
 </dd>
 </dl>
@@ -18363,10 +20062,16 @@ If you'd like to calculate subscriptions that do not include tax you may leave o
 ```csharp
 try
 {
-    var response = await client.Subscriptions.PreviewSubscription(body);
+    var response = await client.Subscriptions.PreviewSubscription(new PreviewSubscriptionRequest
+    {
+        Body = new CreateSubscriptionRequest
+        {
+            Subscription = new CreateSubscription { ProductHandle = "gold-product" },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionPreviewResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -18375,14 +20080,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateSubscriptionRequest?](Models/CreateSubscriptionRequest.cs)</code> | - |
+<code>[PreviewSubscriptionRequest](Requests/Subscriptions/PreviewSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18394,7 +20097,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SubscriptionPreviewResponse](Models/SubscriptionPreviewResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18405,7 +20108,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; PurgeSubscription(int subscriptionId, int ack, IReadOnlyList&lt;SubscriptionPurgeType&gt;? cascade, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; PurgeSubscription(PurgeSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18417,7 +20120,7 @@ catch (SdkException<RawError> ex)
 
 Purges an individual subscription for sites in test mode.
 
-Provide the subscription ID in the url.  To confirm, supply the customer ID in the query string `ack` parameter. You may also delete the customer record and/or payment profiles by passing `cascade` parameters. For example, to delete just the customer record, the query params would be: `?ack={customer_id}&cascade[]=customer`
+Provide the subscription ID in the URL.  To confirm, supply the customer ID in the query string `ack` parameter. You may also delete the customer record and/or payment profiles by passing `cascade` parameters. For example, to delete just the customer record, the query params would be: `?ack={customer_id}&cascade[]=customer`
 
 If you need to remove subscriptions from a live site, contact support to discuss your use case.
 
@@ -18436,10 +20139,15 @@ The query params will be: `?ack={customer_id}&cascade[]=customer&cascade[]=payme
 ```csharp
 try
 {
-    var response = await client.Subscriptions.PurgeSubscription(subscriptionId, ack, cascade);
+    var response = await client.Subscriptions.PurgeSubscription(new PurgeSubscriptionRequest
+    {
+        SubscriptionId = 1,
+        Ack = 1,
+        Cascade = [SubscriptionPurgeType.Customer, SubscriptionPurgeType.PaymentProfile],
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<PurgeSubscriptionError> ex)
+catch (ApiException<PurgeSubscriptionError> ex)
 {
     if (ex.Error.TryGetSubscriptionResponse(out var error))
     {
@@ -18451,16 +20159,12 @@ catch (SdkException<PurgeSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>ack</code> | <code>int</code> | id of the customer. |
-| <code>cascade</code> | <code>IReadOnlyList&lt;[SubscriptionPurgeType](Models/Enums/SubscriptionPurgeType.cs)&gt;?</code> | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
+<code>[PurgeSubscriptionRequest](Requests/Subscriptions/PurgeSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18472,7 +20176,7 @@ catch (SdkException<PurgeSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[PurgeSubscriptionError](Errors/PurgeSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PurgeSubscriptionError](Errors/PurgeSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18483,7 +20187,7 @@ catch (SdkException<PurgeSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; ReadSubscription(int subscriptionId, IReadOnlyList&lt;SubscriptionInclude&gt;? include, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; ReadSubscription(ReadSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18512,10 +20216,14 @@ Self-Service Page token for the subscription is not returned by default. If this
 ```csharp
 try
 {
-    var response = await client.Subscriptions.ReadSubscription(subscriptionId, include);
+    var response = await client.Subscriptions.ReadSubscription(new ReadSubscriptionRequest
+    {
+        SubscriptionId = 1,
+        Include = [SubscriptionInclude.Coupons, SubscriptionInclude.SelfServicePageToken],
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -18524,15 +20232,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>include</code> | <code>IReadOnlyList&lt;[SubscriptionInclude](Models/Enums/SubscriptionInclude.cs)&gt;?</code> | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
+<code>[ReadSubscriptionRequest](Requests/Subscriptions/ReadSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18544,7 +20249,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18555,7 +20260,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;string&gt; RemoveCouponFromSubscription(int subscriptionId, string? couponCode, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;string&gt; RemoveCouponFromSubscription(RemoveCouponFromSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18567,7 +20272,7 @@ catch (SdkException<RawError> ex)
 
 Removes a coupon from an existing subscription.
 
-For more information on the expected behavior of removing a coupon from a subscription, see our documentation [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon)
+For more information on the expected behavior of removing a coupon from a subscription, see [Coupons and Subscriptions](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon).
 
 </dd>
 </dl>
@@ -18580,10 +20285,13 @@ For more information on the expected behavior of removing a coupon from a subscr
 ```csharp
 try
 {
-    var response = await client.Subscriptions.RemoveCouponFromSubscription(subscriptionId, couponCode);
+    var response = await client.Subscriptions.RemoveCouponFromSubscription(new RemoveCouponFromSubscriptionRequest
+    {
+        SubscriptionId = 1,
+    });
     // TODO: Handle 'response' of type string
 }
-catch (SdkException<RemoveCouponFromSubscriptionError> ex)
+catch (ApiException<RemoveCouponFromSubscriptionError> ex)
 {
     if (ex.Error.TryGetSubscriptionRemoveCouponErrors1(out var error))
     {
@@ -18595,15 +20303,12 @@ catch (SdkException<RemoveCouponFromSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>couponCode</code> | <code>string?</code> | The coupon code |
+<code>[RemoveCouponFromSubscriptionRequest](Requests/Subscriptions/RemoveCouponFromSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18615,7 +20320,7 @@ catch (SdkException<RemoveCouponFromSubscriptionError> ex)
 
 **OnSuccess**: <code>string</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RemoveCouponFromSubscriptionError](Errors/RemoveCouponFromSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveCouponFromSubscriptionError](Errors/RemoveCouponFromSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18626,7 +20331,7 @@ catch (SdkException<RemoveCouponFromSubscriptionError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;PrepaidConfigurationResponse&gt; UpdatePrepaidSubscriptionConfiguration(int subscriptionId, UpsertPrepaidConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;PrepaidConfigurationResponse&gt; UpdatePrepaidSubscriptionConfiguration(UpdatePrepaidSubscriptionConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18649,10 +20354,24 @@ Updates a subscription's prepaid configuration.
 ```csharp
 try
 {
-    var response = await client.Subscriptions.UpdatePrepaidSubscriptionConfiguration(subscriptionId, body);
+    var response = await client.Subscriptions.UpdatePrepaidSubscriptionConfiguration(
+        new UpdatePrepaidSubscriptionConfigurationRequest
+        {
+            SubscriptionId = 1,
+            Body = new UpsertPrepaidConfigurationRequest
+            {
+                PrepaidConfiguration = new UpsertPrepaidConfiguration
+                {
+                    InitialFundingAmountInCents = 50000L,
+                    ReplenishToAmountInCents = 50000L,
+                    AutoReplenish = true,
+                    ReplenishThresholdAmountInCents = 10000L,
+                },
+            },
+        });
     // TODO: Handle 'response' of type PrepaidConfigurationResponse
 }
-catch (SdkException<UpdatePrepaidSubscriptionConfigurationError> ex)
+catch (ApiException<UpdatePrepaidSubscriptionConfigurationError> ex)
 {
     if (ex.Error.TryGetPrepaidConfigurationErrorResponse(out var error))
     {
@@ -18664,15 +20383,12 @@ catch (SdkException<UpdatePrepaidSubscriptionConfigurationError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[UpsertPrepaidConfigurationRequest?](Models/UpsertPrepaidConfigurationRequest.cs)</code> | - |
+<code>[UpdatePrepaidSubscriptionConfigurationRequest](Requests/Subscriptions/UpdatePrepaidSubscriptionConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18684,7 +20400,7 @@ catch (SdkException<UpdatePrepaidSubscriptionConfigurationError> ex)
 
 **OnSuccess**: <code>[PrepaidConfigurationResponse](Models/PrepaidConfigurationResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdatePrepaidSubscriptionConfigurationError](Errors/UpdatePrepaidSubscriptionConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdatePrepaidSubscriptionConfigurationError](Errors/UpdatePrepaidSubscriptionConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18695,7 +20411,7 @@ catch (SdkException<UpdatePrepaidSubscriptionConfigurationError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;SubscriptionResponse&gt; UpdateSubscription(int subscriptionId, UpdateSubscriptionRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;SubscriptionResponse&gt; UpdateSubscription(UpdateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18768,10 +20484,21 @@ If you have the new [Catalog experience](page:help/announcements/2026-announceme
 ```csharp
 try
 {
-    var response = await client.Subscriptions.UpdateSubscription(subscriptionId, body);
+    var response = await client.Subscriptions.UpdateSubscription(new UpdateSubscriptionOperationRequest
+    {
+        SubscriptionId = 1,
+        Body = new UpdateSubscriptionRequest
+        {
+            Subscription = new UpdateSubscription
+            {
+                NextBillingAt = DateTimeOffset.Parse("2010-08-06T15:34:00Z"),
+                PaymentCollectionMethod = "remittance",
+            },
+        },
+    });
     // TODO: Handle 'response' of type SubscriptionResponse
 }
-catch (SdkException<UpdateSubscriptionError> ex)
+catch (ApiException<UpdateSubscriptionError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -18783,15 +20510,12 @@ catch (SdkException<UpdateSubscriptionError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>subscriptionId</code> | <code>int</code> | The Chargify id of the subscription. |
-| <code>body</code> | <code>[UpdateSubscriptionRequest?](Models/UpdateSubscriptionRequest.cs)</code> | - |
+<code>[UpdateSubscriptionOperationRequest](Requests/Subscriptions/UpdateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18803,7 +20527,7 @@ catch (SdkException<UpdateSubscriptionError> ex)
 
 **OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateSubscriptionError](Errors/UpdateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionError](Errors/UpdateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18818,7 +20542,7 @@ catch (SdkException<UpdateSubscriptionError> ex)
 > Source: [WebhooksApi](Api/WebhooksApi.cs)
 
 <details>
-<summary><code>Task&lt;EndpointResponse&gt; CreateEndpoint(CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;EndpointResponse&gt; CreateEndpoint(CreateEndpointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18842,10 +20566,24 @@ See the [Webhooks Reference](page:introduction/webhooks/webhooks-reference#event
 ```csharp
 try
 {
-    var response = await client.WebhooksApi.CreateEndpoint(body);
+    var response = await client.WebhooksApi.CreateEndpoint(new CreateEndpointRequest
+    {
+        Body = new CreateOrUpdateEndpointRequest
+        {
+            Endpoint = new CreateOrUpdateEndpoint
+            {
+                Url = "https://your.site/webhooks",
+                WebhookSubscriptions = [
+                    WebhookSubscription.PaymentSuccess,
+                    WebhookSubscription.PaymentFailure,
+                    WebhookSubscription.InvoicePending,
+                ],
+            },
+        },
+    });
     // TODO: Handle 'response' of type EndpointResponse
 }
-catch (SdkException<CreateEndpointError> ex)
+catch (ApiException<CreateEndpointError> ex)
 {
     if (ex.Error.TryGetErrorListResponse1(out var error))
     {
@@ -18857,14 +20595,12 @@ catch (SdkException<CreateEndpointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[CreateOrUpdateEndpointRequest?](Models/CreateOrUpdateEndpointRequest.cs)</code> | - |
+<code>[CreateEndpointRequest](Requests/WebhooksApi/CreateEndpointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18876,7 +20612,7 @@ catch (SdkException<CreateEndpointError> ex)
 
 **OnSuccess**: <code>[EndpointResponse](Models/EndpointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[CreateEndpointError](Errors/CreateEndpointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateEndpointError](Errors/CreateEndpointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18887,7 +20623,7 @@ catch (SdkException<CreateEndpointError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;EnableWebhooksResponse&gt; EnableWebhooks(EnableWebhooksRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;EnableWebhooksResponse&gt; EnableWebhooks(EnableWebhooksOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18910,10 +20646,13 @@ Enables webhooks for your site.
 ```csharp
 try
 {
-    var response = await client.WebhooksApi.EnableWebhooks(body);
+    var response = await client.WebhooksApi.EnableWebhooks(new EnableWebhooksOperationRequest
+    {
+        Body = new EnableWebhooksRequest { WebhooksEnabled = true },
+    });
     // TODO: Handle 'response' of type EnableWebhooksResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -18922,14 +20661,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[EnableWebhooksRequest?](Models/EnableWebhooksRequest.cs)</code> | - |
+<code>[EnableWebhooksOperationRequest](Requests/WebhooksApi/EnableWebhooksOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18941,7 +20678,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[EnableWebhooksResponse](Models/EnableWebhooksResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18952,7 +20689,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;Endpoint&gt;&gt; ListEndpoints(RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;Endpoint&gt;&gt; ListEndpoints(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -18978,7 +20715,7 @@ try
     var response = await client.WebhooksApi.ListEndpoints();
     // TODO: Handle 'response' of type IReadOnlyList<Endpoint>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -18994,7 +20731,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[Endpoint](Models/Endpoint.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19005,7 +20742,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;IReadOnlyList&lt;WebhookResponse&gt;&gt; ListWebhooks(WebhookStatus? status, string? sinceDate, string? untilDate, WebhookOrder? order, int? subscription, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;IReadOnlyList&lt;WebhookResponse&gt;&gt; ListWebhooks(ListWebhooksRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -19028,10 +20765,10 @@ Retrieves a list of webhooks.  You can pass query parameters if you want to filt
 ```csharp
 try
 {
-    var response = await client.WebhooksApi.ListWebhooks(status, sinceDate, untilDate, order, subscription);
+    var response = await client.WebhooksApi.ListWebhooks(new ListWebhooksRequest { Page = 1, PerPage = 50 });
     // TODO: Handle 'response' of type IReadOnlyList<WebhookResponse>
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -19040,20 +20777,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>status</code> | <code>[WebhookStatus?](Models/Enums/WebhookStatus.cs)</code> | Webhooks with matching status would be returned. |
-| <code>sinceDate</code> | <code>string?</code> | Format YYYY-MM-DD. Returns Webhooks with the created_at date greater than or equal to the one specified. |
-| <code>untilDate</code> | <code>string?</code> | Format YYYY-MM-DD. Returns Webhooks with the created_at date less than or equal to the one specified. |
-| <code>order</code> | <code>[WebhookOrder?](Models/Enums/WebhookOrder.cs)</code> | The order in which the Webhooks are returned. |
-| <code>subscription</code> | <code>int?</code> | The Advanced Billing id of a subscription you'd like to filter for |
-| <code>page</code> | <code>int?</code> | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: 1 |
-| <code>perPage</code> | <code>int?</code> | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: 20 |
+<code>[ListWebhooksRequest](Requests/WebhooksApi/ListWebhooksRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19065,7 +20794,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>IReadOnlyList&lt;[WebhookResponse](Models/WebhookResponse.cs)&gt;</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19076,7 +20805,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;ReplayWebhooksResponse&gt; ReplayWebhooks(ReplayWebhooksRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;ReplayWebhooksResponse&gt; ReplayWebhooks(ReplayWebhooksOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -19099,10 +20828,13 @@ Replays webhooks. Posting to this endpoint does not immediately resend the webho
 ```csharp
 try
 {
-    var response = await client.WebhooksApi.ReplayWebhooks(body);
+    var response = await client.WebhooksApi.ReplayWebhooks(new ReplayWebhooksOperationRequest
+    {
+        Body = new ReplayWebhooksRequest { Ids = [123456789L, 123456788L] },
+    });
     // TODO: Handle 'response' of type ReplayWebhooksResponse
 }
-catch (SdkException<RawError> ex)
+catch (ApiException<RawError> ex)
 {
     // TODO: Handle 'ex.Error' of type RawError
 }
@@ -19111,14 +20843,12 @@ catch (SdkException<RawError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>body</code> | <code>[ReplayWebhooksRequest?](Models/ReplayWebhooksRequest.cs)</code> | - |
+<code>[ReplayWebhooksOperationRequest](Requests/WebhooksApi/ReplayWebhooksOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19130,7 +20860,7 @@ catch (SdkException<RawError> ex)
 
 **OnSuccess**: <code>[ReplayWebhooksResponse](Models/ReplayWebhooksResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19141,7 +20871,7 @@ catch (SdkException<RawError> ex)
 </details>
 
 <details>
-<summary><code>Task&lt;EndpointResponse&gt; UpdateEndpoint(int endpointId, CreateOrUpdateEndpointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default);</code></summary>
+<summary><code>Task&lt;EndpointResponse&gt; UpdateEndpoint(UpdateEndpointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
 
 <dl>
 <dd>
@@ -19168,10 +20898,26 @@ If you want to unsubscribe from a specific event, send a list of `webhook_subscr
 ```csharp
 try
 {
-    var response = await client.WebhooksApi.UpdateEndpoint(endpointId, body);
+    var response = await client.WebhooksApi.UpdateEndpoint(new UpdateEndpointRequest
+    {
+        EndpointId = 1,
+        Body = new CreateOrUpdateEndpointRequest
+        {
+            Endpoint = new CreateOrUpdateEndpoint
+            {
+                Url = "https://your.site/webhooks/1/json.",
+                WebhookSubscriptions = [
+                    WebhookSubscription.PaymentFailure,
+                    WebhookSubscription.PaymentSuccess,
+                    WebhookSubscription.RefundFailure,
+                    WebhookSubscription.InvoicePending,
+                ],
+            },
+        },
+    });
     // TODO: Handle 'response' of type EndpointResponse
 }
-catch (SdkException<UpdateEndpointError> ex)
+catch (ApiException<UpdateEndpointError> ex)
 {
     if (ex.Error.TryGetNoContent(out var error))
     {
@@ -19183,15 +20929,12 @@ catch (SdkException<UpdateEndpointError> ex)
 </dd>
 </dl>
 
-### Parameters
+### Request
 
 <dl>
 <dd>
 
-| Name | Type | Description |
-| --- | --- | --- |
-| <code>endpointId</code> | <code>int</code> | The Advanced Billing id for the endpoint that should be updated |
-| <code>body</code> | <code>[CreateOrUpdateEndpointRequest?](Models/CreateOrUpdateEndpointRequest.cs)</code> | - |
+<code>[UpdateEndpointRequest](Requests/WebhooksApi/UpdateEndpointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19203,7 +20946,7 @@ catch (SdkException<UpdateEndpointError> ex)
 
 **OnSuccess**: <code>[EndpointResponse](Models/EndpointResponse.cs)</code>
 
-**OnError**: <code>[SdkException](Core/Exceptions/SdkException.cs)&lt;[UpdateEndpointError](Errors/UpdateEndpointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateEndpointError](Errors/UpdateEndpointError.cs)&gt;</code>
 
 </dd>
 </dl>

@@ -8,28 +8,29 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### AddSubscriptionToGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `AddSubscriptionToGroup(int subscriptionId, AddSubscriptionToAGroup? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `AddSubscriptionToGroup(AddSubscriptionToGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionGroupResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `AddSubscriptionToGroupRequest` | `Requests/SubscriptionGroups/AddSubscriptionToGroupRequest.cs` |
 | `AddSubscriptionToAGroup` | `Models/AddSubscriptionToAGroup.cs` |
 | `SubscriptionGroupResponse` | `Models/SubscriptionGroupResponse.cs` |
 
 ### CreateSubscriptionGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateSubscriptionGroup(CreateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateSubscriptionGroup(CreateSubscriptionGroupOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `SubscriptionGroupResponse`
-- **Error**: `SdkException<CreateSubscriptionGroupError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateSubscriptionGroupError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionGroupCreateErrorResponse1(out SubscriptionGroupCreateErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateSubscriptionGroupOperationRequest` | `Requests/SubscriptionGroups/CreateSubscriptionGroupOperationRequest.cs` |
 | `CreateSubscriptionGroupRequest` | `Models/CreateSubscriptionGroupRequest.cs` |
 | `SubscriptionGroupResponse` | `Models/SubscriptionGroupResponse.cs` |
 | `CreateSubscriptionGroupError` | `Errors/CreateSubscriptionGroupError.cs` |
@@ -37,84 +38,90 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### DeleteSubscriptionGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteSubscriptionGroup(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteSubscriptionGroup(DeleteSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `DeleteSubscriptionGroupResponse`
-- **Error**: `SdkException<DeleteSubscriptionGroupError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteSubscriptionGroupError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteSubscriptionGroupRequest` | `Requests/SubscriptionGroups/DeleteSubscriptionGroupRequest.cs` |
 | `DeleteSubscriptionGroupResponse` | `Models/DeleteSubscriptionGroupResponse.cs` |
 | `DeleteSubscriptionGroupError` | `Errors/DeleteSubscriptionGroupError.cs` |
 
 ### FindSubscriptionGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `FindSubscriptionGroup(string subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-- **Query params (wire ← C#)**: `subscription_id` ← `subscriptionId`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `FindSubscriptionGroup(FindSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `subscription_id` ← `SubscriptionId`
 - **Returns**: `FullSubscriptionGroupResponse`
-- **Error**: `SdkException<FindSubscriptionGroupError>` — **Case A (typed)**
+- **Error**: `ApiException<FindSubscriptionGroupError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `FindSubscriptionGroupRequest` | `Requests/SubscriptionGroups/FindSubscriptionGroupRequest.cs` |
 | `FullSubscriptionGroupResponse` | `Models/FullSubscriptionGroupResponse.cs` |
 | `FindSubscriptionGroupError` | `Errors/FindSubscriptionGroupError.cs` |
 
 ### ListSubscriptionGroups
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptionGroups(IReadOnlyList<SubscriptionGroupsListInclude>? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `include` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptionGroups(ListSubscriptionGroupsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `include` ← `Include`
 - **Returns**: `ListSubscriptionGroupsResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListSubscriptionGroupsRequest` | `Requests/SubscriptionGroups/ListSubscriptionGroupsRequest.cs` |
 | `SubscriptionGroupsListInclude` | `Models/Enums/SubscriptionGroupsListInclude.cs` |
 | `ListSubscriptionGroupsResponse` | `Models/ListSubscriptionGroupsResponse.cs` |
 
 ### ReadSubscriptionGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSubscriptionGroup(string uid, IReadOnlyList<SubscriptionGroupInclude>? include, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `include` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSubscriptionGroup(ReadSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
+- **Query params (wire ← C#)**: `include` ← `Include`
 - **Returns**: `FullSubscriptionGroupResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadSubscriptionGroupRequest` | `Requests/SubscriptionGroups/ReadSubscriptionGroupRequest.cs` |
 | `SubscriptionGroupInclude` | `Models/Enums/SubscriptionGroupInclude.cs` |
 | `FullSubscriptionGroupResponse` | `Models/FullSubscriptionGroupResponse.cs` |
 
 ### RemoveSubscriptionFromGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RemoveSubscriptionFromGroup(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RemoveSubscriptionFromGroup(RemoveSubscriptionFromGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RemoveSubscriptionFromGroupError>` — **Case A (typed)**
+- **Error**: `ApiException<RemoveSubscriptionFromGroupError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `RemoveSubscriptionFromGroupRequest` | `Requests/SubscriptionGroups/RemoveSubscriptionFromGroupRequest.cs` |
 | `RemoveSubscriptionFromGroupError` | `Errors/RemoveSubscriptionFromGroupError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### SignupWithSubscriptionGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `SignupWithSubscriptionGroup(SubscriptionGroupSignupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `SignupWithSubscriptionGroup(SignupWithSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `SubscriptionGroupSignupResponse`
-- **Error**: `SdkException<SignupWithSubscriptionGroupError>` — **Case A (typed)**
+- **Error**: `ApiException<SignupWithSubscriptionGroupError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionGroupSignupErrorResponse1(out SubscriptionGroupSignupErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `SignupWithSubscriptionGroupRequest` | `Requests/SubscriptionGroups/SignupWithSubscriptionGroupRequest.cs` |
 | `SubscriptionGroupSignupRequest` | `Models/SubscriptionGroupSignupRequest.cs` |
 | `SubscriptionGroupSignupResponse` | `Models/SubscriptionGroupSignupResponse.cs` |
 | `SignupWithSubscriptionGroupError` | `Errors/SignupWithSubscriptionGroupError.cs` |
@@ -122,15 +129,16 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 ### UpdateSubscriptionGroupMembers
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateSubscriptionGroupMembers(string uid, UpdateSubscriptionGroupRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateSubscriptionGroupMembers(UpdateSubscriptionGroupMembersRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `SubscriptionGroupResponse`
-- **Error**: `SdkException<UpdateSubscriptionGroupMembersError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateSubscriptionGroupMembersError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionGroupUpdateErrorResponse1(out SubscriptionGroupUpdateErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateSubscriptionGroupMembersRequest` | `Requests/SubscriptionGroups/UpdateSubscriptionGroupMembersRequest.cs` |
 | `UpdateSubscriptionGroupRequest` | `Models/UpdateSubscriptionGroupRequest.cs` |
 | `SubscriptionGroupResponse` | `Models/SubscriptionGroupResponse.cs` |
 | `UpdateSubscriptionGroupMembersError` | `Errors/UpdateSubscriptionGroupMembersError.cs` |

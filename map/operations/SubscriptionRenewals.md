@@ -8,29 +8,32 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 ### CancelScheduledRenewalConfiguration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CancelScheduledRenewalConfiguration(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CancelScheduledRenewalConfiguration(CancelScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<CancelScheduledRenewalConfigurationError>` — **Case A (typed)**
+- **Error**: `ApiException<CancelScheduledRenewalConfigurationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CancelScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/CancelScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 | `CancelScheduledRenewalConfigurationError` | `Errors/CancelScheduledRenewalConfigurationError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### CreateScheduledRenewalConfiguration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateScheduledRenewalConfiguration(int subscriptionId, ScheduledRenewalConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateScheduledRenewalConfiguration(CreateScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<CreateScheduledRenewalConfigurationError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateScheduledRenewalConfigurationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationRequest` | `Models/ScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 | `CreateScheduledRenewalConfigurationError` | `Errors/CreateScheduledRenewalConfigurationError.cs` |
@@ -38,15 +41,16 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 ### CreateScheduledRenewalConfigurationItem
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateScheduledRenewalConfigurationItem(int subscriptionId, int scheduledRenewalsConfigurationId, ScheduledRenewalConfigurationItemRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateScheduledRenewalConfigurationItem(CreateScheduledRenewalConfigurationItemRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ScheduledRenewalsConfigurationId`
 - **Returns**: `ScheduledRenewalConfigurationItemResponse`
-- **Error**: `SdkException<CreateScheduledRenewalConfigurationItemError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateScheduledRenewalConfigurationItemError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateScheduledRenewalConfigurationItemRequest` | `Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationItemRequest.cs` |
 | `ScheduledRenewalConfigurationItemRequest` | `Models/ScheduledRenewalConfigurationItemRequest.cs` |
 | `ScheduledRenewalConfigurationItemResponse` | `Models/ScheduledRenewalConfigurationItemResponse.cs` |
 | `CreateScheduledRenewalConfigurationItemError` | `Errors/CreateScheduledRenewalConfigurationItemError.cs` |
@@ -54,67 +58,75 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 ### DeleteScheduledRenewalConfigurationItem
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteScheduledRenewalConfigurationItem(int subscriptionId, int scheduledRenewalsConfigurationId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteScheduledRenewalConfigurationItem(DeleteScheduledRenewalConfigurationItemRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ScheduledRenewalsConfigurationId`, `Id`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeleteScheduledRenewalConfigurationItemError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteScheduledRenewalConfigurationItemError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteScheduledRenewalConfigurationItemRequest` | `Requests/SubscriptionRenewals/DeleteScheduledRenewalConfigurationItemRequest.cs` |
 | `DeleteScheduledRenewalConfigurationItemError` | `Errors/DeleteScheduledRenewalConfigurationItemError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ListScheduledRenewalConfigurations
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListScheduledRenewalConfigurations(int subscriptionId, Status? status, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `status` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `status` ← `status`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListScheduledRenewalConfigurations(ListScheduledRenewalConfigurationsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `status` ← `Status`
 - **Returns**: `ScheduledRenewalConfigurationsResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListScheduledRenewalConfigurationsRequest` | `Requests/SubscriptionRenewals/ListScheduledRenewalConfigurationsRequest.cs` |
 | `Status` | `Models/Enums/Status.cs` |
 | `ScheduledRenewalConfigurationsResponse` | `Models/ScheduledRenewalConfigurationsResponse.cs` |
 
 ### LockInScheduledRenewalImmediately
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `LockInScheduledRenewalImmediately(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `LockInScheduledRenewalImmediately(LockInScheduledRenewalImmediatelyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<LockInScheduledRenewalImmediatelyError>` — **Case A (typed)**
+- **Error**: `ApiException<LockInScheduledRenewalImmediatelyError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `LockInScheduledRenewalImmediatelyRequest` | `Requests/SubscriptionRenewals/LockInScheduledRenewalImmediatelyRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 | `LockInScheduledRenewalImmediatelyError` | `Errors/LockInScheduledRenewalImmediatelyError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ReadScheduledRenewalConfiguration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadScheduledRenewalConfiguration(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadScheduledRenewalConfiguration(ReadScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/ReadScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 
 ### ScheduleScheduledRenewalLockIn
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ScheduleScheduledRenewalLockIn(int subscriptionId, int id, ScheduledRenewalLockInRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ScheduleScheduledRenewalLockIn(ScheduleScheduledRenewalLockInRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<ScheduleScheduledRenewalLockInError>` — **Case A (typed)**
+- **Error**: `ApiException<ScheduleScheduledRenewalLockInError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ScheduleScheduledRenewalLockInRequest` | `Requests/SubscriptionRenewals/ScheduleScheduledRenewalLockInRequest.cs` |
 | `ScheduledRenewalLockInRequest` | `Models/ScheduledRenewalLockInRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 | `ScheduleScheduledRenewalLockInError` | `Errors/ScheduleScheduledRenewalLockInError.cs` |
@@ -122,29 +134,32 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 ### UnpublishScheduledRenewalConfiguration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UnpublishScheduledRenewalConfiguration(int subscriptionId, int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UnpublishScheduledRenewalConfiguration(UnpublishScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<UnpublishScheduledRenewalConfigurationError>` — **Case A (typed)**
+- **Error**: `ApiException<UnpublishScheduledRenewalConfigurationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UnpublishScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/UnpublishScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 | `UnpublishScheduledRenewalConfigurationError` | `Errors/UnpublishScheduledRenewalConfigurationError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### UpdateScheduledRenewalConfiguration
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateScheduledRenewalConfiguration(int subscriptionId, int id, ScheduledRenewalConfigurationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateScheduledRenewalConfiguration(UpdateScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationResponse`
-- **Error**: `SdkException<UpdateScheduledRenewalConfigurationError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateScheduledRenewalConfigurationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationRequest` | `Models/ScheduledRenewalConfigurationRequest.cs` |
 | `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
 | `UpdateScheduledRenewalConfigurationError` | `Errors/UpdateScheduledRenewalConfigurationError.cs` |
@@ -152,15 +167,16 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 ### UpdateScheduledRenewalConfigurationItem
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateScheduledRenewalConfigurationItem(int subscriptionId, int scheduledRenewalsConfigurationId, int id, ScheduledRenewalUpdateRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateScheduledRenewalConfigurationItem(UpdateScheduledRenewalConfigurationItemRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ScheduledRenewalsConfigurationId`, `Id`
 - **Returns**: `ScheduledRenewalConfigurationItemResponse`
-- **Error**: `SdkException<UpdateScheduledRenewalConfigurationItemError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateScheduledRenewalConfigurationItemError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateScheduledRenewalConfigurationItemRequest` | `Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationItemRequest.cs` |
 | `ScheduledRenewalUpdateRequest` | `Models/ScheduledRenewalUpdateRequest.cs` |
 | `ScheduledRenewalConfigurationItemResponse` | `Models/ScheduledRenewalConfigurationItemResponse.cs` |
 | `UpdateScheduledRenewalConfigurationItemError` | `Errors/UpdateScheduledRenewalConfigurationItemError.cs` |

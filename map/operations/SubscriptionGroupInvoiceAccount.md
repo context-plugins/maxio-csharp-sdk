@@ -8,15 +8,16 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### CreateSubscriptionGroupPrepayment
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateSubscriptionGroupPrepayment(string uid, SubscriptionGroupPrepaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateSubscriptionGroupPrepayment(CreateSubscriptionGroupPrepaymentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `SubscriptionGroupPrepaymentResponse`
-- **Error**: `SdkException<CreateSubscriptionGroupPrepaymentError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateSubscriptionGroupPrepaymentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateSubscriptionGroupPrepaymentRequest` | `Requests/SubscriptionGroupInvoiceAccount/CreateSubscriptionGroupPrepaymentRequest.cs` |
 | `SubscriptionGroupPrepaymentRequest` | `Models/SubscriptionGroupPrepaymentRequest.cs` |
 | `SubscriptionGroupPrepaymentResponse` | `Models/SubscriptionGroupPrepaymentResponse.cs` |
 | `CreateSubscriptionGroupPrepaymentError` | `Errors/CreateSubscriptionGroupPrepaymentError.cs` |
@@ -24,15 +25,16 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### DeductSubscriptionGroupServiceCredit
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeductSubscriptionGroupServiceCredit(string uid, DeductServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeductSubscriptionGroupServiceCredit(DeductSubscriptionGroupServiceCreditRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `ServiceCredit`
-- **Error**: `SdkException<DeductSubscriptionGroupServiceCreditError>` — **Case A (typed)**
+- **Error**: `ApiException<DeductSubscriptionGroupServiceCreditError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeductSubscriptionGroupServiceCreditRequest` | `Requests/SubscriptionGroupInvoiceAccount/DeductSubscriptionGroupServiceCreditRequest.cs` |
 | `DeductServiceCreditRequest` | `Models/DeductServiceCreditRequest.cs` |
 | `ServiceCredit` | `Models/ServiceCredit.cs` |
 | `DeductSubscriptionGroupServiceCreditError` | `Errors/DeductSubscriptionGroupServiceCreditError.cs` |
@@ -40,15 +42,16 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### IssueSubscriptionGroupServiceCredit
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `IssueSubscriptionGroupServiceCredit(string uid, IssueServiceCreditRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `IssueSubscriptionGroupServiceCredit(IssueSubscriptionGroupServiceCreditRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `ServiceCreditResponse`
-- **Error**: `SdkException<IssueSubscriptionGroupServiceCreditError>` — **Case A (typed)**
+- **Error**: `ApiException<IssueSubscriptionGroupServiceCreditError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `IssueSubscriptionGroupServiceCreditRequest` | `Requests/SubscriptionGroupInvoiceAccount/IssueSubscriptionGroupServiceCreditRequest.cs` |
 | `IssueServiceCreditRequest` | `Models/IssueServiceCreditRequest.cs` |
 | `ServiceCreditResponse` | `Models/ServiceCreditResponse.cs` |
 | `IssueSubscriptionGroupServiceCreditError` | `Errors/IssueSubscriptionGroupServiceCreditError.cs` |
@@ -56,17 +59,17 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 ### ListPrepaymentsForSubscriptionGroup
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListPrepaymentsForSubscriptionGroup(string uid, ListPrepaymentsFilter? filter, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `filter` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `filter` ← `filter`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListPrepaymentsForSubscriptionGroup(ListPrepaymentsForSubscriptionGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `filter` ← `Filter`
 - **Returns**: `ListSubscriptionGroupPrepaymentResponse`
-- **Error**: `SdkException<ListPrepaymentsForSubscriptionGroupError>` — **Case A (typed)**
+- **Error**: `ApiException<ListPrepaymentsForSubscriptionGroupError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListPrepaymentsForSubscriptionGroupRequest` | `Requests/SubscriptionGroupInvoiceAccount/ListPrepaymentsForSubscriptionGroupRequest.cs` |
 | `ListPrepaymentsFilter` | `Models/ListPrepaymentsFilter.cs` |
 | `ListSubscriptionGroupPrepaymentResponse` | `Models/ListSubscriptionGroupPrepaymentResponse.cs` |
 | `ListPrepaymentsForSubscriptionGroupError` | `Errors/ListPrepaymentsForSubscriptionGroupError.cs` |

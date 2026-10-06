@@ -1,10 +1,8 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ListExportedInvoicesError : ApiError
 {
@@ -18,27 +16,16 @@ public sealed class ListExportedInvoicesError : ApiError
     private static ListExportedInvoicesError AsNoContent(RawError value) =>
         new(Optional<RawError>.Some(value), default);
 
-    private static ListExportedInvoicesError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static ListExportedInvoicesError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetNoContent(out RawError value) => _noContentValue.TryGetValue(out value);
 
-    internal static Task<ListExportedInvoicesError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ListExportedInvoicesError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ListExportedInvoicesErrorResponse : IErrorResponse<ListExportedInvoicesError>
-{
-    public static ListExportedInvoicesErrorResponse Instance { get; } = new();
-
-    private ListExportedInvoicesErrorResponse()
-    {
-    }
-
-    public Task<ListExportedInvoicesError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ListExportedInvoicesError.Create(response, ct);
+    internal static ApiErrorResponse<ListExportedInvoicesError> Response { get; } = new(Create);
 }

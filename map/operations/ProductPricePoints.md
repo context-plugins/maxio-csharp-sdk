@@ -8,14 +8,16 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ArchiveProductPricePoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ArchiveProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ArchiveProductPricePoint(ArchiveProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`, `PricePointId`
 - **Returns**: `ProductPricePointResponse`
-- **Error**: `SdkException<ArchiveProductPricePointError>` — **Case A (typed)**
+- **Error**: `ApiException<ArchiveProductPricePointError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ArchiveProductPricePointRequest` | `Requests/ProductPricePoints/ArchiveProductPricePointRequest.cs` |
 | `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
 | `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
 | `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
@@ -24,30 +26,32 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### BulkCreateProductPricePoints
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `BulkCreateProductPricePoints(int productId, BulkCreateProductPricePointsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `BulkCreateProductPricePoints(BulkCreateProductPricePointsOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`
 - **Returns**: `BulkCreateProductPricePointsResponse`
-- **Error**: `SdkException<BulkCreateProductPricePointsError>` — **Case A (typed)**
+- **Error**: `ApiException<BulkCreateProductPricePointsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetMapOfJsonElement(out IReadOnlyDictionary<string, JsonElement>)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `BulkCreateProductPricePointsOperationRequest` | `Requests/ProductPricePoints/BulkCreateProductPricePointsOperationRequest.cs` |
 | `BulkCreateProductPricePointsRequest` | `Models/BulkCreateProductPricePointsRequest.cs` |
 | `BulkCreateProductPricePointsResponse` | `Models/BulkCreateProductPricePointsResponse.cs` |
 | `BulkCreateProductPricePointsError` | `Errors/BulkCreateProductPricePointsError.cs` |
 
 ### CreateProductCurrencyPrices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateProductCurrencyPrices(int productPricePointId, CreateProductCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateProductCurrencyPrices(CreateProductCurrencyPricesOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductPricePointId`
 - **Returns**: `CurrencyPricesResponse`
-- **Error**: `SdkException<CreateProductCurrencyPricesError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateProductCurrencyPricesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateProductCurrencyPricesOperationRequest` | `Requests/ProductPricePoints/CreateProductCurrencyPricesOperationRequest.cs` |
 | `CreateProductCurrencyPricesRequest` | `Models/CreateProductCurrencyPricesRequest.cs` |
 | `CurrencyPricesResponse` | `Models/CurrencyPricesResponse.cs` |
 | `CreateProductCurrencyPricesError` | `Errors/CreateProductCurrencyPricesError.cs` |
@@ -55,15 +59,16 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### CreateProductPricePoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateProductPricePoint(ProductIdModel productId, CreateProductPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateProductPricePoint(CreateProductPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`
 - **Returns**: `ProductPricePointResponse`
-- **Error**: `SdkException<CreateProductPricePointError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateProductPricePointError>` — **Case A (typed)**
 - **Error accessors**: `TryGetProductPricePointErrorResponse1(out ProductPricePointErrorResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateProductPricePointOperationRequest` | `Requests/ProductPricePoints/CreateProductPricePointOperationRequest.cs` |
 | `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
 | `CreateProductPricePointRequest` | `Models/CreateProductPricePointRequest.cs` |
 | `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
@@ -72,19 +77,16 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ListAllProductPricePoints
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListAllProductPricePoints(SortingDirection? direction, ListPricePointsFilter? filter, ListProductsPricePointsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `direction` — nullable, no default → **must pass explicitly**
-  - `filter` — nullable, no default → **must pass explicitly**
-  - `include` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `direction` ← `direction`, `filter` ← `filter`, `include` ← `include`, `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListAllProductPricePoints(ListAllProductPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `direction` ← `Direction`, `filter` ← `Filter`, `include` ← `Include`, `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `ListProductPricePointsResponse`
-- **Error**: `SdkException<ListAllProductPricePointsError>` — **Case A (typed)**
+- **Error**: `ApiException<ListAllProductPricePointsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListAllProductPricePointsRequest` | `Requests/ProductPricePoints/ListAllProductPricePointsRequest.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
 | `ListPricePointsFilter` | `Models/ListPricePointsFilter.cs` |
 | `ListProductsPricePointsInclude` | `Models/Enums/ListProductsPricePointsInclude.cs` |
@@ -94,70 +96,74 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### ListProductPricePoints
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListProductPricePoints(ProductIdModel productId, bool? currencyPrices, IReadOnlyList<PricePointType>? filterType, bool? archived, int? page = 1, int? perPage = 10, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `currencyPrices` — nullable, no default → **must pass explicitly**
-  - `filterType` — nullable, no default → **must pass explicitly**
-  - `archived` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `10`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `currency_prices` ← `currencyPrices`, `filter[type]` ← `filterType`, `archived` ← `archived`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListProductPricePoints(ListProductPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `currency_prices` ← `CurrencyPrices`, `filter[type]` ← `FilterType`, `archived` ← `Archived`
 - **Returns**: `ListProductPricePointsResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListProductPricePointsRequest` | `Requests/ProductPricePoints/ListProductPricePointsRequest.cs` |
 | `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
 | `PricePointType` | `Models/Enums/PricePointType.cs` |
 | `ListProductPricePointsResponse` | `Models/ListProductPricePointsResponse.cs` |
 
 ### PromoteProductPricePointToDefault
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PromoteProductPricePointToDefault(int productId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PromoteProductPricePointToDefault(PromoteProductPricePointToDefaultRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`, `PricePointId`
 - **Returns**: `ProductResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `PromoteProductPricePointToDefaultRequest` | `Requests/ProductPricePoints/PromoteProductPricePointToDefaultRequest.cs` |
 | `ProductResponse` | `Models/ProductResponse.cs` |
 
 ### ReadProductPricePoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, bool? currencyPrices, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `currencyPrices` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `currency_prices` ← `currencyPrices`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadProductPricePoint(ReadProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`, `PricePointId`
+- **Query params (wire ← C#)**: `currency_prices` ← `CurrencyPrices`
 - **Returns**: `ProductPricePointResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadProductPricePointRequest` | `Requests/ProductPricePoints/ReadProductPricePointRequest.cs` |
 | `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
 | `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
 | `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
 
 ### UnarchiveProductPricePoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UnarchiveProductPricePoint(int productId, int pricePointId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UnarchiveProductPricePoint(UnarchiveProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`, `PricePointId`
 - **Returns**: `ProductPricePointResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `UnarchiveProductPricePointRequest` | `Requests/ProductPricePoints/UnarchiveProductPricePointRequest.cs` |
 | `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
 
 ### UpdateProductCurrencyPrices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateProductCurrencyPrices(int productPricePointId, UpdateCurrencyPricesRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateProductCurrencyPrices(UpdateProductCurrencyPricesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductPricePointId`
 - **Returns**: `CurrencyPricesResponse`
-- **Error**: `SdkException<UpdateProductCurrencyPricesError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateProductCurrencyPricesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateProductCurrencyPricesRequest` | `Requests/ProductPricePoints/UpdateProductCurrencyPricesRequest.cs` |
 | `UpdateCurrencyPricesRequest` | `Models/UpdateCurrencyPricesRequest.cs` |
 | `CurrencyPricesResponse` | `Models/CurrencyPricesResponse.cs` |
 | `UpdateProductCurrencyPricesError` | `Errors/UpdateProductCurrencyPricesError.cs` |
@@ -165,14 +171,15 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 ### UpdateProductPricePoint
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateProductPricePoint(ProductIdModel productId, PricePointIdModel pricePointId, UpdateProductPricePointRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateProductPricePoint(UpdateProductPricePointOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductId`, `PricePointId`
 - **Returns**: `ProductPricePointResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `UpdateProductPricePointOperationRequest` | `Requests/ProductPricePoints/UpdateProductPricePointOperationRequest.cs` |
 | `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
 | `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
 | `UpdateProductPricePointRequest` | `Models/UpdateProductPricePointRequest.cs` |

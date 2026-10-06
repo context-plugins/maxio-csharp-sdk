@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ListSegmentsForPricePointError : ApiError
 {
@@ -35,23 +33,13 @@ public sealed class ListSegmentsForPricePointError : ApiError
     public bool TryGetEventBasedBillingListSegmentsErrors1(out EventBasedBillingListSegmentsErrors1 value) =>
         _eventBasedBillingListSegmentsErrors1Value.TryGetValue(out value);
 
-    internal static Task<ListSegmentsForPricePointError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ListSegmentsForPricePointError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            422 => FromJson<EventBasedBillingListSegmentsErrors1>(response, ct).As(AsEventBasedBillingListSegmentsErrors1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            422 => response.Json<EventBasedBillingListSegmentsErrors1>().As(AsEventBasedBillingListSegmentsErrors1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ListSegmentsForPricePointErrorResponse : IErrorResponse<ListSegmentsForPricePointError>
-{
-    public static ListSegmentsForPricePointErrorResponse Instance { get; } = new();
-
-    private ListSegmentsForPricePointErrorResponse()
-    {
-    }
-
-    public Task<ListSegmentsForPricePointError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ListSegmentsForPricePointError.Create(response, ct);
+    internal static ApiErrorResponse<ListSegmentsForPricePointError> Response { get; } = new(Create);
 }

@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 
-namespace MaxioAdvancedBilling.Core.Validation;
+namespace Maxio.Core.Validation;
 
 internal static class SchemaConstraintExtensions
 {

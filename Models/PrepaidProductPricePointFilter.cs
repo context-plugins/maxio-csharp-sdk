@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record PrepaidProductPricePointFilter
 {
@@ -9,7 +10,7 @@ public record PrepaidProductPricePointFilter
     /// Passed as a parameter to list methods to return only non null values.
     /// </summary>
     [JsonPropertyName("product_price_point_id")]
-    public string ProductPricePointId { get; } = "not_null";
+    public required IncludeNotNull ProductPricePointId { get; init; }
 
     [JsonExtensionData]
     public AdditionalProperties AdditionalProperties { get; init; } = [];

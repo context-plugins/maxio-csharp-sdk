@@ -2,16 +2,16 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.SubscriptionProducts;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class SubscriptionProducts
 {
@@ -29,31 +29,27 @@ public sealed class SubscriptionProducts
     /// <summary>
     /// Migrate Subscription Product
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="MigrateSubscriptionProductError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="MigrateSubscriptionProductError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Migrates a subscription to a different product.
     /// <para>
-    /// In order to create a migration, you must pass the <c>product_id</c> or <c>product_handle</c> in the object when you send a POST request. You may also pass either a <c>product_price_point_id</c> or <c>product_price_point_handle</c> to choose which price point the subscription is moved to. If no price point identifier is passed the subscription will be moved to the products default price point. The response will be the updated subscription.
+    /// To create a migration, you must pass the <c>product_id</c> or <c>product_handle</c> in the object when you send a POST request. You can also pass either a <c>product_price_point_id</c> or <c>product_price_point_handle</c> to choose which price point the subscription is moved to. If no price point identifier is passed, the subscription is moved to the product's default price point. The response is the updated subscription.
     /// </para>
     /// <para>
     /// ## Valid Subscriptions
     /// </para>
     /// <para>
-    /// Subscriptions should be in the <c>active</c> or <c>trialing</c> state in order to be migrated.
+    /// Subscriptions should be in the <c>active</c> or <c>trialing</c> state to be migrated.
     /// </para>
     /// <para>
     /// (For backwards compatibility reasons, it is possible to migrate a subscription that is in the <c>trial_ended</c> state via the API, however this is not recommended.  Since <c>trial_ended</c> is an end-of-life state, the subscription should be canceled, the product changed, and then the subscription can be reactivated.)
     /// </para>
     /// <para>
-    /// ## Migrations Documentation
-    /// </para>
-    /// <para>
-    /// Full documentation on how to record Migrations in the Advanced Billing UI can be located <see href="https://maxio.zendesk.com/hc/en-us/articles/24181589372429-Data-Migration-to-Advanced-Billing">here</see>.
+    /// For more information, see <see href="https://docs.maxio.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations">Product Changes and Migrations</see>.
     /// </para>
     /// <para>
     /// ## Failed Migrations
@@ -71,31 +67,30 @@ public sealed class SubscriptionProducts
     /// See the <see href="https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow">3D Secure Post-Authentication Flow</see> article in the product documentation to learn how to manage the redirect flow.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> MigrateSubscriptionProduct(int subscriptionId,
-        SubscriptionProductMigrationRequest? body,
+    public Task<SubscriptionResponse> MigrateSubscriptionProduct(MigrateSubscriptionProductRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/migrations.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/migrations.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            MigrateSubscriptionProductErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            MigrateSubscriptionProductError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Preview Subscription Product Migration
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionMigrationPreviewResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="PreviewSubscriptionProductMigrationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="PreviewSubscriptionProductMigrationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Previews the charges resulting from migrating a subscription to a different product.
     /// <para>
@@ -106,19 +101,19 @@ public sealed class SubscriptionProducts
     /// This will calculate the prorated adjustment, charge, payment and credit applied values assuming the migration is done at that date in the future as opposed to right now.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionMigrationPreviewResponse> PreviewSubscriptionProductMigration(int subscriptionId,
-        SubscriptionMigrationPreviewRequest? body,
+    public Task<SubscriptionMigrationPreviewResponse> PreviewSubscriptionProductMigration(PreviewSubscriptionProductMigrationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/migrations/preview.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/migrations/preview.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionMigrationPreviewResponse>(),
-            PreviewSubscriptionProductMigrationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            PreviewSubscriptionProductMigrationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

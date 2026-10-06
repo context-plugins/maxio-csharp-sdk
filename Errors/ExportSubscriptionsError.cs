@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ExportSubscriptionsError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class ExportSubscriptionsError : ApiError
     private static ExportSubscriptionsError AsSingleErrorResponse1(SingleErrorResponse1 value) =>
         new(Optional<SingleErrorResponse1>.Some(value), default);
 
-    private static ExportSubscriptionsError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static ExportSubscriptionsError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetSingleErrorResponse1(out SingleErrorResponse1 value) =>
         _singleErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<ExportSubscriptionsError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ExportSubscriptionsError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            409 => FromJson<SingleErrorResponse1>(response, ct).As(AsSingleErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            409 => response.Json<SingleErrorResponse1>().As(AsSingleErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ExportSubscriptionsErrorResponse : IErrorResponse<ExportSubscriptionsError>
-{
-    public static ExportSubscriptionsErrorResponse Instance { get; } = new();
-
-    private ExportSubscriptionsErrorResponse()
-    {
-    }
-
-    public Task<ExportSubscriptionsError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ExportSubscriptionsError.Create(response, ct);
+    internal static ApiErrorResponse<ExportSubscriptionsError> Response { get; } = new(Create);
 }

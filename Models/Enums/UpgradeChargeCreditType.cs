@@ -1,7 +1,8 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. Values are:
@@ -16,7 +17,7 @@ namespace MaxioAdvancedBilling.Models.Enums;
 /// </para>
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter<UpgradeChargeCreditType>))]
-public sealed record UpgradeChargeCreditType : StringEnum<UpgradeChargeCreditType>
+public sealed record UpgradeChargeCreditType : OpenStringEnum<UpgradeChargeCreditType>
 {
     private UpgradeChargeCreditType(string value) : base(value)
     {
@@ -28,5 +29,23 @@ public sealed record UpgradeChargeCreditType : StringEnum<UpgradeChargeCreditTyp
 
     public static readonly UpgradeChargeCreditType None = new("none");
 
-    public static UpgradeChargeCreditType FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onFull,
+        Func<TResult> onProrated,
+        Func<TResult> onNone,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Full => onFull(),
+            _ when this == Prorated => onProrated(),
+            _ when this == None => onNone(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onFull, Action onProrated, Action onNone, Action<string> otherwise)
+    {
+        if (this == Full) onFull();
+        else if (this == Prorated) onProrated();
+        else if (this == None) onNone();
+        else otherwise(Value);
+    }
 }

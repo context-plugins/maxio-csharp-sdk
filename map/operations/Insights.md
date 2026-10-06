@@ -8,35 +8,30 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 ### ListMrrMovements
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListMrrMovements(int? subscriptionId, SortingDirection? direction, int? page = 1, int? perPage = 10, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `subscriptionId` — nullable, no default → **must pass explicitly**
-  - `direction` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `10`
-- **Query params (wire ← C#)**: `subscription_id` ← `subscriptionId`, `page` ← `page`, `per_page` ← `perPage`, `direction` ← `direction`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListMrrMovements(ListMrrMovementsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `subscription_id` ← `SubscriptionId`, `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`
 - **Returns**: `ListMrrResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListMrrMovementsRequest` | `Requests/Insights/ListMrrMovementsRequest.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
 | `ListMrrResponse` | `Models/ListMrrResponse.cs` |
 
 ### ListMrrPerSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListMrrPerSubscription(ListMrrFilter? filter, string? atTime, Direction? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `filter` — nullable, no default → **must pass explicitly**
-  - `atTime` — nullable, no default → **must pass explicitly**
-  - `direction` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `filter` ← `filter`, `at_time` ← `atTime`, `page` ← `page`, `per_page` ← `perPage`, `direction` ← `direction`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListMrrPerSubscription(ListMrrPerSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `filter` ← `Filter`, `at_time` ← `AtTime`, `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`
 - **Returns**: `SubscriptionMrrResponse`
-- **Error**: `SdkException<ListMrrPerSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<ListMrrPerSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSubscriptionsMrrErrorResponse1(out SubscriptionsMrrErrorResponse1)` [400] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListMrrPerSubscriptionRequest` | `Requests/Insights/ListMrrPerSubscriptionRequest.cs` |
 | `ListMrrFilter` | `Models/ListMrrFilter.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `SubscriptionMrrResponse` | `Models/SubscriptionMrrResponse.cs` |
@@ -45,24 +40,23 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 ### ReadMrr
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadMrr(DateTimeOffset? atTime, int? subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `atTime` — nullable, no default → **must pass explicitly**
-  - `subscriptionId` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `at_time` ← `atTime`, `subscription_id` ← `subscriptionId`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadMrr(ReadMrrRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `at_time` ← `AtTime`, `subscription_id` ← `SubscriptionId`
 - **Returns**: `MrrResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadMrrRequest` | `Requests/Insights/ReadMrrRequest.cs` |
 | `MrrResponse` | `Models/MrrResponse.cs` |
 
 ### ReadSiteStats
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSiteStats(RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSiteStats(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `SiteSummary`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |

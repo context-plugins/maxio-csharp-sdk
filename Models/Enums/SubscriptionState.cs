@@ -1,7 +1,8 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// The state of a subscription.
@@ -28,7 +29,7 @@ namespace MaxioAdvancedBilling.Models.Enums;
 /// </para>
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter<SubscriptionState>))]
-public sealed record SubscriptionState : StringEnum<SubscriptionState>
+public sealed record SubscriptionState : OpenStringEnum<SubscriptionState>
 {
     private SubscriptionState(string value) : base(value)
     {
@@ -64,5 +65,74 @@ public sealed record SubscriptionState : StringEnum<SubscriptionState>
 
     public static readonly SubscriptionState AwaitingSignup = new("awaiting_signup");
 
-    public static SubscriptionState FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onPending,
+        Func<TResult> onFailedToCreate,
+        Func<TResult> onTrialing,
+        Func<TResult> onAssessing,
+        Func<TResult> onActive,
+        Func<TResult> onSoftFailure,
+        Func<TResult> onPastDue,
+        Func<TResult> onSuspended,
+        Func<TResult> onCanceled,
+        Func<TResult> onExpired,
+        Func<TResult> onPaused,
+        Func<TResult> onUnpaid,
+        Func<TResult> onTrialEnded,
+        Func<TResult> onOnHold,
+        Func<TResult> onAwaitingSignup,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Pending => onPending(),
+            _ when this == FailedToCreate => onFailedToCreate(),
+            _ when this == Trialing => onTrialing(),
+            _ when this == Assessing => onAssessing(),
+            _ when this == Active => onActive(),
+            _ when this == SoftFailure => onSoftFailure(),
+            _ when this == PastDue => onPastDue(),
+            _ when this == Suspended => onSuspended(),
+            _ when this == Canceled => onCanceled(),
+            _ when this == Expired => onExpired(),
+            _ when this == Paused => onPaused(),
+            _ when this == Unpaid => onUnpaid(),
+            _ when this == TrialEnded => onTrialEnded(),
+            _ when this == OnHold => onOnHold(),
+            _ when this == AwaitingSignup => onAwaitingSignup(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onPending,
+        Action onFailedToCreate,
+        Action onTrialing,
+        Action onAssessing,
+        Action onActive,
+        Action onSoftFailure,
+        Action onPastDue,
+        Action onSuspended,
+        Action onCanceled,
+        Action onExpired,
+        Action onPaused,
+        Action onUnpaid,
+        Action onTrialEnded,
+        Action onOnHold,
+        Action onAwaitingSignup,
+        Action<string> otherwise)
+    {
+        if (this == Pending) onPending();
+        else if (this == FailedToCreate) onFailedToCreate();
+        else if (this == Trialing) onTrialing();
+        else if (this == Assessing) onAssessing();
+        else if (this == Active) onActive();
+        else if (this == SoftFailure) onSoftFailure();
+        else if (this == PastDue) onPastDue();
+        else if (this == Suspended) onSuspended();
+        else if (this == Canceled) onCanceled();
+        else if (this == Expired) onExpired();
+        else if (this == Paused) onPaused();
+        else if (this == Unpaid) onUnpaid();
+        else if (this == TrialEnded) onTrialEnded();
+        else if (this == OnHold) onOnHold();
+        else if (this == AwaitingSignup) onAwaitingSignup();
+        else otherwise(Value);
+    }
 }

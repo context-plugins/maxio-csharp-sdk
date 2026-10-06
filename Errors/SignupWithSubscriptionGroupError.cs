@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class SignupWithSubscriptionGroupError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class SignupWithSubscriptionGroupError : ApiError
     public bool TryGetSubscriptionGroupSignupErrorResponse1(out SubscriptionGroupSignupErrorResponse1 value) =>
         _subscriptionGroupSignupErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<SignupWithSubscriptionGroupError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<SignupWithSubscriptionGroupError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<SubscriptionGroupSignupErrorResponse1>(response, ct).As(AsSubscriptionGroupSignupErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<SubscriptionGroupSignupErrorResponse1>().As(AsSubscriptionGroupSignupErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class SignupWithSubscriptionGroupErrorResponse : IErrorResponse<SignupWithSubscriptionGroupError>
-{
-    public static SignupWithSubscriptionGroupErrorResponse Instance { get; } = new();
-
-    private SignupWithSubscriptionGroupErrorResponse()
-    {
-    }
-
-    public Task<SignupWithSubscriptionGroupError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        SignupWithSubscriptionGroupError.Create(response, ct);
+    internal static ApiErrorResponse<SignupWithSubscriptionGroupError> Response { get; } = new(Create);
 }

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class BulkCreateProductPricePointsError : ApiError
 {
@@ -27,23 +25,12 @@ public sealed class BulkCreateProductPricePointsError : ApiError
     public bool TryGetMapOfJsonElement(out IReadOnlyDictionary<string, JsonElement> value) =>
         _mapOfJsonElementValue.TryGetValue(out value);
 
-    internal static Task<BulkCreateProductPricePointsError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<BulkCreateProductPricePointsError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<IReadOnlyDictionary<string, JsonElement>>(response, ct).As(AsMapOfJsonElement),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<IReadOnlyDictionary<string, JsonElement>>().As(AsMapOfJsonElement),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class BulkCreateProductPricePointsErrorResponse : IErrorResponse<BulkCreateProductPricePointsError>
-{
-    public static BulkCreateProductPricePointsErrorResponse Instance { get; } = new();
-
-    private BulkCreateProductPricePointsErrorResponse()
-    {
-    }
-
-    public Task<BulkCreateProductPricePointsError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        BulkCreateProductPricePointsError.Create(response, ct);
+    internal static ApiErrorResponse<BulkCreateProductPricePointsError> Response { get; } = new(Create);
 }

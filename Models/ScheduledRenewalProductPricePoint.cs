@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Models.AnyOf;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Models.AnyOf;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// Custom pricing for a product within a scheduled renewal.

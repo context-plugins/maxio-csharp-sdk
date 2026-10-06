@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class BulkUpdateSubscriptionComponentsPricePointsError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class BulkUpdateSubscriptionComponentsPricePointsError : ApiError
     public bool TryGetComponentPricePointError1(out ComponentPricePointError1 value) =>
         _componentPricePointError1Value.TryGetValue(out value);
 
-    internal static Task<BulkUpdateSubscriptionComponentsPricePointsError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<BulkUpdateSubscriptionComponentsPricePointsError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ComponentPricePointError1>(response, ct).As(AsComponentPricePointError1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ComponentPricePointError1>().As(AsComponentPricePointError1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class BulkUpdateSubscriptionComponentsPricePointsErrorResponse : IErrorResponse<BulkUpdateSubscriptionComponentsPricePointsError>
-{
-    public static BulkUpdateSubscriptionComponentsPricePointsErrorResponse Instance { get; } = new();
-
-    private BulkUpdateSubscriptionComponentsPricePointsErrorResponse()
-    {
-    }
-
-    public Task<BulkUpdateSubscriptionComponentsPricePointsError> Map(HttpResponseMessage response,
-        CancellationToken ct) => BulkUpdateSubscriptionComponentsPricePointsError.Create(response, ct);
+    internal static ApiErrorResponse<BulkUpdateSubscriptionComponentsPricePointsError> Response { get; } = new(Create);
 }

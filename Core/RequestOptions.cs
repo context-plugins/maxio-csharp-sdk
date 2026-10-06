@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using MaxioAdvancedBilling.Core.Hooks;
+using Maxio.Core.Hooks;
 
-namespace MaxioAdvancedBilling.Core;
+namespace Maxio.Core;
 
 public sealed record RequestOptions
 {

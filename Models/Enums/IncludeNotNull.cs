@@ -1,13 +1,14 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// Passed as a parameter to list methods to return only non null values.
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter<IncludeNotNull>))]
-public sealed record IncludeNotNull : StringEnum<IncludeNotNull>
+public sealed record IncludeNotNull : OpenStringEnum<IncludeNotNull>
 {
     private IncludeNotNull(string value) : base(value)
     {
@@ -15,5 +16,16 @@ public sealed record IncludeNotNull : StringEnum<IncludeNotNull>
 
     public static readonly IncludeNotNull NotNull = new("not_null");
 
-    public static IncludeNotNull FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onNotNull, Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == NotNull => onNotNull(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onNotNull, Action<string> otherwise)
+    {
+        if (this == NotNull) onNotNull();
+        else otherwise(Value);
+    }
 }

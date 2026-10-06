@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class UpdateCustomerError : ApiError
 {
@@ -35,23 +33,13 @@ public sealed class UpdateCustomerError : ApiError
     public bool TryGetCustomerErrorResponse1(out CustomerErrorResponse1 value) =>
         _customerErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<UpdateCustomerError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<UpdateCustomerError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            422 => FromJson<CustomerErrorResponse1>(response, ct).As(AsCustomerErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            422 => response.Json<CustomerErrorResponse1>().As(AsCustomerErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class UpdateCustomerErrorResponse : IErrorResponse<UpdateCustomerError>
-{
-    public static UpdateCustomerErrorResponse Instance { get; } = new();
-
-    private UpdateCustomerErrorResponse()
-    {
-    }
-
-    public Task<UpdateCustomerError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        UpdateCustomerError.Create(response, ct);
+    internal static ApiErrorResponse<UpdateCustomerError> Response { get; } = new(Create);
 }

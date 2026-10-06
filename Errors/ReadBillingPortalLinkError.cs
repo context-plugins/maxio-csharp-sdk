@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ReadBillingPortalLinkError : ApiError
 {
@@ -36,23 +34,13 @@ public sealed class ReadBillingPortalLinkError : ApiError
     public bool TryGetTooManyManagementLinkRequestsError1(out TooManyManagementLinkRequestsError1 value) =>
         _tooManyManagementLinkRequestsError1Value.TryGetValue(out value);
 
-    internal static Task<ReadBillingPortalLinkError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ReadBillingPortalLinkError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            429 => FromJson<TooManyManagementLinkRequestsError1>(response, ct).As(AsTooManyManagementLinkRequestsError1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            429 => response.Json<TooManyManagementLinkRequestsError1>().As(AsTooManyManagementLinkRequestsError1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ReadBillingPortalLinkErrorResponse : IErrorResponse<ReadBillingPortalLinkError>
-{
-    public static ReadBillingPortalLinkErrorResponse Instance { get; } = new();
-
-    private ReadBillingPortalLinkErrorResponse()
-    {
-    }
-
-    public Task<ReadBillingPortalLinkError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ReadBillingPortalLinkError.Create(response, ct);
+    internal static ApiErrorResponse<ReadBillingPortalLinkError> Response { get; } = new(Create);
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MaxioAdvancedBilling.Core.Webhooks.Signing;
+namespace Maxio.Core.Webhooks.Signing;
 
 internal abstract record MessageSegment
 {

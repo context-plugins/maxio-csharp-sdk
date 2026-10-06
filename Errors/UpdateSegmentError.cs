@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class UpdateSegmentError : ApiError
 {
@@ -35,23 +33,13 @@ public sealed class UpdateSegmentError : ApiError
     public bool TryGetEventBasedBillingSegmentErrors1(out EventBasedBillingSegmentErrors1 value) =>
         _eventBasedBillingSegmentErrors1Value.TryGetValue(out value);
 
-    internal static Task<UpdateSegmentError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<UpdateSegmentError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            422 => FromJson<EventBasedBillingSegmentErrors1>(response, ct).As(AsEventBasedBillingSegmentErrors1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            422 => response.Json<EventBasedBillingSegmentErrors1>().As(AsEventBasedBillingSegmentErrors1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class UpdateSegmentErrorResponse : IErrorResponse<UpdateSegmentError>
-{
-    public static UpdateSegmentErrorResponse Instance { get; } = new();
-
-    private UpdateSegmentErrorResponse()
-    {
-    }
-
-    public Task<UpdateSegmentError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        UpdateSegmentError.Create(response, ct);
+    internal static ApiErrorResponse<UpdateSegmentError> Response { get; } = new(Create);
 }

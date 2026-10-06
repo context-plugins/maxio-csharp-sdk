@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.Subscriptions;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class Subscriptions
 {
@@ -33,24 +32,20 @@ public sealed class Subscriptions
     /// <summary>
     /// Activate Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ActivateSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ActivateSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Activates awaiting signup and trialing subscriptions. This feature is only available on the Relationship Invoicing architecture. Subscriptions in a group may not be activated immediately.
-    /// <para>
-    /// For details on how the activation works, and how to activate subscriptions through the application, see <see href="#">activation</see>.
-    /// </para>
+    /// Activates awaiting signup and trialing subscriptions. This feature is only available on the Relationship Invoicing architecture. Subscriptions in a group cannot be activated immediately.
     /// <para>
     /// The <c>revert_on_failure</c> parameter controls the behavior upon activation failure.
-    /// - If set to <c>true</c> and something goes wrong i.e. payment fails, then Advanced Billing will not change the subscription's state. The subscription’s billing period will also remain the same.
-    /// - If set to <c>false</c> and something goes wrong i.e. payment fails, then Advanced Billing will continue through with the activation and enter an end of life state. For trialing subscriptions, that will either be trial ended (if the trial is no obligation), past due (if the trial has an obligation), or canceled (if the site has no dunning strategy, or has a strategy that says to cancel immediately). For awaiting signup subscriptions, that will always be canceled.
+    /// - If set to <c>true</c> and something goes wrong i.e. payment fails, the subscription's state does not change. The subscription’s billing period also remains the same.
+    /// - If set to <c>false</c> and something goes wrong i.e. payment fails, the activation continues and enters an end of life state. For trialing subscriptions, that is either trial ended (if the trial is no obligation), past due (if the trial has an obligation), or canceled (if the site has no dunning strategy, or has a strategy that says to cancel immediately). For awaiting signup subscriptions, that is always canceled.
     /// </para>
     /// <para>
-    /// The default activation failure behavior can be configured per activation attempt, or you may set a default value under Config &gt; Settings &gt; Subscription Activation Settings.
+    /// The default activation failure behavior can be configured per activation attempt, or you can set a default value under Config &gt; Settings &gt; Subscription Activation Settings.
     /// </para>
     /// <para>
     /// ## Activation Scenarios
@@ -86,36 +81,34 @@ public sealed class Subscriptions
     /// ### Activate Trialing subscription
     /// </para>
     /// <para>
-    /// You can read more about the behavior of trialing subscriptions <see href="https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions">here</see>.
-    /// When the <c>revert_on_failure</c> parameter is set to <c>true</c>, the subscription's state will remain as Trialing, we will void the invoice from activation and return any prepayments and credits applied to the invoice back to the subscription.
+    /// For more information about the behavior of trialing subscriptions, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions">Trialing Subscriptions</see>.
+    /// When the <c>revert_on_failure</c> parameter is set to <c>true</c>, the subscription's state remains Trialing; the invoice from activation is voided, and any prepayments and credits applied to the invoice are returned to the subscription.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> ActivateSubscription(int subscriptionId,
-        ActivateSubscriptionRequest? body,
+    public Task<SubscriptionResponse> ActivateSubscription(ActivateSubscriptionOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/activate.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/activate.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            ActivateSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ActivateSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Apply Coupons to Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="code">A code for the coupon that would be applied to a subscription</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ApplyCouponsToSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ApplyCouponsToSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Applies one or more coupon codes to an existing subscription.
     /// <para>
@@ -131,33 +124,31 @@ public sealed class Subscriptions
     /// For this reason, using this query parameter on this endpoint has been deprecated in favor of using the request body parameters as described below. When passing in request body parameters, the list of coupon codes will simply be added to any existing list of codes on the subscription.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> ApplyCouponsToSubscription(int subscriptionId,
-        string? code,
-        AddCouponsRequest? body,
+    public Task<SubscriptionResponse> ApplyCouponsToSubscription(ApplyCouponsToSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/add_coupon.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
-            [new Param("code", code)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/add_coupon.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
+            [new Param("code", request.Code)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            ApplyCouponsToSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ApplyCouponsToSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Subscription
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
-    ///
     /// Creates a Subscription for a customer and product.
     /// <para>
     /// Specify the product with <c>product_id</c> or <c>product_handle</c>. To set a specific product price point, use <c>product_price_point_handle</c> or <c>product_price_point_id</c>.
@@ -249,73 +240,59 @@ public sealed class Subscriptions
     /// See the <see href="https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow">3D Secure Post-Authentication Flow</see> article in the product documentation to learn how to manage the redirect flow.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> CreateSubscription(CreateSubscriptionRequest? body,
+    public Task<SubscriptionResponse> CreateSubscription(CreateSubscriptionOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions.json"),
             [],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            CreateSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Find Subscription
     /// </summary>
-    /// <param name="reference">Subscription reference</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="FindSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="FindSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Finds a subscription by its reference.
     /// </remarks>
-    public Task<SubscriptionResponse> FindSubscription(string? reference,
+    public Task<SubscriptionResponse> FindSubscription(FindSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/lookup.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/lookup.json"),
             [],
-            [new Param("reference", reference)],
+            [new Param("reference", request.Reference)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
-            FindSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            FindSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Subscriptions
     /// </summary>
-    /// <param name="state">The current state of the subscription</param>
-    /// <param name="product">The product id of the subscription. (Note that the product handle cannot be used.)</param>
-    /// <param name="productPricePointId">The ID of the product price point. If supplied, product is required.</param>
-    /// <param name="coupon">The numeric id of the coupon currently applied to the subscription. (This can be found in the URL when editing a coupon. Note that the coupon code cannot be used.)</param>
-    /// <param name="couponCode">The coupon code currently applied to the subscription</param>
-    /// <param name="brandingThemeId">Filter subscriptions by the ID of an assigned Branding Theme. Branding Themes is a beta feature. See <see href="https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand-Branding-Themes#understand-branding-themes-0-0">Understand Branding Themes</see> for more information.</param>
-    /// <param name="dateField">The type of filter you'd like to apply to your search.  Allowed Values: , current_period_ends_at, current_period_starts_at, created_at, activated_at, canceled_at, expires_at, trial_started_at, trial_ended_at, updated_at</param>
-    /// <param name="startDate">The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query <c>start_date=2022-07-01</c>.</param>
-    /// <param name="endDate">The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query <c>end_date=2022-08-01</c>.</param>
-    /// <param name="startDatetime">The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Use in query <c>start_datetime=2022-07-01 09:00:05</c>.</param>
-    /// <param name="endDatetime">The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query <c>end_datetime=2022-08-01 10:00:05</c>.</param>
-    /// <param name="metadata">The value of the metadata field specified in the parameter. Use in query <c>metadata[my-field]=value&amp;metadata[other-field]=another_value</c>.</param>
-    /// <param name="direction">Controls the order in which results are returned. Use in query <c>direction=asc</c>.</param>
-    /// <param name="sort">The attribute by which to sort</param>
-    /// <param name="include">Allows including additional data in the response. Use in query: <c>include[]=self_service_page_token</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Lists subscriptions for a site. Pay close attention to query string filters and pagination in order to control responses from the server.
+    /// Lists subscriptions for a site. Use the query string filters and pagination to control responses from the server.
     /// <para>
     /// If you have the new <see href="page:help/announcements/2026-announcements#new-catalog-experience-and-terminology">Catalog experience</see> enabled, some subscriptions may not have an associated product. For subscriptions without an associated product, 'product', 'product_price_point_id', and 'product_price_point_type' are returned as 'null'.
     /// </para>
@@ -332,62 +309,56 @@ public sealed class Subscriptions
     /// Self-Service Page token for the subscriptions is not returned by default. If this information is desired, the include[]=self_service_page_token parameter must be provided with the request.
     /// </para>
     /// </remarks>
-    public Task<IReadOnlyList<SubscriptionResponse>> ListSubscriptions(SubscriptionStateFilter? state,
-        int? product,
-        int? productPricePointId,
-        int? coupon,
-        string? couponCode,
-        int? brandingThemeId,
-        SubscriptionDateField? dateField,
-        DateTimeOffset? startDate,
-        DateTimeOffset? endDate,
-        DateTimeOffset? startDatetime,
-        DateTimeOffset? endDatetime,
-        IReadOnlyDictionary<string, string>? metadata,
-        SortingDirection? direction,
-        SubscriptionSort? sort,
-        IReadOnlyList<SubscriptionListInclude>? include,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<IReadOnlyList<SubscriptionResponse>> ListSubscriptions(ListSubscriptionsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions.json"),
             [],
-            [new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("state", state),
-                new Param("product", product),
-                new Param("product_price_point_id", productPricePointId),
-                new Param("coupon", coupon),
-                new Param("coupon_code", couponCode),
-                new Param("branding_theme_id", brandingThemeId),
-                new Param("date_field", dateField),
-                new Param("start_date", startDate?.ToDate()),
-                new Param("end_date", endDate?.ToDate()),
-                new Param("start_datetime", startDatetime?.ToIso8601()),
-                new Param("end_datetime", endDatetime?.ToIso8601()),
-                new Param("metadata", metadata),
-                new Param("direction", direction),
-                new Param("sort", sort),
-                new Param("include", include)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("sort", request.Sort),
+                new Param("direction", request.Direction),
+                new Param("state", request.State),
+                new Param("product", request.Product),
+                new Param("q", request.Q),
+                new Param("q_scope", request.QScope),
+                new Param("customer_id", request.CustomerId),
+                new Param("product_price_point_id", request.ProductPricePointId),
+                new Param("coupon", request.Coupon),
+                new Param("coupon_code", request.CouponCode),
+                new Param("collection_method", request.CollectionMethod),
+                new Param("branding_theme_id", request.BrandingThemeId),
+                new Param("date_field", request.DateField),
+                new Param("start_date", request.StartDate?.ToDate()),
+                new Param("end_date", request.EndDate?.ToDate()),
+                new Param("start_datetime", request.StartDatetime?.ToIso8601()),
+                new Param("end_datetime", request.EndDatetime?.ToIso8601()),
+                new Param("metadata", request.Metadata),
+                new Param("group_status", request.GroupStatus),
+                new Param("dunning_exemption", request.DunningExemption),
+                new Param("payment_gateways", request.PaymentGateways),
+                new Param("currencies", request.Currencies),
+                new Param("include", request.Include),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<SubscriptionResponse>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Override Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="OverrideSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="OverrideSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Sets certain subscription fields that are usually managed automatically. Some of the fields can be set via the normal Subscriptions Update API, but others can only be set using this endpoint.
     /// <para>
@@ -417,40 +388,40 @@ public sealed class Subscriptions
     /// If unpermitted parameters are sent, a 400 HTTP response is sent along with a string giving the reason for the problem.
     /// </para>
     /// </remarks>
-    public Task OverrideSubscription(int subscriptionId,
-        OverrideSubscriptionRequest? body,
+    public Task OverrideSubscription(OverrideSubscriptionOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/override.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/override.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
-            OverrideSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            OverrideSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Preview Subscription
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionPreviewResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Previews a subscription by POSTing the same JSON or XML as for a subscription creation.
     /// <para>
     /// The "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary.
     /// </para>
     /// <para>
-    /// A subscription will not be created by utilizing this endpoint; it is meant to serve as a prediction.
+    /// This endpoint does not create a subscription; it is meant to serve as a prediction.
     /// </para>
     /// <para>
-    /// For more information, see our documentation <see href="https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview">here</see>.
+    /// For more information, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview">Subscriber Interface Overview</see>.
     /// </para>
     /// <para>
     /// ## Subscriptions can now work independently from the catalog
@@ -477,18 +448,18 @@ public sealed class Subscriptions
     /// ## Taxable Subscriptions
     /// </para>
     /// <para>
-    /// This endpoint will preview taxes applicable to a purchase. In order for taxes to be previewed, the following conditions must be met:
+    /// This endpoint previews taxes applicable to a purchase. For taxes to be previewed, the following conditions must be met:
     /// </para>
     /// <list type="bullet">
     ///   <item><description>Taxes must be configured on the subscription</description></item>
     ///   <item><description>The preview must be for the purchase of a taxable product or component, or combination of the two.</description></item>
-    ///   <item><description>The subscription payload must contain a full billing or shipping address in order to calculate tax</description></item>
+    ///   <item><description>The subscription payload must contain a full billing or shipping address to calculate tax</description></item>
     /// </list>
     /// <para>
-    /// For more information about creating taxable previews, see our documentation guide on how to create <see href="https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes">taxable subscriptions.</see>
+    /// For more information about creating taxable previews, see <see href="https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes">Taxes</see>.
     /// </para>
     /// <para>
-    /// You do <b>not</b> need to include a card number to generate tax information when you are previewing a subscription. However, when you actually want to create the subscription, you must include the credit card information if you want the billing address to be stored in Advanced Billing. The billing address and the credit card information are stored together within the payment profile object. Also, you may not send a billing address to Advanced Billing without payment profile information, as the address is stored on the card.
+    /// You do <b>not</b> need to include a card number to generate tax information when you are previewing a subscription. However, when you actually want to create the subscription, you must include the credit card information if you want the billing address to be stored. The billing address and the credit card information are stored together within the payment profile object. Also, you cannot send a billing address without payment profile information, as the address is stored on the card.
     /// </para>
     /// <para>
     /// You can pass shipping and billing addresses and still decide not to calculate taxes. To do that, pass <c>skip_billing_manifest_taxes: true</c> attribute.
@@ -497,38 +468,37 @@ public sealed class Subscriptions
     /// ## Non-taxable Subscriptions
     /// </para>
     /// <para>
-    /// If you'd like to calculate subscriptions that do not include tax you may leave off the billing information.
+    /// If you'd like to calculate subscriptions that do not include tax, you can leave off the billing information.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionPreviewResponse> PreviewSubscription(CreateSubscriptionRequest? body,
+    public Task<SubscriptionPreviewResponse> PreviewSubscription(PreviewSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/preview.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/preview.json"),
             [],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionPreviewResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Purge Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="ack">id of the customer.</param>
-    /// <param name="cascade">Options are "customer" or "payment_profile". Use in query: <c>cascade[]=customer&amp;cascade[]=payment_profile</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="PurgeSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="PurgeSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Purges an individual subscription for sites in test mode.
     /// <para>
-    /// Provide the subscription ID in the url.  To confirm, supply the customer ID in the query string <c>ack</c> parameter. You may also delete the customer record and/or payment profiles by passing <c>cascade</c> parameters. For example, to delete just the customer record, the query params would be: <c>?ack={customer_id}&amp;cascade[]=customer</c>
+    /// Provide the subscription ID in the URL.  To confirm, supply the customer ID in the query string <c>ack</c> parameter. You may also delete the customer record and/or payment profiles by passing <c>cascade</c> parameters. For example, to delete just the customer record, the query params would be: <c>?ack={customer_id}&amp;cascade[]=customer</c>
     /// </para>
     /// <para>
     /// If you need to remove subscriptions from a live site, contact support to discuss your use case.
@@ -540,32 +510,30 @@ public sealed class Subscriptions
     /// The query params will be: <c>?ack={customer_id}&amp;cascade[]=customer&amp;cascade[]=payment_profile</c>
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> PurgeSubscription(int subscriptionId,
-        int ack,
-        IReadOnlyList<SubscriptionPurgeType>? cascade,
+    public Task<SubscriptionResponse> PurgeSubscription(PurgeSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/purge.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
-            [new Param("ack", ack), new Param("cascade", cascade)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/purge.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
+            [new Param("ack", request.Ack), new Param("cascade", request.Cascade)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
-            PurgeSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            PurgeSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="include">Allows including additional data in the response. Use in query: <c>include[]=coupons&amp;include[]=self_service_page_token</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Retrieves subscription details.
     /// <para>
@@ -578,90 +546,87 @@ public sealed class Subscriptions
     /// Self-Service Page token for the subscription is not returned by default. If this information is desired, the include[]=self_service_page_token parameter must be provided with the request.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> ReadSubscription(int subscriptionId,
-        IReadOnlyList<SubscriptionInclude>? include,
+    public Task<SubscriptionResponse> ReadSubscription(ReadSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
-            [new Param("include", include)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
+            [new Param("include", request.Include)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Remove Coupon from Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="couponCode">The coupon code</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="string"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RemoveCouponFromSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RemoveCouponFromSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Removes a coupon from an existing subscription.
     /// <para>
-    /// For more information on the expected behavior of removing a coupon from a subscription, see our documentation <see href="https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon">here.</see>
+    /// For more information on the expected behavior of removing a coupon from a subscription, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon">Coupons and Subscriptions</see>.
     /// </para>
     /// </remarks>
-    public Task<string> RemoveCouponFromSubscription(int subscriptionId,
-        string? couponCode,
+    public Task<string> RemoveCouponFromSubscription(RemoveCouponFromSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/remove_coupon.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
-            [new Param("coupon_code", couponCode)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/remove_coupon.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
+            [new Param("coupon_code", request.CouponCode)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             JsonResponse.Create<string>(),
-            RemoveCouponFromSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RemoveCouponFromSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Prepaid Subscription Configuration
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="PrepaidConfigurationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdatePrepaidSubscriptionConfigurationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdatePrepaidSubscriptionConfigurationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates a subscription's prepaid configuration.
     /// </remarks>
-    public Task<PrepaidConfigurationResponse> UpdatePrepaidSubscriptionConfiguration(int subscriptionId,
-        UpsertPrepaidConfigurationRequest? body,
+    public Task<PrepaidConfigurationResponse> UpdatePrepaidSubscriptionConfiguration(UpdatePrepaidSubscriptionConfigurationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/prepaid_configurations.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/prepaid_configurations.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<PrepaidConfigurationResponse>(),
-            UpdatePrepaidSubscriptionConfigurationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdatePrepaidSubscriptionConfigurationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates one or more attributes of a subscription.
     /// <para>
@@ -740,19 +705,19 @@ public sealed class Subscriptions
     /// If you have the new <see href="page:help/announcements/2026-announcements#new-catalog-experience-and-terminology">Catalog experience</see> enabled, some subscriptions may not have an associated product. For subscriptions without an associated product, <c>product</c>, <c>product_price_point_id</c>, and <c>product_price_point_type</c> are returned as <c>null</c>.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> UpdateSubscription(int subscriptionId,
-        UpdateSubscriptionRequest? body,
+    public Task<SubscriptionResponse> UpdateSubscription(UpdateSubscriptionOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SubscriptionResponse>(),
-            UpdateSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

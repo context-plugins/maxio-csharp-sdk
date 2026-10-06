@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class RemoveCouponFromSubscriptionError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class RemoveCouponFromSubscriptionError : ApiError
     public bool TryGetSubscriptionRemoveCouponErrors1(out SubscriptionRemoveCouponErrors1 value) =>
         _subscriptionRemoveCouponErrors1Value.TryGetValue(out value);
 
-    internal static Task<RemoveCouponFromSubscriptionError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<RemoveCouponFromSubscriptionError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<SubscriptionRemoveCouponErrors1>(response, ct).As(AsSubscriptionRemoveCouponErrors1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<SubscriptionRemoveCouponErrors1>().As(AsSubscriptionRemoveCouponErrors1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class RemoveCouponFromSubscriptionErrorResponse : IErrorResponse<RemoveCouponFromSubscriptionError>
-{
-    public static RemoveCouponFromSubscriptionErrorResponse Instance { get; } = new();
-
-    private RemoveCouponFromSubscriptionErrorResponse()
-    {
-    }
-
-    public Task<RemoveCouponFromSubscriptionError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        RemoveCouponFromSubscriptionError.Create(response, ct);
+    internal static ApiErrorResponse<RemoveCouponFromSubscriptionError> Response { get; } = new(Create);
 }

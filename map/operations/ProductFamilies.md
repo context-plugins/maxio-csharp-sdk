@@ -8,15 +8,15 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### CreateProductFamily
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateProductFamily(CreateProductFamilyRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateProductFamily(CreateProductFamilyOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `ProductFamilyResponse`
-- **Error**: `SdkException<CreateProductFamilyError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateProductFamilyError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateProductFamilyOperationRequest` | `Requests/ProductFamilies/CreateProductFamilyOperationRequest.cs` |
 | `CreateProductFamilyRequest` | `Models/CreateProductFamilyRequest.cs` |
 | `ProductFamilyResponse` | `Models/ProductFamilyResponse.cs` |
 | `CreateProductFamilyError` | `Errors/CreateProductFamilyError.cs` |
@@ -24,31 +24,31 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### ListProductFamilies
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListProductFamilies(BasicDateField? dateField, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 5 params (`dateField` … `endDatetime`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-- **Query params (wire ← C#)**: `date_field` ← `dateField`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListProductFamilies(ListProductFamiliesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`
 - **Returns**: `IReadOnlyList<ProductFamilyResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListProductFamiliesRequest` | `Requests/ProductFamilies/ListProductFamiliesRequest.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `ProductFamilyResponse` | `Models/ProductFamilyResponse.cs` |
 
 ### ListProductsForProductFamily
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListProductsForProductFamily(string productFamilyId, BasicDateField? dateField, ListProductsFilter? filter, DateTimeOffset? startDate, DateTimeOffset? endDate, DateTimeOffset? startDatetime, DateTimeOffset? endDatetime, bool? includeArchived, ListProductsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 8 params (`dateField` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `date_field` ← `dateField`, `filter` ← `filter`, `start_date` ← `startDate`, `end_date` ← `endDate`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`, `include_archived` ← `includeArchived`, `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListProductsForProductFamily(ListProductsForProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ProductFamilyId`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `date_field` ← `DateField`, `filter` ← `Filter`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `include_archived` ← `IncludeArchived`, `include` ← `Include`
 - **Returns**: `IReadOnlyList<ProductResponse>`
-- **Error**: `SdkException<ListProductsForProductFamilyError>` — **Case A (typed)**
+- **Error**: `ApiException<ListProductsForProductFamilyError>` — **Case A (typed)**
 - **Error accessors**: `TryGetString(out string)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListProductsForProductFamilyRequest` | `Requests/ProductFamilies/ListProductsForProductFamilyRequest.cs` |
 | `BasicDateField` | `Models/Enums/BasicDateField.cs` |
 | `ListProductsFilter` | `Models/ListProductsFilter.cs` |
 | `ListProductsInclude` | `Models/Enums/ListProductsInclude.cs` |
@@ -57,12 +57,14 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 ### ReadProductFamily
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadProductFamily(int id, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadProductFamily(ReadProductFamilyRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Id`
 - **Returns**: `ProductFamilyResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadProductFamilyRequest` | `Requests/ProductFamilies/ReadProductFamilyRequest.cs` |
 | `ProductFamilyResponse` | `Models/ProductFamilyResponse.cs` |
 

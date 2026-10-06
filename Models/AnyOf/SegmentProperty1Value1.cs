@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(SegmentProperty1Value1Converter))]
 public record SegmentProperty1Value1
@@ -34,11 +34,9 @@ public record SegmentProperty1Value1
     public static SegmentProperty1Value1 Double(double value) =>
         new(default, Optional<double>.Some(value), default, default);
 
-    public static SegmentProperty1Value1 Int(int value) =>
-        new(default, default, Optional<int>.Some(value), default);
+    public static SegmentProperty1Value1 Int(int value) => new(default, default, Optional<int>.Some(value), default);
 
-    public static SegmentProperty1Value1 Bool(bool value) =>
-        new(default, default, default, Optional<bool>.Some(value));
+    public static SegmentProperty1Value1 Bool(bool value) => new(default, default, default, Optional<bool>.Some(value));
 
     public bool TryGetString(out string value) => _stringValue.TryGetValue(out value);
 

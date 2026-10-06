@@ -2,16 +2,16 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.SubscriptionGroupStatus;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class SubscriptionGroupStatus
 {
@@ -29,101 +29,101 @@ public sealed class SubscriptionGroupStatus
     /// <summary>
     /// Cancel Delayed Group Cancellation
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CancelDelayedCancellationForGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CancelDelayedCancellationForGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Removes the delayed cancellation on a subscription group.
     /// <para>
     /// Removing the delayed cancellation on a subscription group will ensure that the subscriptions do not get canceled at the end of the period. The request will reset the <c>cancel_at_end_of_period</c> flag to false on each member in the group.
     /// </para>
     /// </remarks>
-    public Task CancelDelayedCancellationForGroup(string uid,
+    public Task CancelDelayedCancellationForGroup(CancelDelayedCancellationForGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/delayed_cancel.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/delayed_cancel.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            CancelDelayedCancellationForGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CancelDelayedCancellationForGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Cancel Grouped Subscriptions
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CancelSubscriptionsInGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CancelSubscriptionsInGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Cancels all subscriptions within the specified group immediately. The group is identified by the <c>uid</c> that is passed in the URL. To successfully cancel the group, the primary subscription must be on automatic billing. The group members must be on automatic billing or prepaid.
     /// <para>
     /// To cancel a subscription group while also charging for any unbilled usage on metered or prepaid components, the <c>charge_unbilled_usage=true</c> parameter must be included in the request.
     /// </para>
     /// </remarks>
-    public Task CancelSubscriptionsInGroup(string uid,
-        CancelGroupedSubscriptionsRequest? body,
+    public Task CancelSubscriptionsInGroup(CancelSubscriptionsInGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/cancel.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/cancel.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
-            CancelSubscriptionsInGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CancelSubscriptionsInGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Initiate Delayed Group Cancellation
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="InitiateDelayedCancellationForGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="InitiateDelayedCancellationForGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Schedules all subscriptions within the specified group to be canceled at the end of their billing period. The group is identified by its uid passed in the URL.
     /// <para>
     /// All subscriptions in the group must be on automatic billing in order to successfully cancel them, and the group must not be in a "past_due" state.
     /// </para>
     /// </remarks>
-    public Task InitiateDelayedCancellationForGroup(string uid,
+    public Task InitiateDelayedCancellationForGroup(InitiateDelayedCancellationForGroupRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/delayed_cancel.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/delayed_cancel.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            InitiateDelayedCancellationForGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            InitiateDelayedCancellationForGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Reactivate / Resume Subscription Group
     /// </summary>
-    /// <param name="uid">The uid of the subscription group</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ReactivateSubscriptionGroupResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReactivateSubscriptionGroupError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReactivateSubscriptionGroupError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Reactivates or resumes a cancelled subscription group. Upon reactivation, any canceled invoices created after the beginning of the primary subscription's billing period will be reopened and payment will be attempted on them. If the subscription group is being reactivated (as opposed to resumed), new charges will also be assessed for the new billing period.
     /// <para>
@@ -164,19 +164,19 @@ public sealed class SubscriptionGroupStatus
     /// See the <see href="https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow">3D Secure Post-Authentication Flow</see> article in the product documentation to learn how to manage the redirect flow.
     /// </para>
     /// </remarks>
-    public Task<ReactivateSubscriptionGroupResponse> ReactivateSubscriptionGroup(string uid,
-        ReactivateSubscriptionGroupRequest? body,
+    public Task<ReactivateSubscriptionGroupResponse> ReactivateSubscriptionGroup(ReactivateSubscriptionGroupOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscription_groups/{uid}/reactivate.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscription_groups/{uid}/reactivate.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ReactivateSubscriptionGroupResponse>(),
-            ReactivateSubscriptionGroupErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReactivateSubscriptionGroupError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

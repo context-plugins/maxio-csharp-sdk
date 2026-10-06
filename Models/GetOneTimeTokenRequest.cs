@@ -1,12 +1,13 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
+using Maxio.Models.OneOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record GetOneTimeTokenRequest
 {
     [JsonPropertyName("payment_profile")]
-    public required GetOneTimeTokenPaymentProfile PaymentProfile { get; init; }
+    public required PaymentProfileModel PaymentProfile { get; init; }
 
     [JsonExtensionData]
     public AdditionalProperties AdditionalProperties { get; init; } = [];

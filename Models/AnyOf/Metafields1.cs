@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(Metafields1Converter))]
 public record Metafields1
@@ -27,8 +27,7 @@ public record Metafields1
     public static Metafields1 ListOfUpdateMetafield(IReadOnlyList<UpdateMetafield> value) =>
         new(default, Optional<IReadOnlyList<UpdateMetafield>>.Some(value));
 
-    public bool TryGetUpdateMetafield(out UpdateMetafield value) =>
-        _updateMetafieldValue.TryGetValue(out value);
+    public bool TryGetUpdateMetafield(out UpdateMetafield value) => _updateMetafieldValue.TryGetValue(out value);
 
     public bool TryGetListOfUpdateMetafield(out IReadOnlyList<UpdateMetafield> value) =>
         _listOfUpdateMetafieldValue.TryGetValue(out value);
@@ -46,13 +45,15 @@ file sealed class Metafields1Converter : JsonConverter<Metafields1>
         {
             return Metafields1.UpdateMetafield(updateMetafieldValue);
         }
-        if (JsonSerializer.TryDeserialize<IReadOnlyList<UpdateMetafield>>(root,
+        if (JsonSerializer.TryDeserialize<IReadOnlyList<UpdateMetafield>>(
+            root,
             options,
             out var listOfUpdateMetafieldValue))
         {
             return Metafields1.ListOfUpdateMetafield(listOfUpdateMetafieldValue);
         }
-        throw new JsonException($"JSON does not match UpdateMetafield or IReadOnlyList<UpdateMetafield> schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match UpdateMetafield or IReadOnlyList<UpdateMetafield> schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer, Metafields1 value, JsonSerializerOptions options)

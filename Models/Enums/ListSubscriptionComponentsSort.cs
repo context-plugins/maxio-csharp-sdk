@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<ListSubscriptionComponentsSort>))]
-public sealed record ListSubscriptionComponentsSort : StringEnum<ListSubscriptionComponentsSort>
+public sealed record ListSubscriptionComponentsSort : OpenStringEnum<ListSubscriptionComponentsSort>
 {
     private ListSubscriptionComponentsSort(string value) : base(value)
     {
@@ -14,5 +15,18 @@ public sealed record ListSubscriptionComponentsSort : StringEnum<ListSubscriptio
 
     public static readonly ListSubscriptionComponentsSort UpdatedAt = new("updated_at");
 
-    public static ListSubscriptionComponentsSort FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onId, Func<TResult> onUpdatedAt, Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Id => onId(),
+            _ when this == UpdatedAt => onUpdatedAt(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onId, Action onUpdatedAt, Action<string> otherwise)
+    {
+        if (this == Id) onId();
+        else if (this == UpdatedAt) onUpdatedAt();
+        else otherwise(Value);
+    }
 }

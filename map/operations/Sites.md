@@ -8,36 +8,36 @@ Accessor: `client.Sites` · Source: `Api/Sites.cs` · 3 operations
 
 ### ClearSite
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ClearSite(CleanupScope? cleanupScope, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `cleanupScope` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `cleanup_scope` ← `cleanupScope`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ClearSite(ClearSiteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `cleanup_scope` ← `CleanupScope`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ClearSiteRequest` | `Requests/Sites/ClearSiteRequest.cs` |
 | `CleanupScope` | `Models/Enums/CleanupScope.cs` |
 
 ### ListChargifyJsPublicKeys
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListChargifyJsPublicKeys(int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListChargifyJsPublicKeys(ListChargifyJsPublicKeysRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `ListPublicKeysResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListChargifyJsPublicKeysRequest` | `Requests/Sites/ListChargifyJsPublicKeysRequest.cs` |
 | `ListPublicKeysResponse` | `Models/ListPublicKeysResponse.cs` |
 
 ### ReadSite
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSite(RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSite(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `SiteResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |

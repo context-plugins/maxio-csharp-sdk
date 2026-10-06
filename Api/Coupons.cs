@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.Coupons;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class Coupons
 {
@@ -31,42 +31,43 @@ public sealed class Coupons
     /// <summary>
     /// Archive Coupon
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Archives a coupon, making it unavailable for future use while remaining active on existing subscriptions.
     /// Archiving makes that Coupon unavailable for future use, but allows it to remain attached and functional on existing Subscriptions that are using it.
     /// The <c>archived_at</c> date and time will be assigned.
     /// </remarks>
-    public Task<CouponResponse> ArchiveCoupon(int productFamilyId,
-        int couponId,
+    public Task<CouponResponse> ArchiveCoupon(ArchiveCouponRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_families/{product_family_id}/coupons/{coupon_id}.json"),
-            [new TemplateParam("product_family_id", productFamilyId), new TemplateParam("coupon_id", couponId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_families/{product_family_id}/coupons/{coupon_id}.json"),
+            [
+                new TemplateParam("product_family_id", request.ProductFamilyId),
+                new TemplateParam("coupon_id", request.CouponId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             JsonResponse.Create<CouponResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Coupon
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateCouponError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateCouponError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates a coupon under the specified product family.
     /// <para>
@@ -76,36 +77,32 @@ public sealed class Coupons
     /// See <see href="https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions">Apply Coupons to Subscriptions</see> for information on applying a coupon to a subscription in the Advanced Billing UI.
     /// </para>
     /// </remarks>
-    public Task<CouponResponse> CreateCoupon(int productFamilyId,
-        CouponRequest? body,
+    public Task<CouponResponse> CreateCoupon(CreateCouponRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_families/{product_family_id}/coupons.json"),
-            [new TemplateParam("product_family_id", productFamilyId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_families/{product_family_id}/coupons.json"),
+            [new TemplateParam("product_family_id", request.ProductFamilyId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CouponResponse>(),
-            CreateCouponErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateCouponError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Coupon Subcodes
     /// </summary>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponSubcodesResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates subcodes for an existing coupon.
-    /// <para>
-    /// ## Coupon Subcodes Intro
-    /// </para>
     /// <para>
     /// Coupon Subcodes allow you to create a set of unique codes that allow you to expand the use of one coupon.
     /// </para>
@@ -127,28 +124,10 @@ public sealed class Coupons
     ///   <item><description>SPRINGBALTIMORE</description></item>
     /// </list>
     /// <para>
-    /// Coupon subcodes can be administered in the Admin Interface or via the API.
+    /// When creating a coupon subcode, you must specify a coupon to attach it to using the coupon_id. Valid coupon subcodes are all capital letters, contain only letters and numbers, and do not have any spaces. Lowercase letters are capitalized before the subcode is created.
     /// </para>
     /// <para>
-    /// When creating a coupon subcode, you must specify a coupon to attach it to using the coupon_id. Valid coupon subcodes are all capital letters, contain only letters and numbers, and do not have any spaces. Lowercase letters will be capitalized before the subcode is created.
-    /// </para>
-    /// <para>
-    /// ## Coupon Subcodes Documentation
-    /// </para>
-    /// <para>
-    /// Full documentation on how to create coupon subcodes in the Advanced Billing UI can be located <see href="https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes">here</see>.
-    /// </para>
-    /// <para>
-    /// Additionally, for documentation on how to apply a coupon to a Subscription within the Advanced Billing UI, see our documentation <see href="https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions">here</see>.
-    /// </para>
-    /// <para>
-    /// ## Create Coupon Subcode
-    /// </para>
-    /// <para>
-    /// This request allows you to create specific subcodes underneath an existing coupon code.
-    /// </para>
-    /// <para>
-    /// *Note*: If you are using any of the allowed special characters ("%", "@", "+", "-", "_", and "."), you must encode them for use in the URL.
+    /// Note: If you are using any of the allowed special characters ("%", "@", "+", "-", "_", and "."), you must encode them for use in the URL.
     /// </para>
     /// <para>
     ///     % to %25
@@ -161,63 +140,64 @@ public sealed class Coupons
     /// <para>
     /// So, if the coupon subcode is <c>20%OFF</c>, the URL to delete this coupon subcode would be: <c>https://&lt;subdomain&gt;.chargify.com/coupons/567/codes/20%25OFF.&lt;format&gt;</c>.
     /// </para>
+    /// <para>
+    /// For more information on coupon codes and applying coupons to subscriptions, see <see href="https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes">Coupon Codes</see> and <see href="https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions">Coupons and Subscriptions</see>.
+    /// </para>
     /// </remarks>
-    public Task<CouponSubcodesResponse> CreateCouponSubcodes(int couponId,
-        CouponSubcodes? body,
+    public Task<CouponSubcodesResponse> CreateCouponSubcodes(CreateCouponSubcodesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/{coupon_id}/codes.json"),
-            [new TemplateParam("coupon_id", couponId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/{coupon_id}/codes.json"),
+            [new TemplateParam("coupon_id", request.CouponId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CouponSubcodesResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create / Update Currency Prices
     /// </summary>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponCurrencyResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateOrUpdateCouponCurrencyPricesError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateOrUpdateCouponCurrencyPricesError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates and/or updates currency prices for an existing coupon. Multiple prices can be created or updated in a single request but each of the currencies must be defined on the site level already and the coupon must be an amount-based coupon, not percentage.
     /// <para>
     /// Currency pricing for coupons must mirror the setup of the primary coupon pricing - if the primary coupon is percentage based, you will not be able to define pricing in non-primary currencies.
     /// </para>
     /// </remarks>
-    public Task<CouponCurrencyResponse> CreateOrUpdateCouponCurrencyPrices(int couponId,
-        CouponCurrencyRequest? body,
+    public Task<CouponCurrencyResponse> CreateOrUpdateCouponCurrencyPrices(CreateOrUpdateCouponCurrencyPricesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/{coupon_id}/currency_prices.json"),
-            [new TemplateParam("coupon_id", couponId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/{coupon_id}/currency_prices.json"),
+            [new TemplateParam("coupon_id", request.CouponId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CouponCurrencyResponse>(),
-            CreateOrUpdateCouponCurrencyPricesErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateOrUpdateCouponCurrencyPricesError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Coupon Subcode
     /// </summary>
-    /// <param name="couponId">The Advanced Billing id of the coupon to which the subcode belongs</param>
-    /// <param name="subcode">The subcode of the coupon</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeleteCouponSubcodeError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeleteCouponSubcodeError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes a specific subcode from a coupon.
     /// <example>
@@ -246,231 +226,221 @@ public sealed class Coupons
     /// </para>
     /// </example>
     /// </remarks>
-    public Task DeleteCouponSubcode(int couponId,
-        string subcode,
+    public Task DeleteCouponSubcode(DeleteCouponSubcodeRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/{coupon_id}/codes/{subcode}.json"),
-            [new TemplateParam("coupon_id", couponId), new TemplateParam("subcode", subcode)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/{coupon_id}/codes/{subcode}.json"),
+            [new TemplateParam("coupon_id", request.CouponId), new TemplateParam("subcode", request.Subcode)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            DeleteCouponSubcodeErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeleteCouponSubcodeError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Find Coupon
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
-    /// <param name="code">The code of the coupon</param>
-    /// <param name="currencyPrices">(Optional) If you have defined multiple currencies at the site level, you can pass <c>?currency_prices=true</c> to include an array of currency price data in the response.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Searches for a coupon by code, returning a 404 if no coupon is found. By passing a code parameter, the find will attempt to locate a coupon that matches that code.
+    /// Searches for a coupon by code.
     /// <para>
-    /// If you have more than one product family and if the coupon you are trying to find does not belong to the default product family in your site, then you will need to specify (either in the url or as a query string param) the product family id.
+    /// If you have more than one product family and if the coupon you are trying to find does not belong to the default product family in your site, you need to specify (either in the URL or as a query string param) the <c>product_family_id</c>.
     /// </para>
     /// </remarks>
-    public Task<CouponResponse> FindCoupon(int? productFamilyId,
-        string? code,
-        bool? currencyPrices,
+    public Task<CouponResponse> FindCoupon(FindCouponRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/find.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/find.json"),
             [],
-            [new Param("product_family_id", productFamilyId),
-                new Param("code", code),
-                new Param("currency_prices", currencyPrices)],
+            [
+                new Param("product_family_id", request.ProductFamilyId),
+                new Param("code", request.Code),
+                new Param("currency_prices", request.CurrencyPrices),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<CouponResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Coupon Subcodes
     /// </summary>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponSubcodes"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists the subcodes attached to a coupon.
     /// </remarks>
-    public Task<CouponSubcodes> ListCouponSubcodes(int couponId,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<CouponSubcodes> ListCouponSubcodes(ListCouponSubcodesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/{coupon_id}/codes.json"),
-            [new TemplateParam("coupon_id", couponId)],
-            [new Param("page", page), new Param("per_page", perPage)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/{coupon_id}/codes.json"),
+            [new TemplateParam("coupon_id", request.CouponId)],
+            [new Param("page", request.Page), new Param("per_page", request.PerPage)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<CouponSubcodes>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Coupons
     /// </summary>
-    /// <param name="filter">Filter to use for List Coupons operations</param>
-    /// <param name="currencyPrices">(Optional) If you have defined multiple currencies at the site level, you can pass <c>?currency_prices=true</c> to include an array of currency price data in the response. Use in query <c>currency_prices=true</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists coupons for a site.
     /// </remarks>
-    public Task<IReadOnlyList<CouponResponse>> ListCoupons(ListCouponsFilter? filter,
-        bool? currencyPrices,
-        int? page = 1,
-        int? perPage = 30,
+    public Task<IReadOnlyList<CouponResponse>> ListCoupons(ListCouponsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons.json"),
             [],
-            [new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("filter", filter),
-                new Param("currency_prices", currencyPrices)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("filter", request.Filter),
+                new Param("currency_prices", request.CurrencyPrices),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<CouponResponse>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Coupons for Product Family
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
-    /// <param name="filter">Filter to use for List Coupons operations</param>
-    /// <param name="currencyPrices">(Optional) If you have defined multiple currencies at the site level, you can pass <c>?currency_prices=true</c> to include an array of currency price data in the response. Use in query <c>currency_prices=true</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists coupons for a specific product family in a site.
     /// </remarks>
-    public Task<IReadOnlyList<CouponResponse>> ListCouponsForProductFamily(int productFamilyId,
-        ListCouponsFilter? filter,
-        bool? currencyPrices,
-        int? page = 1,
-        int? perPage = 30,
+    public Task<IReadOnlyList<CouponResponse>> ListCouponsForProductFamily(ListCouponsForProductFamilyRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_families/{product_family_id}/coupons.json"),
-            [new TemplateParam("product_family_id", productFamilyId)],
-            [new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("filter", filter),
-                new Param("currency_prices", currencyPrices)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_families/{product_family_id}/coupons.json"),
+            [new TemplateParam("product_family_id", request.ProductFamilyId)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("filter", request.Filter),
+                new Param("currency_prices", request.CurrencyPrices),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<CouponResponse>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Coupon
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
-    /// <param name="currencyPrices">(Optional) If you have defined multiple currencies at the site level, you can pass <c>?currency_prices=true</c> to include an array of currency price data in the response.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Returns a coupon by its Advanced Billing-assigned ID. You must identify the Coupon in this call by the ID parameter that Advanced Billing assigns.
-    /// If instead you would like to find a Coupon using a Coupon code, see the Coupon Find method.
+    /// Returns a coupon by its system-assigned ID. You must identify the Coupon in this call by the ID parameter assigned to it.
     /// <para>
-    /// If the coupon is set to <c>use_site_exchange_rate: true</c>, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
+    /// If instead you would like to find a Coupon using a Coupon code, use the <see href="$e/Coupons/findCoupon">Find Coupon</see> endpoint.
+    /// </para>
+    /// <para>
+    /// If the coupon is set to <c>use_site_exchange_rate: true</c>, it returns pricing based on the current exchange rate. If the flag is set to false, it returns all of the defined prices for each currency.
     /// </para>
     /// </remarks>
-    public Task<CouponResponse> ReadCoupon(int productFamilyId,
-        int couponId,
-        bool? currencyPrices,
+    public Task<CouponResponse> ReadCoupon(ReadCouponRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_families/{product_family_id}/coupons/{coupon_id}.json"),
-            [new TemplateParam("product_family_id", productFamilyId), new TemplateParam("coupon_id", couponId)],
-            [new Param("currency_prices", currencyPrices)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_families/{product_family_id}/coupons/{coupon_id}.json"),
+            [
+                new TemplateParam("product_family_id", request.ProductFamilyId),
+                new TemplateParam("coupon_id", request.CouponId),
+            ],
+            [new Param("currency_prices", request.CurrencyPrices)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<CouponResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Coupon Usages
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs.</param>
-    /// <param name="couponId">The Advanced Billing id of the coupon.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="CouponUsage"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists coupon usage details, one entry per product.
     /// </remarks>
-    public Task<IReadOnlyList<CouponUsage>> ReadCouponUsage(int productFamilyId,
-        int couponId,
+    public Task<IReadOnlyList<CouponUsage>> ReadCouponUsage(ReadCouponUsageRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_families/{product_family_id}/coupons/{coupon_id}/usage.json"),
-            [new TemplateParam("product_family_id", productFamilyId), new TemplateParam("coupon_id", couponId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_families/{product_family_id}/coupons/{coupon_id}/usage.json"),
+            [
+                new TemplateParam("product_family_id", request.ProductFamilyId),
+                new TemplateParam("coupon_id", request.CouponId),
+            ],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<CouponUsage>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Coupon
     /// </summary>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateCouponError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateCouponError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates a coupon.
     /// <para>
@@ -478,32 +448,33 @@ public sealed class Coupons
     /// <c>{ "&lt;product/component_id&gt;": boolean_value }</c>
     /// </para>
     /// </remarks>
-    public Task<CouponResponse> UpdateCoupon(int productFamilyId,
-        int couponId,
-        CouponRequest? body,
+    public Task<CouponResponse> UpdateCoupon(UpdateCouponRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/product_families/{product_family_id}/coupons/{coupon_id}.json"),
-            [new TemplateParam("product_family_id", productFamilyId), new TemplateParam("coupon_id", couponId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/product_families/{product_family_id}/coupons/{coupon_id}.json"),
+            [
+                new TemplateParam("product_family_id", request.ProductFamilyId),
+                new TemplateParam("coupon_id", request.CouponId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CouponResponse>(),
-            UpdateCouponErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateCouponError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Coupon Subcodes
     /// </summary>
-    /// <param name="couponId">The Advanced Billing id of the coupon</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponSubcodesResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates the subcodes for a coupon, replacing all existing subcodes with the new list.
     /// Send an array of new coupon subcodes.
@@ -521,70 +492,61 @@ public sealed class Coupons
     ///   <item><description>Any subcodes not created because they are invalid.</description></item>
     /// </list>
     /// </remarks>
-    public Task<CouponSubcodesResponse> UpdateCouponSubcodes(int couponId,
-        CouponSubcodes? body,
+    public Task<CouponSubcodesResponse> UpdateCouponSubcodes(UpdateCouponSubcodesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/{coupon_id}/codes.json"),
-            [new TemplateParam("coupon_id", couponId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/{coupon_id}/codes.json"),
+            [new TemplateParam("coupon_id", request.CouponId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<CouponSubcodesResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Validate Coupon
     /// </summary>
-    /// <param name="code">The code of the coupon</param>
-    /// <param name="productFamilyId">The Advanced Billing id of the product family to which the coupon belongs</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CouponResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ValidateCouponError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ValidateCouponError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Verifies whether a specific coupon code is valid. This method is useful for validating coupon codes that are entered by a customer. If the coupon is found and is valid, the coupon will be returned with a 200 status code.
+    /// Verifies whether a specific coupon code is valid. This method is useful for validating coupon codes that are entered by a customer.
     /// <para>
-    /// If the coupon is invalid, the status code will be 404 and the response will say why it is invalid. If the coupon is valid, the status code will be 200 and the coupon will be returned. The following reasons for invalidity are supported:
-    /// </para>
-    /// <list type="bullet">
-    ///   <item><description>Coupon not found</description></item>
-    ///   <item><description>Coupon is invalid</description></item>
-    ///   <item><description>Coupon expired</description></item>
-    /// </list>
-    /// <para>
-    /// If you have more than one product family and if the coupon you are validating does not belong to the first product family in your site, then you will need to specify the product family, either in the url or as a query string param. This can be done by supplying the id or the handle in the <c>handle:my-family</c> format.
+    /// If you have more than one product family and if the coupon you are validating does not belong to the first product family in your site, you need to specify the product family, either in the URL or as a query string param. This can be done by supplying the id or the handle in the <c>handle:my-family</c> format.
     /// </para>
     /// <para>
-    /// Eg.
+    /// Supplying the <c>product_family_handle</c> in the URL:
     /// </para>
     /// <code>
     /// https://&lt;subdomain&gt;.chargify.com/product_families/handle:&lt;product_family_handle&gt;/coupons/validate.&lt;format&gt;?code=&lt;coupon_code&gt;
     /// </code>
     /// <para>
-    /// Or:
+    /// Supplying the <c>product_family_id</c> as a query parameter:
     /// </para>
     /// <code>
     /// https://&lt;subdomain&gt;.chargify.com/coupons/validate.&lt;format&gt;?code=&lt;coupon_code&gt;&amp;product_family_id=&lt;id&gt;
     /// </code>
     /// </remarks>
-    public Task<CouponResponse> ValidateCoupon(string code,
-        int? productFamilyId,
+    public Task<CouponResponse> ValidateCoupon(ValidateCouponRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/coupons/validate.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/coupons/validate.json"),
             [],
-            [new Param("code", code), new Param("product_family_id", productFamilyId)],
+            [new Param("code", request.Code), new Param("product_family_id", request.ProductFamilyId)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<CouponResponse>(),
-            ValidateCouponErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ValidateCouponError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

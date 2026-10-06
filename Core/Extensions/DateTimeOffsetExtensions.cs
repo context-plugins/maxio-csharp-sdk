@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace MaxioAdvancedBilling.Core.Extensions;
+namespace Maxio.Core.Extensions;
 
 internal static class DateTimeOffsetExtensions
 {

@@ -1,20 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.Invoices;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class Invoices
 {
@@ -32,12 +30,11 @@ public sealed class Invoices
     /// <summary>
     /// Create Invoice
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="InvoiceResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates an ad hoc invoice.
     /// <para>
@@ -247,31 +244,30 @@ public sealed class Invoices
     /// By default, invoices will be created with open status. Possible alternative is <c>draft</c>.
     /// </para>
     /// </remarks>
-    public Task<InvoiceResponse> CreateInvoice(int subscriptionId,
-        CreateInvoiceRequest? body,
+    public Task<InvoiceResponse> CreateInvoice(CreateInvoiceOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/invoices.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/invoices.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<InvoiceResponse>(),
-            CreateInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Draft Ad Hoc Invoice
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeleteInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeleteInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes an ad hoc invoice while it is in the <c>draft</c> state.
     /// <para>
@@ -281,31 +277,30 @@ public sealed class Invoices
     /// A successful deletion returns a <c>204 No Content</c> response and the invoice is permanently removed.
     /// </para>
     /// </remarks>
-    public Task DeleteInvoice(int subscriptionId,
-        string uid,
+    public Task DeleteInvoice(DeleteInvoiceRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/invoices/{uid}.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/invoices/{uid}.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId), new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            DeleteInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeleteInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Issue Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="IssueInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="IssueInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Issues an invoice that is in "pending" or "draft" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
     /// <para>
@@ -321,118 +316,106 @@ public sealed class Invoices
     /// - <c>initiate_dunning</c> - prepayments and credits applied to the invoice; invoice status set to "open"; email sent to the customer for the issued invoice (if setting applies); payment failure recorded in the invoice history; subscription will  most likely go into "past_due" or "canceled" state (depending upon net terms and dunning settings).
     /// </para>
     /// </remarks>
-    public Task<Invoice> IssueInvoice(string uid,
-        IssueInvoiceRequest? body,
+    public Task<Invoice> IssueInvoice(IssueInvoiceOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/issue.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/issue.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<Invoice>(),
-            IssueInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            IssueInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Segments for Consolidated Invoice
     /// </summary>
-    /// <param name="invoiceUid">The unique identifier of the consolidated invoice</param>
-    /// <param name="direction">Sort direction of the returned segments.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ConsolidatedInvoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists segments for a consolidated invoice. Invoice segments returned on the index will only include totals, not detailed breakdowns for <c>line_items</c>, <c>discounts</c>, <c>taxes</c>, <c>credits</c>, <c>payments</c>, or <c>custom_fields</c>.
     /// </remarks>
-    public Task<ConsolidatedInvoice> ListConsolidatedInvoiceSegments(string invoiceUid,
-        Direction? direction,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<ConsolidatedInvoice> ListConsolidatedInvoiceSegments(ListConsolidatedInvoiceSegmentsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{invoice_uid}/segments.json"),
-            [new TemplateParam("invoice_uid", invoiceUid)],
-            [new Param("page", page), new Param("per_page", perPage), new Param("direction", direction)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{invoice_uid}/segments.json"),
+            [new TemplateParam("invoice_uid", request.InvoiceUid)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("direction", request.Direction),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ConsolidatedInvoice>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Credit Notes
     /// </summary>
-    /// <param name="subscriptionId">The subscription's Advanced Billing id</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
-    /// <param name="lineItems">Include line items data.</param>
-    /// <param name="discounts">Include discounts data.</param>
-    /// <param name="taxes">Include taxes data.</param>
-    /// <param name="refunds">Include refunds data.</param>
-    /// <param name="applications">Include applications data.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListCreditNotesResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists credit notes for a site. Credit Notes are like inverse invoices. They reduce the amount a customer owes.
     /// <para>
     /// By default, the credit notes returned by this endpoint will exclude the arrays of <c>line_items</c>, <c>discounts</c>, <c>taxes</c>, <c>applications</c>, or <c>refunds</c>. To include these arrays, pass the specific field as a key in the query with a value set to <c>true</c>.
     /// </para>
     /// </remarks>
-    public Task<ListCreditNotesResponse> ListCreditNotes(int? subscriptionId,
-        int? page = 1,
-        int? perPage = 20,
-        bool? lineItems = false,
-        bool? discounts = false,
-        bool? taxes = false,
-        bool? refunds = false,
-        bool? applications = false,
+    public Task<ListCreditNotesResponse> ListCreditNotes(ListCreditNotesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/credit_notes.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/credit_notes.json"),
             [],
-            [new Param("subscription_id", subscriptionId),
-                new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("line_items", lineItems),
-                new Param("discounts", discounts),
-                new Param("taxes", taxes),
-                new Param("refunds", refunds),
-                new Param("applications", applications)],
+            [
+                new Param("subscription_id", request.SubscriptionId),
+                new Param("date_field", request.DateField),
+                new Param("start_date", request.StartDate),
+                new Param("end_date", request.EndDate),
+                new Param("start_datetime", request.StartDatetime),
+                new Param("end_datetime", request.EndDatetime),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("direction", request.Direction),
+                new Param("line_items", request.LineItems),
+                new Param("discounts", request.Discounts),
+                new Param("taxes", request.Taxes),
+                new Param("refunds", request.Refunds),
+                new Param("applications", request.Applications),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListCreditNotesResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Invoice Events
     /// </summary>
-    /// <param name="sinceDate">The timestamp in a format <c>YYYY-MM-DD T HH:MM:SS Z</c>, or <c>YYYY-MM-DD</c>(in this case, it returns data from the beginning of the day). of the event from which you want to start the search. All the events before the <c>since_date</c> timestamp are not returned in the response.</param>
-    /// <param name="sinceId">The ID of the event from which you want to start the search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more will be shown) This parameter is not used if since_date is defined.</param>
-    /// <param name="invoiceUid">Providing an invoice_uid allows for scoping of the invoice events to a single invoice or credit note.</param>
-    /// <param name="withChangeInvoiceStatus">Use this parameter if you want to fetch also invoice events with change_invoice_status type.</param>
-    /// <param name="eventTypes">Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: <c>event_types=void_invoice,void_remainder</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListInvoiceEventsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists invoice events for a site. Each event contains event "data" (such as an applied payment) as well as a snapshot of the <c>invoice</c> at the time of event completion.
     /// <para>
@@ -464,188 +447,146 @@ public sealed class Invoices
     /// Note - invoice events that occurred prior to 09/05/2018 __will not__ contain an <c>invoice</c> snapshot.
     /// </para>
     /// </remarks>
-    public Task<ListInvoiceEventsResponse> ListInvoiceEvents(string? sinceDate,
-        long? sinceId,
-        string? invoiceUid,
-        string? withChangeInvoiceStatus,
-        IReadOnlyList<InvoiceEventType>? eventTypes,
-        int? page = 1,
-        int? perPage = 100,
+    public Task<ListInvoiceEventsResponse> ListInvoiceEvents(ListInvoiceEventsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/events.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/events.json"),
             [],
-            [new Param("since_date", sinceDate),
-                new Param("since_id", sinceId),
-                new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("invoice_uid", invoiceUid),
-                new Param("with_change_invoice_status", withChangeInvoiceStatus),
-                new Param("event_types", eventTypes)],
+            [
+                new Param("since_date", request.SinceDate),
+                new Param("since_id", request.SinceId),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("invoice_uid", request.InvoiceUid),
+                new Param("with_change_invoice_status", request.WithChangeInvoiceStatus),
+                new Param("event_types", request.EventTypes),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListInvoiceEventsResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Invoices
     /// </summary>
-    /// <param name="startDate">The start date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified.</param>
-    /// <param name="endDate">The end date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.</param>
-    /// <param name="status">The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided</param>
-    /// <param name="subscriptionId">The subscription's ID.</param>
-    /// <param name="subscriptionGroupUid">The UID of the subscription group you want to fetch consolidated invoices for. This will return a paginated list of consolidated invoices for the specified group.</param>
-    /// <param name="consolidationLevel">The consolidation level of the invoice. Allowed Values: none, parent, child or comma-separated lists of thereof, e.g. none,parent.</param>
-    /// <param name="direction">The sort direction of the returned invoices.</param>
-    /// <param name="dateField">The type of filter you would like to apply to your search. Use in query <c>date_field=issue_date</c>.</param>
-    /// <param name="startDatetime">The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at.</param>
-    /// <param name="endDatetime">The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at.</param>
-    /// <param name="customerIds">Allows fetching invoices with matching customer id based on provided values. Use in query <c>customer_ids=1,2,3</c>.</param>
-    /// <param name="number">Allows fetching invoices with matching invoice number based on provided values. Use in query <c>number=1234,1235</c>.</param>
-    /// <param name="productIds">Allows fetching invoices with matching line items product ids based on provided values. Use in query <c>product_ids=23,34</c>.</param>
-    /// <param name="sort">Allows specification of the order of the returned list. Use in query <c>sort=total_amount</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
-    /// <param name="lineItems">Include line items data.</param>
-    /// <param name="discounts">Include discounts data.</param>
-    /// <param name="taxes">Include taxes data.</param>
-    /// <param name="credits">Include credits data.</param>
-    /// <param name="payments">Include payments data.</param>
-    /// <param name="customFields">Include custom fields data.</param>
-    /// <param name="refunds">Include refunds data.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListInvoicesResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists invoices for a site. By default, invoices returned on the index will only include totals, not detailed breakdowns for <c>line_items</c>, <c>discounts</c>, <c>taxes</c>, <c>credits</c>, <c>payments</c>, <c>custom_fields</c>, or <c>refunds</c>. To include breakdowns, pass the specific field as a key in the query with a value set to <c>true</c>.
     /// </remarks>
-    public Task<ListInvoicesResponse> ListInvoices(string? startDate,
-        string? endDate,
-        InvoiceStatus? status,
-        int? subscriptionId,
-        string? subscriptionGroupUid,
-        string? consolidationLevel,
-        Direction? direction,
-        InvoiceDateField? dateField,
-        string? startDatetime,
-        string? endDatetime,
-        IReadOnlyList<int>? customerIds,
-        IReadOnlyList<string>? number,
-        IReadOnlyList<int>? productIds,
-        InvoiceSortField? sort,
-        int? page = 1,
-        int? perPage = 20,
-        bool? lineItems = false,
-        bool? discounts = false,
-        bool? taxes = false,
-        bool? credits = false,
-        bool? payments = false,
-        bool? customFields = false,
-        bool? refunds = false,
+    public Task<ListInvoicesResponse> ListInvoices(ListInvoicesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices.json"),
             [],
-            [new Param("start_date", startDate),
-                new Param("end_date", endDate),
-                new Param("status", status),
-                new Param("subscription_id", subscriptionId),
-                new Param("subscription_group_uid", subscriptionGroupUid),
-                new Param("consolidation_level", consolidationLevel),
-                new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("direction", direction),
-                new Param("line_items", lineItems),
-                new Param("discounts", discounts),
-                new Param("taxes", taxes),
-                new Param("credits", credits),
-                new Param("payments", payments),
-                new Param("custom_fields", customFields),
-                new Param("refunds", refunds),
-                new Param("date_field", dateField),
-                new Param("start_datetime", startDatetime),
-                new Param("end_datetime", endDatetime),
-                new Param("customer_ids", customerIds),
-                new Param("number", number),
-                new Param("product_ids", productIds),
-                new Param("sort", sort)],
+            [
+                new Param("start_date", request.StartDate),
+                new Param("end_date", request.EndDate),
+                new Param("status", request.Status),
+                new Param("subscription_id", request.SubscriptionId),
+                new Param("subscription_group_uid", request.SubscriptionGroupUid),
+                new Param("consolidation_level", request.ConsolidationLevel),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("direction", request.Direction),
+                new Param("line_items", request.LineItems),
+                new Param("discounts", request.Discounts),
+                new Param("taxes", request.Taxes),
+                new Param("credits", request.Credits),
+                new Param("payments", request.Payments),
+                new Param("custom_fields", request.CustomFields),
+                new Param("refunds", request.Refunds),
+                new Param("date_field", request.DateField),
+                new Param("start_datetime", request.StartDatetime),
+                new Param("end_datetime", request.EndDatetime),
+                new Param("customer_ids", request.CustomerIds),
+                new Param("number", request.Number),
+                new Param("product_ids", request.ProductIds),
+                new Param("sort", request.Sort),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListInvoicesResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Preview Customer Information Changes
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CustomerChangesPreviewResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="PreviewCustomerInformationChangesError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="PreviewCustomerInformationChangesError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Previews the effect of customer information changes on an open invoice. Customer information may change after an invoice is issued, which may lead to a mismatch between customer information that is present on an open invoice and actual customer information. This endpoint allows you to preview these differences, if any.
     /// <para>
     /// The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
     /// </para>
     /// </remarks>
-    public Task<CustomerChangesPreviewResponse> PreviewCustomerInformationChanges(string uid,
+    public Task<CustomerChangesPreviewResponse> PreviewCustomerInformationChanges(PreviewCustomerInformationChangesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/customer_information/preview.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/customer_information/preview.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<CustomerChangesPreviewResponse>(),
-            PreviewCustomerInformationChangesErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            PreviewCustomerInformationChangesError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Credit Note
     /// </summary>
-    /// <param name="uid">The unique identifier of the credit note</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="CreditNote"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns the details for a credit note.
     /// </remarks>
-    public Task<CreditNote> ReadCreditNote(string uid,
+    public Task<CreditNote> ReadCreditNote(ReadCreditNoteRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/credit_notes/{uid}.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/credit_notes/{uid}.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<CreditNote>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns the details for an invoice.
     /// <para>
@@ -663,110 +604,90 @@ public sealed class Invoices
     /// </code>
     /// </para>
     /// </remarks>
-    public Task<Invoice> ReadInvoice(string uid,
+    public Task<Invoice> ReadInvoice(ReadInvoiceRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<Invoice>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Record Payment for Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RecordPaymentForInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RecordPaymentForInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Applies a payment of a given type against a specific invoice. If you would like to apply a payment across multiple invoices, you can use the Bulk Payment endpoint.
+    /// Applies a payment of a given type against a specific invoice. If you would like to apply a payment across multiple invoices, you can use the <see href="$e/Invoices/recordPaymentForMultipleInvoices">Record Payment for Multiple Invoices</see> endpoint.
     /// </remarks>
-    public Task<Invoice> RecordPaymentForInvoice(string uid,
-        CreateInvoicePaymentRequest? body,
+    public Task<Invoice> RecordPaymentForInvoice(RecordPaymentForInvoiceRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/payments.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/payments.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<Invoice>(),
-            RecordPaymentForInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RecordPaymentForInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Record Payment for Multiple Invoices
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="MultiInvoicePaymentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RecordPaymentForMultipleInvoicesError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RecordPaymentForMultipleInvoicesError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Records an external payment against multiple invoices.
     /// <para>
-    ///  To apply a payment to multiple invoices, at minimum, specify the <c>amount</c> and <c>applications</c> (i.e., <c>invoice_uid</c> and <c>amount</c>) details.
+    /// To apply a payment to multiple invoices, at minimum, specify the <c>amount</c> and <c>applications</c> (i.e., <c>invoice_uid</c> and <c>amount</c>) details.
     /// </para>
-    /// <code>
-    /// {
-    ///   "payment": {
-    ///     "memo": "to pay the bills",
-    ///     "details": "check number 8675309",
-    ///     "method": "check",
-    ///     "amount": "250.00",
-    ///     "applications": [
-    ///       {
-    ///         "invoice_uid": "inv_8gk5bwkct3gqt",
-    ///         "amount": "100.00"
-    ///       },
-    ///       {
-    ///         "invoice_uid": "inv_7bc6bwkct3lyt",
-    ///         "amount": "150.00"
-    ///       }
-    ///     ]
-    ///   }
-    /// }
-    /// </code>
     /// <para>
     /// Note that the invoice payment amounts must be greater than 0. Total amount must be greater or equal to invoices payment amount sum.
     /// </para>
     /// </remarks>
-    public Task<MultiInvoicePaymentResponse> RecordPaymentForMultipleInvoices(CreateMultiInvoicePaymentRequest? body,
+    public Task<MultiInvoicePaymentResponse> RecordPaymentForMultipleInvoices(RecordPaymentForMultipleInvoicesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/payments.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/payments.json"),
             [],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<MultiInvoicePaymentResponse>(),
-            RecordPaymentForMultipleInvoicesErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RecordPaymentForMultipleInvoicesError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Record Payment For Subscription
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="RecordPaymentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RecordPaymentForSubscriptionError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RecordPaymentForSubscriptionError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Records an external payment made against a subscription that will pay partially or in full one or more invoices.
     /// <para>
@@ -779,31 +700,30 @@ public sealed class Invoices
     /// Only ungrouped or primary subscriptions may be paid using the "bulk" payment request.
     /// </para>
     /// </remarks>
-    public Task<RecordPaymentResponse> RecordPaymentForSubscription(int subscriptionId,
-        RecordPaymentRequest? body,
+    public Task<RecordPaymentResponse> RecordPaymentForSubscription(RecordPaymentForSubscriptionRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/payments.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/payments.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<RecordPaymentResponse>(),
-            RecordPaymentForSubscriptionErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RecordPaymentForSubscriptionError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Refund Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RefundInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RefundInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Refunds an invoice, segment, or consolidated invoice.
     /// <para>
@@ -816,30 +736,30 @@ public sealed class Invoices
     /// For a $50.00 refund on a $100.00 consolidated invoice with one $60.00 segment and one $40.00 segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00, respectively).
     /// </para>
     /// </remarks>
-    public Task<Invoice> RefundInvoice(string uid,
-        RefundInvoiceRequest? body,
+    public Task<Invoice> RefundInvoice(RefundInvoiceOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/refunds.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/refunds.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<Invoice>(),
-            RefundInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            RefundInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Reopen Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReopenInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReopenInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Reopens any invoice with the "canceled" status. Invoices enter "canceled" status if they were open at the time the subscription was canceled (whether through dunning or an intentional cancellation).
     /// <para>
@@ -859,30 +779,30 @@ public sealed class Invoices
     /// When reopening a consolidated invoice, all of its canceled segments will also be reopened.
     /// </para>
     /// </remarks>
-    public Task<Invoice> ReopenInvoice(string uid,
+    public Task<Invoice> ReopenInvoice(ReopenInvoiceRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/reopen.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/reopen.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<Invoice>(),
-            ReopenInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReopenInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Send Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="SendInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="SendInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Sends an invoice to the customer via email. This endpoint supports the delivery of both ad-hoc and automatically generated invoices. Additionally, this endpoint supports email delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
     /// <para>
@@ -895,61 +815,60 @@ public sealed class Invoices
     /// On success, a 204 no-content response will be returned. The response does not indicate that email(s) have been delivered, but instead indicates that emails have been successfully queued for delivery. If _any_ invalid or malformed email address is found in the request body, the entire request will be rejected and a 422 response will be returned.
     /// </para>
     /// </remarks>
-    public Task SendInvoice(string uid,
-        SendInvoiceRequest? body,
+    public Task SendInvoice(SendInvoiceOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/deliveries.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/deliveries.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
-            SendInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            SendInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Customer Information
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateCustomerInformationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateCustomerInformationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates customer information on an open invoice and returns the updated invoice. If you would like to preview changes that will be applied, use the <c>/invoices/{uid}/customer_information/preview.json</c> endpoint first.
     /// <para>
     /// The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
     /// </para>
     /// </remarks>
-    public Task<Invoice> UpdateCustomerInformation(string uid,
+    public Task<Invoice> UpdateCustomerInformation(UpdateCustomerInformationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/customer_information.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/customer_information.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
             EmptyBody.Instance,
             JsonResponse.Create<Invoice>(),
-            UpdateCustomerInformationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateCustomerInformationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Draft Ad Hoc Invoice
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="InvoiceResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates an ad hoc invoice while it is in the <c>draft</c> state.
     /// <para>
@@ -1013,48 +932,46 @@ public sealed class Invoices
     /// A custom memo can be sent with the <c>memo</c> parameter. Likewise, custom payment instructions can be sent with the <c>payment_instructions</c> parameter.
     /// </para>
     /// </remarks>
-    public Task<InvoiceResponse> UpdateInvoice(int subscriptionId,
-        string uid,
-        UpdateInvoiceRequest? body,
+    public Task<InvoiceResponse> UpdateInvoice(UpdateInvoiceOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/invoices/{uid}.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/invoices/{uid}.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId), new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<InvoiceResponse>(),
-            UpdateInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Void Invoice
     /// </summary>
-    /// <param name="uid">The unique identifier for the invoice, this does not refer to the public facing invoice number.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="Invoice"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="VoidInvoiceError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="VoidInvoiceError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Voids any invoice with the "open" or "canceled" status.  It will also allow voiding of an invoice with the "pending" status if it is not a consolidated invoice.
     /// </remarks>
-    public Task<Invoice> VoidInvoice(string uid,
-        VoidInvoiceRequest? body,
+    public Task<Invoice> VoidInvoice(VoidInvoiceOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/invoices/{uid}/void.json"),
-            [new TemplateParam("uid", uid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/invoices/{uid}/void.json"),
+            [new TemplateParam("uid", request.Uid)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<Invoice>(),
-            VoidInvoiceErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            VoidInvoiceError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

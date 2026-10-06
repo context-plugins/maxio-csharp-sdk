@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<InvoiceDiscountType>))]
-public sealed record InvoiceDiscountType : StringEnum<InvoiceDiscountType>
+public sealed record InvoiceDiscountType : OpenStringEnum<InvoiceDiscountType>
 {
     private InvoiceDiscountType(string value) : base(value)
     {
@@ -16,5 +17,23 @@ public sealed record InvoiceDiscountType : StringEnum<InvoiceDiscountType>
 
     public static readonly InvoiceDiscountType Rollover = new("rollover");
 
-    public static InvoiceDiscountType FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onPercentage,
+        Func<TResult> onFlatAmount,
+        Func<TResult> onRollover,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Percentage => onPercentage(),
+            _ when this == FlatAmount => onFlatAmount(),
+            _ when this == Rollover => onRollover(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onPercentage, Action onFlatAmount, Action onRollover, Action<string> otherwise)
+    {
+        if (this == Percentage) onPercentage();
+        else if (this == FlatAmount) onFlatAmount();
+        else if (this == Rollover) onRollover();
+        else otherwise(Value);
+    }
 }

@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<RecurringScheme>))]
-public sealed record RecurringScheme : StringEnum<RecurringScheme>
+public sealed record RecurringScheme : OpenStringEnum<RecurringScheme>
 {
     private RecurringScheme(string value) : base(value)
     {
@@ -16,5 +17,26 @@ public sealed record RecurringScheme : StringEnum<RecurringScheme>
 
     public static readonly RecurringScheme RecurWithDuration = new("recur_with_duration");
 
-    public static RecurringScheme FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onDoNotRecur,
+        Func<TResult> onRecurIndefinitely,
+        Func<TResult> onRecurWithDuration,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == DoNotRecur => onDoNotRecur(),
+            _ when this == RecurIndefinitely => onRecurIndefinitely(),
+            _ when this == RecurWithDuration => onRecurWithDuration(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onDoNotRecur,
+        Action onRecurIndefinitely,
+        Action onRecurWithDuration,
+        Action<string> otherwise)
+    {
+        if (this == DoNotRecur) onDoNotRecur();
+        else if (this == RecurIndefinitely) onRecurIndefinitely();
+        else if (this == RecurWithDuration) onRecurWithDuration();
+        else otherwise(Value);
+    }
 }

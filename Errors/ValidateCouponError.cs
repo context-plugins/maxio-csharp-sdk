@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ValidateCouponError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class ValidateCouponError : ApiError
     private static ValidateCouponError AsSingleStringErrorResponse1(SingleStringErrorResponse1 value) =>
         new(Optional<SingleStringErrorResponse1>.Some(value), default);
 
-    private static ValidateCouponError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static ValidateCouponError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetSingleStringErrorResponse1(out SingleStringErrorResponse1 value) =>
         _singleStringErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<ValidateCouponError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ValidateCouponError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromJson<SingleStringErrorResponse1>(response, ct).As(AsSingleStringErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.Json<SingleStringErrorResponse1>().As(AsSingleStringErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ValidateCouponErrorResponse : IErrorResponse<ValidateCouponError>
-{
-    public static ValidateCouponErrorResponse Instance { get; } = new();
-
-    private ValidateCouponErrorResponse()
-    {
-    }
-
-    public Task<ValidateCouponError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ValidateCouponError.Create(response, ct);
+    internal static ApiErrorResponse<ValidateCouponError> Response { get; } = new(Create);
 }

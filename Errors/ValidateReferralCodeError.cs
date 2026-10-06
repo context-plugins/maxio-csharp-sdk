@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ValidateReferralCodeError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class ValidateReferralCodeError : ApiError
     private static ValidateReferralCodeError AsSingleStringErrorResponse1(SingleStringErrorResponse1 value) =>
         new(Optional<SingleStringErrorResponse1>.Some(value), default);
 
-    private static ValidateReferralCodeError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static ValidateReferralCodeError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetSingleStringErrorResponse1(out SingleStringErrorResponse1 value) =>
         _singleStringErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<ValidateReferralCodeError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ValidateReferralCodeError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromJson<SingleStringErrorResponse1>(response, ct).As(AsSingleStringErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.Json<SingleStringErrorResponse1>().As(AsSingleStringErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ValidateReferralCodeErrorResponse : IErrorResponse<ValidateReferralCodeError>
-{
-    public static ValidateReferralCodeErrorResponse Instance { get; } = new();
-
-    private ValidateReferralCodeErrorResponse()
-    {
-    }
-
-    public Task<ValidateReferralCodeError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ValidateReferralCodeError.Create(response, ct);
+    internal static ApiErrorResponse<ValidateReferralCodeError> Response { get; } = new(Create);
 }

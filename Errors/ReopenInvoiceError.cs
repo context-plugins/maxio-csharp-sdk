@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ReopenInvoiceError : ApiError
 {
@@ -21,8 +19,7 @@ public sealed class ReopenInvoiceError : ApiError
         _errorListResponse1Value = errorListResponse1Value;
     }
 
-    private static ReopenInvoiceError AsObject(object? value) =>
-        new(Optional<object?>.Some(value), default, default);
+    private static ReopenInvoiceError AsObject(object? value) => new(Optional<object?>.Some(value), default, default);
 
     private static ReopenInvoiceError AsErrorListResponse1(ErrorListResponse1 value) =>
         new(default, Optional<ErrorListResponse1>.Some(value), default);
@@ -35,23 +32,13 @@ public sealed class ReopenInvoiceError : ApiError
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<ReopenInvoiceError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ReopenInvoiceError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromJson<object?>(response, ct).As(AsObject),
-            422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.Json<object?>().As(AsObject),
+            422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ReopenInvoiceErrorResponse : IErrorResponse<ReopenInvoiceError>
-{
-    public static ReopenInvoiceErrorResponse Instance { get; } = new();
-
-    private ReopenInvoiceErrorResponse()
-    {
-    }
-
-    public Task<ReopenInvoiceError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ReopenInvoiceError.Create(response, ct);
+    internal static ApiErrorResponse<ReopenInvoiceError> Response { get; } = new(Create);
 }

@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record MeteredUsage
 {
@@ -11,7 +12,7 @@ public record MeteredUsage
     public required string PreviousUnitBalance { get; init; }
 
     [JsonPropertyName("new_unit_balance")]
-    public required int NewUnitBalance { get; init; }
+    public required NewUnitBalance NewUnitBalance { get; init; }
 
     [JsonPropertyName("usage_quantity")]
     public required int UsageQuantity { get; init; }

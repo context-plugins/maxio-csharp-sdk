@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ListMrrPerSubscriptionError : ApiError
 {
@@ -26,22 +24,12 @@ public sealed class ListMrrPerSubscriptionError : ApiError
     public bool TryGetSubscriptionsMrrErrorResponse1(out SubscriptionsMrrErrorResponse1 value) =>
         _subscriptionsMrrErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<ListMrrPerSubscriptionError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ListMrrPerSubscriptionError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            400 => FromJson<SubscriptionsMrrErrorResponse1>(response, ct).As(AsSubscriptionsMrrErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            400 => response.Json<SubscriptionsMrrErrorResponse1>().As(AsSubscriptionsMrrErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ListMrrPerSubscriptionErrorResponse : IErrorResponse<ListMrrPerSubscriptionError>
-{
-    public static ListMrrPerSubscriptionErrorResponse Instance { get; } = new();
-
-    private ListMrrPerSubscriptionErrorResponse()
-    {
-    }
-
-    public Task<ListMrrPerSubscriptionError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ListMrrPerSubscriptionError.Create(response, ct);
+    internal static ApiErrorResponse<ListMrrPerSubscriptionError> Response { get; } = new(Create);
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record CreateInvoice
 {
@@ -62,6 +62,7 @@ public record CreateInvoice
     [JsonPropertyName("coupons")]
     public IReadOnlyList<CreateInvoiceCoupon>? Coupons { get; init; }
 
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("status")]
     public CreateInvoiceStatus? Status { get; init; } = CreateInvoiceStatus.Open;
 

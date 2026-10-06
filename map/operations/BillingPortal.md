@@ -8,16 +8,17 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### EnableBillingPortalForCustomer
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `EnableBillingPortalForCustomer(int customerId, AutoInvite? autoInvite, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `autoInvite` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `auto_invite` ← `autoInvite`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `EnableBillingPortalForCustomer(EnableBillingPortalForCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CustomerId`
+- **Query params (wire ← C#)**: `auto_invite` ← `AutoInvite`
 - **Returns**: `CustomerResponse`
-- **Error**: `SdkException<EnableBillingPortalForCustomerError>` — **Case A (typed)**
+- **Error**: `ApiException<EnableBillingPortalForCustomerError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `EnableBillingPortalForCustomerRequest` | `Requests/BillingPortal/EnableBillingPortalForCustomerRequest.cs` |
 | `AutoInvite` | `Models/Enums/AutoInvite.cs` |
 | `CustomerResponse` | `Models/CustomerResponse.cs` |
 | `EnableBillingPortalForCustomerError` | `Errors/EnableBillingPortalForCustomerError.cs` |
@@ -25,14 +26,16 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### ReadBillingPortalLink
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadBillingPortalLink(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadBillingPortalLink(ReadBillingPortalLinkRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CustomerId`
 - **Returns**: `PortalManagementLink`
-- **Error**: `SdkException<ReadBillingPortalLinkError>` — **Case A (typed)**
+- **Error**: `ApiException<ReadBillingPortalLinkError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetTooManyManagementLinkRequestsError1(out TooManyManagementLinkRequestsError1)` [429] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ReadBillingPortalLinkRequest` | `Requests/BillingPortal/ReadBillingPortalLinkRequest.cs` |
 | `PortalManagementLink` | `Models/PortalManagementLink.cs` |
 | `ReadBillingPortalLinkError` | `Errors/ReadBillingPortalLinkError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
@@ -40,26 +43,30 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 ### ResendBillingPortalInvitation
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ResendBillingPortalInvitation(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ResendBillingPortalInvitation(ResendBillingPortalInvitationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CustomerId`
 - **Returns**: `ResentInvitation`
-- **Error**: `SdkException<ResendBillingPortalInvitationError>` — **Case A (typed)**
+- **Error**: `ApiException<ResendBillingPortalInvitationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ResendBillingPortalInvitationRequest` | `Requests/BillingPortal/ResendBillingPortalInvitationRequest.cs` |
 | `ResentInvitation` | `Models/ResentInvitation.cs` |
 | `ResendBillingPortalInvitationError` | `Errors/ResendBillingPortalInvitationError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### RevokeBillingPortalAccess
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RevokeBillingPortalAccess(int customerId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RevokeBillingPortalAccess(RevokeBillingPortalAccessRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `CustomerId`
 - **Returns**: `RevokedInvitation`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `RevokeBillingPortalAccessRequest` | `Requests/BillingPortal/RevokeBillingPortalAccessRequest.cs` |
 | `RevokedInvitation` | `Models/RevokedInvitation.cs` |
 

@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<ProformaInvoiceStatus>))]
-public sealed record ProformaInvoiceStatus : StringEnum<ProformaInvoiceStatus>
+public sealed record ProformaInvoiceStatus : OpenStringEnum<ProformaInvoiceStatus>
 {
     private ProformaInvoiceStatus(string value) : base(value)
     {
@@ -16,5 +17,23 @@ public sealed record ProformaInvoiceStatus : StringEnum<ProformaInvoiceStatus>
 
     public static readonly ProformaInvoiceStatus Archived = new("archived");
 
-    public static ProformaInvoiceStatus FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onDraft,
+        Func<TResult> onVoided,
+        Func<TResult> onArchived,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Draft => onDraft(),
+            _ when this == Voided => onVoided(),
+            _ when this == Archived => onArchived(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onDraft, Action onVoided, Action onArchived, Action<string> otherwise)
+    {
+        if (this == Draft) onDraft();
+        else if (this == Voided) onVoided();
+        else if (this == Archived) onArchived();
+        else otherwise(Value);
+    }
 }

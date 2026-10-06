@@ -1,9 +1,9 @@
 using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record BankAccountPaymentProfile
 {
@@ -113,6 +113,13 @@ public record BankAccountPaymentProfile
     public string? MaskedBankRoutingNumber { get; init; }
 
     /// <summary>
+    /// A string representation of the stored bank account number with all but the last 4 digits marked with X's (i.e. 'XXXXXXX1111').
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("masked_bank_account_number")]
+    public string? MaskedBankAccountNumber { get; init; }
+
+    /// <summary>
     /// Defaults to checking
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -132,6 +139,7 @@ public record BankAccountPaymentProfile
     /// <summary>
     /// Denotes whether a bank account has been verified by providing the amounts of two small deposits made into the account.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("verified")]
     public bool? Verified { get; init; } = false;
 

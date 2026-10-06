@@ -8,15 +8,16 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 ### IssueAdvanceInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `IssueAdvanceInvoice(int subscriptionId, IssueAdvanceInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `IssueAdvanceInvoice(IssueAdvanceInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<IssueAdvanceInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<IssueAdvanceInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `IssueAdvanceInvoiceOperationRequest` | `Requests/AdvanceInvoice/IssueAdvanceInvoiceOperationRequest.cs` |
 | `IssueAdvanceInvoiceRequest` | `Models/IssueAdvanceInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `IssueAdvanceInvoiceError` | `Errors/IssueAdvanceInvoiceError.cs` |
@@ -24,28 +25,31 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 ### ReadAdvanceInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadAdvanceInvoice(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadAdvanceInvoice(ReadAdvanceInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<ReadAdvanceInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<ReadAdvanceInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ReadAdvanceInvoiceRequest` | `Requests/AdvanceInvoice/ReadAdvanceInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `ReadAdvanceInvoiceError` | `Errors/ReadAdvanceInvoiceError.cs` |
 
 ### VoidAdvanceInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `VoidAdvanceInvoice(int subscriptionId, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `VoidAdvanceInvoice(VoidAdvanceInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<VoidAdvanceInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<VoidAdvanceInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `VoidAdvanceInvoiceRequest` | `Requests/AdvanceInvoice/VoidAdvanceInvoiceRequest.cs` |
 | `VoidInvoiceRequest` | `Models/VoidInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `VoidAdvanceInvoiceError` | `Errors/VoidAdvanceInvoiceError.cs` |

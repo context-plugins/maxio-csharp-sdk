@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 /// <summary>
 /// PCI-safe cardholder fields only. Full card numbers, CVV, and billing address are never included.

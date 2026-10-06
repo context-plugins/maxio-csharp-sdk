@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record UpdateSubscription
 {
@@ -58,6 +58,7 @@ public record UpdateSubscription
     /// <summary>
     /// (Optional) Set this attribute to true to move the subscription from Awaiting Signup, to Awaiting Signup Date. Use this when you want to update a subscription that has an unknown initial billing date. When the first billing date is known, update a subscription to set the <c>initial_billing_at</c> date. The subscription moves to the awaiting signup with a scheduled initial billing date. You can omit the initial_billing_at date to activate the subscription immediately. See <see href="https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States">Subscription States</see> for more information.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("defer_signup")]
     public bool? DeferSignup { get; init; } = false;
 

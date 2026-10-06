@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class CreateOrUpdateCouponCurrencyPricesError : ApiError
 {
@@ -26,23 +24,12 @@ public sealed class CreateOrUpdateCouponCurrencyPricesError : ApiError
     public bool TryGetErrorStringMapResponse1(out ErrorStringMapResponse1 value) =>
         _errorStringMapResponse1Value.TryGetValue(out value);
 
-    internal static Task<CreateOrUpdateCouponCurrencyPricesError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<CreateOrUpdateCouponCurrencyPricesError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<ErrorStringMapResponse1>(response, ct).As(AsErrorStringMapResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<ErrorStringMapResponse1>().As(AsErrorStringMapResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class CreateOrUpdateCouponCurrencyPricesErrorResponse : IErrorResponse<CreateOrUpdateCouponCurrencyPricesError>
-{
-    public static CreateOrUpdateCouponCurrencyPricesErrorResponse Instance { get; } = new();
-
-    private CreateOrUpdateCouponCurrencyPricesErrorResponse()
-    {
-    }
-
-    public Task<CreateOrUpdateCouponCurrencyPricesError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        CreateOrUpdateCouponCurrencyPricesError.Create(response, ct);
+    internal static ApiErrorResponse<CreateOrUpdateCouponCurrencyPricesError> Response { get; } = new(Create);
 }

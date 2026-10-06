@@ -1,17 +1,16 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class DeleteInvoiceError : ApiError
 {
     private readonly Optional<ErrorListResponse1> _errorListResponse1Value;
 
-    private DeleteInvoiceError(Optional<ErrorListResponse1> errorListResponse1Value, Optional<RawError> fallback) : base(fallback)
+    private DeleteInvoiceError(Optional<ErrorListResponse1> errorListResponse1Value,
+        Optional<RawError> fallback) : base(fallback)
     {
         _errorListResponse1Value = errorListResponse1Value;
     }
@@ -19,28 +18,17 @@ public sealed class DeleteInvoiceError : ApiError
     private static DeleteInvoiceError AsErrorListResponse1(ErrorListResponse1 value) =>
         new(Optional<ErrorListResponse1>.Some(value), default);
 
-    private static DeleteInvoiceError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static DeleteInvoiceError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetErrorListResponse1(out ErrorListResponse1 value) =>
         _errorListResponse1Value.TryGetValue(out value);
 
-    internal static Task<DeleteInvoiceError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<DeleteInvoiceError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 or 422 => FromJson<ErrorListResponse1>(response, ct).As(AsErrorListResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 or 422 => response.Json<ErrorListResponse1>().As(AsErrorListResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class DeleteInvoiceErrorResponse : IErrorResponse<DeleteInvoiceError>
-{
-    public static DeleteInvoiceErrorResponse Instance { get; } = new();
-
-    private DeleteInvoiceErrorResponse()
-    {
-    }
-
-    public Task<DeleteInvoiceError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        DeleteInvoiceError.Create(response, ct);
+    internal static ApiErrorResponse<DeleteInvoiceError> Response { get; } = new(Create);
 }

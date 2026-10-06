@@ -1,11 +1,9 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
+using Maxio.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class UpdateMetadataError : ApiError
 {
@@ -20,28 +18,17 @@ public sealed class UpdateMetadataError : ApiError
     private static UpdateMetadataError AsSingleErrorResponse1(SingleErrorResponse1 value) =>
         new(Optional<SingleErrorResponse1>.Some(value), default);
 
-    private static UpdateMetadataError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static UpdateMetadataError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetSingleErrorResponse1(out SingleErrorResponse1 value) =>
         _singleErrorResponse1Value.TryGetValue(out value);
 
-    internal static Task<UpdateMetadataError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<UpdateMetadataError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            422 => FromJson<SingleErrorResponse1>(response, ct).As(AsSingleErrorResponse1),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            422 => response.Json<SingleErrorResponse1>().As(AsSingleErrorResponse1),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class UpdateMetadataErrorResponse : IErrorResponse<UpdateMetadataError>
-{
-    public static UpdateMetadataErrorResponse Instance { get; } = new();
-
-    private UpdateMetadataErrorResponse()
-    {
-    }
-
-    public Task<UpdateMetadataError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        UpdateMetadataError.Create(response, ct);
+    internal static ApiErrorResponse<UpdateMetadataError> Response { get; } = new(Create);
 }

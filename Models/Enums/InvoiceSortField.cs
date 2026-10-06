@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<InvoiceSortField>))]
-public sealed record InvoiceSortField : StringEnum<InvoiceSortField>
+public sealed record InvoiceSortField : OpenStringEnum<InvoiceSortField>
 {
     private InvoiceSortField(string value) : base(value)
     {
@@ -26,5 +27,46 @@ public sealed record InvoiceSortField : StringEnum<InvoiceSortField>
 
     public static readonly InvoiceSortField Number = new("number");
 
-    public static InvoiceSortField FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onStatus,
+        Func<TResult> onTotalAmount,
+        Func<TResult> onDueAmount,
+        Func<TResult> onCreatedAt,
+        Func<TResult> onUpdatedAt,
+        Func<TResult> onIssueDate,
+        Func<TResult> onDueDate,
+        Func<TResult> onNumber,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Status => onStatus(),
+            _ when this == TotalAmount => onTotalAmount(),
+            _ when this == DueAmount => onDueAmount(),
+            _ when this == CreatedAt => onCreatedAt(),
+            _ when this == UpdatedAt => onUpdatedAt(),
+            _ when this == IssueDate => onIssueDate(),
+            _ when this == DueDate => onDueDate(),
+            _ when this == Number => onNumber(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onStatus,
+        Action onTotalAmount,
+        Action onDueAmount,
+        Action onCreatedAt,
+        Action onUpdatedAt,
+        Action onIssueDate,
+        Action onDueDate,
+        Action onNumber,
+        Action<string> otherwise)
+    {
+        if (this == Status) onStatus();
+        else if (this == TotalAmount) onTotalAmount();
+        else if (this == DueAmount) onDueAmount();
+        else if (this == CreatedAt) onCreatedAt();
+        else if (this == UpdatedAt) onUpdatedAt();
+        else if (this == IssueDate) onIssueDate();
+        else if (this == DueDate) onDueDate();
+        else if (this == Number) onNumber();
+        else otherwise(Value);
+    }
 }

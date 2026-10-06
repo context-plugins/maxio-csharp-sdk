@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<InvoiceEventPaymentMethod>))]
-public sealed record InvoiceEventPaymentMethod : StringEnum<InvoiceEventPaymentMethod>
+public sealed record InvoiceEventPaymentMethod : OpenStringEnum<InvoiceEventPaymentMethod>
 {
     private InvoiceEventPaymentMethod(string value) : base(value)
     {
@@ -20,5 +21,34 @@ public sealed record InvoiceEventPaymentMethod : StringEnum<InvoiceEventPaymentM
 
     public static readonly InvoiceEventPaymentMethod PaypalAccount = new("paypal_account");
 
-    public static InvoiceEventPaymentMethod FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onApplePay,
+        Func<TResult> onBankAccount,
+        Func<TResult> onCreditCard,
+        Func<TResult> onExternal,
+        Func<TResult> onPaypalAccount,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == ApplePay => onApplePay(),
+            _ when this == BankAccount => onBankAccount(),
+            _ when this == CreditCard => onCreditCard(),
+            _ when this == External => onExternal(),
+            _ when this == PaypalAccount => onPaypalAccount(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onApplePay,
+        Action onBankAccount,
+        Action onCreditCard,
+        Action onExternal,
+        Action onPaypalAccount,
+        Action<string> otherwise)
+    {
+        if (this == ApplePay) onApplePay();
+        else if (this == BankAccount) onBankAccount();
+        else if (this == CreditCard) onCreditCard();
+        else if (this == External) onExternal();
+        else if (this == PaypalAccount) onPaypalAccount();
+        else otherwise(Value);
+    }
 }

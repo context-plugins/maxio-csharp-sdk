@@ -3,28 +3,31 @@ using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace MaxioAdvancedBilling;
+namespace Maxio;
 
 public static class ServiceCollectionExtensions
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddMaxioAdvancedBillingClient(Action<MaxioAdvancedBillingClientOptions>? configure = null)
+        public IServiceCollection AddMaxioClient(Action<MaxioClientOptions>? configure = null)
         {
-            var options = new MaxioAdvancedBillingClientOptions();
-            configure?.Invoke(options);
             services.AddHttpClient();
             services.AddSingleton(sp =>
+            {
+                var options = new MaxioClientOptions
                 {
-                    options.Logging =
-                        options.Logging with
-                        {
-                            LoggerFactory = options.Logging.LoggerFactory ?? sp.GetService<ILoggerFactory>()
-                        };
-                    var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
-                    var httpClient = httpClientFactory.CreateClient();
-                    return new MaxioAdvancedBillingClient(httpClient, options);
-                });
+                    TimeProvider = sp.GetService<TimeProvider>() ?? TimeProvider.System,
+                };
+                configure?.Invoke(options);
+                options.Logging =
+                    options.Logging with
+                    {
+                        LoggerFactory = options.Logging.LoggerFactory ?? sp.GetService<ILoggerFactory>()
+                    };
+                var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
+                var httpClient = httpClientFactory.CreateClient();
+                return new MaxioClient(httpClient, options);
+            });
             return services;
         }
     }

@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<CreateSignupProformaPreviewInclude>))]
-public sealed record CreateSignupProformaPreviewInclude : StringEnum<CreateSignupProformaPreviewInclude>
+public sealed record CreateSignupProformaPreviewInclude : OpenStringEnum<CreateSignupProformaPreviewInclude>
 {
     private CreateSignupProformaPreviewInclude(string value) : base(value)
     {
@@ -12,5 +13,16 @@ public sealed record CreateSignupProformaPreviewInclude : StringEnum<CreateSignu
 
     public static readonly CreateSignupProformaPreviewInclude NextProformaInvoice = new("next_proforma_invoice");
 
-    public static CreateSignupProformaPreviewInclude FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onNextProformaInvoice, Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == NextProformaInvoice => onNextProformaInvoice(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onNextProformaInvoice, Action<string> otherwise)
+    {
+        if (this == NextProformaInvoice) onNextProformaInvoice();
+        else otherwise(Value);
+    }
 }

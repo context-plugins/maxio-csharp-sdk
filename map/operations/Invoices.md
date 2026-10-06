@@ -8,15 +8,16 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### CreateInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateInvoice(int subscriptionId, CreateInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateInvoice(CreateInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `InvoiceResponse`
-- **Error**: `SdkException<CreateInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateInvoiceOperationRequest` | `Requests/Invoices/CreateInvoiceOperationRequest.cs` |
 | `CreateInvoiceRequest` | `Models/CreateInvoiceRequest.cs` |
 | `InvoiceResponse` | `Models/InvoiceResponse.cs` |
 | `CreateInvoiceError` | `Errors/CreateInvoiceError.cs` |
@@ -24,28 +25,31 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### DeleteInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeleteInvoice(int subscriptionId, string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeleteInvoice(DeleteInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Uid`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeleteInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<DeleteInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [404, 422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeleteInvoiceRequest` | `Requests/Invoices/DeleteInvoiceRequest.cs` |
 | `DeleteInvoiceError` | `Errors/DeleteInvoiceError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### IssueInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `IssueInvoice(string uid, IssueInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `IssueInvoice(IssueInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<IssueInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<IssueInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `IssueInvoiceOperationRequest` | `Requests/Invoices/IssueInvoiceOperationRequest.cs` |
 | `IssueInvoiceRequest` | `Models/IssueInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `IssueInvoiceError` | `Errors/IssueInvoiceError.cs` |
@@ -53,60 +57,59 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ListConsolidatedInvoiceSegments
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListConsolidatedInvoiceSegments(string invoiceUid, Direction? direction, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `direction` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `direction` ← `direction`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListConsolidatedInvoiceSegments(ListConsolidatedInvoiceSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `InvoiceUid`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`
 - **Returns**: `ConsolidatedInvoice`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListConsolidatedInvoiceSegmentsRequest` | `Requests/Invoices/ListConsolidatedInvoiceSegmentsRequest.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `ConsolidatedInvoice` | `Models/ConsolidatedInvoice.cs` |
 
 ### ListCreditNotes
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListCreditNotes(int? subscriptionId, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? refunds = false, bool? applications = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `subscriptionId` — nullable, no default → **must pass explicitly**
-  - defaults: `page` = `1`, `perPage` = `20`, `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `refunds` = `false`, `applications` = `false`
-- **Query params (wire ← C#)**: `subscription_id` ← `subscriptionId`, `page` ← `page`, `per_page` ← `perPage`, `line_items` ← `lineItems`, `discounts` ← `discounts`, `taxes` ← `taxes`, `refunds` ← `refunds`, `applications` ← `applications`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListCreditNotes(ListCreditNotesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `subscription_id` ← `SubscriptionId`, `date_field` ← `DateField`, `start_date` ← `StartDate`, `end_date` ← `EndDate`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`, `line_items` ← `LineItems`, `discounts` ← `Discounts`, `taxes` ← `Taxes`, `refunds` ← `Refunds`, `applications` ← `Applications`
 - **Returns**: `ListCreditNotesResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListCreditNotesRequest` | `Requests/Invoices/ListCreditNotesRequest.cs` |
+| `CreditNoteDateField` | `Models/Enums/CreditNoteDateField.cs` |
+| `Direction` | `Models/Enums/Direction.cs` |
 | `ListCreditNotesResponse` | `Models/ListCreditNotesResponse.cs` |
 
 ### ListInvoiceEvents
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListInvoiceEvents(string? sinceDate, long? sinceId, string? invoiceUid, string? withChangeInvoiceStatus, IReadOnlyList<InvoiceEventType>? eventTypes, int? page = 1, int? perPage = 100, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 5 params (`sinceDate` … `eventTypes`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `100`
-- **Query params (wire ← C#)**: `since_date` ← `sinceDate`, `since_id` ← `sinceId`, `page` ← `page`, `per_page` ← `perPage`, `invoice_uid` ← `invoiceUid`, `with_change_invoice_status` ← `withChangeInvoiceStatus`, `event_types` ← `eventTypes`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListInvoiceEvents(ListInvoiceEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `since_date` ← `SinceDate`, `since_id` ← `SinceId`, `page` ← `Page`, `per_page` ← `PerPage`, `invoice_uid` ← `InvoiceUid`, `with_change_invoice_status` ← `WithChangeInvoiceStatus`, `event_types` ← `EventTypes`
 - **Returns**: `ListInvoiceEventsResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListInvoiceEventsRequest` | `Requests/Invoices/ListInvoiceEventsRequest.cs` |
 | `InvoiceEventType` | `Models/Enums/InvoiceEventType.cs` |
 | `ListInvoiceEventsResponse` | `Models/ListInvoiceEventsResponse.cs` |
 
 ### ListInvoices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListInvoices(string? startDate, string? endDate, InvoiceStatus? status, int? subscriptionId, string? subscriptionGroupUid, string? consolidationLevel, Direction? direction, InvoiceDateField? dateField, string? startDatetime, string? endDatetime, IReadOnlyList<int>? customerIds, IReadOnlyList<string>? number, IReadOnlyList<int>? productIds, InvoiceSortField? sort, int? page = 1, int? perPage = 20, bool? lineItems = false, bool? discounts = false, bool? taxes = false, bool? credits = false, bool? payments = false, bool? customFields = false, bool? refunds = false, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 14 params (`startDate` … `sort`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`, `lineItems` = `false`, `discounts` = `false`, `taxes` = `false`, `credits` = `false`, `payments` = `false`, `customFields` = `false`, `refunds` = `false`
-- **Query params (wire ← C#)**: `start_date` ← `startDate`, `end_date` ← `endDate`, `status` ← `status`, `subscription_id` ← `subscriptionId`, `subscription_group_uid` ← `subscriptionGroupUid`, `consolidation_level` ← `consolidationLevel`, `page` ← `page`, `per_page` ← `perPage`, `direction` ← `direction`, `line_items` ← `lineItems`, `discounts` ← `discounts`, `taxes` ← `taxes`, `credits` ← `credits`, `payments` ← `payments`, `custom_fields` ← `customFields`, `refunds` ← `refunds`, `date_field` ← `dateField`, `start_datetime` ← `startDatetime`, `end_datetime` ← `endDatetime`, `customer_ids` ← `customerIds`, `number` ← `number`, `product_ids` ← `productIds`, `sort` ← `sort`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListInvoices(ListInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `start_date` ← `StartDate`, `end_date` ← `EndDate`, `status` ← `Status`, `subscription_id` ← `SubscriptionId`, `subscription_group_uid` ← `SubscriptionGroupUid`, `consolidation_level` ← `ConsolidationLevel`, `page` ← `Page`, `per_page` ← `PerPage`, `direction` ← `Direction`, `line_items` ← `LineItems`, `discounts` ← `Discounts`, `taxes` ← `Taxes`, `credits` ← `Credits`, `payments` ← `Payments`, `custom_fields` ← `CustomFields`, `refunds` ← `Refunds`, `date_field` ← `DateField`, `start_datetime` ← `StartDatetime`, `end_datetime` ← `EndDatetime`, `customer_ids` ← `CustomerIds`, `number` ← `Number`, `product_ids` ← `ProductIds`, `sort` ← `Sort`
 - **Returns**: `ListInvoicesResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListInvoicesRequest` | `Requests/Invoices/ListInvoicesRequest.cs` |
 | `InvoiceStatus` | `Models/Enums/InvoiceStatus.cs` |
 | `Direction` | `Models/Enums/Direction.cs` |
 | `InvoiceDateField` | `Models/Enums/InvoiceDateField.cs` |
@@ -115,51 +118,58 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### PreviewCustomerInformationChanges
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PreviewCustomerInformationChanges(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PreviewCustomerInformationChanges(PreviewCustomerInformationChangesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `CustomerChangesPreviewResponse`
-- **Error**: `SdkException<PreviewCustomerInformationChangesError>` — **Case A (typed)**
+- **Error**: `ApiException<PreviewCustomerInformationChangesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [404, 422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `PreviewCustomerInformationChangesRequest` | `Requests/Invoices/PreviewCustomerInformationChangesRequest.cs` |
 | `CustomerChangesPreviewResponse` | `Models/CustomerChangesPreviewResponse.cs` |
 | `PreviewCustomerInformationChangesError` | `Errors/PreviewCustomerInformationChangesError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ReadCreditNote
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadCreditNote(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadCreditNote(ReadCreditNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `CreditNote`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadCreditNoteRequest` | `Requests/Invoices/ReadCreditNoteRequest.cs` |
 | `CreditNote` | `Models/CreditNote.cs` |
 
 ### ReadInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadInvoice(ReadInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ReadInvoiceRequest` | `Requests/Invoices/ReadInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 
 ### RecordPaymentForInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RecordPaymentForInvoice(string uid, CreateInvoicePaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RecordPaymentForInvoice(RecordPaymentForInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<RecordPaymentForInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<RecordPaymentForInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `RecordPaymentForInvoiceRequest` | `Requests/Invoices/RecordPaymentForInvoiceRequest.cs` |
 | `CreateInvoicePaymentRequest` | `Models/CreateInvoicePaymentRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `RecordPaymentForInvoiceError` | `Errors/RecordPaymentForInvoiceError.cs` |
@@ -167,15 +177,15 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RecordPaymentForMultipleInvoices
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RecordPaymentForMultipleInvoices(CreateMultiInvoicePaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RecordPaymentForMultipleInvoices(RecordPaymentForMultipleInvoicesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
 - **Returns**: `MultiInvoicePaymentResponse`
-- **Error**: `SdkException<RecordPaymentForMultipleInvoicesError>` — **Case A (typed)**
+- **Error**: `ApiException<RecordPaymentForMultipleInvoicesError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `RecordPaymentForMultipleInvoicesRequest` | `Requests/Invoices/RecordPaymentForMultipleInvoicesRequest.cs` |
 | `CreateMultiInvoicePaymentRequest` | `Models/CreateMultiInvoicePaymentRequest.cs` |
 | `MultiInvoicePaymentResponse` | `Models/MultiInvoicePaymentResponse.cs` |
 | `RecordPaymentForMultipleInvoicesError` | `Errors/RecordPaymentForMultipleInvoicesError.cs` |
@@ -183,15 +193,16 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RecordPaymentForSubscription
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RecordPaymentForSubscription(int subscriptionId, RecordPaymentRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RecordPaymentForSubscription(RecordPaymentForSubscriptionRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `RecordPaymentResponse`
-- **Error**: `SdkException<RecordPaymentForSubscriptionError>` — **Case A (typed)**
+- **Error**: `ApiException<RecordPaymentForSubscriptionError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `RecordPaymentForSubscriptionRequest` | `Requests/Invoices/RecordPaymentForSubscriptionRequest.cs` |
 | `RecordPaymentRequest` | `Models/RecordPaymentRequest.cs` |
 | `RecordPaymentResponse` | `Models/RecordPaymentResponse.cs` |
 | `RecordPaymentForSubscriptionError` | `Errors/RecordPaymentForSubscriptionError.cs` |
@@ -199,15 +210,16 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### RefundInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RefundInvoice(string uid, RefundInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RefundInvoice(RefundInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<RefundInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<RefundInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `RefundInvoiceOperationRequest` | `Requests/Invoices/RefundInvoiceOperationRequest.cs` |
 | `RefundInvoiceRequest` | `Models/RefundInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `RefundInvoiceError` | `Errors/RefundInvoiceError.cs` |
@@ -215,58 +227,64 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### ReopenInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReopenInvoice(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReopenInvoice(ReopenInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<ReopenInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<ReopenInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetObject(out object?)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ReopenInvoiceRequest` | `Requests/Invoices/ReopenInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `ReopenInvoiceError` | `Errors/ReopenInvoiceError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### SendInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `SendInvoice(string uid, SendInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `SendInvoice(SendInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<SendInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<SendInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `SendInvoiceOperationRequest` | `Requests/Invoices/SendInvoiceOperationRequest.cs` |
 | `SendInvoiceRequest` | `Models/SendInvoiceRequest.cs` |
 | `SendInvoiceError` | `Errors/SendInvoiceError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### UpdateCustomerInformation
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateCustomerInformation(string uid, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateCustomerInformation(UpdateCustomerInformationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<UpdateCustomerInformationError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateCustomerInformationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [404, 422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateCustomerInformationRequest` | `Requests/Invoices/UpdateCustomerInformationRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `UpdateCustomerInformationError` | `Errors/UpdateCustomerInformationError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### UpdateInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdateInvoice(int subscriptionId, string uid, UpdateInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdateInvoice(UpdateInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `Uid`
 - **Returns**: `InvoiceResponse`
-- **Error**: `SdkException<UpdateInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdateInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [404] · `TryGetErrorArrayMapResponse1(out ErrorArrayMapResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdateInvoiceOperationRequest` | `Requests/Invoices/UpdateInvoiceOperationRequest.cs` |
 | `UpdateInvoiceRequest` | `Models/UpdateInvoiceRequest.cs` |
 | `InvoiceResponse` | `Models/InvoiceResponse.cs` |
 | `UpdateInvoiceError` | `Errors/UpdateInvoiceError.cs` |
@@ -275,15 +293,16 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 ### VoidInvoice
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `VoidInvoice(string uid, VoidInvoiceRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `VoidInvoice(VoidInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Uid`
 - **Returns**: `Invoice`
-- **Error**: `SdkException<VoidInvoiceError>` — **Case A (typed)**
+- **Error**: `ApiException<VoidInvoiceError>` — **Case A (typed)**
 - **Error accessors**: `TryGetObject(out object?)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `VoidInvoiceOperationRequest` | `Requests/Invoices/VoidInvoiceOperationRequest.cs` |
 | `VoidInvoiceRequest` | `Models/VoidInvoiceRequest.cs` |
 | `Invoice` | `Models/Invoice.cs` |
 | `VoidInvoiceError` | `Errors/VoidInvoiceError.cs` |

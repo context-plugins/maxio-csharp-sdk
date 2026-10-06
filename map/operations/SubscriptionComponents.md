@@ -8,27 +8,29 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ActivateEventBasedComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ActivateEventBasedComponent(int subscriptionId, int componentId, ActivateEventBasedComponent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ActivateEventBasedComponent(ActivateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ActivateEventBasedComponentRequest` | `Requests/SubscriptionComponents/ActivateEventBasedComponentRequest.cs` |
 | `ActivateEventBasedComponent` | `Models/ActivateEventBasedComponent.cs` |
 
 ### AllocateComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `AllocateComponent(int subscriptionId, int componentId, CreateAllocationRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `AllocateComponent(AllocateComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`
 - **Returns**: `AllocationResponse`
-- **Error**: `SdkException<AllocateComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<AllocateComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `AllocateComponentRequest` | `Requests/SubscriptionComponents/AllocateComponentRequest.cs` |
 | `CreateAllocationRequest` | `Models/CreateAllocationRequest.cs` |
 | `AllocationResponse` | `Models/AllocationResponse.cs` |
 | `AllocateComponentError` | `Errors/AllocateComponentError.cs` |
@@ -36,15 +38,16 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### AllocateComponents
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `AllocateComponents(int subscriptionId, AllocateComponents? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `AllocateComponents(AllocateComponentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `IReadOnlyList<AllocationResponse>`
-- **Error**: `SdkException<AllocateComponentsError>` — **Case A (typed)**
+- **Error**: `ApiException<AllocateComponentsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `AllocateComponentsRequest` | `Requests/SubscriptionComponents/AllocateComponentsRequest.cs` |
 | `AllocateComponents` | `Models/AllocateComponents.cs` |
 | `AllocationResponse` | `Models/AllocationResponse.cs` |
 | `AllocateComponentsError` | `Errors/AllocateComponentsError.cs` |
@@ -53,55 +56,59 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 ### BulkRecordEvents
 
 - **Server group**: `Ebb`
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `BulkRecordEvents(string apiHandle, string? storeUid, IReadOnlyList<EbbEvent>? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `storeUid` — nullable, no default → **must pass explicitly**
-  - `body` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `store_uid` ← `storeUid`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `BulkRecordEvents(BulkRecordEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ApiHandle`
+- **Query params (wire ← C#)**: `store_uid` ← `StoreUid`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `BulkRecordEventsRequest` | `Requests/SubscriptionComponents/BulkRecordEventsRequest.cs` |
 | `EbbEvent` | `Models/EbbEvent.cs` |
 
 ### BulkResetSubscriptionComponentsPricePoints
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `BulkResetSubscriptionComponentsPricePoints(int subscriptionId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `BulkResetSubscriptionComponentsPricePoints(BulkResetSubscriptionComponentsPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `SubscriptionResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `BulkResetSubscriptionComponentsPricePointsRequest` | `Requests/SubscriptionComponents/BulkResetSubscriptionComponentsPricePointsRequest.cs` |
 | `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
 
 ### BulkUpdateSubscriptionComponentsPricePoints
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `BulkUpdateSubscriptionComponentsPricePoints(int subscriptionId, BulkComponentsPricePointAssignment? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `BulkUpdateSubscriptionComponentsPricePoints(BulkUpdateSubscriptionComponentsPricePointsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `BulkComponentsPricePointAssignment`
-- **Error**: `SdkException<BulkUpdateSubscriptionComponentsPricePointsError>` — **Case A (typed)**
+- **Error**: `ApiException<BulkUpdateSubscriptionComponentsPricePointsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetComponentPricePointError1(out ComponentPricePointError1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `BulkUpdateSubscriptionComponentsPricePointsRequest` | `Requests/SubscriptionComponents/BulkUpdateSubscriptionComponentsPricePointsRequest.cs` |
 | `BulkComponentsPricePointAssignment` | `Models/BulkComponentsPricePointAssignment.cs` |
 | `BulkUpdateSubscriptionComponentsPricePointsError` | `Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs` |
 | `ComponentPricePointError1` | `Models/ComponentPricePointError1.cs` |
 
 ### CreateUsage
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `CreateUsage(SubscriptionIdOrReference subscriptionIdOrReference, ComponentIdModel componentId, CreateUsageRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `CreateUsage(CreateUsageOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionIdOrReference`, `ComponentId`
 - **Returns**: `UsageResponse`
-- **Error**: `SdkException<CreateUsageError>` — **Case A (typed)**
+- **Error**: `ApiException<CreateUsageError>` — **Case A (typed)**
 - **Error accessors**: `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `CreateUsageOperationRequest` | `Requests/SubscriptionComponents/CreateUsageOperationRequest.cs` |
 | `SubscriptionIdOrReference` | `Models/AnyOf/SubscriptionIdOrReference.cs` |
 | `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
 | `CreateUsageRequest` | `Models/CreateUsageRequest.cs` |
@@ -111,53 +118,61 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### DeactivateEventBasedComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeactivateEventBasedComponent(int subscriptionId, int componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeactivateEventBasedComponent(DeactivateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
+
+| Type | Source |
+| --- | --- |
+| `DeactivateEventBasedComponentRequest` | `Requests/SubscriptionComponents/DeactivateEventBasedComponentRequest.cs` |
 
 ### DeletePrepaidUsageAllocation
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `DeletePrepaidUsageAllocation(int subscriptionId, int componentId, int allocationId, CreditSchemeRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `DeletePrepaidUsageAllocation(DeletePrepaidUsageAllocationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`, `AllocationId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<DeletePrepaidUsageAllocationError>` — **Case A (typed)**
+- **Error**: `ApiException<DeletePrepaidUsageAllocationError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetSubscriptionComponentAllocationError1(out SubscriptionComponentAllocationError1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `DeletePrepaidUsageAllocationRequest` | `Requests/SubscriptionComponents/DeletePrepaidUsageAllocationRequest.cs` |
 | `CreditSchemeRequest` | `Models/CreditSchemeRequest.cs` |
 | `DeletePrepaidUsageAllocationError` | `Errors/DeletePrepaidUsageAllocationError.cs` |
 | `SubscriptionComponentAllocationError1` | `Models/SubscriptionComponentAllocationError1.cs` |
 
 ### ListAllocations
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListAllocations(int subscriptionId, int componentId, int? page = 1, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - defaults: `page` = `1`
-- **Query params (wire ← C#)**: `page` ← `page`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListAllocations(ListAllocationsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`
+- **Query params (wire ← C#)**: `page` ← `Page`
 - **Returns**: `IReadOnlyList<AllocationResponse>`
-- **Error**: `SdkException<ListAllocationsError>` — **Case A (typed)**
+- **Error**: `ApiException<ListAllocationsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetErrorListResponse1(out ErrorListResponse1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ListAllocationsRequest` | `Requests/SubscriptionComponents/ListAllocationsRequest.cs` |
 | `AllocationResponse` | `Models/AllocationResponse.cs` |
 | `ListAllocationsError` | `Errors/ListAllocationsError.cs` |
 | `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
 
 ### ListSubscriptionComponents
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptionComponents(int subscriptionId, SubscriptionListDateField? dateField, SortingDirection? direction, ListSubscriptionComponentsFilter? filter, string? endDate, string? endDatetime, IncludeNotNull? pricePointIds, IReadOnlyList<int>? productFamilyIds, ListSubscriptionComponentsSort? sort, string? startDate, string? startDatetime, IReadOnlyList<ListSubscriptionComponentsInclude>? include, bool? inUse, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 12 params (`dateField` … `inUse`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-- **Query params (wire ← C#)**: `date_field` ← `dateField`, `direction` ← `direction`, `filter` ← `filter`, `end_date` ← `endDate`, `end_datetime` ← `endDatetime`, `price_point_ids` ← `pricePointIds`, `product_family_ids` ← `productFamilyIds`, `sort` ← `sort`, `start_date` ← `startDate`, `start_datetime` ← `startDatetime`, `include` ← `include`, `in_use` ← `inUse`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptionComponents(ListSubscriptionComponentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
+- **Query params (wire ← C#)**: `date_field` ← `DateField`, `direction` ← `Direction`, `filter` ← `Filter`, `end_date` ← `EndDate`, `end_datetime` ← `EndDatetime`, `price_point_ids` ← `PricePointIds`, `product_family_ids` ← `ProductFamilyIds`, `sort` ← `Sort`, `start_date` ← `StartDate`, `start_datetime` ← `StartDatetime`, `include` ← `Include`, `in_use` ← `InUse`
 - **Returns**: `IReadOnlyList<SubscriptionComponentResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListSubscriptionComponentsRequest` | `Requests/SubscriptionComponents/ListSubscriptionComponentsRequest.cs` |
 | `SubscriptionListDateField` | `Models/Enums/SubscriptionListDateField.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
 | `ListSubscriptionComponentsFilter` | `Models/ListSubscriptionComponentsFilter.cs` |
@@ -168,16 +183,15 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ListSubscriptionComponentsForSite
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListSubscriptionComponentsForSite(ListSubscriptionComponentsSort? sort, SortingDirection? direction, ListSubscriptionComponentsForSiteFilter? filter, SubscriptionListDateField? dateField, string? startDate, string? startDatetime, string? endDate, string? endDatetime, IReadOnlyList<int>? subscriptionIds, IncludeNotNull? pricePointIds, IReadOnlyList<int>? productFamilyIds, ListSubscriptionComponentsInclude? include, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 12 params (`sort` … `include`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `page` ← `page`, `per_page` ← `perPage`, `sort` ← `sort`, `direction` ← `direction`, `filter` ← `filter`, `date_field` ← `dateField`, `start_date` ← `startDate`, `start_datetime` ← `startDatetime`, `end_date` ← `endDate`, `end_datetime` ← `endDatetime`, `subscription_ids` ← `subscriptionIds`, `price_point_ids` ← `pricePointIds`, `product_family_ids` ← `productFamilyIds`, `include` ← `include`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListSubscriptionComponentsForSite(ListSubscriptionComponentsForSiteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+- **Query params (wire ← C#)**: `page` ← `Page`, `per_page` ← `PerPage`, `sort` ← `Sort`, `direction` ← `Direction`, `filter` ← `Filter`, `date_field` ← `DateField`, `start_date` ← `StartDate`, `start_datetime` ← `StartDatetime`, `end_date` ← `EndDate`, `end_datetime` ← `EndDatetime`, `subscription_ids` ← `SubscriptionIds`, `price_point_ids` ← `PricePointIds`, `product_family_ids` ← `ProductFamilyIds`, `include` ← `Include`
 - **Returns**: `ListSubscriptionComponentsResponse`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListSubscriptionComponentsForSiteRequest` | `Requests/SubscriptionComponents/ListSubscriptionComponentsForSiteRequest.cs` |
 | `ListSubscriptionComponentsSort` | `Models/Enums/ListSubscriptionComponentsSort.cs` |
 | `SortingDirection` | `Models/Enums/SortingDirection.cs` |
 | `ListSubscriptionComponentsForSiteFilter` | `Models/ListSubscriptionComponentsForSiteFilter.cs` |
@@ -188,31 +202,32 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ListUsages
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ListUsages(SubscriptionIdOrReference subscriptionIdOrReference, ComponentIdModel componentId, long? sinceId, long? maxId, DateTimeOffset? sinceDate, DateTimeOffset? untilDate, int? page = 1, int? perPage = 20, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - 4 params (`sinceId` … `untilDate`) — nullable, no default → **must pass explicitly** (pass `null` to skip)
-  - defaults: `page` = `1`, `perPage` = `20`
-- **Query params (wire ← C#)**: `since_id` ← `sinceId`, `max_id` ← `maxId`, `since_date` ← `sinceDate`, `until_date` ← `untilDate`, `page` ← `page`, `per_page` ← `perPage`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ListUsages(ListUsagesRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionIdOrReference`, `ComponentId`
+- **Query params (wire ← C#)**: `since_id` ← `SinceId`, `max_id` ← `MaxId`, `since_date` ← `SinceDate`, `until_date` ← `UntilDate`, `page` ← `Page`, `per_page` ← `PerPage`
 - **Returns**: `IReadOnlyList<UsageResponse>`
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `ListUsagesRequest` | `Requests/SubscriptionComponents/ListUsagesRequest.cs` |
 | `SubscriptionIdOrReference` | `Models/AnyOf/SubscriptionIdOrReference.cs` |
 | `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
 | `UsageResponse` | `Models/UsageResponse.cs` |
 
 ### PreviewAllocations
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `PreviewAllocations(int subscriptionId, PreviewAllocationsRequest? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `PreviewAllocations(PreviewAllocationsOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`
 - **Returns**: `AllocationPreviewResponse`
-- **Error**: `SdkException<PreviewAllocationsError>` — **Case A (typed)**
+- **Error**: `ApiException<PreviewAllocationsError>` — **Case A (typed)**
 - **Error accessors**: `TryGetComponentAllocationError1(out ComponentAllocationError1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `PreviewAllocationsOperationRequest` | `Requests/SubscriptionComponents/PreviewAllocationsOperationRequest.cs` |
 | `PreviewAllocationsRequest` | `Models/PreviewAllocationsRequest.cs` |
 | `AllocationPreviewResponse` | `Models/AllocationPreviewResponse.cs` |
 | `PreviewAllocationsError` | `Errors/PreviewAllocationsError.cs` |
@@ -220,43 +235,46 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 ### ReadSubscriptionComponent
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ReadSubscriptionComponent(int subscriptionId, int componentId, RequestOptions? requestOptions = null, CancellationToken ct = default)`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ReadSubscriptionComponent(ReadSubscriptionComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`
 - **Returns**: `SubscriptionComponentResponse`
-- **Error**: `SdkException<ReadSubscriptionComponentError>` — **Case A (typed)**
+- **Error**: `ApiException<ReadSubscriptionComponentError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ReadSubscriptionComponentRequest` | `Requests/SubscriptionComponents/ReadSubscriptionComponentRequest.cs` |
 | `SubscriptionComponentResponse` | `Models/SubscriptionComponentResponse.cs` |
 | `ReadSubscriptionComponentError` | `Errors/ReadSubscriptionComponentError.cs` |
 
 ### RecordEvent
 
 - **Server group**: `Ebb`
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `RecordEvent(string apiHandle, string? storeUid, EbbEvent? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `storeUid` — nullable, no default → **must pass explicitly**
-  - `body` — nullable, no default → **must pass explicitly**
-- **Query params (wire ← C#)**: `store_uid` ← `storeUid`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `RecordEvent(RecordEventRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `ApiHandle`
+- **Query params (wire ← C#)**: `store_uid` ← `StoreUid`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<RawError>` — **Case B**
+- **Error**: `ApiException<RawError>` — **Case B**
 
 | Type | Source |
 | --- | --- |
+| `RecordEventRequest` | `Requests/SubscriptionComponents/RecordEventRequest.cs` |
 | `EbbEvent` | `Models/EbbEvent.cs` |
 
 ### UpdatePrepaidUsageAllocationExpirationDate
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `UpdatePrepaidUsageAllocationExpirationDate(int subscriptionId, int componentId, int allocationId, UpdateAllocationExpirationDate? body, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-  - `body` — nullable, no default → **must pass explicitly**
+- **Auth**: `options.BasicAuth`
+- **Signature**: `UpdatePrepaidUsageAllocationExpirationDate(UpdatePrepaidUsageAllocationExpirationDateRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `SubscriptionId`, `ComponentId`, `AllocationId`
 - **Returns**: `void` (Task)
-- **Error**: `SdkException<UpdatePrepaidUsageAllocationExpirationDateError>` — **Case A (typed)**
+- **Error**: `ApiException<UpdatePrepaidUsageAllocationExpirationDateError>` — **Case A (typed)**
 - **Error accessors**: `TryGetNoContent(out RawError)` [404] · `TryGetSubscriptionComponentAllocationError1(out SubscriptionComponentAllocationError1)` [422] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `UpdatePrepaidUsageAllocationExpirationDateRequest` | `Requests/SubscriptionComponents/UpdatePrepaidUsageAllocationExpirationDateRequest.cs` |
 | `UpdateAllocationExpirationDate` | `Models/UpdateAllocationExpirationDate.cs` |
 | `UpdatePrepaidUsageAllocationExpirationDateError` | `Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs` |
 | `SubscriptionComponentAllocationError1` | `Models/SubscriptionComponentAllocationError1.cs` |

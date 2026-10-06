@@ -1,10 +1,10 @@
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Models.AnyOf;
+namespace Maxio.Models.AnyOf;
 
 [JsonConverter(typeof(RefundPrepaymentErrorResponseConverter))]
 public record RefundPrepaymentErrorResponse
@@ -47,19 +47,20 @@ file sealed class RefundPrepaymentErrorResponseConverter : JsonConverter<RefundP
     {
         using var doc = JsonDocument.ParseValue(ref reader);
         var root = doc.RootElement;
-        if (JsonSerializer.TryDeserialize<RefundPrepaymentAggregatedErrorsResponse>(root,
+        if (JsonSerializer.TryDeserialize<RefundPrepaymentAggregatedErrorsResponse>(
+            root,
             options,
             out var refundPrepaymentAggregatedErrorsResponseValue))
         {
-            return RefundPrepaymentErrorResponse.RefundPrepaymentAggregatedErrorsResponse(refundPrepaymentAggregatedErrorsResponseValue);
+            return RefundPrepaymentErrorResponse.RefundPrepaymentAggregatedErrorsResponse(
+                refundPrepaymentAggregatedErrorsResponseValue);
         }
-        if (JsonSerializer.TryDeserialize<ErrorStringMapResponse1>(root,
-            options,
-            out var errorStringMapResponse1Value))
+        if (JsonSerializer.TryDeserialize<ErrorStringMapResponse1>(root, options, out var errorStringMapResponse1Value))
         {
             return RefundPrepaymentErrorResponse.ErrorStringMapResponse1(errorStringMapResponse1Value);
         }
-        throw new JsonException($"JSON does not match RefundPrepaymentAggregatedErrorsResponse or ErrorStringMapResponse1 schemas: {root.ToString()}");
+        throw new JsonException(
+            $"JSON does not match RefundPrepaymentAggregatedErrorsResponse or ErrorStringMapResponse1 schemas: {root.ToString()}");
     }
 
     public override void Write(Utf8JsonWriter writer,

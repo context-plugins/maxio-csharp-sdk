@@ -8,15 +8,17 @@ Accessor: `client.ReferralCodes` · Source: `Api/ReferralCodes.cs` · 1 operatio
 
 ### ValidateReferralCode
 
-- **Auth**: `options.BasicAuth` OR `options.BearerAuth`
-- **Signature**: `ValidateReferralCode(string code, RequestOptions? requestOptions = null, CancellationToken ct = default)`
-- **Query params (wire ← C#)**: `code` ← `code`
+- **Auth**: `options.BasicAuth`
+- **Signature**: `ValidateReferralCode(ValidateReferralCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default)`
+  - required: `Code`
+- **Query params (wire ← C#)**: `code` ← `Code`
 - **Returns**: `ReferralValidationResponse`
-- **Error**: `SdkException<ValidateReferralCodeError>` — **Case A (typed)**
+- **Error**: `ApiException<ValidateReferralCodeError>` — **Case A (typed)**
 - **Error accessors**: `TryGetSingleStringErrorResponse1(out SingleStringErrorResponse1)` [404] · `TryGetRawError(out RawError)` [fallback]
 
 | Type | Source |
 | --- | --- |
+| `ValidateReferralCodeRequest` | `Requests/ReferralCodes/ValidateReferralCodeRequest.cs` |
 | `ReferralValidationResponse` | `Models/ReferralValidationResponse.cs` |
 | `ValidateReferralCodeError` | `Errors/ValidateReferralCodeError.cs` |
 | `SingleStringErrorResponse1` | `Models/SingleStringErrorResponse1.cs` |

@@ -1,10 +1,8 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class DeleteReasonCodeError : ApiError
 {
@@ -15,30 +13,18 @@ public sealed class DeleteReasonCodeError : ApiError
         _noContentValue = noContentValue;
     }
 
-    private static DeleteReasonCodeError AsNoContent(RawError value) =>
-        new(Optional<RawError>.Some(value), default);
+    private static DeleteReasonCodeError AsNoContent(RawError value) => new(Optional<RawError>.Some(value), default);
 
-    private static DeleteReasonCodeError AsFallback(RawError value) =>
-        new(default, Optional<RawError>.Some(value));
+    private static DeleteReasonCodeError AsFallback(RawError value) => new(default, Optional<RawError>.Some(value));
 
     public bool TryGetNoContent(out RawError value) => _noContentValue.TryGetValue(out value);
 
-    internal static Task<DeleteReasonCodeError> Create(HttpResponseMessage response, CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<DeleteReasonCodeError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromRawBody(response, ct).As(AsNoContent),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.RawBody().As(AsNoContent),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class DeleteReasonCodeErrorResponse : IErrorResponse<DeleteReasonCodeError>
-{
-    public static DeleteReasonCodeErrorResponse Instance { get; } = new();
-
-    private DeleteReasonCodeErrorResponse()
-    {
-    }
-
-    public Task<DeleteReasonCodeError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        DeleteReasonCodeError.Create(response, ct);
+    internal static ApiErrorResponse<DeleteReasonCodeError> Response { get; } = new(Create);
 }

@@ -1,11 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.AnyOf;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record Event
 {
@@ -31,8 +31,7 @@ public record Event
     /// <summary>
     /// The schema varies based on the event key. The key-to-event data mapping is as follows:
     /// <para>
-    /// * <c>subscription_product_change</c> - SubscriptionProductChange
-    /// * <c>subscription_product_change_scheduled</c> - SubscriptionProductChangeScheduled
+    /// * <c>subscription_product_change</c>, <c>subscription_product_change_scheduled</c> - SubscriptionProductChange
     /// * <c>subscription_state_change</c> - SubscriptionStateChange
     /// * <c>signup_success</c>, <c>delayed_signup_creation_success</c>, <c>payment_success</c>, <c>payment_failure</c>, <c>renewal_success</c>, <c>renewal_failure</c>, <c>chargeback_lost</c>, <c>chargeback_accepted</c>, <c>chargeback_closed</c> - PaymentRelatedEvents
     /// * <c>refund_success</c> - RefundSuccess

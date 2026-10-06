@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record CreatePrepaidUsageComponentPricePoint
 {
@@ -29,6 +29,7 @@ public record CreatePrepaidUsageComponentPricePoint
     /// <summary>
     /// Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("use_site_exchange_rate")]
     public bool? UseSiteExchangeRate { get; init; } = true;
 

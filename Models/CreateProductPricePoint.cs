@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record CreateProductPricePoint
 {
@@ -93,6 +93,7 @@ public record CreateProductPricePoint
     /// <summary>
     /// Whether or not to use the site's exchange rate or define your own pricing when your site has multiple currencies defined.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("use_site_exchange_rate")]
     public bool? UseSiteExchangeRate { get; init; } = true;
 

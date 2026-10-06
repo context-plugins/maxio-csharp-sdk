@@ -1,10 +1,11 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 [JsonConverter(typeof(StringEnumConverter<DiscountType>))]
-public sealed record DiscountType : StringEnum<DiscountType>
+public sealed record DiscountType : OpenStringEnum<DiscountType>
 {
     private DiscountType(string value) : base(value)
     {
@@ -14,5 +15,18 @@ public sealed record DiscountType : StringEnum<DiscountType>
 
     public static readonly DiscountType Percent = new("percent");
 
-    public static DiscountType FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onAmount, Func<TResult> onPercent, Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Amount => onAmount(),
+            _ when this == Percent => onPercent(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onAmount, Action onPercent, Action<string> otherwise)
+    {
+        if (this == Amount) onAmount();
+        else if (this == Percent) onPercent();
+        else otherwise(Value);
+    }
 }

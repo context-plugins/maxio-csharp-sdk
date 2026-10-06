@@ -1,16 +1,15 @@
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Models;
 
-namespace MaxioAdvancedBilling.Errors;
+namespace Maxio.Errors;
 
 public sealed class ListProductsForProductFamilyError : ApiError
 {
     private readonly Optional<string> _stringValue;
 
-    private ListProductsForProductFamilyError(Optional<string> stringValue, Optional<RawError> fallback) : base(fallback)
+    private ListProductsForProductFamilyError(Optional<string> stringValue,
+        Optional<RawError> fallback) : base(fallback)
     {
         _stringValue = stringValue;
     }
@@ -23,23 +22,12 @@ public sealed class ListProductsForProductFamilyError : ApiError
 
     public bool TryGetString(out string value) => _stringValue.TryGetValue(out value);
 
-    internal static Task<ListProductsForProductFamilyError> Create(HttpResponseMessage response,
-        CancellationToken ct) =>
-        (int)response.StatusCode switch
+    private static Task<ListProductsForProductFamilyError> Create(FailedResponse response) =>
+        response.StatusCode switch
         {
-            404 => FromJson<string>(response, ct).As(AsString),
-            _ => FromRawBody(response, ct).As(AsFallback)
+            404 => response.Json<string>().As(AsString),
+            _ => response.RawBody().As(AsFallback)
         };
-}
 
-internal sealed class ListProductsForProductFamilyErrorResponse : IErrorResponse<ListProductsForProductFamilyError>
-{
-    public static ListProductsForProductFamilyErrorResponse Instance { get; } = new();
-
-    private ListProductsForProductFamilyErrorResponse()
-    {
-    }
-
-    public Task<ListProductsForProductFamilyError> Map(HttpResponseMessage response, CancellationToken ct) =>
-        ListProductsForProductFamilyError.Create(response, ct);
+    internal static ApiErrorResponse<ListProductsForProductFamilyError> Response { get; } = new(Create);
 }

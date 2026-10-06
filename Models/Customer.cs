@@ -1,8 +1,9 @@
 using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Models;
+using Maxio.Core.Models;
+using Maxio.Models.Enums;
 
-namespace MaxioAdvancedBilling.Models;
+namespace Maxio.Models;
 
 public record Customer
 {
@@ -175,11 +176,32 @@ public record Customer
     public bool? Surcharging { get; init; }
 
     /// <summary>
-    /// The VAT business identification number for the customer. This number is used to determine VAT tax opt out rules. It is not validated when added or updated on a customer record. Instead, it is validated via VIES before calculating taxes. Only valid business identification numbers will allow for VAT opt out.
+    /// The VAT business identification number for the customer. This number is used to determine VAT tax opt out rules. It is not validated when added or updated on a customer record. Instead, it is validated via VIES before calculating taxes. Only valid business identification numbers will allow for VAT opt out. When the customer holds an entity identifier, this field returns that identifier's value, whatever its kind.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("vat_number")]
     public string? VatNumber { get; init; }
+
+    /// <summary>
+    /// The two-letter ISO 3166-1 country code that qualifies the customer's VAT number. Set to <c>null</c> when an identifier is stored through <c>entity_identifier_kind</c> for a kind that is not tied to a VAT country, meaning <c>company_reg</c>, <c>gln</c>, <c>duns</c>, or <c>lei</c>.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("vat_country")]
+    public string? VatCountry { get; init; }
+
+    /// <summary>
+    /// The kind of tax or business identifier held by the customer. Returned as <c>null</c> when the customer has no entity identifier, including a legacy customer whose <c>vat_number</c> predates entity identifiers.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("entity_identifier_kind")]
+    public EntityIdentifierKind? EntityIdentifierKind { get; init; }
+
+    /// <summary>
+    /// The value of the customer's tax or business identifier. Returned as <c>null</c> when the customer has no entity identifier.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("entity_identifier_value")]
+    public string? EntityIdentifierValue { get; init; }
 
     /// <summary>
     /// The parent ID in Chargify if applicable. Parent is another Customer object.

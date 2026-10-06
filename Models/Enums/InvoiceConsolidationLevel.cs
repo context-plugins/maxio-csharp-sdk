@@ -1,7 +1,8 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// Consolidation level of the invoice, which is applicable to invoice consolidation. It will hold one of the following values:
@@ -18,7 +19,7 @@ namespace MaxioAdvancedBilling.Models.Enums;
 /// </para>
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter<InvoiceConsolidationLevel>))]
-public sealed record InvoiceConsolidationLevel : StringEnum<InvoiceConsolidationLevel>
+public sealed record InvoiceConsolidationLevel : OpenStringEnum<InvoiceConsolidationLevel>
 {
     private InvoiceConsolidationLevel(string value) : base(value)
     {
@@ -30,5 +31,23 @@ public sealed record InvoiceConsolidationLevel : StringEnum<InvoiceConsolidation
 
     public static readonly InvoiceConsolidationLevel Parent = new("parent");
 
-    public static InvoiceConsolidationLevel FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onNone,
+        Func<TResult> onChild,
+        Func<TResult> onParent,
+        Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == None => onNone(),
+            _ when this == Child => onChild(),
+            _ when this == Parent => onParent(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onNone, Action onChild, Action onParent, Action<string> otherwise)
+    {
+        if (this == None) onNone();
+        else if (this == Child) onChild();
+        else if (this == Parent) onParent();
+        else otherwise(Value);
+    }
 }

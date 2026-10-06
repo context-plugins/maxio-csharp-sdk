@@ -1,13 +1,14 @@
+using System;
 using System.Text.Json.Serialization;
-using MaxioAdvancedBilling.Core.Enum;
+using Maxio.Core.Enum;
 
-namespace MaxioAdvancedBilling.Models.Enums;
+namespace Maxio.Models.Enums;
 
 /// <summary>
 /// Used for sorting results.
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter<SortingDirection>))]
-public sealed record SortingDirection : StringEnum<SortingDirection>
+public sealed record SortingDirection : OpenStringEnum<SortingDirection>
 {
     private SortingDirection(string value) : base(value)
     {
@@ -17,5 +18,18 @@ public sealed record SortingDirection : StringEnum<SortingDirection>
 
     public static readonly SortingDirection Desc = new("desc");
 
-    public static SortingDirection FromValue(string value) => FromValueCore(value);
+    public TResult Match<TResult>(Func<TResult> onAsc, Func<TResult> onDesc, Func<string, TResult> otherwise) =>
+        this switch
+        {
+            _ when this == Asc => onAsc(),
+            _ when this == Desc => onDesc(),
+            _ => otherwise(Value)
+        };
+
+    public void Match(Action onAsc, Action onDesc, Action<string> otherwise)
+    {
+        if (this == Asc) onAsc();
+        else if (this == Desc) onDesc();
+        else otherwise(Value);
+    }
 }

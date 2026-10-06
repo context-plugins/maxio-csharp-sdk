@@ -2,16 +2,16 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
+using Maxio.Core;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.EventsBasedBillingSegments;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class EventsBasedBillingSegments
 {
@@ -29,13 +29,11 @@ public sealed class EventsBasedBillingSegments
     /// <summary>
     /// Bulk Create Segments
     /// </summary>
-    /// <param name="componentId">ID or Handle for the Component</param>
-    /// <param name="pricePointId">ID or Handle for the Price Point belonging to the Component</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListSegmentsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="BulkCreateSegmentsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="BulkCreateSegmentsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates multiple segments in one request. The array of segments can contain up to <c>2000</c> records.
     /// <para>
@@ -45,33 +43,33 @@ public sealed class EventsBasedBillingSegments
     /// You may specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
     /// </para>
     /// </remarks>
-    public Task<ListSegmentsResponse> BulkCreateSegments(string componentId,
-        string pricePointId,
-        BulkCreateSegments? body,
+    public Task<ListSegmentsResponse> BulkCreateSegments(BulkCreateSegmentsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/components/{component_id}/price_points/{price_point_id}/segments/bulk.json"),
-            [new TemplateParam("component_id", componentId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/components/{component_id}/price_points/{price_point_id}/segments/bulk.json"),
+            [
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ListSegmentsResponse>(),
-            BulkCreateSegmentsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            BulkCreateSegmentsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Bulk Update Segments
     /// </summary>
-    /// <param name="componentId">ID or Handle for the Component</param>
-    /// <param name="pricePointId">ID or Handle for the Price Point belonging to the Component</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListSegmentsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="BulkUpdateSegmentsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="BulkUpdateSegmentsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates multiple segments in one request. The array of segments can contain up to <c>1000</c> records.
     /// <para>
@@ -81,103 +79,100 @@ public sealed class EventsBasedBillingSegments
     /// You may specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
     /// </para>
     /// </remarks>
-    public Task<ListSegmentsResponse> BulkUpdateSegments(string componentId,
-        string pricePointId,
-        BulkUpdateSegments? body,
+    public Task<ListSegmentsResponse> BulkUpdateSegments(BulkUpdateSegmentsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/components/{component_id}/price_points/{price_point_id}/segments/bulk.json"),
-            [new TemplateParam("component_id", componentId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/components/{component_id}/price_points/{price_point_id}/segments/bulk.json"),
+            [
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<ListSegmentsResponse>(),
-            BulkUpdateSegmentsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            BulkUpdateSegmentsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Single Segment
     /// </summary>
-    /// <param name="componentId">ID or Handle for the Component</param>
-    /// <param name="pricePointId">ID or Handle for the Price Point belonging to the Component</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SegmentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateSegmentError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateSegmentError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates a new segment for a component with a segmented metric. It allows you to specify properties to bill upon and prices for each Segment. You can only pass as many "property_values" as the related Metric has segmenting properties defined.
     /// <para>
     /// You may specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
     /// </para>
     /// </remarks>
-    public Task<SegmentResponse> CreateSegment(string componentId,
-        string pricePointId,
-        CreateSegmentRequest? body,
+    public Task<SegmentResponse> CreateSegment(CreateSegmentOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/components/{component_id}/price_points/{price_point_id}/segments.json"),
-            [new TemplateParam("component_id", componentId), new TemplateParam("price_point_id", pricePointId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/components/{component_id}/price_points/{price_point_id}/segments.json"),
+            [
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SegmentResponse>(),
-            CreateSegmentErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateSegmentError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Single Segment
     /// </summary>
-    /// <param name="componentId">ID or Handle of the Component</param>
-    /// <param name="pricePointId">ID or Handle of the Price Point belonging to the Component</param>
-    /// <param name="id">The ID of the Segment</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeleteSegmentError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeleteSegmentError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes a segment with the specified ID.
     /// <para>
     /// You may specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
     /// </para>
     /// </remarks>
-    public Task DeleteSegment(string componentId,
-        string pricePointId,
-        double id,
+    public Task DeleteSegment(DeleteSegmentRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/components/{component_id}/price_points/{price_point_id}/segments/{id}.json"),
-            [new TemplateParam("component_id", componentId),
-                new TemplateParam("price_point_id", pricePointId),
-                new TemplateParam("id", id)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/components/{component_id}/price_points/{price_point_id}/segments/{id}.json"),
+            [
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("price_point_id", request.PricePointId),
+                new TemplateParam("id", request.Id),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
             EmptyBody.Instance,
             VoidResponse.Instance,
-            DeleteSegmentErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeleteSegmentError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Segments for a Price Point
     /// </summary>
-    /// <param name="componentId">ID or Handle for the Component</param>
-    /// <param name="pricePointId">ID or Handle for the Price Point belonging to the Component</param>
-    /// <param name="filter">Filter to use for List Segments for a Price Point operation</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListSegmentsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ListSegmentsForPricePointError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ListSegmentsForPricePointError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists segments created for a given price point, in order of creation.
     /// <para>
@@ -187,59 +182,60 @@ public sealed class EventsBasedBillingSegments
     /// You may specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
     /// </para>
     /// </remarks>
-    public Task<ListSegmentsResponse> ListSegmentsForPricePoint(string componentId,
-        string pricePointId,
-        ListSegmentsFilter? filter,
-        int? page = 1,
-        int? perPage = 30,
+    public Task<ListSegmentsResponse> ListSegmentsForPricePoint(ListSegmentsForPricePointRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/components/{component_id}/price_points/{price_point_id}/segments.json"),
-            [new TemplateParam("component_id", componentId), new TemplateParam("price_point_id", pricePointId)],
-            [new Param("page", page), new Param("per_page", perPage), new Param("filter", filter)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/components/{component_id}/price_points/{price_point_id}/segments.json"),
+            [
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("price_point_id", request.PricePointId),
+            ],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("filter", request.Filter),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListSegmentsResponse>(),
-            ListSegmentsForPricePointErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ListSegmentsForPricePointError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Single Segment
     /// </summary>
-    /// <param name="componentId">ID or Handle of the Component</param>
-    /// <param name="pricePointId">ID or Handle of the Price Point belonging to the Component</param>
-    /// <param name="id">The ID of the Segment</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SegmentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdateSegmentError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdateSegmentError"/> when the server returns an error response.</exception>
     /// <remarks>
-    /// Updates a single segment for a component with a segmented metric. It allows you to update the pricing for the segment.
+    /// Updates a single segment for a component with a segmented metric. You can also update the pricing for the segment.
     /// <para>
-    /// You may specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
+    /// You can specify component and/or price point by using either the numeric ID or the <c>handle:gold</c> syntax.
     /// </para>
     /// </remarks>
-    public Task<SegmentResponse> UpdateSegment(string componentId,
-        string pricePointId,
-        double id,
-        UpdateSegmentRequest? body,
+    public Task<SegmentResponse> UpdateSegment(UpdateSegmentOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/components/{component_id}/price_points/{price_point_id}/segments/{id}.json"),
-            [new TemplateParam("component_id", componentId),
-                new TemplateParam("price_point_id", pricePointId),
-                new TemplateParam("id", id)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/components/{component_id}/price_points/{price_point_id}/segments/{id}.json"),
+            [
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("price_point_id", request.PricePointId),
+                new TemplateParam("id", request.Id),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<SegmentResponse>(),
-            UpdateSegmentErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdateSegmentError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }

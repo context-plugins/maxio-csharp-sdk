@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using MaxioAdvancedBilling.Core;
-using MaxioAdvancedBilling.Core.Authentication;
-using MaxioAdvancedBilling.Core.ErrorResponse;
-using MaxioAdvancedBilling.Core.Exceptions;
-using MaxioAdvancedBilling.Core.Extensions;
-using MaxioAdvancedBilling.Core.Models;
-using MaxioAdvancedBilling.Core.Request;
-using MaxioAdvancedBilling.Core.Response;
-using MaxioAdvancedBilling.Errors;
-using MaxioAdvancedBilling.Models;
-using MaxioAdvancedBilling.Models.AnyOf;
-using MaxioAdvancedBilling.Models.Enums;
+using Maxio.Core;
+using Maxio.Core.ErrorResponse;
+using Maxio.Core.Exceptions;
+using Maxio.Core.Extensions;
+using Maxio.Core.Models;
+using Maxio.Core.Request;
+using Maxio.Core.Response;
+using Maxio.Errors;
+using Maxio.Models;
+using Maxio.Requests.SubscriptionComponents;
 
-namespace MaxioAdvancedBilling.Api;
+namespace Maxio.Api;
 
 public sealed class SubscriptionComponents
 {
@@ -34,55 +32,54 @@ public sealed class SubscriptionComponents
     /// <summary>
     /// Activate Event-Based Component
     /// </summary>
-    /// <param name="subscriptionId">The Advanced Billing id of the subscription</param>
-    /// <param name="componentId">The Advanced Billing id of the component</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Activates an event-based component for a single subscription.
     /// <para>
-    /// In order to bill your subscribers on your Events data under the Events-Based Billing feature, the components must be activated for the subscriber.
+    /// To bill your subscribers on your Events data under the Events-Based Billing feature, the components must be activated for the subscriber.
     /// </para>
     /// <para>
-    /// Learn more about the role of activation in the <see href="https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Based-Billing-Overview">Events-Based Billing docs</see>.
+    /// For more information, see <see href="https://docs.maxio.com/hc/en-us/articles/24181036583053-Design-Your-Catalog?method=componenttypes">Design Your Catalog</see>.
     /// </para>
     /// <para>
-    /// Use this endpoint to activate an event-based component for a single subscription. Activating an event-based component causes Advanced Billing to bill for events when the subscription is renewed.
+    /// Use this endpoint to activate an event-based component for a single subscription. Activating an event-based component causes billing for events when the subscription is renewed.
     /// </para>
     /// <para>
-    /// *Note: it is possible to stream events for a subscription at any time, regardless of component activation status. The activation status only determines if the subscription should be billed for event-based component usage at renewal.*
+    /// Note: it is possible to stream events for a subscription at any time, regardless of component activation status. The activation status only determines if the subscription should be billed for event-based component usage at renewal.
     /// </para>
     /// </remarks>
-    public Task ActivateEventBasedComponent(int subscriptionId,
-        int componentId,
-        ActivateEventBasedComponent? body,
+    public Task ActivateEventBasedComponent(ActivateEventBasedComponentRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/activate.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("component_id", componentId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production(
+                "/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/activate.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Allocate Component
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="componentId">The Advanced Billing id of the component</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="AllocationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="AllocateComponentError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="AllocateComponentError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates an allocation, sets the current allocated quantity for the component, and records a memo. Allocations can only be updated for Quantity, On/Off, and Prepaid Components.
     /// <para>
@@ -117,32 +114,33 @@ public sealed class SubscriptionComponents
     /// For more information, see the <see href="https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview">Component Allocations</see> product Documentation.
     /// </para>
     /// </remarks>
-    public Task<AllocationResponse> AllocateComponent(int subscriptionId,
-        int componentId,
-        CreateAllocationRequest? body,
+    public Task<AllocationResponse> AllocateComponent(AllocateComponentRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/components/{component_id}/allocations.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("component_id", componentId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/components/{component_id}/allocations.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<AllocationResponse>(),
-            AllocateComponentErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            AllocateComponentError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Allocate Components
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="AllocationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="AllocateComponentsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="AllocateComponentsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Creates multiple allocations, sets the current allocated quantity for each of the components, and records a memo.   A <c>component_id</c> is required for each allocation.
     /// <para>
@@ -171,96 +169,93 @@ public sealed class SubscriptionComponents
     /// For more information, see the <see href="https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview">Component Allocations</see> product documentation.
     /// </para>
     /// </remarks>
-    public Task<IReadOnlyList<AllocationResponse>> AllocateComponents(int subscriptionId,
-        AllocateComponents? body,
+    public Task<IReadOnlyList<AllocationResponse>> AllocateComponents(AllocateComponentsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/allocations.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/allocations.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<IReadOnlyList<AllocationResponse>>(),
-            AllocateComponentsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            AllocateComponentsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Bulk Event Ingestion
     /// </summary>
-    /// <param name="apiHandle">Identifies the Stream for which the events should be published.</param>
-    /// <param name="storeUid">If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Records a collection of events.
     /// <para>
-    /// *Note: this endpoint differs from the standard Chargify API endpoints in that the subdomain will be <c>events</c> and your site subdomain will be included in the URL path.*
+    /// Note: this endpoint differs from the standard URL for this API in that <c>events</c> and your site subdomain are included in the path.
     /// </para>
     /// <para>
     /// A maximum of 1000 events can be published in a single request. A 422 will be returned if this limit is exceeded.
     /// </para>
     /// </remarks>
-    public Task BulkRecordEvents(string apiHandle,
-        string? storeUid,
-        IReadOnlyList<EbbEvent>? body,
+    public Task BulkRecordEvents(BulkRecordEventsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Ebb("/events/{api_handle}/bulk.json"),
-            [new TemplateParam("api_handle", apiHandle)],
-            [new Param("store_uid", storeUid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Ebb("/events/{api_handle}/bulk.json"),
+            [new TemplateParam("api_handle", request.ApiHandle)],
+            [new Param("store_uid", request.StoreUid)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Bulk Reset Subscription Components' Price Points
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Resets all of a subscription's components to use the current default.
     /// <para>
     /// <b>Note</b>: this will update the price point for all of the subscription's components, even ones that have not been allocated yet.
     /// </para>
     /// </remarks>
-    public Task<SubscriptionResponse> BulkResetSubscriptionComponentsPricePoints(int subscriptionId,
+    public Task<SubscriptionResponse> BulkResetSubscriptionComponentsPricePoints(BulkResetSubscriptionComponentsPricePointsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/price_points/reset.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/price_points/reset.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Bulk Update Subscription Components' Price Points
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="BulkComponentsPricePointAssignment"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="BulkUpdateSubscriptionComponentsPricePointsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="BulkUpdateSubscriptionComponentsPricePointsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates the price points on one or more of a subscription's components.
     /// <para>
@@ -270,32 +265,30 @@ public sealed class SubscriptionComponents
     /// 3. <c>"_default"</c> string, which will reset the price point to the component's current default price point.
     /// </para>
     /// </remarks>
-    public Task<BulkComponentsPricePointAssignment> BulkUpdateSubscriptionComponentsPricePoints(int subscriptionId,
-        BulkComponentsPricePointAssignment? body,
+    public Task<BulkComponentsPricePointAssignment> BulkUpdateSubscriptionComponentsPricePoints(BulkUpdateSubscriptionComponentsPricePointsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/price_points.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/price_points.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<BulkComponentsPricePointAssignment>(),
-            BulkUpdateSubscriptionComponentsPricePointsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            BulkUpdateSubscriptionComponentsPricePointsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Create Usage
     /// </summary>
-    /// <param name="subscriptionIdOrReference">Either the Advanced Billing subscription ID (integer) or the subscription reference (string). Important: In cases where a numeric string value matches both an existing subscription ID and an existing subscription reference, the system will prioritize the subscription ID lookup. For example, if both subscription ID 123 and subscription reference "123" exist, passing "123" will return the subscription with ID 123.</param>
-    /// <param name="componentId">Either the Advanced Billing id for the component or the component's handle prefixed by <c>handle:</c></param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="UsageResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="CreateUsageError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="CreateUsageError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Records an instance of metered or prepaid usage for a subscription.
     /// <para>
@@ -362,63 +355,64 @@ public sealed class SubscriptionComponents
     /// The <c>unit_balance</c> has a floor of <c>0</c>; negative unit balances are never allowed. For example, if the usage balance is 100 and you deduct 200 units, the unit balance would then be <c>0</c>, not <c>-100</c>.
     /// </para>
     /// </remarks>
-    public Task<UsageResponse> CreateUsage(SubscriptionIdOrReference subscriptionIdOrReference,
-        ComponentIdModel componentId,
-        CreateUsageRequest? body,
+    public Task<UsageResponse> CreateUsage(CreateUsageOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json"),
-            [new TemplateParam("subscription_id_or_reference", subscriptionIdOrReference),
-                new TemplateParam("component_id", componentId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json"),
+            [
+                new TemplateParam("subscription_id_or_reference", request.SubscriptionIdOrReference),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<UsageResponse>(),
-            CreateUsageErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            CreateUsageError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Deactivate Event-Based Component
     /// </summary>
-    /// <param name="subscriptionId">The Advanced Billing id of the subscription</param>
-    /// <param name="componentId">The Advanced Billing id of the component</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deactivates an event-based component for a single subscription. Deactivating the event-based component causes Advanced Billing to ignore related events at subscription renewal.
     /// </remarks>
-    public Task DeactivateEventBasedComponent(int subscriptionId,
-        int componentId,
+    public Task DeactivateEventBasedComponent(DeactivateEventBasedComponentRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/deactivate.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("component_id", componentId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production(
+                "/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/deactivate.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
             EmptyBody.Instance,
             VoidResponse.Instance,
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Delete Prepaid Usage Allocation
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="componentId">The Advanced Billing id of the component</param>
-    /// <param name="allocationId">The Advanced Billing id of the allocation</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="DeletePrepaidUsageAllocationError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="DeletePrepaidUsageAllocationError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Deletes a prepaid usage allocation.
     /// <para>
@@ -436,36 +430,35 @@ public sealed class SubscriptionComponents
     ///   <item><description><c>refund</c>: The allocation will be destroyed and the balances will be updated and a refund will be issued along with a Credit Note.</description></item>
     /// </list>
     /// </remarks>
-    public Task DeletePrepaidUsageAllocation(int subscriptionId,
-        int componentId,
-        int allocationId,
-        CreditSchemeRequest? body,
+    public Task DeletePrepaidUsageAllocation(DeletePrepaidUsageAllocationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId),
-                new TemplateParam("component_id", componentId),
-                new TemplateParam("allocation_id", allocationId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production(
+                "/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("allocation_id", request.AllocationId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Delete,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
-            DeletePrepaidUsageAllocationErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            DeletePrepaidUsageAllocationError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Allocations
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="componentId">The Advanced Billing id of the component</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="AllocationResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ListAllocationsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ListAllocationsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists the 50 most recent Allocations, ordered by most recent first.
     /// <para>
@@ -475,43 +468,33 @@ public sealed class SubscriptionComponents
     /// When a subscription's on/off component has been toggled to on (<c>1</c>) or off (<c>0</c>), usage will be logged in this response.
     /// </para>
     /// </remarks>
-    public Task<IReadOnlyList<AllocationResponse>> ListAllocations(int subscriptionId,
-        int componentId,
-        int? page = 1,
+    public Task<IReadOnlyList<AllocationResponse>> ListAllocations(ListAllocationsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/components/{component_id}/allocations.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("component_id", componentId)],
-            [new Param("page", page)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/components/{component_id}/allocations.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
+            [new Param("page", request.Page)],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<AllocationResponse>>(),
-            ListAllocationsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ListAllocationsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Subscription Components
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="dateField">The type of filter you'd like to apply to your search. Use in query <c>date_field=updated_at</c>.</param>
-    /// <param name="direction">Controls the order in which results are returned. Use in query <c>direction=asc</c>.</param>
-    /// <param name="filter">Filter to use for List Subscription Components operation</param>
-    /// <param name="endDate">The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.</param>
-    /// <param name="endDatetime">The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date.</param>
-    /// <param name="pricePointIds">Allows fetching components allocation only if price point id is present. Use in query <c>price_point_ids=not_null</c>.</param>
-    /// <param name="productFamilyIds">Allows fetching components allocation with matching product family id based on provided ids. Use in query <c>product_family_ids=1,2,3</c>.</param>
-    /// <param name="sort">The attribute by which to sort. Use in query <c>sort=updated_at</c>.</param>
-    /// <param name="startDate">The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified.</param>
-    /// <param name="startDatetime">The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date.</param>
-    /// <param name="include">Allows including additional data in the response. Use in query <c>include=subscription,historic_usages</c>.</param>
-    /// <param name="inUse">If in_use is set to true, it returns only components that are currently in use. However, if it's set to false or not provided, it returns all components connected with the subscription.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="SubscriptionComponentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists a subscription's applied components.
     /// <para>
@@ -521,124 +504,85 @@ public sealed class SubscriptionComponents
     /// When requesting to list components for a given subscription, if the subscription contains <b>archived</b> components they will be listed in the server response.
     /// </para>
     /// </remarks>
-    public Task<IReadOnlyList<SubscriptionComponentResponse>> ListSubscriptionComponents(int subscriptionId,
-        SubscriptionListDateField? dateField,
-        SortingDirection? direction,
-        ListSubscriptionComponentsFilter? filter,
-        string? endDate,
-        string? endDatetime,
-        IncludeNotNull? pricePointIds,
-        IReadOnlyList<int>? productFamilyIds,
-        ListSubscriptionComponentsSort? sort,
-        string? startDate,
-        string? startDatetime,
-        IReadOnlyList<ListSubscriptionComponentsInclude>? include,
-        bool? inUse,
+    public Task<IReadOnlyList<SubscriptionComponentResponse>> ListSubscriptionComponents(ListSubscriptionComponentsRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/components.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
-            [new Param("date_field", dateField),
-                new Param("direction", direction),
-                new Param("filter", filter),
-                new Param("end_date", endDate),
-                new Param("end_datetime", endDatetime),
-                new Param("price_point_ids", pricePointIds),
-                new Param("product_family_ids", productFamilyIds),
-                new Param("sort", sort),
-                new Param("start_date", startDate),
-                new Param("start_datetime", startDatetime),
-                new Param("include", include),
-                new Param("in_use", inUse)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/components.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
+            [
+                new Param("date_field", request.DateField),
+                new Param("direction", request.Direction),
+                new Param("filter", request.Filter),
+                new Param("end_date", request.EndDate),
+                new Param("end_datetime", request.EndDatetime),
+                new Param("price_point_ids", request.PricePointIds),
+                new Param("product_family_ids", request.ProductFamilyIds),
+                new Param("sort", request.Sort),
+                new Param("start_date", request.StartDate),
+                new Param("start_datetime", request.StartDatetime),
+                new Param("include", request.Include),
+                new Param("in_use", request.InUse),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<SubscriptionComponentResponse>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Subscription Components for Site
     /// </summary>
-    /// <param name="sort">The attribute by which to sort. Use in query: <c>sort=updated_at</c>.</param>
-    /// <param name="direction">Controls the order in which results are returned. Use in query <c>direction=asc</c>.</param>
-    /// <param name="filter">Filter to use for List Subscription Components For Site operation</param>
-    /// <param name="dateField">The type of filter you'd like to apply to your search. Use in query: <c>date_field=updated_at</c>.</param>
-    /// <param name="startDate">The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query <c>start_date=2011-12-15</c>.</param>
-    /// <param name="startDatetime">The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query <c>start_datetime=2022-07-01 09:00:05</c>.</param>
-    /// <param name="endDate">The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query <c>end_date=2011-12-16</c>.</param>
-    /// <param name="endDatetime">The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. Use in query <c>end_datetime=2022-07-01 09:00:05</c>.</param>
-    /// <param name="subscriptionIds">Allows fetching components allocation with matching subscription id based on provided ids. Use in query <c>subscription_ids=1,2,3</c>.</param>
-    /// <param name="pricePointIds">Allows fetching components allocation only if price point id is present. Use in query <c>price_point_ids=not_null</c>.</param>
-    /// <param name="productFamilyIds">Allows fetching components allocation with matching product family id based on provided ids. Use in query <c>product_family_ids=1,2,3</c>.</param>
-    /// <param name="include">Allows including additional data in the response. Use in query <c>include=subscription,historic_usages</c>.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="ListSubscriptionComponentsResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists components applied to each subscription.
     /// </remarks>
-    public Task<ListSubscriptionComponentsResponse> ListSubscriptionComponentsForSite(ListSubscriptionComponentsSort? sort,
-        SortingDirection? direction,
-        ListSubscriptionComponentsForSiteFilter? filter,
-        SubscriptionListDateField? dateField,
-        string? startDate,
-        string? startDatetime,
-        string? endDate,
-        string? endDatetime,
-        IReadOnlyList<int>? subscriptionIds,
-        IncludeNotNull? pricePointIds,
-        IReadOnlyList<int>? productFamilyIds,
-        ListSubscriptionComponentsInclude? include,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<ListSubscriptionComponentsResponse> ListSubscriptionComponentsForSite(ListSubscriptionComponentsForSiteRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions_components.json"),
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions_components.json"),
             [],
-            [new Param("page", page),
-                new Param("per_page", perPage),
-                new Param("sort", sort),
-                new Param("direction", direction),
-                new Param("filter", filter),
-                new Param("date_field", dateField),
-                new Param("start_date", startDate),
-                new Param("start_datetime", startDatetime),
-                new Param("end_date", endDate),
-                new Param("end_datetime", endDatetime),
-                new Param("subscription_ids", subscriptionIds),
-                new Param("price_point_ids", pricePointIds),
-                new Param("product_family_ids", productFamilyIds),
-                new Param("include", include)],
+            [
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+                new Param("sort", request.Sort),
+                new Param("direction", request.Direction),
+                new Param("filter", request.Filter),
+                new Param("date_field", request.DateField),
+                new Param("start_date", request.StartDate),
+                new Param("start_datetime", request.StartDatetime),
+                new Param("end_date", request.EndDate),
+                new Param("end_datetime", request.EndDatetime),
+                new Param("subscription_ids", request.SubscriptionIds),
+                new Param("price_point_ids", request.PricePointIds),
+                new Param("product_family_ids", request.ProductFamilyIds),
+                new Param("include", request.Include),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<ListSubscriptionComponentsResponse>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// List Usages
     /// </summary>
-    /// <param name="subscriptionIdOrReference">Either the Advanced Billing subscription ID (integer) or the subscription reference (string). Important: In cases where a numeric string value matches both an existing subscription ID and an existing subscription reference, the system will prioritize the subscription ID lookup. For example, if both subscription ID 123 and subscription reference "123" exist, passing "123" will return the subscription with ID 123.</param>
-    /// <param name="componentId">Either the Advanced Billing id for the component or the component's handle prefixed by <c>handle:</c></param>
-    /// <param name="sinceId">Returns usages with an id greater than or equal to the one specified.</param>
-    /// <param name="maxId">Returns usages with an id less than or equal to the one specified.</param>
-    /// <param name="sinceDate">Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified.</param>
-    /// <param name="untilDate">Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified.</param>
-    /// <param name="page">Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned. Use in query <c>page=1</c>.</param>
-    /// <param name="perPage">This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. Use in query <c>per_page=200</c>.</param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IReadOnlyList{T}"/> of <see cref="UsageResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Lists usages associated with a subscription for a particular metered component. This will display the previously recorded components for a subscription.
     /// <para>
@@ -660,43 +604,40 @@ public sealed class SubscriptionComponents
     /// Use this endpoint to read the previously recorded components for a subscription.  You can now specify either the component id (integer) or the component handle prefixed by "handle:" to specify the unique identifier for the component you are working with.
     /// </para>
     /// </remarks>
-    public Task<IReadOnlyList<UsageResponse>> ListUsages(SubscriptionIdOrReference subscriptionIdOrReference,
-        ComponentIdModel componentId,
-        long? sinceId,
-        long? maxId,
-        DateTimeOffset? sinceDate,
-        DateTimeOffset? untilDate,
-        int? page = 1,
-        int? perPage = 20,
+    public Task<IReadOnlyList<UsageResponse>> ListUsages(ListUsagesRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json"),
-            [new TemplateParam("subscription_id_or_reference", subscriptionIdOrReference),
-                new TemplateParam("component_id", componentId)],
-            [new Param("since_id", sinceId),
-                new Param("max_id", maxId),
-                new Param("since_date", sinceDate?.ToDate()),
-                new Param("until_date", untilDate?.ToDate()),
-                new Param("page", page),
-                new Param("per_page", perPage)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json"),
+            [
+                new TemplateParam("subscription_id_or_reference", request.SubscriptionIdOrReference),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
+            [
+                new Param("since_id", request.SinceId),
+                new Param("max_id", request.MaxId),
+                new Param("since_date", request.SinceDate?.ToDate()),
+                new Param("until_date", request.UntilDate?.ToDate()),
+                new Param("page", request.Page),
+                new Param("per_page", request.PerPage),
+            ],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<IReadOnlyList<UsageResponse>>(),
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Preview Allocations
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="AllocationPreviewResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="PreviewAllocationsError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="PreviewAllocationsError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Previews a potential subscription's <b>quantity-based</b> or <b>on/off</b> component allocation in the middle of the current billing period.  This is useful if you want users to be able to see the effect of a component operation before actually doing it.
     /// <para>
@@ -709,65 +650,62 @@ public sealed class SubscriptionComponents
     /// See example below for Fine-Grained Component Control response.
     /// </para>
     /// </remarks>
-    public Task<AllocationPreviewResponse> PreviewAllocations(int subscriptionId,
-        PreviewAllocationsRequest? body,
+    public Task<AllocationPreviewResponse> PreviewAllocations(PreviewAllocationsOperationRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/allocations/preview.json"),
-            [new TemplateParam("subscription_id", subscriptionId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/allocations/preview.json"),
+            [new TemplateParam("subscription_id", request.SubscriptionId)],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             JsonResponse.Create<AllocationPreviewResponse>(),
-            PreviewAllocationsErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            PreviewAllocationsError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Read Subscription Component
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="componentId">The Advanced Billing id of the component. Alternatively, the component's handle prefixed by <c>handle:</c></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="SubscriptionComponentResponse"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="ReadSubscriptionComponentError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="ReadSubscriptionComponentError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Returns information for a specific component on a subscription.
     /// </remarks>
-    public Task<SubscriptionComponentResponse> ReadSubscriptionComponent(int subscriptionId,
-        int componentId,
+    public Task<SubscriptionComponentResponse> ReadSubscriptionComponent(ReadSubscriptionComponentRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/components/{component_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId), new TemplateParam("component_id", componentId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production("/subscriptions/{subscription_id}/components/{component_id}.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+            ],
             [],
             [],
             HttpMethod.Get,
             EmptyBody.Instance,
             JsonResponse.Create<SubscriptionComponentResponse>(),
-            ReadSubscriptionComponentErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            ReadSubscriptionComponentError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Event Ingestion
     /// </summary>
-    /// <param name="apiHandle">Identifies the Stream for which the event should be published.</param>
-    /// <param name="storeUid">If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store.</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="RawError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="RawError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Records a single event for Events-Based Billing.
-    /// <para>
-    /// ## Documentation
-    /// </para>
     /// <para>
     /// Events-Based Billing is an evolved form of metered billing that is based on data-rich events streamed in real-time from your system to Advanced Billing.
     /// </para>
@@ -778,49 +716,39 @@ public sealed class SubscriptionComponents
     /// This API allows you to stream events into the Advanced Billing data ingestion engine.
     /// </para>
     /// <para>
-    /// Learn more about the feature in general in the <see href="https://maxio.zendesk.com/hc/en-us/articles/24260323329805-Events-Based-Billing-Overview">Events-Based Billing help docs</see>.
+    /// For more information, see <see href="https://docs.maxio.com/hc/en-us/articles/24181036583053-Design-Your-Catalog?method=componenttypes">Design Your Catalog</see>.
     /// </para>
     /// <para>
-    /// ## Record Event
-    /// </para>
-    /// <para>
-    /// Use this endpoint to record a single event.
-    /// </para>
-    /// <para>
-    /// *Note: this endpoint differs from the standard Chargify API endpoints in that the URL subdomain will be <c>events</c> and your site subdomain will be included in the URL path. For example:*
+    /// Note: this endpoint differs from the standard URL for this API in that <c>events</c> and your site subdomain are included in the path. For example:
     /// </para>
     /// <code>
     /// https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
     /// </code>
     /// </remarks>
-    public Task RecordEvent(string apiHandle,
-        string? storeUid,
-        EbbEvent? body,
+    public Task RecordEvent(RecordEventRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Ebb("/events/{api_handle}.json"),
-            [new TemplateParam("api_handle", apiHandle)],
-            [new Param("store_uid", storeUid)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Ebb("/events/{api_handle}.json"),
+            [new TemplateParam("api_handle", request.ApiHandle)],
+            [new Param("store_uid", request.StoreUid)],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Post,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
             RawErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 
     /// <summary>
     /// Update Prepaid Usage Allocation Expiration Date
     /// </summary>
-    /// <param name="subscriptionId">The Chargify id of the subscription.</param>
-    /// <param name="componentId">The Advanced Billing id of the component</param>
-    /// <param name="allocationId">The Advanced Billing id of the allocation</param>
-    /// <param name="body"></param>
+    /// <param name="request">The operation's inputs</param>
     /// <param name="requestOptions">Per-request options, such as an overriding log level for this call</param>
-    /// <param name="ct">Cancellation token</param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>A <see cref="Task"/> instance.</returns>
-    /// <exception cref="SdkException{TResult}"> of <see cref="UpdatePrepaidUsageAllocationExpirationDateError"/> when the server returns an error response.</exception>
+    /// <exception cref="ApiException{TError}"> of <see cref="UpdatePrepaidUsageAllocationExpirationDateError"/> when the server returns an error response.</exception>
     /// <remarks>
     /// Updates the expiration date for a prepaid usage allocation. This expiration date can be changed after the fact to allow for extending or shortening the allocation's active window.
     /// <para>
@@ -838,23 +766,24 @@ public sealed class SubscriptionComponents
     ///   <item><description>An expiration date can be changed towards the past (essentially expiring it) up to the subscription's current period beginning date.</description></item>
     /// </list>
     /// </remarks>
-    public Task UpdatePrepaidUsageAllocationExpirationDate(int subscriptionId,
-        int componentId,
-        int allocationId,
-        UpdateAllocationExpirationDate? body,
+    public Task UpdatePrepaidUsageAllocationExpirationDate(UpdatePrepaidUsageAllocationExpirationDateRequest request,
         RequestOptions? requestOptions = null,
-        CancellationToken ct = default) =>
-        _rawClient.Execute(_server.Production("/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json"),
-            [new TemplateParam("subscription_id", subscriptionId),
-                new TemplateParam("component_id", componentId),
-                new TemplateParam("allocation_id", allocationId)],
+        CancellationToken cancellationToken = default) =>
+        _rawClient.Execute(
+            _server.Production(
+                "/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json"),
+            [
+                new TemplateParam("subscription_id", request.SubscriptionId),
+                new TemplateParam("component_id", request.ComponentId),
+                new TemplateParam("allocation_id", request.AllocationId),
+            ],
             [],
             [new HeaderParam("Idempotency-Key", Guid.NewGuid())],
             HttpMethod.Put,
-            JsonRequest.Create(body),
+            JsonRequest.Create(request.Body),
             VoidResponse.Instance,
-            UpdatePrepaidUsageAllocationExpirationDateErrorResponse.Instance,
-            [new AuthSchemeAny(_auth.BasicAuth, _auth.BearerAuth)],
+            UpdatePrepaidUsageAllocationExpirationDateError.Response,
+            [_auth.BasicAuth],
             requestOptions,
-            ct);
+            cancellationToken);
 }
