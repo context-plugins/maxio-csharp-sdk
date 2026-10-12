@@ -2,7 +2,7 @@
 
 # ComponentFeatures — operations
 
-Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 operations
+Accessor: `client.ComponentFeatures` · Source: `src/Maxio/Api/ComponentFeatures.cs` · 6 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 
 
 | Type | Source |
 | --- | --- |
-| `CreateComponentFeatureRequest` | `Requests/ComponentFeatures/CreateComponentFeatureRequest.cs` |
-| `CreateFeatureCatalogItemRequest` | `Models/CreateFeatureCatalogItemRequest.cs` |
-| `FeatureCatalogItemResponse` | `Models/FeatureCatalogItemResponse.cs` |
-| `CreateComponentFeatureError` | `Errors/CreateComponentFeatureError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateComponentFeatureRequest` | `src/Maxio/Requests/ComponentFeatures/CreateComponentFeatureRequest.cs` |
+| `CreateFeatureCatalogItemRequest` | `src/Maxio/Models/CreateFeatureCatalogItemRequest.cs` |
+| `FeatureCatalogItemResponse` | `src/Maxio/Models/FeatureCatalogItemResponse.cs` |
+| `CreateComponentFeatureError` | `src/Maxio/Errors/CreateComponentFeatureError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListComponentFeatures
 
@@ -34,10 +34,10 @@ Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 
 
 | Type | Source |
 | --- | --- |
-| `ListComponentFeaturesRequest` | `Requests/ComponentFeatures/ListComponentFeaturesRequest.cs` |
-| `FeatureCatalogItemsListResponse` | `Models/FeatureCatalogItemsListResponse.cs` |
-| `ListComponentFeaturesError` | `Errors/ListComponentFeaturesError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListComponentFeaturesRequest` | `src/Maxio/Requests/ComponentFeatures/ListComponentFeaturesRequest.cs` |
+| `FeatureCatalogItemsListResponse` | `src/Maxio/Models/FeatureCatalogItemsListResponse.cs` |
+| `ListComponentFeaturesError` | `src/Maxio/Errors/ListComponentFeaturesError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadComponentFeature
 
@@ -50,10 +50,10 @@ Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 
 
 | Type | Source |
 | --- | --- |
-| `ReadComponentFeatureRequest` | `Requests/ComponentFeatures/ReadComponentFeatureRequest.cs` |
-| `FeatureCatalogItemResponse` | `Models/FeatureCatalogItemResponse.cs` |
-| `ReadComponentFeatureError` | `Errors/ReadComponentFeatureError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReadComponentFeatureRequest` | `src/Maxio/Requests/ComponentFeatures/ReadComponentFeatureRequest.cs` |
+| `FeatureCatalogItemResponse` | `src/Maxio/Models/FeatureCatalogItemResponse.cs` |
+| `ReadComponentFeatureError` | `src/Maxio/Errors/ReadComponentFeatureError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RemoveComponentFeature
 
@@ -67,9 +67,9 @@ Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 
 
 | Type | Source |
 | --- | --- |
-| `RemoveComponentFeatureRequest` | `Requests/ComponentFeatures/RemoveComponentFeatureRequest.cs` |
-| `RemoveComponentFeatureError` | `Errors/RemoveComponentFeatureError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RemoveComponentFeatureRequest` | `src/Maxio/Requests/ComponentFeatures/RemoveComponentFeatureRequest.cs` |
+| `RemoveComponentFeatureError` | `src/Maxio/Errors/RemoveComponentFeatureError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RestoreComponentFeature
 
@@ -82,10 +82,10 @@ Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 
 
 | Type | Source |
 | --- | --- |
-| `RestoreComponentFeatureRequest` | `Requests/ComponentFeatures/RestoreComponentFeatureRequest.cs` |
-| `FeatureCatalogItemResponse` | `Models/FeatureCatalogItemResponse.cs` |
-| `RestoreComponentFeatureError` | `Errors/RestoreComponentFeatureError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RestoreComponentFeatureRequest` | `src/Maxio/Requests/ComponentFeatures/RestoreComponentFeatureRequest.cs` |
+| `FeatureCatalogItemResponse` | `src/Maxio/Models/FeatureCatalogItemResponse.cs` |
+| `RestoreComponentFeatureError` | `src/Maxio/Errors/RestoreComponentFeatureError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateComponentFeature
 
@@ -98,9 +98,9 @@ Accessor: `client.ComponentFeatures` · Source: `Api/ComponentFeatures.cs` · 6 
 
 | Type | Source |
 | --- | --- |
-| `UpdateComponentFeatureRequest` | `Requests/ComponentFeatures/UpdateComponentFeatureRequest.cs` |
-| `UpdateFeatureCatalogItemRequest` | `Models/UpdateFeatureCatalogItemRequest.cs` |
-| `FeatureCatalogItemResponse` | `Models/FeatureCatalogItemResponse.cs` |
-| `UpdateComponentFeatureError` | `Errors/UpdateComponentFeatureError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateComponentFeatureRequest` | `src/Maxio/Requests/ComponentFeatures/UpdateComponentFeatureRequest.cs` |
+| `UpdateFeatureCatalogItemRequest` | `src/Maxio/Models/UpdateFeatureCatalogItemRequest.cs` |
+| `FeatureCatalogItemResponse` | `src/Maxio/Models/FeatureCatalogItemResponse.cs` |
+| `UpdateComponentFeatureError` | `src/Maxio/Errors/UpdateComponentFeatureError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

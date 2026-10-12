@@ -2,7 +2,7 @@
 
 # SubscriptionStatus — operations
 
-Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 10 operations
+Accessor: `client.SubscriptionStatus` · Source: `src/Maxio/Api/SubscriptionStatus.cs` · 10 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,9 +17,9 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `CancelDelayedCancellationRequest` | `Requests/SubscriptionStatus/CancelDelayedCancellationRequest.cs` |
-| `DelayedCancellationResponse` | `Models/DelayedCancellationResponse.cs` |
-| `CancelDelayedCancellationError` | `Errors/CancelDelayedCancellationError.cs` |
+| `CancelDelayedCancellationRequest` | `src/Maxio/Requests/SubscriptionStatus/CancelDelayedCancellationRequest.cs` |
+| `DelayedCancellationResponse` | `src/Maxio/Models/DelayedCancellationResponse.cs` |
+| `CancelDelayedCancellationError` | `src/Maxio/Errors/CancelDelayedCancellationError.cs` |
 
 ### CancelDunning
 
@@ -32,10 +32,10 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `CancelDunningRequest` | `Requests/SubscriptionStatus/CancelDunningRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `CancelDunningError` | `Errors/CancelDunningError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CancelDunningRequest` | `src/Maxio/Requests/SubscriptionStatus/CancelDunningRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `CancelDunningError` | `src/Maxio/Errors/CancelDunningError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CancelSubscription
 
@@ -48,11 +48,11 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `CancelSubscriptionRequest` | `Requests/SubscriptionStatus/CancelSubscriptionRequest.cs` |
-| `CancellationRequest` | `Models/CancellationRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `CancelSubscriptionError` | `Errors/CancelSubscriptionError.cs` |
-| `CancelSubscriptionErrorResponse` | `Models/AnyOf/CancelSubscriptionErrorResponse.cs` |
+| `CancelSubscriptionRequest` | `src/Maxio/Requests/SubscriptionStatus/CancelSubscriptionRequest.cs` |
+| `CancellationRequest` | `src/Maxio/Models/CancellationRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `CancelSubscriptionError` | `src/Maxio/Errors/CancelSubscriptionError.cs` |
+| `CancelSubscriptionErrorResponse` | `src/Maxio/Models/AnyOf/CancelSubscriptionErrorResponse.cs` |
 
 ### InitiateDelayedCancellation
 
@@ -65,11 +65,11 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `InitiateDelayedCancellationRequest` | `Requests/SubscriptionStatus/InitiateDelayedCancellationRequest.cs` |
-| `CancellationRequest` | `Models/CancellationRequest.cs` |
-| `DelayedCancellationResponse` | `Models/DelayedCancellationResponse.cs` |
-| `InitiateDelayedCancellationError` | `Errors/InitiateDelayedCancellationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `InitiateDelayedCancellationRequest` | `src/Maxio/Requests/SubscriptionStatus/InitiateDelayedCancellationRequest.cs` |
+| `CancellationRequest` | `src/Maxio/Models/CancellationRequest.cs` |
+| `DelayedCancellationResponse` | `src/Maxio/Models/DelayedCancellationResponse.cs` |
+| `InitiateDelayedCancellationError` | `src/Maxio/Errors/InitiateDelayedCancellationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### PauseSubscription
 
@@ -82,11 +82,11 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `PauseSubscriptionRequest` | `Requests/SubscriptionStatus/PauseSubscriptionRequest.cs` |
-| `PauseRequest` | `Models/PauseRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `PauseSubscriptionError` | `Errors/PauseSubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `PauseSubscriptionRequest` | `src/Maxio/Requests/SubscriptionStatus/PauseSubscriptionRequest.cs` |
+| `PauseRequest` | `src/Maxio/Models/PauseRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `PauseSubscriptionError` | `src/Maxio/Errors/PauseSubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### PreviewRenewal
 
@@ -99,11 +99,11 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `PreviewRenewalRequest` | `Requests/SubscriptionStatus/PreviewRenewalRequest.cs` |
-| `RenewalPreviewRequest` | `Models/RenewalPreviewRequest.cs` |
-| `RenewalPreviewResponse` | `Models/RenewalPreviewResponse.cs` |
-| `PreviewRenewalError` | `Errors/PreviewRenewalError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `PreviewRenewalRequest` | `src/Maxio/Requests/SubscriptionStatus/PreviewRenewalRequest.cs` |
+| `RenewalPreviewRequest` | `src/Maxio/Models/RenewalPreviewRequest.cs` |
+| `RenewalPreviewResponse` | `src/Maxio/Models/RenewalPreviewResponse.cs` |
+| `PreviewRenewalError` | `src/Maxio/Errors/PreviewRenewalError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReactivateSubscription
 
@@ -116,11 +116,11 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ReactivateSubscriptionOperationRequest` | `Requests/SubscriptionStatus/ReactivateSubscriptionOperationRequest.cs` |
-| `ReactivateSubscriptionRequest` | `Models/ReactivateSubscriptionRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `ReactivateSubscriptionError` | `Errors/ReactivateSubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReactivateSubscriptionOperationRequest` | `src/Maxio/Requests/SubscriptionStatus/ReactivateSubscriptionOperationRequest.cs` |
+| `ReactivateSubscriptionRequest` | `src/Maxio/Models/ReactivateSubscriptionRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `ReactivateSubscriptionError` | `src/Maxio/Errors/ReactivateSubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ResumeSubscription
 
@@ -134,11 +134,11 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ResumeSubscriptionRequest` | `Requests/SubscriptionStatus/ResumeSubscriptionRequest.cs` |
-| `ResumptionCharge` | `Models/Enums/ResumptionCharge.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `ResumeSubscriptionError` | `Errors/ResumeSubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ResumeSubscriptionRequest` | `src/Maxio/Requests/SubscriptionStatus/ResumeSubscriptionRequest.cs` |
+| `ResumptionCharge` | `src/Maxio/Models/Enums/ResumptionCharge.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `ResumeSubscriptionError` | `src/Maxio/Errors/ResumeSubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RetrySubscription
 
@@ -151,10 +151,10 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `RetrySubscriptionRequest` | `Requests/SubscriptionStatus/RetrySubscriptionRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `RetrySubscriptionError` | `Errors/RetrySubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RetrySubscriptionRequest` | `src/Maxio/Requests/SubscriptionStatus/RetrySubscriptionRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `RetrySubscriptionError` | `src/Maxio/Errors/RetrySubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateAutomaticSubscriptionResumption
 
@@ -167,9 +167,9 @@ Accessor: `client.SubscriptionStatus` · Source: `Api/SubscriptionStatus.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `UpdateAutomaticSubscriptionResumptionRequest` | `Requests/SubscriptionStatus/UpdateAutomaticSubscriptionResumptionRequest.cs` |
-| `PauseRequest` | `Models/PauseRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `UpdateAutomaticSubscriptionResumptionError` | `Errors/UpdateAutomaticSubscriptionResumptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateAutomaticSubscriptionResumptionRequest` | `src/Maxio/Requests/SubscriptionStatus/UpdateAutomaticSubscriptionResumptionRequest.cs` |
+| `PauseRequest` | `src/Maxio/Models/PauseRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `UpdateAutomaticSubscriptionResumptionError` | `src/Maxio/Errors/UpdateAutomaticSubscriptionResumptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

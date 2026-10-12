@@ -2,7 +2,7 @@
 
 # SubscriptionNotes — operations
 
-Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 operations
+Accessor: `client.SubscriptionNotes` · Source: `src/Maxio/Api/SubscriptionNotes.cs` · 5 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 | Type | Source |
 | --- | --- |
-| `CreateSubscriptionNoteRequest` | `Requests/SubscriptionNotes/CreateSubscriptionNoteRequest.cs` |
-| `UpdateSubscriptionNoteRequest` | `Models/UpdateSubscriptionNoteRequest.cs` |
-| `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
-| `CreateSubscriptionNoteError` | `Errors/CreateSubscriptionNoteError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateSubscriptionNoteRequest` | `src/Maxio/Requests/SubscriptionNotes/CreateSubscriptionNoteRequest.cs` |
+| `UpdateSubscriptionNoteRequest` | `src/Maxio/Models/UpdateSubscriptionNoteRequest.cs` |
+| `SubscriptionNoteResponse` | `src/Maxio/Models/SubscriptionNoteResponse.cs` |
+| `CreateSubscriptionNoteError` | `src/Maxio/Errors/CreateSubscriptionNoteError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### DeleteSubscriptionNote
 
@@ -33,7 +33,7 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 | Type | Source |
 | --- | --- |
-| `DeleteSubscriptionNoteRequest` | `Requests/SubscriptionNotes/DeleteSubscriptionNoteRequest.cs` |
+| `DeleteSubscriptionNoteRequest` | `src/Maxio/Requests/SubscriptionNotes/DeleteSubscriptionNoteRequest.cs` |
 
 ### ListSubscriptionNotes
 
@@ -47,10 +47,10 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionNotesRequest` | `Requests/SubscriptionNotes/ListSubscriptionNotesRequest.cs` |
-| `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
-| `ListSubscriptionNotesError` | `Errors/ListSubscriptionNotesError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListSubscriptionNotesRequest` | `src/Maxio/Requests/SubscriptionNotes/ListSubscriptionNotesRequest.cs` |
+| `SubscriptionNoteResponse` | `src/Maxio/Models/SubscriptionNoteResponse.cs` |
+| `ListSubscriptionNotesError` | `src/Maxio/Errors/ListSubscriptionNotesError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadSubscriptionNote
 
@@ -62,8 +62,8 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 | Type | Source |
 | --- | --- |
-| `ReadSubscriptionNoteRequest` | `Requests/SubscriptionNotes/ReadSubscriptionNoteRequest.cs` |
-| `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
+| `ReadSubscriptionNoteRequest` | `src/Maxio/Requests/SubscriptionNotes/ReadSubscriptionNoteRequest.cs` |
+| `SubscriptionNoteResponse` | `src/Maxio/Models/SubscriptionNoteResponse.cs` |
 
 ### UpdateSubscriptionNote
 
@@ -76,9 +76,9 @@ Accessor: `client.SubscriptionNotes` · Source: `Api/SubscriptionNotes.cs` · 5 
 
 | Type | Source |
 | --- | --- |
-| `UpdateSubscriptionNoteOperationRequest` | `Requests/SubscriptionNotes/UpdateSubscriptionNoteOperationRequest.cs` |
-| `UpdateSubscriptionNoteRequest` | `Models/UpdateSubscriptionNoteRequest.cs` |
-| `SubscriptionNoteResponse` | `Models/SubscriptionNoteResponse.cs` |
-| `UpdateSubscriptionNoteError` | `Errors/UpdateSubscriptionNoteError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateSubscriptionNoteOperationRequest` | `src/Maxio/Requests/SubscriptionNotes/UpdateSubscriptionNoteOperationRequest.cs` |
+| `UpdateSubscriptionNoteRequest` | `src/Maxio/Models/UpdateSubscriptionNoteRequest.cs` |
+| `SubscriptionNoteResponse` | `src/Maxio/Models/SubscriptionNoteResponse.cs` |
+| `UpdateSubscriptionNoteError` | `src/Maxio/Errors/UpdateSubscriptionNoteError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

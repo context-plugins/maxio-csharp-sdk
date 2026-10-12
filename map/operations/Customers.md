@@ -2,7 +2,7 @@
 
 # Customers — operations
 
-Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
+Accessor: `client.Customers` · Source: `src/Maxio/Api/Customers.cs` · 7 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,11 +16,11 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateCustomerOperationRequest` | `Requests/Customers/CreateCustomerOperationRequest.cs` |
-| `CreateCustomerRequest` | `Models/CreateCustomerRequest.cs` |
-| `CustomerResponse` | `Models/CustomerResponse.cs` |
-| `CreateCustomerError` | `Errors/CreateCustomerError.cs` |
-| `CustomerErrorResponse1` | `Models/CustomerErrorResponse1.cs` |
+| `CreateCustomerOperationRequest` | `src/Maxio/Requests/Customers/CreateCustomerOperationRequest.cs` |
+| `CreateCustomerRequest` | `src/Maxio/Models/CreateCustomerRequest.cs` |
+| `CustomerResponse` | `src/Maxio/Models/CustomerResponse.cs` |
+| `CreateCustomerError` | `src/Maxio/Errors/CreateCustomerError.cs` |
+| `CustomerErrorResponse1` | `src/Maxio/Models/CustomerErrorResponse1.cs` |
 
 ### DeleteCustomer
 
@@ -32,7 +32,7 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `DeleteCustomerRequest` | `Requests/Customers/DeleteCustomerRequest.cs` |
+| `DeleteCustomerRequest` | `src/Maxio/Requests/Customers/DeleteCustomerRequest.cs` |
 
 ### ListCustomerSubscriptions
 
@@ -44,8 +44,8 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `ListCustomerSubscriptionsRequest` | `Requests/Customers/ListCustomerSubscriptionsRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
+| `ListCustomerSubscriptionsRequest` | `src/Maxio/Requests/Customers/ListCustomerSubscriptionsRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
 
 ### ListCustomers
 
@@ -57,10 +57,10 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `ListCustomersRequest` | `Requests/Customers/ListCustomersRequest.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `CustomerResponse` | `Models/CustomerResponse.cs` |
+| `ListCustomersRequest` | `src/Maxio/Requests/Customers/ListCustomersRequest.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `CustomerResponse` | `src/Maxio/Models/CustomerResponse.cs` |
 
 ### ReadCustomer
 
@@ -72,8 +72,8 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadCustomerRequest` | `Requests/Customers/ReadCustomerRequest.cs` |
-| `CustomerResponse` | `Models/CustomerResponse.cs` |
+| `ReadCustomerRequest` | `src/Maxio/Requests/Customers/ReadCustomerRequest.cs` |
+| `CustomerResponse` | `src/Maxio/Models/CustomerResponse.cs` |
 
 ### ReadCustomerByReference
 
@@ -86,8 +86,8 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadCustomerByReferenceRequest` | `Requests/Customers/ReadCustomerByReferenceRequest.cs` |
-| `CustomerResponse` | `Models/CustomerResponse.cs` |
+| `ReadCustomerByReferenceRequest` | `src/Maxio/Requests/Customers/ReadCustomerByReferenceRequest.cs` |
+| `CustomerResponse` | `src/Maxio/Models/CustomerResponse.cs` |
 
 ### UpdateCustomer
 
@@ -100,9 +100,9 @@ Accessor: `client.Customers` · Source: `Api/Customers.cs` · 7 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateCustomerOperationRequest` | `Requests/Customers/UpdateCustomerOperationRequest.cs` |
-| `UpdateCustomerRequest` | `Models/UpdateCustomerRequest.cs` |
-| `CustomerResponse` | `Models/CustomerResponse.cs` |
-| `UpdateCustomerError` | `Errors/UpdateCustomerError.cs` |
-| `CustomerErrorResponse1` | `Models/CustomerErrorResponse1.cs` |
+| `UpdateCustomerOperationRequest` | `src/Maxio/Requests/Customers/UpdateCustomerOperationRequest.cs` |
+| `UpdateCustomerRequest` | `src/Maxio/Models/UpdateCustomerRequest.cs` |
+| `CustomerResponse` | `src/Maxio/Models/CustomerResponse.cs` |
+| `UpdateCustomerError` | `src/Maxio/Errors/UpdateCustomerError.cs` |
+| `CustomerErrorResponse1` | `src/Maxio/Models/CustomerErrorResponse1.cs` |
 

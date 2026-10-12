@@ -2,7 +2,7 @@
 
 # FeatureTemplates — operations
 
-Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 operations
+Accessor: `client.FeatureTemplates` · Source: `src/Maxio/Api/FeatureTemplates.cs` · 6 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -18,9 +18,9 @@ Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 op
 
 | Type | Source |
 | --- | --- |
-| `ArchiveFeatureTemplateRequest` | `Requests/FeatureTemplates/ArchiveFeatureTemplateRequest.cs` |
-| `ArchiveFeatureTemplateError` | `Errors/ArchiveFeatureTemplateError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ArchiveFeatureTemplateRequest` | `src/Maxio/Requests/FeatureTemplates/ArchiveFeatureTemplateRequest.cs` |
+| `ArchiveFeatureTemplateError` | `src/Maxio/Errors/ArchiveFeatureTemplateError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateFeatureTemplate
 
@@ -32,11 +32,11 @@ Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 op
 
 | Type | Source |
 | --- | --- |
-| `CreateFeatureTemplateOperationRequest` | `Requests/FeatureTemplates/CreateFeatureTemplateOperationRequest.cs` |
-| `CreateFeatureTemplateRequest` | `Models/CreateFeatureTemplateRequest.cs` |
-| `FeatureTemplateResponse` | `Models/FeatureTemplateResponse.cs` |
-| `CreateFeatureTemplateError` | `Errors/CreateFeatureTemplateError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateFeatureTemplateOperationRequest` | `src/Maxio/Requests/FeatureTemplates/CreateFeatureTemplateOperationRequest.cs` |
+| `CreateFeatureTemplateRequest` | `src/Maxio/Models/CreateFeatureTemplateRequest.cs` |
+| `FeatureTemplateResponse` | `src/Maxio/Models/FeatureTemplateResponse.cs` |
+| `CreateFeatureTemplateError` | `src/Maxio/Errors/CreateFeatureTemplateError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListFeatureTemplates
 
@@ -49,14 +49,14 @@ Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 op
 
 | Type | Source |
 | --- | --- |
-| `ListFeatureTemplatesRequest` | `Requests/FeatureTemplates/ListFeatureTemplatesRequest.cs` |
-| `Status1` | `Models/Enums/Status1.cs` |
-| `Kind` | `Models/Enums/Kind.cs` |
-| `SortBy` | `Models/Enums/SortBy.cs` |
-| `SortDirection` | `Models/Enums/SortDirection.cs` |
-| `FeatureTemplatesListResponse` | `Models/FeatureTemplatesListResponse.cs` |
-| `ListFeatureTemplatesError` | `Errors/ListFeatureTemplatesError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListFeatureTemplatesRequest` | `src/Maxio/Requests/FeatureTemplates/ListFeatureTemplatesRequest.cs` |
+| `Status1` | `src/Maxio/Models/Enums/Status1.cs` |
+| `Kind` | `src/Maxio/Models/Enums/Kind.cs` |
+| `SortBy` | `src/Maxio/Models/Enums/SortBy.cs` |
+| `SortDirection` | `src/Maxio/Models/Enums/SortDirection.cs` |
+| `FeatureTemplatesListResponse` | `src/Maxio/Models/FeatureTemplatesListResponse.cs` |
+| `ListFeatureTemplatesError` | `src/Maxio/Errors/ListFeatureTemplatesError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadFeatureTemplate
 
@@ -69,10 +69,10 @@ Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 op
 
 | Type | Source |
 | --- | --- |
-| `ReadFeatureTemplateRequest` | `Requests/FeatureTemplates/ReadFeatureTemplateRequest.cs` |
-| `FeatureTemplateResponse` | `Models/FeatureTemplateResponse.cs` |
-| `ReadFeatureTemplateError` | `Errors/ReadFeatureTemplateError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReadFeatureTemplateRequest` | `src/Maxio/Requests/FeatureTemplates/ReadFeatureTemplateRequest.cs` |
+| `FeatureTemplateResponse` | `src/Maxio/Models/FeatureTemplateResponse.cs` |
+| `ReadFeatureTemplateError` | `src/Maxio/Errors/ReadFeatureTemplateError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RestoreFeatureTemplate
 
@@ -85,10 +85,10 @@ Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 op
 
 | Type | Source |
 | --- | --- |
-| `RestoreFeatureTemplateRequest` | `Requests/FeatureTemplates/RestoreFeatureTemplateRequest.cs` |
-| `FeatureTemplateResponse` | `Models/FeatureTemplateResponse.cs` |
-| `RestoreFeatureTemplateError` | `Errors/RestoreFeatureTemplateError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RestoreFeatureTemplateRequest` | `src/Maxio/Requests/FeatureTemplates/RestoreFeatureTemplateRequest.cs` |
+| `FeatureTemplateResponse` | `src/Maxio/Models/FeatureTemplateResponse.cs` |
+| `RestoreFeatureTemplateError` | `src/Maxio/Errors/RestoreFeatureTemplateError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateFeatureTemplate
 
@@ -101,9 +101,9 @@ Accessor: `client.FeatureTemplates` · Source: `Api/FeatureTemplates.cs` · 6 op
 
 | Type | Source |
 | --- | --- |
-| `UpdateFeatureTemplateOperationRequest` | `Requests/FeatureTemplates/UpdateFeatureTemplateOperationRequest.cs` |
-| `UpdateFeatureTemplateRequest` | `Models/UpdateFeatureTemplateRequest.cs` |
-| `FeatureTemplateResponse` | `Models/FeatureTemplateResponse.cs` |
-| `UpdateFeatureTemplateError` | `Errors/UpdateFeatureTemplateError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateFeatureTemplateOperationRequest` | `src/Maxio/Requests/FeatureTemplates/UpdateFeatureTemplateOperationRequest.cs` |
+| `UpdateFeatureTemplateRequest` | `src/Maxio/Models/UpdateFeatureTemplateRequest.cs` |
+| `FeatureTemplateResponse` | `src/Maxio/Models/FeatureTemplateResponse.cs` |
+| `UpdateFeatureTemplateError` | `src/Maxio/Errors/UpdateFeatureTemplateError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

@@ -2,7 +2,7 @@
 
 # SubscriptionGroups — operations
 
-Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 9 operations
+Accessor: `client.SubscriptionGroups` · Source: `src/Maxio/Api/SubscriptionGroups.cs` · 9 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,9 +16,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `AddSubscriptionToGroupRequest` | `Requests/SubscriptionGroups/AddSubscriptionToGroupRequest.cs` |
-| `AddSubscriptionToAGroup` | `Models/AddSubscriptionToAGroup.cs` |
-| `SubscriptionGroupResponse` | `Models/SubscriptionGroupResponse.cs` |
+| `AddSubscriptionToGroupRequest` | `src/Maxio/Requests/SubscriptionGroups/AddSubscriptionToGroupRequest.cs` |
+| `AddSubscriptionToAGroup` | `src/Maxio/Models/AddSubscriptionToAGroup.cs` |
+| `SubscriptionGroupResponse` | `src/Maxio/Models/SubscriptionGroupResponse.cs` |
 
 ### CreateSubscriptionGroup
 
@@ -30,11 +30,11 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `CreateSubscriptionGroupOperationRequest` | `Requests/SubscriptionGroups/CreateSubscriptionGroupOperationRequest.cs` |
-| `CreateSubscriptionGroupRequest` | `Models/CreateSubscriptionGroupRequest.cs` |
-| `SubscriptionGroupResponse` | `Models/SubscriptionGroupResponse.cs` |
-| `CreateSubscriptionGroupError` | `Errors/CreateSubscriptionGroupError.cs` |
-| `SubscriptionGroupCreateErrorResponse1` | `Models/SubscriptionGroupCreateErrorResponse1.cs` |
+| `CreateSubscriptionGroupOperationRequest` | `src/Maxio/Requests/SubscriptionGroups/CreateSubscriptionGroupOperationRequest.cs` |
+| `CreateSubscriptionGroupRequest` | `src/Maxio/Models/CreateSubscriptionGroupRequest.cs` |
+| `SubscriptionGroupResponse` | `src/Maxio/Models/SubscriptionGroupResponse.cs` |
+| `CreateSubscriptionGroupError` | `src/Maxio/Errors/CreateSubscriptionGroupError.cs` |
+| `SubscriptionGroupCreateErrorResponse1` | `src/Maxio/Models/SubscriptionGroupCreateErrorResponse1.cs` |
 
 ### DeleteSubscriptionGroup
 
@@ -47,9 +47,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `DeleteSubscriptionGroupRequest` | `Requests/SubscriptionGroups/DeleteSubscriptionGroupRequest.cs` |
-| `DeleteSubscriptionGroupResponse` | `Models/DeleteSubscriptionGroupResponse.cs` |
-| `DeleteSubscriptionGroupError` | `Errors/DeleteSubscriptionGroupError.cs` |
+| `DeleteSubscriptionGroupRequest` | `src/Maxio/Requests/SubscriptionGroups/DeleteSubscriptionGroupRequest.cs` |
+| `DeleteSubscriptionGroupResponse` | `src/Maxio/Models/DeleteSubscriptionGroupResponse.cs` |
+| `DeleteSubscriptionGroupError` | `src/Maxio/Errors/DeleteSubscriptionGroupError.cs` |
 
 ### FindSubscriptionGroup
 
@@ -63,9 +63,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `FindSubscriptionGroupRequest` | `Requests/SubscriptionGroups/FindSubscriptionGroupRequest.cs` |
-| `FullSubscriptionGroupResponse` | `Models/FullSubscriptionGroupResponse.cs` |
-| `FindSubscriptionGroupError` | `Errors/FindSubscriptionGroupError.cs` |
+| `FindSubscriptionGroupRequest` | `src/Maxio/Requests/SubscriptionGroups/FindSubscriptionGroupRequest.cs` |
+| `FullSubscriptionGroupResponse` | `src/Maxio/Models/FullSubscriptionGroupResponse.cs` |
+| `FindSubscriptionGroupError` | `src/Maxio/Errors/FindSubscriptionGroupError.cs` |
 
 ### ListSubscriptionGroups
 
@@ -77,9 +77,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionGroupsRequest` | `Requests/SubscriptionGroups/ListSubscriptionGroupsRequest.cs` |
-| `SubscriptionGroupsListInclude` | `Models/Enums/SubscriptionGroupsListInclude.cs` |
-| `ListSubscriptionGroupsResponse` | `Models/ListSubscriptionGroupsResponse.cs` |
+| `ListSubscriptionGroupsRequest` | `src/Maxio/Requests/SubscriptionGroups/ListSubscriptionGroupsRequest.cs` |
+| `SubscriptionGroupsListInclude` | `src/Maxio/Models/Enums/SubscriptionGroupsListInclude.cs` |
+| `ListSubscriptionGroupsResponse` | `src/Maxio/Models/ListSubscriptionGroupsResponse.cs` |
 
 ### ReadSubscriptionGroup
 
@@ -92,9 +92,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ReadSubscriptionGroupRequest` | `Requests/SubscriptionGroups/ReadSubscriptionGroupRequest.cs` |
-| `SubscriptionGroupInclude` | `Models/Enums/SubscriptionGroupInclude.cs` |
-| `FullSubscriptionGroupResponse` | `Models/FullSubscriptionGroupResponse.cs` |
+| `ReadSubscriptionGroupRequest` | `src/Maxio/Requests/SubscriptionGroups/ReadSubscriptionGroupRequest.cs` |
+| `SubscriptionGroupInclude` | `src/Maxio/Models/Enums/SubscriptionGroupInclude.cs` |
+| `FullSubscriptionGroupResponse` | `src/Maxio/Models/FullSubscriptionGroupResponse.cs` |
 
 ### RemoveSubscriptionFromGroup
 
@@ -107,9 +107,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `RemoveSubscriptionFromGroupRequest` | `Requests/SubscriptionGroups/RemoveSubscriptionFromGroupRequest.cs` |
-| `RemoveSubscriptionFromGroupError` | `Errors/RemoveSubscriptionFromGroupError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RemoveSubscriptionFromGroupRequest` | `src/Maxio/Requests/SubscriptionGroups/RemoveSubscriptionFromGroupRequest.cs` |
+| `RemoveSubscriptionFromGroupError` | `src/Maxio/Errors/RemoveSubscriptionFromGroupError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### SignupWithSubscriptionGroup
 
@@ -121,11 +121,11 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `SignupWithSubscriptionGroupRequest` | `Requests/SubscriptionGroups/SignupWithSubscriptionGroupRequest.cs` |
-| `SubscriptionGroupSignupRequest` | `Models/SubscriptionGroupSignupRequest.cs` |
-| `SubscriptionGroupSignupResponse` | `Models/SubscriptionGroupSignupResponse.cs` |
-| `SignupWithSubscriptionGroupError` | `Errors/SignupWithSubscriptionGroupError.cs` |
-| `SubscriptionGroupSignupErrorResponse1` | `Models/SubscriptionGroupSignupErrorResponse1.cs` |
+| `SignupWithSubscriptionGroupRequest` | `src/Maxio/Requests/SubscriptionGroups/SignupWithSubscriptionGroupRequest.cs` |
+| `SubscriptionGroupSignupRequest` | `src/Maxio/Models/SubscriptionGroupSignupRequest.cs` |
+| `SubscriptionGroupSignupResponse` | `src/Maxio/Models/SubscriptionGroupSignupResponse.cs` |
+| `SignupWithSubscriptionGroupError` | `src/Maxio/Errors/SignupWithSubscriptionGroupError.cs` |
+| `SubscriptionGroupSignupErrorResponse1` | `src/Maxio/Models/SubscriptionGroupSignupErrorResponse1.cs` |
 
 ### UpdateSubscriptionGroupMembers
 
@@ -138,9 +138,9 @@ Accessor: `client.SubscriptionGroups` · Source: `Api/SubscriptionGroups.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `UpdateSubscriptionGroupMembersRequest` | `Requests/SubscriptionGroups/UpdateSubscriptionGroupMembersRequest.cs` |
-| `UpdateSubscriptionGroupRequest` | `Models/UpdateSubscriptionGroupRequest.cs` |
-| `SubscriptionGroupResponse` | `Models/SubscriptionGroupResponse.cs` |
-| `UpdateSubscriptionGroupMembersError` | `Errors/UpdateSubscriptionGroupMembersError.cs` |
-| `SubscriptionGroupUpdateErrorResponse1` | `Models/SubscriptionGroupUpdateErrorResponse1.cs` |
+| `UpdateSubscriptionGroupMembersRequest` | `src/Maxio/Requests/SubscriptionGroups/UpdateSubscriptionGroupMembersRequest.cs` |
+| `UpdateSubscriptionGroupRequest` | `src/Maxio/Models/UpdateSubscriptionGroupRequest.cs` |
+| `SubscriptionGroupResponse` | `src/Maxio/Models/SubscriptionGroupResponse.cs` |
+| `UpdateSubscriptionGroupMembersError` | `src/Maxio/Errors/UpdateSubscriptionGroupMembersError.cs` |
+| `SubscriptionGroupUpdateErrorResponse1` | `src/Maxio/Models/SubscriptionGroupUpdateErrorResponse1.cs` |
 

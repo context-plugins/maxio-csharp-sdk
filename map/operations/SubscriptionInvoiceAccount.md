@@ -2,7 +2,7 @@
 
 # SubscriptionInvoiceAccount — operations
 
-Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoiceAccount.cs` · 7 operations
+Accessor: `client.SubscriptionInvoiceAccount` · Source: `src/Maxio/Api/SubscriptionInvoiceAccount.cs` · 7 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `CreatePrepaymentOperationRequest` | `Requests/SubscriptionInvoiceAccount/CreatePrepaymentOperationRequest.cs` |
-| `CreatePrepaymentRequest` | `Models/CreatePrepaymentRequest.cs` |
-| `CreatePrepaymentResponse` | `Models/CreatePrepaymentResponse.cs` |
-| `CreatePrepaymentError` | `Errors/CreatePrepaymentError.cs` |
-| `CreatePrepaymentErrorResponse` | `Models/AnyOf/CreatePrepaymentErrorResponse.cs` |
+| `CreatePrepaymentOperationRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/CreatePrepaymentOperationRequest.cs` |
+| `CreatePrepaymentRequest` | `src/Maxio/Models/CreatePrepaymentRequest.cs` |
+| `CreatePrepaymentResponse` | `src/Maxio/Models/CreatePrepaymentResponse.cs` |
+| `CreatePrepaymentError` | `src/Maxio/Errors/CreatePrepaymentError.cs` |
+| `CreatePrepaymentErrorResponse` | `src/Maxio/Models/AnyOf/CreatePrepaymentErrorResponse.cs` |
 
 ### DeductServiceCredit
 
@@ -34,10 +34,10 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `DeductServiceCreditOperationRequest` | `Requests/SubscriptionInvoiceAccount/DeductServiceCreditOperationRequest.cs` |
-| `DeductServiceCreditRequest` | `Models/DeductServiceCreditRequest.cs` |
-| `DeductServiceCreditError` | `Errors/DeductServiceCreditError.cs` |
-| `DeductServiceCreditErrorResponse` | `Models/AnyOf/DeductServiceCreditErrorResponse.cs` |
+| `DeductServiceCreditOperationRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/DeductServiceCreditOperationRequest.cs` |
+| `DeductServiceCreditRequest` | `src/Maxio/Models/DeductServiceCreditRequest.cs` |
+| `DeductServiceCreditError` | `src/Maxio/Errors/DeductServiceCreditError.cs` |
+| `DeductServiceCreditErrorResponse` | `src/Maxio/Models/AnyOf/DeductServiceCreditErrorResponse.cs` |
 
 ### IssueServiceCredit
 
@@ -50,11 +50,11 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `IssueServiceCreditOperationRequest` | `Requests/SubscriptionInvoiceAccount/IssueServiceCreditOperationRequest.cs` |
-| `IssueServiceCreditRequest` | `Models/IssueServiceCreditRequest.cs` |
-| `ServiceCredit` | `Models/ServiceCredit.cs` |
-| `IssueServiceCreditError` | `Errors/IssueServiceCreditError.cs` |
-| `IssueServiceCreditErrorResponse` | `Models/AnyOf/IssueServiceCreditErrorResponse.cs` |
+| `IssueServiceCreditOperationRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/IssueServiceCreditOperationRequest.cs` |
+| `IssueServiceCreditRequest` | `src/Maxio/Models/IssueServiceCreditRequest.cs` |
+| `ServiceCredit` | `src/Maxio/Models/ServiceCredit.cs` |
+| `IssueServiceCreditError` | `src/Maxio/Errors/IssueServiceCreditError.cs` |
+| `IssueServiceCreditErrorResponse` | `src/Maxio/Models/AnyOf/IssueServiceCreditErrorResponse.cs` |
 
 ### ListPrepayments
 
@@ -68,10 +68,10 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `ListPrepaymentsRequest` | `Requests/SubscriptionInvoiceAccount/ListPrepaymentsRequest.cs` |
-| `ListPrepaymentsFilter` | `Models/ListPrepaymentsFilter.cs` |
-| `PrepaymentsResponse` | `Models/PrepaymentsResponse.cs` |
-| `ListPrepaymentsError` | `Errors/ListPrepaymentsError.cs` |
+| `ListPrepaymentsRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/ListPrepaymentsRequest.cs` |
+| `ListPrepaymentsFilter` | `src/Maxio/Models/ListPrepaymentsFilter.cs` |
+| `PrepaymentsResponse` | `src/Maxio/Models/PrepaymentsResponse.cs` |
+| `ListPrepaymentsError` | `src/Maxio/Errors/ListPrepaymentsError.cs` |
 
 ### ListServiceCredits
 
@@ -85,11 +85,11 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `ListServiceCreditsRequest` | `Requests/SubscriptionInvoiceAccount/ListServiceCreditsRequest.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListServiceCreditsResponse` | `Models/ListServiceCreditsResponse.cs` |
-| `ListServiceCreditsError` | `Errors/ListServiceCreditsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListServiceCreditsRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/ListServiceCreditsRequest.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListServiceCreditsResponse` | `src/Maxio/Models/ListServiceCreditsResponse.cs` |
+| `ListServiceCreditsError` | `src/Maxio/Errors/ListServiceCreditsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadAccountBalances
 
@@ -101,8 +101,8 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `ReadAccountBalancesRequest` | `Requests/SubscriptionInvoiceAccount/ReadAccountBalancesRequest.cs` |
-| `AccountBalances` | `Models/AccountBalances.cs` |
+| `ReadAccountBalancesRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/ReadAccountBalancesRequest.cs` |
+| `AccountBalances` | `src/Maxio/Models/AccountBalances.cs` |
 
 ### RefundPrepayment
 
@@ -115,10 +115,10 @@ Accessor: `client.SubscriptionInvoiceAccount` · Source: `Api/SubscriptionInvoic
 
 | Type | Source |
 | --- | --- |
-| `RefundPrepaymentOperationRequest` | `Requests/SubscriptionInvoiceAccount/RefundPrepaymentOperationRequest.cs` |
-| `RefundPrepaymentRequest` | `Models/RefundPrepaymentRequest.cs` |
-| `PrepaymentResponse` | `Models/PrepaymentResponse.cs` |
-| `RefundPrepaymentError` | `Errors/RefundPrepaymentError.cs` |
-| `RefundPrepaymentBaseErrorsResponse1` | `Models/RefundPrepaymentBaseErrorsResponse1.cs` |
-| `RefundPrepaymentErrorResponse` | `Models/AnyOf/RefundPrepaymentErrorResponse.cs` |
+| `RefundPrepaymentOperationRequest` | `src/Maxio/Requests/SubscriptionInvoiceAccount/RefundPrepaymentOperationRequest.cs` |
+| `RefundPrepaymentRequest` | `src/Maxio/Models/RefundPrepaymentRequest.cs` |
+| `PrepaymentResponse` | `src/Maxio/Models/PrepaymentResponse.cs` |
+| `RefundPrepaymentError` | `src/Maxio/Errors/RefundPrepaymentError.cs` |
+| `RefundPrepaymentBaseErrorsResponse1` | `src/Maxio/Models/RefundPrepaymentBaseErrorsResponse1.cs` |
+| `RefundPrepaymentErrorResponse` | `src/Maxio/Models/AnyOf/RefundPrepaymentErrorResponse.cs` |
 

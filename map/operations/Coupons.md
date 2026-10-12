@@ -2,7 +2,7 @@
 
 # Coupons — operations
 
-Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
+Accessor: `client.Coupons` · Source: `src/Maxio/Api/Coupons.cs` · 14 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,8 +16,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ArchiveCouponRequest` | `Requests/Coupons/ArchiveCouponRequest.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
+| `ArchiveCouponRequest` | `src/Maxio/Requests/Coupons/ArchiveCouponRequest.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
 
 ### CreateCoupon
 
@@ -30,11 +30,11 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateCouponRequest` | `Requests/Coupons/CreateCouponRequest.cs` |
-| `CouponRequest` | `Models/CouponRequest.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
-| `CreateCouponError` | `Errors/CreateCouponError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateCouponRequest` | `src/Maxio/Requests/Coupons/CreateCouponRequest.cs` |
+| `CouponRequest` | `src/Maxio/Models/CouponRequest.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
+| `CreateCouponError` | `src/Maxio/Errors/CreateCouponError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateCouponSubcodes
 
@@ -46,9 +46,9 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateCouponSubcodesRequest` | `Requests/Coupons/CreateCouponSubcodesRequest.cs` |
-| `CouponSubcodes` | `Models/CouponSubcodes.cs` |
-| `CouponSubcodesResponse` | `Models/CouponSubcodesResponse.cs` |
+| `CreateCouponSubcodesRequest` | `src/Maxio/Requests/Coupons/CreateCouponSubcodesRequest.cs` |
+| `CouponSubcodes` | `src/Maxio/Models/CouponSubcodes.cs` |
+| `CouponSubcodesResponse` | `src/Maxio/Models/CouponSubcodesResponse.cs` |
 
 ### CreateOrUpdateCouponCurrencyPrices
 
@@ -61,11 +61,11 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateOrUpdateCouponCurrencyPricesRequest` | `Requests/Coupons/CreateOrUpdateCouponCurrencyPricesRequest.cs` |
-| `CouponCurrencyRequest` | `Models/CouponCurrencyRequest.cs` |
-| `CouponCurrencyResponse` | `Models/CouponCurrencyResponse.cs` |
-| `CreateOrUpdateCouponCurrencyPricesError` | `Errors/CreateOrUpdateCouponCurrencyPricesError.cs` |
-| `ErrorStringMapResponse1` | `Models/ErrorStringMapResponse1.cs` |
+| `CreateOrUpdateCouponCurrencyPricesRequest` | `src/Maxio/Requests/Coupons/CreateOrUpdateCouponCurrencyPricesRequest.cs` |
+| `CouponCurrencyRequest` | `src/Maxio/Models/CouponCurrencyRequest.cs` |
+| `CouponCurrencyResponse` | `src/Maxio/Models/CouponCurrencyResponse.cs` |
+| `CreateOrUpdateCouponCurrencyPricesError` | `src/Maxio/Errors/CreateOrUpdateCouponCurrencyPricesError.cs` |
+| `ErrorStringMapResponse1` | `src/Maxio/Models/ErrorStringMapResponse1.cs` |
 
 ### DeleteCouponSubcode
 
@@ -78,8 +78,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `DeleteCouponSubcodeRequest` | `Requests/Coupons/DeleteCouponSubcodeRequest.cs` |
-| `DeleteCouponSubcodeError` | `Errors/DeleteCouponSubcodeError.cs` |
+| `DeleteCouponSubcodeRequest` | `src/Maxio/Requests/Coupons/DeleteCouponSubcodeRequest.cs` |
+| `DeleteCouponSubcodeError` | `src/Maxio/Errors/DeleteCouponSubcodeError.cs` |
 
 ### FindCoupon
 
@@ -91,8 +91,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `FindCouponRequest` | `Requests/Coupons/FindCouponRequest.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
+| `FindCouponRequest` | `src/Maxio/Requests/Coupons/FindCouponRequest.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
 
 ### ListCouponSubcodes
 
@@ -105,8 +105,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ListCouponSubcodesRequest` | `Requests/Coupons/ListCouponSubcodesRequest.cs` |
-| `CouponSubcodes` | `Models/CouponSubcodes.cs` |
+| `ListCouponSubcodesRequest` | `src/Maxio/Requests/Coupons/ListCouponSubcodesRequest.cs` |
+| `CouponSubcodes` | `src/Maxio/Models/CouponSubcodes.cs` |
 
 ### ListCoupons
 
@@ -118,9 +118,9 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ListCouponsRequest` | `Requests/Coupons/ListCouponsRequest.cs` |
-| `ListCouponsFilter` | `Models/ListCouponsFilter.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
+| `ListCouponsRequest` | `src/Maxio/Requests/Coupons/ListCouponsRequest.cs` |
+| `ListCouponsFilter` | `src/Maxio/Models/ListCouponsFilter.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
 
 ### ListCouponsForProductFamily
 
@@ -133,9 +133,9 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ListCouponsForProductFamilyRequest` | `Requests/Coupons/ListCouponsForProductFamilyRequest.cs` |
-| `ListCouponsFilter` | `Models/ListCouponsFilter.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
+| `ListCouponsForProductFamilyRequest` | `src/Maxio/Requests/Coupons/ListCouponsForProductFamilyRequest.cs` |
+| `ListCouponsFilter` | `src/Maxio/Models/ListCouponsFilter.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
 
 ### ReadCoupon
 
@@ -148,8 +148,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadCouponRequest` | `Requests/Coupons/ReadCouponRequest.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
+| `ReadCouponRequest` | `src/Maxio/Requests/Coupons/ReadCouponRequest.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
 
 ### ReadCouponUsage
 
@@ -161,8 +161,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadCouponUsageRequest` | `Requests/Coupons/ReadCouponUsageRequest.cs` |
-| `CouponUsage` | `Models/CouponUsage.cs` |
+| `ReadCouponUsageRequest` | `src/Maxio/Requests/Coupons/ReadCouponUsageRequest.cs` |
+| `CouponUsage` | `src/Maxio/Models/CouponUsage.cs` |
 
 ### UpdateCoupon
 
@@ -175,11 +175,11 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateCouponRequest` | `Requests/Coupons/UpdateCouponRequest.cs` |
-| `CouponRequest` | `Models/CouponRequest.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
-| `UpdateCouponError` | `Errors/UpdateCouponError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateCouponRequest` | `src/Maxio/Requests/Coupons/UpdateCouponRequest.cs` |
+| `CouponRequest` | `src/Maxio/Models/CouponRequest.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
+| `UpdateCouponError` | `src/Maxio/Errors/UpdateCouponError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateCouponSubcodes
 
@@ -191,9 +191,9 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateCouponSubcodesRequest` | `Requests/Coupons/UpdateCouponSubcodesRequest.cs` |
-| `CouponSubcodes` | `Models/CouponSubcodes.cs` |
-| `CouponSubcodesResponse` | `Models/CouponSubcodesResponse.cs` |
+| `UpdateCouponSubcodesRequest` | `src/Maxio/Requests/Coupons/UpdateCouponSubcodesRequest.cs` |
+| `CouponSubcodes` | `src/Maxio/Models/CouponSubcodes.cs` |
+| `CouponSubcodesResponse` | `src/Maxio/Models/CouponSubcodesResponse.cs` |
 
 ### ValidateCoupon
 
@@ -207,8 +207,8 @@ Accessor: `client.Coupons` · Source: `Api/Coupons.cs` · 14 operations
 
 | Type | Source |
 | --- | --- |
-| `ValidateCouponRequest` | `Requests/Coupons/ValidateCouponRequest.cs` |
-| `CouponResponse` | `Models/CouponResponse.cs` |
-| `ValidateCouponError` | `Errors/ValidateCouponError.cs` |
-| `SingleStringErrorResponse1` | `Models/SingleStringErrorResponse1.cs` |
+| `ValidateCouponRequest` | `src/Maxio/Requests/Coupons/ValidateCouponRequest.cs` |
+| `CouponResponse` | `src/Maxio/Models/CouponResponse.cs` |
+| `ValidateCouponError` | `src/Maxio/Errors/ValidateCouponError.cs` |
+| `SingleStringErrorResponse1` | `src/Maxio/Models/SingleStringErrorResponse1.cs` |
 

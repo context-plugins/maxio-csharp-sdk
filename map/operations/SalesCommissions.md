@@ -2,7 +2,7 @@
 
 # SalesCommissions — operations
 
-Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 operations
+Accessor: `client.SalesCommissions` · Source: `src/Maxio/Api/SalesCommissions.cs` · 3 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,8 +17,8 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 | Type | Source |
 | --- | --- |
-| `ListSalesCommissionSettingsRequest` | `Requests/SalesCommissions/ListSalesCommissionSettingsRequest.cs` |
-| `SaleRepSettings` | `Models/SaleRepSettings.cs` |
+| `ListSalesCommissionSettingsRequest` | `src/Maxio/Requests/SalesCommissions/ListSalesCommissionSettingsRequest.cs` |
+| `SaleRepSettings` | `src/Maxio/Models/SaleRepSettings.cs` |
 
 ### ListSalesReps
 
@@ -31,8 +31,8 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 | Type | Source |
 | --- | --- |
-| `ListSalesRepsRequest` | `Requests/SalesCommissions/ListSalesRepsRequest.cs` |
-| `ListSaleRepItem` | `Models/ListSaleRepItem.cs` |
+| `ListSalesRepsRequest` | `src/Maxio/Requests/SalesCommissions/ListSalesRepsRequest.cs` |
+| `ListSaleRepItem` | `src/Maxio/Models/ListSaleRepItem.cs` |
 
 ### ReadSalesRep
 
@@ -45,6 +45,6 @@ Accessor: `client.SalesCommissions` · Source: `Api/SalesCommissions.cs` · 3 op
 
 | Type | Source |
 | --- | --- |
-| `ReadSalesRepRequest` | `Requests/SalesCommissions/ReadSalesRepRequest.cs` |
-| `SaleRep` | `Models/SaleRep.cs` |
+| `ReadSalesRepRequest` | `src/Maxio/Requests/SalesCommissions/ReadSalesRepRequest.cs` |
+| `SaleRep` | `src/Maxio/Models/SaleRep.cs` |
 

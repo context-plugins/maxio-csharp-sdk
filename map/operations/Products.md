@@ -2,7 +2,7 @@
 
 # Products — operations
 
-Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
+Accessor: `client.Products` · Source: `src/Maxio/Api/Products.cs` · 6 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,10 +17,10 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `ArchiveProductRequest` | `Requests/Products/ArchiveProductRequest.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
-| `ArchiveProductError` | `Errors/ArchiveProductError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ArchiveProductRequest` | `src/Maxio/Requests/Products/ArchiveProductRequest.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
+| `ArchiveProductError` | `src/Maxio/Errors/ArchiveProductError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateProduct
 
@@ -33,11 +33,11 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateProductRequest` | `Requests/Products/CreateProductRequest.cs` |
-| `CreateOrUpdateProductRequest` | `Models/CreateOrUpdateProductRequest.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
-| `CreateProductError` | `Errors/CreateProductError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateProductRequest` | `src/Maxio/Requests/Products/CreateProductRequest.cs` |
+| `CreateOrUpdateProductRequest` | `src/Maxio/Models/CreateOrUpdateProductRequest.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
+| `CreateProductError` | `src/Maxio/Errors/CreateProductError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListProducts
 
@@ -49,11 +49,11 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `ListProductsRequest` | `Requests/Products/ListProductsRequest.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `ListProductsFilter` | `Models/ListProductsFilter.cs` |
-| `ListProductsInclude` | `Models/Enums/ListProductsInclude.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
+| `ListProductsRequest` | `src/Maxio/Requests/Products/ListProductsRequest.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `ListProductsFilter` | `src/Maxio/Models/ListProductsFilter.cs` |
+| `ListProductsInclude` | `src/Maxio/Models/Enums/ListProductsInclude.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
 
 ### ReadProduct
 
@@ -66,8 +66,8 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadProductRequest` | `Requests/Products/ReadProductRequest.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
+| `ReadProductRequest` | `src/Maxio/Requests/Products/ReadProductRequest.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
 
 ### ReadProductByHandle
 
@@ -79,8 +79,8 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadProductByHandleRequest` | `Requests/Products/ReadProductByHandleRequest.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
+| `ReadProductByHandleRequest` | `src/Maxio/Requests/Products/ReadProductByHandleRequest.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
 
 ### UpdateProduct
 
@@ -93,9 +93,9 @@ Accessor: `client.Products` · Source: `Api/Products.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateProductRequest` | `Requests/Products/UpdateProductRequest.cs` |
-| `CreateOrUpdateProductRequest` | `Models/CreateOrUpdateProductRequest.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
-| `UpdateProductError` | `Errors/UpdateProductError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateProductRequest` | `src/Maxio/Requests/Products/UpdateProductRequest.cs` |
+| `CreateOrUpdateProductRequest` | `src/Maxio/Models/CreateOrUpdateProductRequest.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
+| `UpdateProductError` | `src/Maxio/Errors/UpdateProductError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

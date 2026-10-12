@@ -2,7 +2,7 @@
 
 # SubscriptionGroupInvoiceAccount — operations
 
-Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionGroupInvoiceAccount.cs` · 4 operations
+Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `src/Maxio/Api/SubscriptionGroupInvoiceAccount.cs` · 4 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 | Type | Source |
 | --- | --- |
-| `CreateSubscriptionGroupPrepaymentRequest` | `Requests/SubscriptionGroupInvoiceAccount/CreateSubscriptionGroupPrepaymentRequest.cs` |
-| `SubscriptionGroupPrepaymentRequest` | `Models/SubscriptionGroupPrepaymentRequest.cs` |
-| `SubscriptionGroupPrepaymentResponse` | `Models/SubscriptionGroupPrepaymentResponse.cs` |
-| `CreateSubscriptionGroupPrepaymentError` | `Errors/CreateSubscriptionGroupPrepaymentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateSubscriptionGroupPrepaymentRequest` | `src/Maxio/Requests/SubscriptionGroupInvoiceAccount/CreateSubscriptionGroupPrepaymentRequest.cs` |
+| `SubscriptionGroupPrepaymentRequest` | `src/Maxio/Models/SubscriptionGroupPrepaymentRequest.cs` |
+| `SubscriptionGroupPrepaymentResponse` | `src/Maxio/Models/SubscriptionGroupPrepaymentResponse.cs` |
+| `CreateSubscriptionGroupPrepaymentError` | `src/Maxio/Errors/CreateSubscriptionGroupPrepaymentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### DeductSubscriptionGroupServiceCredit
 
@@ -34,11 +34,11 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 | Type | Source |
 | --- | --- |
-| `DeductSubscriptionGroupServiceCreditRequest` | `Requests/SubscriptionGroupInvoiceAccount/DeductSubscriptionGroupServiceCreditRequest.cs` |
-| `DeductServiceCreditRequest` | `Models/DeductServiceCreditRequest.cs` |
-| `ServiceCredit` | `Models/ServiceCredit.cs` |
-| `DeductSubscriptionGroupServiceCreditError` | `Errors/DeductSubscriptionGroupServiceCreditError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `DeductSubscriptionGroupServiceCreditRequest` | `src/Maxio/Requests/SubscriptionGroupInvoiceAccount/DeductSubscriptionGroupServiceCreditRequest.cs` |
+| `DeductServiceCreditRequest` | `src/Maxio/Models/DeductServiceCreditRequest.cs` |
+| `ServiceCredit` | `src/Maxio/Models/ServiceCredit.cs` |
+| `DeductSubscriptionGroupServiceCreditError` | `src/Maxio/Errors/DeductSubscriptionGroupServiceCreditError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### IssueSubscriptionGroupServiceCredit
 
@@ -51,11 +51,11 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 | Type | Source |
 | --- | --- |
-| `IssueSubscriptionGroupServiceCreditRequest` | `Requests/SubscriptionGroupInvoiceAccount/IssueSubscriptionGroupServiceCreditRequest.cs` |
-| `IssueServiceCreditRequest` | `Models/IssueServiceCreditRequest.cs` |
-| `ServiceCreditResponse` | `Models/ServiceCreditResponse.cs` |
-| `IssueSubscriptionGroupServiceCreditError` | `Errors/IssueSubscriptionGroupServiceCreditError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `IssueSubscriptionGroupServiceCreditRequest` | `src/Maxio/Requests/SubscriptionGroupInvoiceAccount/IssueSubscriptionGroupServiceCreditRequest.cs` |
+| `IssueServiceCreditRequest` | `src/Maxio/Models/IssueServiceCreditRequest.cs` |
+| `ServiceCreditResponse` | `src/Maxio/Models/ServiceCreditResponse.cs` |
+| `IssueSubscriptionGroupServiceCreditError` | `src/Maxio/Errors/IssueSubscriptionGroupServiceCreditError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListPrepaymentsForSubscriptionGroup
 
@@ -69,8 +69,8 @@ Accessor: `client.SubscriptionGroupInvoiceAccount` · Source: `Api/SubscriptionG
 
 | Type | Source |
 | --- | --- |
-| `ListPrepaymentsForSubscriptionGroupRequest` | `Requests/SubscriptionGroupInvoiceAccount/ListPrepaymentsForSubscriptionGroupRequest.cs` |
-| `ListPrepaymentsFilter` | `Models/ListPrepaymentsFilter.cs` |
-| `ListSubscriptionGroupPrepaymentResponse` | `Models/ListSubscriptionGroupPrepaymentResponse.cs` |
-| `ListPrepaymentsForSubscriptionGroupError` | `Errors/ListPrepaymentsForSubscriptionGroupError.cs` |
+| `ListPrepaymentsForSubscriptionGroupRequest` | `src/Maxio/Requests/SubscriptionGroupInvoiceAccount/ListPrepaymentsForSubscriptionGroupRequest.cs` |
+| `ListPrepaymentsFilter` | `src/Maxio/Models/ListPrepaymentsFilter.cs` |
+| `ListSubscriptionGroupPrepaymentResponse` | `src/Maxio/Models/ListSubscriptionGroupPrepaymentResponse.cs` |
+| `ListPrepaymentsForSubscriptionGroupError` | `src/Maxio/Errors/ListPrepaymentsForSubscriptionGroupError.cs` |
 

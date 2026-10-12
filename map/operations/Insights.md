@@ -2,7 +2,7 @@
 
 # Insights — operations
 
-Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
+Accessor: `client.Insights` · Source: `src/Maxio/Api/Insights.cs` · 4 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,9 +16,9 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 | Type | Source |
 | --- | --- |
-| `ListMrrMovementsRequest` | `Requests/Insights/ListMrrMovementsRequest.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListMrrResponse` | `Models/ListMrrResponse.cs` |
+| `ListMrrMovementsRequest` | `src/Maxio/Requests/Insights/ListMrrMovementsRequest.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListMrrResponse` | `src/Maxio/Models/ListMrrResponse.cs` |
 
 ### ListMrrPerSubscription
 
@@ -31,12 +31,12 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 | Type | Source |
 | --- | --- |
-| `ListMrrPerSubscriptionRequest` | `Requests/Insights/ListMrrPerSubscriptionRequest.cs` |
-| `ListMrrFilter` | `Models/ListMrrFilter.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `SubscriptionMrrResponse` | `Models/SubscriptionMrrResponse.cs` |
-| `ListMrrPerSubscriptionError` | `Errors/ListMrrPerSubscriptionError.cs` |
-| `SubscriptionsMrrErrorResponse1` | `Models/SubscriptionsMrrErrorResponse1.cs` |
+| `ListMrrPerSubscriptionRequest` | `src/Maxio/Requests/Insights/ListMrrPerSubscriptionRequest.cs` |
+| `ListMrrFilter` | `src/Maxio/Models/ListMrrFilter.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `SubscriptionMrrResponse` | `src/Maxio/Models/SubscriptionMrrResponse.cs` |
+| `ListMrrPerSubscriptionError` | `src/Maxio/Errors/ListMrrPerSubscriptionError.cs` |
+| `SubscriptionsMrrErrorResponse1` | `src/Maxio/Models/SubscriptionsMrrErrorResponse1.cs` |
 
 ### ReadMrr
 
@@ -48,8 +48,8 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadMrrRequest` | `Requests/Insights/ReadMrrRequest.cs` |
-| `MrrResponse` | `Models/MrrResponse.cs` |
+| `ReadMrrRequest` | `src/Maxio/Requests/Insights/ReadMrrRequest.cs` |
+| `MrrResponse` | `src/Maxio/Models/MrrResponse.cs` |
 
 ### ReadSiteStats
 
@@ -60,5 +60,5 @@ Accessor: `client.Insights` · Source: `Api/Insights.cs` · 4 operations
 
 | Type | Source |
 | --- | --- |
-| `SiteSummary` | `Models/SiteSummary.cs` |
+| `SiteSummary` | `src/Maxio/Models/SiteSummary.cs` |
 

@@ -2,7 +2,7 @@
 
 # SubscriptionRenewals — operations
 
-Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs` · 11 operations
+Accessor: `client.SubscriptionRenewals` · Source: `src/Maxio/Api/SubscriptionRenewals.cs` · 11 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,10 +17,10 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `CancelScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/CancelScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
-| `CancelScheduledRenewalConfigurationError` | `Errors/CancelScheduledRenewalConfigurationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CancelScheduledRenewalConfigurationRequest` | `src/Maxio/Requests/SubscriptionRenewals/CancelScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
+| `CancelScheduledRenewalConfigurationError` | `src/Maxio/Errors/CancelScheduledRenewalConfigurationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateScheduledRenewalConfiguration
 
@@ -33,11 +33,11 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `CreateScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationRequest` | `Models/ScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
-| `CreateScheduledRenewalConfigurationError` | `Errors/CreateScheduledRenewalConfigurationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateScheduledRenewalConfigurationRequest` | `src/Maxio/Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationRequest` | `src/Maxio/Models/ScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
+| `CreateScheduledRenewalConfigurationError` | `src/Maxio/Errors/CreateScheduledRenewalConfigurationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateScheduledRenewalConfigurationItem
 
@@ -50,11 +50,11 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `CreateScheduledRenewalConfigurationItemRequest` | `Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationItemRequest.cs` |
-| `ScheduledRenewalConfigurationItemRequest` | `Models/ScheduledRenewalConfigurationItemRequest.cs` |
-| `ScheduledRenewalConfigurationItemResponse` | `Models/ScheduledRenewalConfigurationItemResponse.cs` |
-| `CreateScheduledRenewalConfigurationItemError` | `Errors/CreateScheduledRenewalConfigurationItemError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateScheduledRenewalConfigurationItemRequest` | `src/Maxio/Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationItemRequest.cs` |
+| `ScheduledRenewalConfigurationItemRequest` | `src/Maxio/Models/ScheduledRenewalConfigurationItemRequest.cs` |
+| `ScheduledRenewalConfigurationItemResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationItemResponse.cs` |
+| `CreateScheduledRenewalConfigurationItemError` | `src/Maxio/Errors/CreateScheduledRenewalConfigurationItemError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### DeleteScheduledRenewalConfigurationItem
 
@@ -67,9 +67,9 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `DeleteScheduledRenewalConfigurationItemRequest` | `Requests/SubscriptionRenewals/DeleteScheduledRenewalConfigurationItemRequest.cs` |
-| `DeleteScheduledRenewalConfigurationItemError` | `Errors/DeleteScheduledRenewalConfigurationItemError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `DeleteScheduledRenewalConfigurationItemRequest` | `src/Maxio/Requests/SubscriptionRenewals/DeleteScheduledRenewalConfigurationItemRequest.cs` |
+| `DeleteScheduledRenewalConfigurationItemError` | `src/Maxio/Errors/DeleteScheduledRenewalConfigurationItemError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListScheduledRenewalConfigurations
 
@@ -82,9 +82,9 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `ListScheduledRenewalConfigurationsRequest` | `Requests/SubscriptionRenewals/ListScheduledRenewalConfigurationsRequest.cs` |
-| `Status` | `Models/Enums/Status.cs` |
-| `ScheduledRenewalConfigurationsResponse` | `Models/ScheduledRenewalConfigurationsResponse.cs` |
+| `ListScheduledRenewalConfigurationsRequest` | `src/Maxio/Requests/SubscriptionRenewals/ListScheduledRenewalConfigurationsRequest.cs` |
+| `Status` | `src/Maxio/Models/Enums/Status.cs` |
+| `ScheduledRenewalConfigurationsResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationsResponse.cs` |
 
 ### LockInScheduledRenewalImmediately
 
@@ -97,10 +97,10 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `LockInScheduledRenewalImmediatelyRequest` | `Requests/SubscriptionRenewals/LockInScheduledRenewalImmediatelyRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
-| `LockInScheduledRenewalImmediatelyError` | `Errors/LockInScheduledRenewalImmediatelyError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `LockInScheduledRenewalImmediatelyRequest` | `src/Maxio/Requests/SubscriptionRenewals/LockInScheduledRenewalImmediatelyRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
+| `LockInScheduledRenewalImmediatelyError` | `src/Maxio/Errors/LockInScheduledRenewalImmediatelyError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadScheduledRenewalConfiguration
 
@@ -112,8 +112,8 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `ReadScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/ReadScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
+| `ReadScheduledRenewalConfigurationRequest` | `src/Maxio/Requests/SubscriptionRenewals/ReadScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
 
 ### ScheduleScheduledRenewalLockIn
 
@@ -126,11 +126,11 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `ScheduleScheduledRenewalLockInRequest` | `Requests/SubscriptionRenewals/ScheduleScheduledRenewalLockInRequest.cs` |
-| `ScheduledRenewalLockInRequest` | `Models/ScheduledRenewalLockInRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
-| `ScheduleScheduledRenewalLockInError` | `Errors/ScheduleScheduledRenewalLockInError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ScheduleScheduledRenewalLockInRequest` | `src/Maxio/Requests/SubscriptionRenewals/ScheduleScheduledRenewalLockInRequest.cs` |
+| `ScheduledRenewalLockInRequest` | `src/Maxio/Models/ScheduledRenewalLockInRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
+| `ScheduleScheduledRenewalLockInError` | `src/Maxio/Errors/ScheduleScheduledRenewalLockInError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UnpublishScheduledRenewalConfiguration
 
@@ -143,10 +143,10 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `UnpublishScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/UnpublishScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
-| `UnpublishScheduledRenewalConfigurationError` | `Errors/UnpublishScheduledRenewalConfigurationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UnpublishScheduledRenewalConfigurationRequest` | `src/Maxio/Requests/SubscriptionRenewals/UnpublishScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
+| `UnpublishScheduledRenewalConfigurationError` | `src/Maxio/Errors/UnpublishScheduledRenewalConfigurationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateScheduledRenewalConfiguration
 
@@ -159,11 +159,11 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `UpdateScheduledRenewalConfigurationRequest` | `Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationRequest` | `Models/ScheduledRenewalConfigurationRequest.cs` |
-| `ScheduledRenewalConfigurationResponse` | `Models/ScheduledRenewalConfigurationResponse.cs` |
-| `UpdateScheduledRenewalConfigurationError` | `Errors/UpdateScheduledRenewalConfigurationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateScheduledRenewalConfigurationRequest` | `src/Maxio/Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationRequest` | `src/Maxio/Models/ScheduledRenewalConfigurationRequest.cs` |
+| `ScheduledRenewalConfigurationResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs` |
+| `UpdateScheduledRenewalConfigurationError` | `src/Maxio/Errors/UpdateScheduledRenewalConfigurationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateScheduledRenewalConfigurationItem
 
@@ -176,9 +176,9 @@ Accessor: `client.SubscriptionRenewals` · Source: `Api/SubscriptionRenewals.cs`
 
 | Type | Source |
 | --- | --- |
-| `UpdateScheduledRenewalConfigurationItemRequest` | `Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationItemRequest.cs` |
-| `ScheduledRenewalUpdateRequest` | `Models/ScheduledRenewalUpdateRequest.cs` |
-| `ScheduledRenewalConfigurationItemResponse` | `Models/ScheduledRenewalConfigurationItemResponse.cs` |
-| `UpdateScheduledRenewalConfigurationItemError` | `Errors/UpdateScheduledRenewalConfigurationItemError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateScheduledRenewalConfigurationItemRequest` | `src/Maxio/Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationItemRequest.cs` |
+| `ScheduledRenewalUpdateRequest` | `src/Maxio/Models/ScheduledRenewalUpdateRequest.cs` |
+| `ScheduledRenewalConfigurationItemResponse` | `src/Maxio/Models/ScheduledRenewalConfigurationItemResponse.cs` |
+| `UpdateScheduledRenewalConfigurationItemError` | `src/Maxio/Errors/UpdateScheduledRenewalConfigurationItemError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

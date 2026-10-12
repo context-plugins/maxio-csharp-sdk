@@ -2,7 +2,7 @@
 
 # PaymentProfiles — operations
 
-Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 operations
+Accessor: `client.PaymentProfiles` · Source: `src/Maxio/Api/PaymentProfiles.cs` · 12 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,10 +17,10 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `ChangeSubscriptionDefaultPaymentProfileRequest` | `Requests/PaymentProfiles/ChangeSubscriptionDefaultPaymentProfileRequest.cs` |
-| `PaymentProfileResponse` | `Models/PaymentProfileResponse.cs` |
-| `ChangeSubscriptionDefaultPaymentProfileError` | `Errors/ChangeSubscriptionDefaultPaymentProfileError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ChangeSubscriptionDefaultPaymentProfileRequest` | `src/Maxio/Requests/PaymentProfiles/ChangeSubscriptionDefaultPaymentProfileRequest.cs` |
+| `PaymentProfileResponse` | `src/Maxio/Models/PaymentProfileResponse.cs` |
+| `ChangeSubscriptionDefaultPaymentProfileError` | `src/Maxio/Errors/ChangeSubscriptionDefaultPaymentProfileError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ChangeSubscriptionGroupDefaultPaymentProfile
 
@@ -33,10 +33,10 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `ChangeSubscriptionGroupDefaultPaymentProfileRequest` | `Requests/PaymentProfiles/ChangeSubscriptionGroupDefaultPaymentProfileRequest.cs` |
-| `PaymentProfileResponse` | `Models/PaymentProfileResponse.cs` |
-| `ChangeSubscriptionGroupDefaultPaymentProfileError` | `Errors/ChangeSubscriptionGroupDefaultPaymentProfileError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ChangeSubscriptionGroupDefaultPaymentProfileRequest` | `src/Maxio/Requests/PaymentProfiles/ChangeSubscriptionGroupDefaultPaymentProfileRequest.cs` |
+| `PaymentProfileResponse` | `src/Maxio/Models/PaymentProfileResponse.cs` |
+| `ChangeSubscriptionGroupDefaultPaymentProfileError` | `src/Maxio/Errors/ChangeSubscriptionGroupDefaultPaymentProfileError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreatePaymentProfile
 
@@ -48,11 +48,11 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `CreatePaymentProfileOperationRequest` | `Requests/PaymentProfiles/CreatePaymentProfileOperationRequest.cs` |
-| `CreatePaymentProfileRequest` | `Models/CreatePaymentProfileRequest.cs` |
-| `PaymentProfileResponse` | `Models/PaymentProfileResponse.cs` |
-| `CreatePaymentProfileError` | `Errors/CreatePaymentProfileError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreatePaymentProfileOperationRequest` | `src/Maxio/Requests/PaymentProfiles/CreatePaymentProfileOperationRequest.cs` |
+| `CreatePaymentProfileRequest` | `src/Maxio/Models/CreatePaymentProfileRequest.cs` |
+| `PaymentProfileResponse` | `src/Maxio/Models/PaymentProfileResponse.cs` |
+| `CreatePaymentProfileError` | `src/Maxio/Errors/CreatePaymentProfileError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### DeleteSubscriptionGroupPaymentProfile
 
@@ -64,7 +64,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `DeleteSubscriptionGroupPaymentProfileRequest` | `Requests/PaymentProfiles/DeleteSubscriptionGroupPaymentProfileRequest.cs` |
+| `DeleteSubscriptionGroupPaymentProfileRequest` | `src/Maxio/Requests/PaymentProfiles/DeleteSubscriptionGroupPaymentProfileRequest.cs` |
 
 ### DeleteSubscriptionsPaymentProfile
 
@@ -76,7 +76,7 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `DeleteSubscriptionsPaymentProfileRequest` | `Requests/PaymentProfiles/DeleteSubscriptionsPaymentProfileRequest.cs` |
+| `DeleteSubscriptionsPaymentProfileRequest` | `src/Maxio/Requests/PaymentProfiles/DeleteSubscriptionsPaymentProfileRequest.cs` |
 
 ### DeleteUnusedPaymentProfile
 
@@ -89,9 +89,9 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `DeleteUnusedPaymentProfileRequest` | `Requests/PaymentProfiles/DeleteUnusedPaymentProfileRequest.cs` |
-| `DeleteUnusedPaymentProfileError` | `Errors/DeleteUnusedPaymentProfileError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `DeleteUnusedPaymentProfileRequest` | `src/Maxio/Requests/PaymentProfiles/DeleteUnusedPaymentProfileRequest.cs` |
+| `DeleteUnusedPaymentProfileError` | `src/Maxio/Errors/DeleteUnusedPaymentProfileError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListPaymentProfiles
 
@@ -103,8 +103,8 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `ListPaymentProfilesRequest` | `Requests/PaymentProfiles/ListPaymentProfilesRequest.cs` |
-| `PaymentProfileResponse` | `Models/PaymentProfileResponse.cs` |
+| `ListPaymentProfilesRequest` | `src/Maxio/Requests/PaymentProfiles/ListPaymentProfilesRequest.cs` |
+| `PaymentProfileResponse` | `src/Maxio/Models/PaymentProfileResponse.cs` |
 
 ### ReadOneTimeToken
 
@@ -117,10 +117,10 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `ReadOneTimeTokenRequest` | `Requests/PaymentProfiles/ReadOneTimeTokenRequest.cs` |
-| `GetOneTimeTokenRequest` | `Models/GetOneTimeTokenRequest.cs` |
-| `ReadOneTimeTokenError` | `Errors/ReadOneTimeTokenError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReadOneTimeTokenRequest` | `src/Maxio/Requests/PaymentProfiles/ReadOneTimeTokenRequest.cs` |
+| `GetOneTimeTokenRequest` | `src/Maxio/Models/GetOneTimeTokenRequest.cs` |
+| `ReadOneTimeTokenError` | `src/Maxio/Errors/ReadOneTimeTokenError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadPaymentProfile
 
@@ -133,9 +133,9 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `ReadPaymentProfileRequest` | `Requests/PaymentProfiles/ReadPaymentProfileRequest.cs` |
-| `PaymentProfileResponse` | `Models/PaymentProfileResponse.cs` |
-| `ReadPaymentProfileError` | `Errors/ReadPaymentProfileError.cs` |
+| `ReadPaymentProfileRequest` | `src/Maxio/Requests/PaymentProfiles/ReadPaymentProfileRequest.cs` |
+| `PaymentProfileResponse` | `src/Maxio/Models/PaymentProfileResponse.cs` |
+| `ReadPaymentProfileError` | `src/Maxio/Errors/ReadPaymentProfileError.cs` |
 
 ### SendRequestUpdatePaymentEmail
 
@@ -148,9 +148,9 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `SendRequestUpdatePaymentEmailRequest` | `Requests/PaymentProfiles/SendRequestUpdatePaymentEmailRequest.cs` |
-| `SendRequestUpdatePaymentEmailError` | `Errors/SendRequestUpdatePaymentEmailError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `SendRequestUpdatePaymentEmailRequest` | `src/Maxio/Requests/PaymentProfiles/SendRequestUpdatePaymentEmailRequest.cs` |
+| `SendRequestUpdatePaymentEmailError` | `src/Maxio/Errors/SendRequestUpdatePaymentEmailError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdatePaymentProfile
 
@@ -163,11 +163,11 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `UpdatePaymentProfileOperationRequest` | `Requests/PaymentProfiles/UpdatePaymentProfileOperationRequest.cs` |
-| `UpdatePaymentProfileRequest` | `Models/UpdatePaymentProfileRequest.cs` |
-| `PaymentProfileResponse` | `Models/PaymentProfileResponse.cs` |
-| `UpdatePaymentProfileError` | `Errors/UpdatePaymentProfileError.cs` |
-| `ErrorStringMapResponse1` | `Models/ErrorStringMapResponse1.cs` |
+| `UpdatePaymentProfileOperationRequest` | `src/Maxio/Requests/PaymentProfiles/UpdatePaymentProfileOperationRequest.cs` |
+| `UpdatePaymentProfileRequest` | `src/Maxio/Models/UpdatePaymentProfileRequest.cs` |
+| `PaymentProfileResponse` | `src/Maxio/Models/PaymentProfileResponse.cs` |
+| `UpdatePaymentProfileError` | `src/Maxio/Errors/UpdatePaymentProfileError.cs` |
+| `ErrorStringMapResponse1` | `src/Maxio/Models/ErrorStringMapResponse1.cs` |
 
 ### VerifyBankAccount
 
@@ -180,9 +180,9 @@ Accessor: `client.PaymentProfiles` · Source: `Api/PaymentProfiles.cs` · 12 ope
 
 | Type | Source |
 | --- | --- |
-| `VerifyBankAccountRequest` | `Requests/PaymentProfiles/VerifyBankAccountRequest.cs` |
-| `BankAccountVerificationRequest` | `Models/BankAccountVerificationRequest.cs` |
-| `BankAccountResponse` | `Models/BankAccountResponse.cs` |
-| `VerifyBankAccountError` | `Errors/VerifyBankAccountError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `VerifyBankAccountRequest` | `src/Maxio/Requests/PaymentProfiles/VerifyBankAccountRequest.cs` |
+| `BankAccountVerificationRequest` | `src/Maxio/Models/BankAccountVerificationRequest.cs` |
+| `BankAccountResponse` | `src/Maxio/Models/BankAccountResponse.cs` |
+| `VerifyBankAccountError` | `src/Maxio/Errors/VerifyBankAccountError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

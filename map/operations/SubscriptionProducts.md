@@ -2,7 +2,7 @@
 
 # SubscriptionProducts — operations
 
-Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs` · 2 operations
+Accessor: `client.SubscriptionProducts` · Source: `src/Maxio/Api/SubscriptionProducts.cs` · 2 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs`
 
 | Type | Source |
 | --- | --- |
-| `MigrateSubscriptionProductRequest` | `Requests/SubscriptionProducts/MigrateSubscriptionProductRequest.cs` |
-| `SubscriptionProductMigrationRequest` | `Models/SubscriptionProductMigrationRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `MigrateSubscriptionProductError` | `Errors/MigrateSubscriptionProductError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `MigrateSubscriptionProductRequest` | `src/Maxio/Requests/SubscriptionProducts/MigrateSubscriptionProductRequest.cs` |
+| `SubscriptionProductMigrationRequest` | `src/Maxio/Models/SubscriptionProductMigrationRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `MigrateSubscriptionProductError` | `src/Maxio/Errors/MigrateSubscriptionProductError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### PreviewSubscriptionProductMigration
 
@@ -34,9 +34,9 @@ Accessor: `client.SubscriptionProducts` · Source: `Api/SubscriptionProducts.cs`
 
 | Type | Source |
 | --- | --- |
-| `PreviewSubscriptionProductMigrationRequest` | `Requests/SubscriptionProducts/PreviewSubscriptionProductMigrationRequest.cs` |
-| `SubscriptionMigrationPreviewRequest` | `Models/SubscriptionMigrationPreviewRequest.cs` |
-| `SubscriptionMigrationPreviewResponse` | `Models/SubscriptionMigrationPreviewResponse.cs` |
-| `PreviewSubscriptionProductMigrationError` | `Errors/PreviewSubscriptionProductMigrationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `PreviewSubscriptionProductMigrationRequest` | `src/Maxio/Requests/SubscriptionProducts/PreviewSubscriptionProductMigrationRequest.cs` |
+| `SubscriptionMigrationPreviewRequest` | `src/Maxio/Models/SubscriptionMigrationPreviewRequest.cs` |
+| `SubscriptionMigrationPreviewResponse` | `src/Maxio/Models/SubscriptionMigrationPreviewResponse.cs` |
+| `PreviewSubscriptionProductMigrationError` | `src/Maxio/Errors/PreviewSubscriptionProductMigrationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

@@ -2,7 +2,7 @@
 
 # Invoices — operations
 
-Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
+Accessor: `client.Invoices` · Source: `src/Maxio/Api/Invoices.cs` · 19 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateInvoiceOperationRequest` | `Requests/Invoices/CreateInvoiceOperationRequest.cs` |
-| `CreateInvoiceRequest` | `Models/CreateInvoiceRequest.cs` |
-| `InvoiceResponse` | `Models/InvoiceResponse.cs` |
-| `CreateInvoiceError` | `Errors/CreateInvoiceError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `CreateInvoiceOperationRequest` | `src/Maxio/Requests/Invoices/CreateInvoiceOperationRequest.cs` |
+| `CreateInvoiceRequest` | `src/Maxio/Models/CreateInvoiceRequest.cs` |
+| `InvoiceResponse` | `src/Maxio/Models/InvoiceResponse.cs` |
+| `CreateInvoiceError` | `src/Maxio/Errors/CreateInvoiceError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### DeleteInvoice
 
@@ -34,9 +34,9 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `DeleteInvoiceRequest` | `Requests/Invoices/DeleteInvoiceRequest.cs` |
-| `DeleteInvoiceError` | `Errors/DeleteInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `DeleteInvoiceRequest` | `src/Maxio/Requests/Invoices/DeleteInvoiceRequest.cs` |
+| `DeleteInvoiceError` | `src/Maxio/Errors/DeleteInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### IssueInvoice
 
@@ -49,11 +49,11 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `IssueInvoiceOperationRequest` | `Requests/Invoices/IssueInvoiceOperationRequest.cs` |
-| `IssueInvoiceRequest` | `Models/IssueInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `IssueInvoiceError` | `Errors/IssueInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `IssueInvoiceOperationRequest` | `src/Maxio/Requests/Invoices/IssueInvoiceOperationRequest.cs` |
+| `IssueInvoiceRequest` | `src/Maxio/Models/IssueInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `IssueInvoiceError` | `src/Maxio/Errors/IssueInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListConsolidatedInvoiceSegments
 
@@ -66,9 +66,9 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ListConsolidatedInvoiceSegmentsRequest` | `Requests/Invoices/ListConsolidatedInvoiceSegmentsRequest.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `ConsolidatedInvoice` | `Models/ConsolidatedInvoice.cs` |
+| `ListConsolidatedInvoiceSegmentsRequest` | `src/Maxio/Requests/Invoices/ListConsolidatedInvoiceSegmentsRequest.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `ConsolidatedInvoice` | `src/Maxio/Models/ConsolidatedInvoice.cs` |
 
 ### ListCreditNotes
 
@@ -80,10 +80,10 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ListCreditNotesRequest` | `Requests/Invoices/ListCreditNotesRequest.cs` |
-| `CreditNoteDateField` | `Models/Enums/CreditNoteDateField.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `ListCreditNotesResponse` | `Models/ListCreditNotesResponse.cs` |
+| `ListCreditNotesRequest` | `src/Maxio/Requests/Invoices/ListCreditNotesRequest.cs` |
+| `CreditNoteDateField` | `src/Maxio/Models/Enums/CreditNoteDateField.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `ListCreditNotesResponse` | `src/Maxio/Models/ListCreditNotesResponse.cs` |
 
 ### ListInvoiceEvents
 
@@ -95,9 +95,9 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ListInvoiceEventsRequest` | `Requests/Invoices/ListInvoiceEventsRequest.cs` |
-| `InvoiceEventType` | `Models/Enums/InvoiceEventType.cs` |
-| `ListInvoiceEventsResponse` | `Models/ListInvoiceEventsResponse.cs` |
+| `ListInvoiceEventsRequest` | `src/Maxio/Requests/Invoices/ListInvoiceEventsRequest.cs` |
+| `InvoiceEventType` | `src/Maxio/Models/Enums/InvoiceEventType.cs` |
+| `ListInvoiceEventsResponse` | `src/Maxio/Models/ListInvoiceEventsResponse.cs` |
 
 ### ListInvoices
 
@@ -109,12 +109,12 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ListInvoicesRequest` | `Requests/Invoices/ListInvoicesRequest.cs` |
-| `InvoiceStatus` | `Models/Enums/InvoiceStatus.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `InvoiceDateField` | `Models/Enums/InvoiceDateField.cs` |
-| `InvoiceSortField` | `Models/Enums/InvoiceSortField.cs` |
-| `ListInvoicesResponse` | `Models/ListInvoicesResponse.cs` |
+| `ListInvoicesRequest` | `src/Maxio/Requests/Invoices/ListInvoicesRequest.cs` |
+| `InvoiceStatus` | `src/Maxio/Models/Enums/InvoiceStatus.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `InvoiceDateField` | `src/Maxio/Models/Enums/InvoiceDateField.cs` |
+| `InvoiceSortField` | `src/Maxio/Models/Enums/InvoiceSortField.cs` |
+| `ListInvoicesResponse` | `src/Maxio/Models/ListInvoicesResponse.cs` |
 
 ### PreviewCustomerInformationChanges
 
@@ -127,10 +127,10 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `PreviewCustomerInformationChangesRequest` | `Requests/Invoices/PreviewCustomerInformationChangesRequest.cs` |
-| `CustomerChangesPreviewResponse` | `Models/CustomerChangesPreviewResponse.cs` |
-| `PreviewCustomerInformationChangesError` | `Errors/PreviewCustomerInformationChangesError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `PreviewCustomerInformationChangesRequest` | `src/Maxio/Requests/Invoices/PreviewCustomerInformationChangesRequest.cs` |
+| `CustomerChangesPreviewResponse` | `src/Maxio/Models/CustomerChangesPreviewResponse.cs` |
+| `PreviewCustomerInformationChangesError` | `src/Maxio/Errors/PreviewCustomerInformationChangesError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadCreditNote
 
@@ -142,8 +142,8 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadCreditNoteRequest` | `Requests/Invoices/ReadCreditNoteRequest.cs` |
-| `CreditNote` | `Models/CreditNote.cs` |
+| `ReadCreditNoteRequest` | `src/Maxio/Requests/Invoices/ReadCreditNoteRequest.cs` |
+| `CreditNote` | `src/Maxio/Models/CreditNote.cs` |
 
 ### ReadInvoice
 
@@ -155,8 +155,8 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadInvoiceRequest` | `Requests/Invoices/ReadInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
+| `ReadInvoiceRequest` | `src/Maxio/Requests/Invoices/ReadInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
 
 ### RecordPaymentForInvoice
 
@@ -169,11 +169,11 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `RecordPaymentForInvoiceRequest` | `Requests/Invoices/RecordPaymentForInvoiceRequest.cs` |
-| `CreateInvoicePaymentRequest` | `Models/CreateInvoicePaymentRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `RecordPaymentForInvoiceError` | `Errors/RecordPaymentForInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RecordPaymentForInvoiceRequest` | `src/Maxio/Requests/Invoices/RecordPaymentForInvoiceRequest.cs` |
+| `CreateInvoicePaymentRequest` | `src/Maxio/Models/CreateInvoicePaymentRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `RecordPaymentForInvoiceError` | `src/Maxio/Errors/RecordPaymentForInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RecordPaymentForMultipleInvoices
 
@@ -185,11 +185,11 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `RecordPaymentForMultipleInvoicesRequest` | `Requests/Invoices/RecordPaymentForMultipleInvoicesRequest.cs` |
-| `CreateMultiInvoicePaymentRequest` | `Models/CreateMultiInvoicePaymentRequest.cs` |
-| `MultiInvoicePaymentResponse` | `Models/MultiInvoicePaymentResponse.cs` |
-| `RecordPaymentForMultipleInvoicesError` | `Errors/RecordPaymentForMultipleInvoicesError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RecordPaymentForMultipleInvoicesRequest` | `src/Maxio/Requests/Invoices/RecordPaymentForMultipleInvoicesRequest.cs` |
+| `CreateMultiInvoicePaymentRequest` | `src/Maxio/Models/CreateMultiInvoicePaymentRequest.cs` |
+| `MultiInvoicePaymentResponse` | `src/Maxio/Models/MultiInvoicePaymentResponse.cs` |
+| `RecordPaymentForMultipleInvoicesError` | `src/Maxio/Errors/RecordPaymentForMultipleInvoicesError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RecordPaymentForSubscription
 
@@ -202,11 +202,11 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `RecordPaymentForSubscriptionRequest` | `Requests/Invoices/RecordPaymentForSubscriptionRequest.cs` |
-| `RecordPaymentRequest` | `Models/RecordPaymentRequest.cs` |
-| `RecordPaymentResponse` | `Models/RecordPaymentResponse.cs` |
-| `RecordPaymentForSubscriptionError` | `Errors/RecordPaymentForSubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RecordPaymentForSubscriptionRequest` | `src/Maxio/Requests/Invoices/RecordPaymentForSubscriptionRequest.cs` |
+| `RecordPaymentRequest` | `src/Maxio/Models/RecordPaymentRequest.cs` |
+| `RecordPaymentResponse` | `src/Maxio/Models/RecordPaymentResponse.cs` |
+| `RecordPaymentForSubscriptionError` | `src/Maxio/Errors/RecordPaymentForSubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RefundInvoice
 
@@ -219,11 +219,11 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `RefundInvoiceOperationRequest` | `Requests/Invoices/RefundInvoiceOperationRequest.cs` |
-| `RefundInvoiceRequest` | `Models/RefundInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `RefundInvoiceError` | `Errors/RefundInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `RefundInvoiceOperationRequest` | `src/Maxio/Requests/Invoices/RefundInvoiceOperationRequest.cs` |
+| `RefundInvoiceRequest` | `src/Maxio/Models/RefundInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `RefundInvoiceError` | `src/Maxio/Errors/RefundInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReopenInvoice
 
@@ -236,10 +236,10 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `ReopenInvoiceRequest` | `Requests/Invoices/ReopenInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `ReopenInvoiceError` | `Errors/ReopenInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReopenInvoiceRequest` | `src/Maxio/Requests/Invoices/ReopenInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `ReopenInvoiceError` | `src/Maxio/Errors/ReopenInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### SendInvoice
 
@@ -252,10 +252,10 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `SendInvoiceOperationRequest` | `Requests/Invoices/SendInvoiceOperationRequest.cs` |
-| `SendInvoiceRequest` | `Models/SendInvoiceRequest.cs` |
-| `SendInvoiceError` | `Errors/SendInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `SendInvoiceOperationRequest` | `src/Maxio/Requests/Invoices/SendInvoiceOperationRequest.cs` |
+| `SendInvoiceRequest` | `src/Maxio/Models/SendInvoiceRequest.cs` |
+| `SendInvoiceError` | `src/Maxio/Errors/SendInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateCustomerInformation
 
@@ -268,10 +268,10 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateCustomerInformationRequest` | `Requests/Invoices/UpdateCustomerInformationRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `UpdateCustomerInformationError` | `Errors/UpdateCustomerInformationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateCustomerInformationRequest` | `src/Maxio/Requests/Invoices/UpdateCustomerInformationRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `UpdateCustomerInformationError` | `src/Maxio/Errors/UpdateCustomerInformationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateInvoice
 
@@ -284,12 +284,12 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateInvoiceOperationRequest` | `Requests/Invoices/UpdateInvoiceOperationRequest.cs` |
-| `UpdateInvoiceRequest` | `Models/UpdateInvoiceRequest.cs` |
-| `InvoiceResponse` | `Models/InvoiceResponse.cs` |
-| `UpdateInvoiceError` | `Errors/UpdateInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `UpdateInvoiceOperationRequest` | `src/Maxio/Requests/Invoices/UpdateInvoiceOperationRequest.cs` |
+| `UpdateInvoiceRequest` | `src/Maxio/Models/UpdateInvoiceRequest.cs` |
+| `InvoiceResponse` | `src/Maxio/Models/InvoiceResponse.cs` |
+| `UpdateInvoiceError` | `src/Maxio/Errors/UpdateInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### VoidInvoice
 
@@ -302,9 +302,9 @@ Accessor: `client.Invoices` · Source: `Api/Invoices.cs` · 19 operations
 
 | Type | Source |
 | --- | --- |
-| `VoidInvoiceOperationRequest` | `Requests/Invoices/VoidInvoiceOperationRequest.cs` |
-| `VoidInvoiceRequest` | `Models/VoidInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `VoidInvoiceError` | `Errors/VoidInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `VoidInvoiceOperationRequest` | `src/Maxio/Requests/Invoices/VoidInvoiceOperationRequest.cs` |
+| `VoidInvoiceRequest` | `src/Maxio/Models/VoidInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `VoidInvoiceError` | `src/Maxio/Errors/VoidInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

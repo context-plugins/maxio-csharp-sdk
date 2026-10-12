@@ -2,11 +2,11 @@
 
 Every operation below is shown in its throwing form. On an error status it throws `ApiException<TError>` — the status code, headers, content type and the operation's error type, `RawError` (the raw body) when the spec declares none — and where an operation offers an `…AsResult` sibling, that sibling returns `ApiResult<TResponse, TError>` instead. A request that produces no usable response surfaces as `SdkConnectionException` or `SdkTimeoutException`, a body that does not match the documented response type as `ResponseDeserializationException`, and a credential that cannot be applied as `AuthSchemeException`; all of them derive from `SdkException` and name the failed call. See [README → Error Handling](README.md#error-handling).
 
-> Source: [MaxioClient](MaxioClient.cs)
+> Source: [MaxioClient](src/Maxio/MaxioClient.cs)
 
 ## ApiExports
 
-> Source: [ApiExports](Api/ApiExports.cs)
+> Source: [ApiExports](src/Maxio/Api/ApiExports.cs)
 
 <details>
 <summary><code>Task&lt;BatchJobResponse&gt; ExportInvoices(RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -52,9 +52,9 @@ catch (ApiException<ExportInvoicesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
+**OnSuccess**: <code>[BatchJobResponse](src/Maxio/Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ExportInvoicesError](Errors/ExportInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ExportInvoicesError](src/Maxio/Errors/ExportInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -108,9 +108,9 @@ catch (ApiException<ExportProformaInvoicesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
+**OnSuccess**: <code>[BatchJobResponse](src/Maxio/Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ExportProformaInvoicesError](Errors/ExportProformaInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ExportProformaInvoicesError](src/Maxio/Errors/ExportProformaInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -164,9 +164,9 @@ catch (ApiException<ExportSubscriptionsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
+**OnSuccess**: <code>[BatchJobResponse](src/Maxio/Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ExportSubscriptionsError](Errors/ExportSubscriptionsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ExportSubscriptionsError](src/Maxio/Errors/ExportSubscriptionsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -226,7 +226,7 @@ catch (ApiException<ListExportedInvoicesError> ex)
 <dl>
 <dd>
 
-<code>[ListExportedInvoicesRequest](Requests/ApiExports/ListExportedInvoicesRequest.cs)</code>
+<code>[ListExportedInvoicesRequest](src/Maxio/Requests/ApiExports/ListExportedInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -236,9 +236,9 @@ catch (ApiException<ListExportedInvoicesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Invoice](Models/Invoice.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Invoice](src/Maxio/Models/Invoice.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListExportedInvoicesError](Errors/ListExportedInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListExportedInvoicesError](src/Maxio/Errors/ListExportedInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -298,7 +298,7 @@ catch (ApiException<ListExportedProformaInvoicesError> ex)
 <dl>
 <dd>
 
-<code>[ListExportedProformaInvoicesRequest](Requests/ApiExports/ListExportedProformaInvoicesRequest.cs)</code>
+<code>[ListExportedProformaInvoicesRequest](src/Maxio/Requests/ApiExports/ListExportedProformaInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -308,9 +308,9 @@ catch (ApiException<ListExportedProformaInvoicesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ProformaInvoice](Models/ProformaInvoice.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListExportedProformaInvoicesError](Errors/ListExportedProformaInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListExportedProformaInvoicesError](src/Maxio/Errors/ListExportedProformaInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -370,7 +370,7 @@ catch (ApiException<ListExportedSubscriptionsError> ex)
 <dl>
 <dd>
 
-<code>[ListExportedSubscriptionsRequest](Requests/ApiExports/ListExportedSubscriptionsRequest.cs)</code>
+<code>[ListExportedSubscriptionsRequest](src/Maxio/Requests/ApiExports/ListExportedSubscriptionsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -380,9 +380,9 @@ catch (ApiException<ListExportedSubscriptionsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Subscription](Models/Subscription.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Subscription](src/Maxio/Models/Subscription.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListExportedSubscriptionsError](Errors/ListExportedSubscriptionsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListExportedSubscriptionsError](src/Maxio/Errors/ListExportedSubscriptionsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -439,7 +439,7 @@ catch (ApiException<ReadInvoicesExportError> ex)
 <dl>
 <dd>
 
-<code>[ReadInvoicesExportRequest](Requests/ApiExports/ReadInvoicesExportRequest.cs)</code>
+<code>[ReadInvoicesExportRequest](src/Maxio/Requests/ApiExports/ReadInvoicesExportRequest.cs)</code>
 
 </dd>
 </dl>
@@ -449,9 +449,9 @@ catch (ApiException<ReadInvoicesExportError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
+**OnSuccess**: <code>[BatchJobResponse](src/Maxio/Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadInvoicesExportError](Errors/ReadInvoicesExportError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadInvoicesExportError](src/Maxio/Errors/ReadInvoicesExportError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -508,7 +508,7 @@ catch (ApiException<ReadProformaInvoicesExportError> ex)
 <dl>
 <dd>
 
-<code>[ReadProformaInvoicesExportRequest](Requests/ApiExports/ReadProformaInvoicesExportRequest.cs)</code>
+<code>[ReadProformaInvoicesExportRequest](src/Maxio/Requests/ApiExports/ReadProformaInvoicesExportRequest.cs)</code>
 
 </dd>
 </dl>
@@ -518,9 +518,9 @@ catch (ApiException<ReadProformaInvoicesExportError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
+**OnSuccess**: <code>[BatchJobResponse](src/Maxio/Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadProformaInvoicesExportError](Errors/ReadProformaInvoicesExportError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadProformaInvoicesExportError](src/Maxio/Errors/ReadProformaInvoicesExportError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -577,7 +577,7 @@ catch (ApiException<ReadSubscriptionsExportError> ex)
 <dl>
 <dd>
 
-<code>[ReadSubscriptionsExportRequest](Requests/ApiExports/ReadSubscriptionsExportRequest.cs)</code>
+<code>[ReadSubscriptionsExportRequest](src/Maxio/Requests/ApiExports/ReadSubscriptionsExportRequest.cs)</code>
 
 </dd>
 </dl>
@@ -587,9 +587,9 @@ catch (ApiException<ReadSubscriptionsExportError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BatchJobResponse](Models/BatchJobResponse.cs)</code>
+**OnSuccess**: <code>[BatchJobResponse](src/Maxio/Models/BatchJobResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionsExportError](Errors/ReadSubscriptionsExportError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionsExportError](src/Maxio/Errors/ReadSubscriptionsExportError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -601,7 +601,7 @@ catch (ApiException<ReadSubscriptionsExportError> ex)
 
 ## AdvanceInvoice
 
-> Source: [AdvanceInvoice](Api/AdvanceInvoice.cs)
+> Source: [AdvanceInvoice](src/Maxio/Api/AdvanceInvoice.cs)
 
 <details>
 <summary><code>Task&lt;Invoice&gt; IssueAdvanceInvoice(IssueAdvanceInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -657,7 +657,7 @@ catch (ApiException<IssueAdvanceInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[IssueAdvanceInvoiceOperationRequest](Requests/AdvanceInvoice/IssueAdvanceInvoiceOperationRequest.cs)</code>
+<code>[IssueAdvanceInvoiceOperationRequest](src/Maxio/Requests/AdvanceInvoice/IssueAdvanceInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -667,9 +667,9 @@ catch (ApiException<IssueAdvanceInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueAdvanceInvoiceError](Errors/IssueAdvanceInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[IssueAdvanceInvoiceError](src/Maxio/Errors/IssueAdvanceInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -723,7 +723,7 @@ catch (ApiException<ReadAdvanceInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[ReadAdvanceInvoiceRequest](Requests/AdvanceInvoice/ReadAdvanceInvoiceRequest.cs)</code>
+<code>[ReadAdvanceInvoiceRequest](src/Maxio/Requests/AdvanceInvoice/ReadAdvanceInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -733,9 +733,9 @@ catch (ApiException<ReadAdvanceInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadAdvanceInvoiceError](Errors/ReadAdvanceInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadAdvanceInvoiceError](src/Maxio/Errors/ReadAdvanceInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -793,7 +793,7 @@ catch (ApiException<VoidAdvanceInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[VoidAdvanceInvoiceRequest](Requests/AdvanceInvoice/VoidAdvanceInvoiceRequest.cs)</code>
+<code>[VoidAdvanceInvoiceRequest](src/Maxio/Requests/AdvanceInvoice/VoidAdvanceInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -803,9 +803,9 @@ catch (ApiException<VoidAdvanceInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VoidAdvanceInvoiceError](Errors/VoidAdvanceInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[VoidAdvanceInvoiceError](src/Maxio/Errors/VoidAdvanceInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -817,7 +817,7 @@ catch (ApiException<VoidAdvanceInvoiceError> ex)
 
 ## BillingPortal
 
-> Source: [BillingPortal](Api/BillingPortal.cs)
+> Source: [BillingPortal](src/Maxio/Api/BillingPortal.cs)
 
 <details>
 <summary><code>Task&lt;CustomerResponse&gt; EnableBillingPortalForCustomer(EnableBillingPortalForCustomerRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -876,7 +876,7 @@ catch (ApiException<EnableBillingPortalForCustomerError> ex)
 <dl>
 <dd>
 
-<code>[EnableBillingPortalForCustomerRequest](Requests/BillingPortal/EnableBillingPortalForCustomerRequest.cs)</code>
+<code>[EnableBillingPortalForCustomerRequest](src/Maxio/Requests/BillingPortal/EnableBillingPortalForCustomerRequest.cs)</code>
 
 </dd>
 </dl>
@@ -886,9 +886,9 @@ catch (ApiException<EnableBillingPortalForCustomerError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
+**OnSuccess**: <code>[CustomerResponse](src/Maxio/Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[EnableBillingPortalForCustomerError](Errors/EnableBillingPortalForCustomerError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[EnableBillingPortalForCustomerError](src/Maxio/Errors/EnableBillingPortalForCustomerError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -953,7 +953,7 @@ catch (ApiException<ReadBillingPortalLinkError> ex)
 <dl>
 <dd>
 
-<code>[ReadBillingPortalLinkRequest](Requests/BillingPortal/ReadBillingPortalLinkRequest.cs)</code>
+<code>[ReadBillingPortalLinkRequest](src/Maxio/Requests/BillingPortal/ReadBillingPortalLinkRequest.cs)</code>
 
 </dd>
 </dl>
@@ -963,9 +963,9 @@ catch (ApiException<ReadBillingPortalLinkError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PortalManagementLink](Models/PortalManagementLink.cs)</code>
+**OnSuccess**: <code>[PortalManagementLink](src/Maxio/Models/PortalManagementLink.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadBillingPortalLinkError](Errors/ReadBillingPortalLinkError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadBillingPortalLinkError](src/Maxio/Errors/ReadBillingPortalLinkError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1032,7 +1032,7 @@ catch (ApiException<ResendBillingPortalInvitationError> ex)
 <dl>
 <dd>
 
-<code>[ResendBillingPortalInvitationRequest](Requests/BillingPortal/ResendBillingPortalInvitationRequest.cs)</code>
+<code>[ResendBillingPortalInvitationRequest](src/Maxio/Requests/BillingPortal/ResendBillingPortalInvitationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1042,9 +1042,9 @@ catch (ApiException<ResendBillingPortalInvitationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ResentInvitation](Models/ResentInvitation.cs)</code>
+**OnSuccess**: <code>[ResentInvitation](src/Maxio/Models/ResentInvitation.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ResendBillingPortalInvitationError](Errors/ResendBillingPortalInvitationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ResendBillingPortalInvitationError](src/Maxio/Errors/ResendBillingPortalInvitationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1104,7 +1104,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[RevokeBillingPortalAccessRequest](Requests/BillingPortal/RevokeBillingPortalAccessRequest.cs)</code>
+<code>[RevokeBillingPortalAccessRequest](src/Maxio/Requests/BillingPortal/RevokeBillingPortalAccessRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1114,9 +1114,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[RevokedInvitation](Models/RevokedInvitation.cs)</code>
+**OnSuccess**: <code>[RevokedInvitation](src/Maxio/Models/RevokedInvitation.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1128,7 +1128,7 @@ catch (ApiException<RawError> ex)
 
 ## ComponentFeatures
 
-> Source: [ComponentFeatures](Api/ComponentFeatures.cs)
+> Source: [ComponentFeatures](src/Maxio/Api/ComponentFeatures.cs)
 
 <details>
 <summary><code>Task&lt;FeatureCatalogItemResponse&gt; CreateComponentFeature(CreateComponentFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -1177,7 +1177,7 @@ catch (ApiException<CreateComponentFeatureError> ex)
 <dl>
 <dd>
 
-<code>[CreateComponentFeatureRequest](Requests/ComponentFeatures/CreateComponentFeatureRequest.cs)</code>
+<code>[CreateComponentFeatureRequest](src/Maxio/Requests/ComponentFeatures/CreateComponentFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1187,9 +1187,9 @@ catch (ApiException<CreateComponentFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateComponentFeatureError](Errors/CreateComponentFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateComponentFeatureError](src/Maxio/Errors/CreateComponentFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1246,7 +1246,7 @@ catch (ApiException<ListComponentFeaturesError> ex)
 <dl>
 <dd>
 
-<code>[ListComponentFeaturesRequest](Requests/ComponentFeatures/ListComponentFeaturesRequest.cs)</code>
+<code>[ListComponentFeaturesRequest](src/Maxio/Requests/ComponentFeatures/ListComponentFeaturesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1256,9 +1256,9 @@ catch (ApiException<ListComponentFeaturesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemsListResponse](Models/FeatureCatalogItemsListResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemsListResponse](src/Maxio/Models/FeatureCatalogItemsListResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListComponentFeaturesError](Errors/ListComponentFeaturesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListComponentFeaturesError](src/Maxio/Errors/ListComponentFeaturesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1316,7 +1316,7 @@ catch (ApiException<ReadComponentFeatureError> ex)
 <dl>
 <dd>
 
-<code>[ReadComponentFeatureRequest](Requests/ComponentFeatures/ReadComponentFeatureRequest.cs)</code>
+<code>[ReadComponentFeatureRequest](src/Maxio/Requests/ComponentFeatures/ReadComponentFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1326,9 +1326,9 @@ catch (ApiException<ReadComponentFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadComponentFeatureError](Errors/ReadComponentFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadComponentFeatureError](src/Maxio/Errors/ReadComponentFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1385,7 +1385,7 @@ catch (ApiException<RemoveComponentFeatureError> ex)
 <dl>
 <dd>
 
-<code>[RemoveComponentFeatureRequest](Requests/ComponentFeatures/RemoveComponentFeatureRequest.cs)</code>
+<code>[RemoveComponentFeatureRequest](src/Maxio/Requests/ComponentFeatures/RemoveComponentFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1397,7 +1397,7 @@ catch (ApiException<RemoveComponentFeatureError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveComponentFeatureError](Errors/RemoveComponentFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RemoveComponentFeatureError](src/Maxio/Errors/RemoveComponentFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1455,7 +1455,7 @@ catch (ApiException<RestoreComponentFeatureError> ex)
 <dl>
 <dd>
 
-<code>[RestoreComponentFeatureRequest](Requests/ComponentFeatures/RestoreComponentFeatureRequest.cs)</code>
+<code>[RestoreComponentFeatureRequest](src/Maxio/Requests/ComponentFeatures/RestoreComponentFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1465,9 +1465,9 @@ catch (ApiException<RestoreComponentFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RestoreComponentFeatureError](Errors/RestoreComponentFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RestoreComponentFeatureError](src/Maxio/Errors/RestoreComponentFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1525,7 +1525,7 @@ catch (ApiException<UpdateComponentFeatureError> ex)
 <dl>
 <dd>
 
-<code>[UpdateComponentFeatureRequest](Requests/ComponentFeatures/UpdateComponentFeatureRequest.cs)</code>
+<code>[UpdateComponentFeatureRequest](src/Maxio/Requests/ComponentFeatures/UpdateComponentFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1535,9 +1535,9 @@ catch (ApiException<UpdateComponentFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateComponentFeatureError](Errors/UpdateComponentFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateComponentFeatureError](src/Maxio/Errors/UpdateComponentFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1549,7 +1549,7 @@ catch (ApiException<UpdateComponentFeatureError> ex)
 
 ## ComponentPricePoints
 
-> Source: [ComponentPricePoints](Api/ComponentPricePoints.cs)
+> Source: [ComponentPricePoints](src/Maxio/Api/ComponentPricePoints.cs)
 
 <details>
 <summary><code>Task&lt;ComponentPricePointResponse&gt; ArchiveComponentPricePoint(ArchiveComponentPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -1599,7 +1599,7 @@ catch (ApiException<ArchiveComponentPricePointError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveComponentPricePointRequest](Requests/ComponentPricePoints/ArchiveComponentPricePointRequest.cs)</code>
+<code>[ArchiveComponentPricePointRequest](src/Maxio/Requests/ComponentPricePoints/ArchiveComponentPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1609,9 +1609,9 @@ catch (ApiException<ArchiveComponentPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointResponse](src/Maxio/Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveComponentPricePointError](Errors/ArchiveComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ArchiveComponentPricePointError](src/Maxio/Errors/ArchiveComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1695,7 +1695,7 @@ catch (ApiException<BulkCreateComponentPricePointsError> ex)
 <dl>
 <dd>
 
-<code>[BulkCreateComponentPricePointsRequest](Requests/ComponentPricePoints/BulkCreateComponentPricePointsRequest.cs)</code>
+<code>[BulkCreateComponentPricePointsRequest](src/Maxio/Requests/ComponentPricePoints/BulkCreateComponentPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1705,9 +1705,9 @@ catch (ApiException<BulkCreateComponentPricePointsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointsResponse](Models/ComponentPricePointsResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointsResponse](src/Maxio/Models/ComponentPricePointsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkCreateComponentPricePointsError](Errors/BulkCreateComponentPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[BulkCreateComponentPricePointsError](src/Maxio/Errors/BulkCreateComponentPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1777,7 +1777,7 @@ catch (ApiException<CloneComponentPricePointError> ex)
 <dl>
 <dd>
 
-<code>[CloneComponentPricePointOperationRequest](Requests/ComponentPricePoints/CloneComponentPricePointOperationRequest.cs)</code>
+<code>[CloneComponentPricePointOperationRequest](src/Maxio/Requests/ComponentPricePoints/CloneComponentPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1787,9 +1787,9 @@ catch (ApiException<CloneComponentPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointCurrencyOverageResponse](Models/ComponentPricePointCurrencyOverageResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointCurrencyOverageResponse](src/Maxio/Models/ComponentPricePointCurrencyOverageResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CloneComponentPricePointError](Errors/CloneComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CloneComponentPricePointError](src/Maxio/Errors/CloneComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1861,7 +1861,7 @@ catch (ApiException<CreateComponentPricePointError> ex)
 <dl>
 <dd>
 
-<code>[CreateComponentPricePointOperationRequest](Requests/ComponentPricePoints/CreateComponentPricePointOperationRequest.cs)</code>
+<code>[CreateComponentPricePointOperationRequest](src/Maxio/Requests/ComponentPricePoints/CreateComponentPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1871,9 +1871,9 @@ catch (ApiException<CreateComponentPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointResponse](src/Maxio/Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateComponentPricePointError](Errors/CreateComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateComponentPricePointError](src/Maxio/Errors/CreateComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -1941,7 +1941,7 @@ catch (ApiException<CreateCurrencyPricesError> ex)
 <dl>
 <dd>
 
-<code>[CreateCurrencyPricesOperationRequest](Requests/ComponentPricePoints/CreateCurrencyPricesOperationRequest.cs)</code>
+<code>[CreateCurrencyPricesOperationRequest](src/Maxio/Requests/ComponentPricePoints/CreateCurrencyPricesOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -1951,9 +1951,9 @@ catch (ApiException<CreateCurrencyPricesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentCurrencyPricesResponse](Models/ComponentCurrencyPricesResponse.cs)</code>
+**OnSuccess**: <code>[ComponentCurrencyPricesResponse](src/Maxio/Models/ComponentCurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateCurrencyPricesError](Errors/CreateCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateCurrencyPricesError](src/Maxio/Errors/CreateCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2012,7 +2012,7 @@ catch (ApiException<ListAllComponentPricePointsError> ex)
 <dl>
 <dd>
 
-<code>[ListAllComponentPricePointsRequest](Requests/ComponentPricePoints/ListAllComponentPricePointsRequest.cs)</code>
+<code>[ListAllComponentPricePointsRequest](src/Maxio/Requests/ComponentPricePoints/ListAllComponentPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2022,9 +2022,9 @@ catch (ApiException<ListAllComponentPricePointsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListComponentsPricePointsResponse](Models/ListComponentsPricePointsResponse.cs)</code>
+**OnSuccess**: <code>[ListComponentsPricePointsResponse](src/Maxio/Models/ListComponentsPricePointsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListAllComponentPricePointsError](Errors/ListAllComponentPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListAllComponentPricePointsError](src/Maxio/Errors/ListAllComponentPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2085,7 +2085,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListComponentPricePointsRequest](Requests/ComponentPricePoints/ListComponentPricePointsRequest.cs)</code>
+<code>[ListComponentPricePointsRequest](src/Maxio/Requests/ComponentPricePoints/ListComponentPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2095,9 +2095,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointsResponse](Models/ComponentPricePointsResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointsResponse](src/Maxio/Models/ComponentPricePointsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2153,7 +2153,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[PromoteComponentPricePointToDefaultRequest](Requests/ComponentPricePoints/PromoteComponentPricePointToDefaultRequest.cs)</code>
+<code>[PromoteComponentPricePointToDefaultRequest](src/Maxio/Requests/ComponentPricePoints/PromoteComponentPricePointToDefaultRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2163,9 +2163,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2220,7 +2220,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadComponentPricePointRequest](Requests/ComponentPricePoints/ReadComponentPricePointRequest.cs)</code>
+<code>[ReadComponentPricePointRequest](src/Maxio/Requests/ComponentPricePoints/ReadComponentPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2230,9 +2230,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointCurrencyOverageResponse](Models/ComponentPricePointCurrencyOverageResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointCurrencyOverageResponse](src/Maxio/Models/ComponentPricePointCurrencyOverageResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2284,7 +2284,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[UnarchiveComponentPricePointRequest](Requests/ComponentPricePoints/UnarchiveComponentPricePointRequest.cs)</code>
+<code>[UnarchiveComponentPricePointRequest](src/Maxio/Requests/ComponentPricePoints/UnarchiveComponentPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2294,9 +2294,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointResponse](src/Maxio/Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2373,7 +2373,7 @@ catch (ApiException<UpdateComponentPricePointError> ex)
 <dl>
 <dd>
 
-<code>[UpdateComponentPricePointOperationRequest](Requests/ComponentPricePoints/UpdateComponentPricePointOperationRequest.cs)</code>
+<code>[UpdateComponentPricePointOperationRequest](src/Maxio/Requests/ComponentPricePoints/UpdateComponentPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2383,9 +2383,9 @@ catch (ApiException<UpdateComponentPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentPricePointResponse](Models/ComponentPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ComponentPricePointResponse](src/Maxio/Models/ComponentPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateComponentPricePointError](Errors/UpdateComponentPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateComponentPricePointError](src/Maxio/Errors/UpdateComponentPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2451,7 +2451,7 @@ catch (ApiException<UpdateCurrencyPricesError> ex)
 <dl>
 <dd>
 
-<code>[UpdateCurrencyPricesOperationRequest](Requests/ComponentPricePoints/UpdateCurrencyPricesOperationRequest.cs)</code>
+<code>[UpdateCurrencyPricesOperationRequest](src/Maxio/Requests/ComponentPricePoints/UpdateCurrencyPricesOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2461,9 +2461,9 @@ catch (ApiException<UpdateCurrencyPricesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentCurrencyPricesResponse](Models/ComponentCurrencyPricesResponse.cs)</code>
+**OnSuccess**: <code>[ComponentCurrencyPricesResponse](src/Maxio/Models/ComponentCurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCurrencyPricesError](Errors/UpdateCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateCurrencyPricesError](src/Maxio/Errors/UpdateCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2475,7 +2475,7 @@ catch (ApiException<UpdateCurrencyPricesError> ex)
 
 ## Components
 
-> Source: [Components](Api/Components.cs)
+> Source: [Components](src/Maxio/Api/Components.cs)
 
 <details>
 <summary><code>Task&lt;Component&gt; ArchiveComponent(ArchiveComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -2525,7 +2525,7 @@ catch (ApiException<ArchiveComponentError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveComponentRequest](Requests/Components/ArchiveComponentRequest.cs)</code>
+<code>[ArchiveComponentRequest](src/Maxio/Requests/Components/ArchiveComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2535,9 +2535,9 @@ catch (ApiException<ArchiveComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Component](Models/Component.cs)</code>
+**OnSuccess**: <code>[Component](src/Maxio/Models/Component.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveComponentError](Errors/ArchiveComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ArchiveComponentError](src/Maxio/Errors/ArchiveComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2616,7 +2616,7 @@ catch (ApiException<CreateEventBasedComponentError> ex)
 <dl>
 <dd>
 
-<code>[CreateEventBasedComponentRequest](Requests/Components/CreateEventBasedComponentRequest.cs)</code>
+<code>[CreateEventBasedComponentRequest](src/Maxio/Requests/Components/CreateEventBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2626,9 +2626,9 @@ catch (ApiException<CreateEventBasedComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateEventBasedComponentError](Errors/CreateEventBasedComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateEventBasedComponentError](src/Maxio/Errors/CreateEventBasedComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2707,7 +2707,7 @@ catch (ApiException<CreateMeteredComponentError> ex)
 <dl>
 <dd>
 
-<code>[CreateMeteredComponentRequest](Requests/Components/CreateMeteredComponentRequest.cs)</code>
+<code>[CreateMeteredComponentRequest](src/Maxio/Requests/Components/CreateMeteredComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2717,9 +2717,9 @@ catch (ApiException<CreateMeteredComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateMeteredComponentError](Errors/CreateMeteredComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateMeteredComponentError](src/Maxio/Errors/CreateMeteredComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2794,7 +2794,7 @@ catch (ApiException<CreateOnOffComponentError> ex)
 <dl>
 <dd>
 
-<code>[CreateOnOffComponentRequest](Requests/Components/CreateOnOffComponentRequest.cs)</code>
+<code>[CreateOnOffComponentRequest](src/Maxio/Requests/Components/CreateOnOffComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2804,9 +2804,9 @@ catch (ApiException<CreateOnOffComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateOnOffComponentError](Errors/CreateOnOffComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateOnOffComponentError](src/Maxio/Errors/CreateOnOffComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2891,7 +2891,7 @@ catch (ApiException<CreatePrepaidUsageComponentError> ex)
 <dl>
 <dd>
 
-<code>[CreatePrepaidUsageComponentRequest](Requests/Components/CreatePrepaidUsageComponentRequest.cs)</code>
+<code>[CreatePrepaidUsageComponentRequest](src/Maxio/Requests/Components/CreatePrepaidUsageComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -2901,9 +2901,9 @@ catch (ApiException<CreatePrepaidUsageComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreatePrepaidUsageComponentError](Errors/CreatePrepaidUsageComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreatePrepaidUsageComponentError](src/Maxio/Errors/CreatePrepaidUsageComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -2992,7 +2992,7 @@ catch (ApiException<CreateQuantityBasedComponentError> ex)
 <dl>
 <dd>
 
-<code>[CreateQuantityBasedComponentRequest](Requests/Components/CreateQuantityBasedComponentRequest.cs)</code>
+<code>[CreateQuantityBasedComponentRequest](src/Maxio/Requests/Components/CreateQuantityBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3002,9 +3002,9 @@ catch (ApiException<CreateQuantityBasedComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateQuantityBasedComponentError](Errors/CreateQuantityBasedComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateQuantityBasedComponentError](src/Maxio/Errors/CreateQuantityBasedComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3055,7 +3055,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[FindComponentRequest](Requests/Components/FindComponentRequest.cs)</code>
+<code>[FindComponentRequest](src/Maxio/Requests/Components/FindComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3065,9 +3065,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3123,7 +3123,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListComponentsRequest](Requests/Components/ListComponentsRequest.cs)</code>
+<code>[ListComponentsRequest](src/Maxio/Requests/Components/ListComponentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3133,9 +3133,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ComponentResponse](Models/ComponentResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3192,7 +3192,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListComponentsForProductFamilyRequest](Requests/Components/ListComponentsForProductFamilyRequest.cs)</code>
+<code>[ListComponentsForProductFamilyRequest](src/Maxio/Requests/Components/ListComponentsForProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3202,9 +3202,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ComponentResponse](Models/ComponentResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3261,7 +3261,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadComponentRequest](Requests/Components/ReadComponentRequest.cs)</code>
+<code>[ReadComponentRequest](src/Maxio/Requests/Components/ReadComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3271,9 +3271,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3334,7 +3334,7 @@ catch (ApiException<UpdateComponentError> ex)
 <dl>
 <dd>
 
-<code>[UpdateComponentOperationRequest](Requests/Components/UpdateComponentOperationRequest.cs)</code>
+<code>[UpdateComponentOperationRequest](src/Maxio/Requests/Components/UpdateComponentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3344,9 +3344,9 @@ catch (ApiException<UpdateComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateComponentError](Errors/UpdateComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateComponentError](src/Maxio/Errors/UpdateComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3408,7 +3408,7 @@ catch (ApiException<UpdateProductFamilyComponentError> ex)
 <dl>
 <dd>
 
-<code>[UpdateProductFamilyComponentRequest](Requests/Components/UpdateProductFamilyComponentRequest.cs)</code>
+<code>[UpdateProductFamilyComponentRequest](src/Maxio/Requests/Components/UpdateProductFamilyComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3418,9 +3418,9 @@ catch (ApiException<UpdateProductFamilyComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ComponentResponse](Models/ComponentResponse.cs)</code>
+**OnSuccess**: <code>[ComponentResponse](src/Maxio/Models/ComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductFamilyComponentError](Errors/UpdateProductFamilyComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateProductFamilyComponentError](src/Maxio/Errors/UpdateProductFamilyComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3432,7 +3432,7 @@ catch (ApiException<UpdateProductFamilyComponentError> ex)
 
 ## Coupons
 
-> Source: [Coupons](Api/Coupons.cs)
+> Source: [Coupons](src/Maxio/Api/Coupons.cs)
 
 <details>
 <summary><code>Task&lt;CouponResponse&gt; ArchiveCoupon(ArchiveCouponRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -3477,7 +3477,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveCouponRequest](Requests/Coupons/ArchiveCouponRequest.cs)</code>
+<code>[ArchiveCouponRequest](src/Maxio/Requests/Coupons/ArchiveCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3487,9 +3487,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
+**OnSuccess**: <code>[CouponResponse](src/Maxio/Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3570,7 +3570,7 @@ catch (ApiException<CreateCouponError> ex)
 <dl>
 <dd>
 
-<code>[CreateCouponRequest](Requests/Coupons/CreateCouponRequest.cs)</code>
+<code>[CreateCouponRequest](src/Maxio/Requests/Coupons/CreateCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3580,9 +3580,9 @@ catch (ApiException<CreateCouponError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
+**OnSuccess**: <code>[CouponResponse](src/Maxio/Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateCouponError](Errors/CreateCouponError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateCouponError](src/Maxio/Errors/CreateCouponError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3666,7 +3666,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[CreateCouponSubcodesRequest](Requests/Coupons/CreateCouponSubcodesRequest.cs)</code>
+<code>[CreateCouponSubcodesRequest](src/Maxio/Requests/Coupons/CreateCouponSubcodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3676,9 +3676,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponSubcodesResponse](Models/CouponSubcodesResponse.cs)</code>
+**OnSuccess**: <code>[CouponSubcodesResponse](src/Maxio/Models/CouponSubcodesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3744,7 +3744,7 @@ catch (ApiException<CreateOrUpdateCouponCurrencyPricesError> ex)
 <dl>
 <dd>
 
-<code>[CreateOrUpdateCouponCurrencyPricesRequest](Requests/Coupons/CreateOrUpdateCouponCurrencyPricesRequest.cs)</code>
+<code>[CreateOrUpdateCouponCurrencyPricesRequest](src/Maxio/Requests/Coupons/CreateOrUpdateCouponCurrencyPricesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3754,9 +3754,9 @@ catch (ApiException<CreateOrUpdateCouponCurrencyPricesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponCurrencyResponse](Models/CouponCurrencyResponse.cs)</code>
+**OnSuccess**: <code>[CouponCurrencyResponse](src/Maxio/Models/CouponCurrencyResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateOrUpdateCouponCurrencyPricesError](Errors/CreateOrUpdateCouponCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateOrUpdateCouponCurrencyPricesError](src/Maxio/Errors/CreateOrUpdateCouponCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3836,7 +3836,7 @@ catch (ApiException<DeleteCouponSubcodeError> ex)
 <dl>
 <dd>
 
-<code>[DeleteCouponSubcodeRequest](Requests/Coupons/DeleteCouponSubcodeRequest.cs)</code>
+<code>[DeleteCouponSubcodeRequest](src/Maxio/Requests/Coupons/DeleteCouponSubcodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3848,7 +3848,7 @@ catch (ApiException<DeleteCouponSubcodeError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteCouponSubcodeError](Errors/DeleteCouponSubcodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteCouponSubcodeError](src/Maxio/Errors/DeleteCouponSubcodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3901,7 +3901,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[FindCouponRequest](Requests/Coupons/FindCouponRequest.cs)</code>
+<code>[FindCouponRequest](src/Maxio/Requests/Coupons/FindCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3911,9 +3911,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
+**OnSuccess**: <code>[CouponResponse](src/Maxio/Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -3969,7 +3969,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListCouponSubcodesRequest](Requests/Coupons/ListCouponSubcodesRequest.cs)</code>
+<code>[ListCouponSubcodesRequest](src/Maxio/Requests/Coupons/ListCouponSubcodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -3979,9 +3979,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponSubcodes](Models/CouponSubcodes.cs)</code>
+**OnSuccess**: <code>[CouponSubcodes](src/Maxio/Models/CouponSubcodes.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4037,7 +4037,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListCouponsRequest](Requests/Coupons/ListCouponsRequest.cs)</code>
+<code>[ListCouponsRequest](src/Maxio/Requests/Coupons/ListCouponsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4047,9 +4047,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[CouponResponse](Models/CouponResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[CouponResponse](src/Maxio/Models/CouponResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4106,7 +4106,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListCouponsForProductFamilyRequest](Requests/Coupons/ListCouponsForProductFamilyRequest.cs)</code>
+<code>[ListCouponsForProductFamilyRequest](src/Maxio/Requests/Coupons/ListCouponsForProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4116,9 +4116,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[CouponResponse](Models/CouponResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[CouponResponse](src/Maxio/Models/CouponResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4178,7 +4178,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadCouponRequest](Requests/Coupons/ReadCouponRequest.cs)</code>
+<code>[ReadCouponRequest](src/Maxio/Requests/Coupons/ReadCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4188,9 +4188,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
+**OnSuccess**: <code>[CouponResponse](src/Maxio/Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4245,7 +4245,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadCouponUsageRequest](Requests/Coupons/ReadCouponUsageRequest.cs)</code>
+<code>[ReadCouponUsageRequest](src/Maxio/Requests/Coupons/ReadCouponUsageRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4255,9 +4255,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[CouponUsage](Models/CouponUsage.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[CouponUsage](src/Maxio/Models/CouponUsage.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4336,7 +4336,7 @@ catch (ApiException<UpdateCouponError> ex)
 <dl>
 <dd>
 
-<code>[UpdateCouponRequest](Requests/Coupons/UpdateCouponRequest.cs)</code>
+<code>[UpdateCouponRequest](src/Maxio/Requests/Coupons/UpdateCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4346,9 +4346,9 @@ catch (ApiException<UpdateCouponError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
+**OnSuccess**: <code>[CouponResponse](src/Maxio/Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCouponError](Errors/UpdateCouponError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateCouponError](src/Maxio/Errors/UpdateCouponError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4413,7 +4413,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[UpdateCouponSubcodesRequest](Requests/Coupons/UpdateCouponSubcodesRequest.cs)</code>
+<code>[UpdateCouponSubcodesRequest](src/Maxio/Requests/Coupons/UpdateCouponSubcodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4423,9 +4423,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponSubcodesResponse](Models/CouponSubcodesResponse.cs)</code>
+**OnSuccess**: <code>[CouponSubcodesResponse](src/Maxio/Models/CouponSubcodesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4493,7 +4493,7 @@ catch (ApiException<ValidateCouponError> ex)
 <dl>
 <dd>
 
-<code>[ValidateCouponRequest](Requests/Coupons/ValidateCouponRequest.cs)</code>
+<code>[ValidateCouponRequest](src/Maxio/Requests/Coupons/ValidateCouponRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4503,9 +4503,9 @@ catch (ApiException<ValidateCouponError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CouponResponse](Models/CouponResponse.cs)</code>
+**OnSuccess**: <code>[CouponResponse](src/Maxio/Models/CouponResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ValidateCouponError](Errors/ValidateCouponError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ValidateCouponError](src/Maxio/Errors/ValidateCouponError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4517,7 +4517,7 @@ catch (ApiException<ValidateCouponError> ex)
 
 ## CustomFields
 
-> Source: [CustomFields](Api/CustomFields.cs)
+> Source: [CustomFields](src/Maxio/Api/CustomFields.cs)
 
 <details>
 <summary><code>Task&lt;IReadOnlyList&lt;Metadata&gt;&gt; CreateMetadata(CreateMetadataOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -4578,7 +4578,7 @@ catch (ApiException<CreateMetadataError> ex)
 <dl>
 <dd>
 
-<code>[CreateMetadataOperationRequest](Requests/CustomFields/CreateMetadataOperationRequest.cs)</code>
+<code>[CreateMetadataOperationRequest](src/Maxio/Requests/CustomFields/CreateMetadataOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4588,9 +4588,9 @@ catch (ApiException<CreateMetadataError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Metadata](Models/Metadata.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Metadata](src/Maxio/Models/Metadata.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateMetadataError](Errors/CreateMetadataError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateMetadataError](src/Maxio/Errors/CreateMetadataError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4676,7 +4676,7 @@ catch (ApiException<CreateMetafieldsError> ex)
 <dl>
 <dd>
 
-<code>[CreateMetafieldsOperationRequest](Requests/CustomFields/CreateMetafieldsOperationRequest.cs)</code>
+<code>[CreateMetafieldsOperationRequest](src/Maxio/Requests/CustomFields/CreateMetafieldsOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4686,9 +4686,9 @@ catch (ApiException<CreateMetafieldsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Metafield](Models/Metafield.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Metafield](src/Maxio/Models/Metafield.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateMetafieldsError](Errors/CreateMetafieldsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateMetafieldsError](src/Maxio/Errors/CreateMetafieldsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4745,7 +4745,7 @@ catch (ApiException<DeleteMetadataError> ex)
 <dl>
 <dd>
 
-<code>[DeleteMetadataRequest](Requests/CustomFields/DeleteMetadataRequest.cs)</code>
+<code>[DeleteMetadataRequest](src/Maxio/Requests/CustomFields/DeleteMetadataRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4757,7 +4757,7 @@ catch (ApiException<DeleteMetadataError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteMetadataError](Errors/DeleteMetadataError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteMetadataError](src/Maxio/Errors/DeleteMetadataError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4810,7 +4810,7 @@ catch (ApiException<DeleteMetafieldError> ex)
 <dl>
 <dd>
 
-<code>[DeleteMetafieldRequest](Requests/CustomFields/DeleteMetafieldRequest.cs)</code>
+<code>[DeleteMetafieldRequest](src/Maxio/Requests/CustomFields/DeleteMetafieldRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4822,7 +4822,7 @@ catch (ApiException<DeleteMetafieldError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteMetafieldError](Errors/DeleteMetafieldError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteMetafieldError](src/Maxio/Errors/DeleteMetafieldError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4879,7 +4879,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListMetadataRequest](Requests/CustomFields/ListMetadataRequest.cs)</code>
+<code>[ListMetadataRequest](src/Maxio/Requests/CustomFields/ListMetadataRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4889,9 +4889,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaginatedMetadata](Models/PaginatedMetadata.cs)</code>
+**OnSuccess**: <code>[PaginatedMetadata](src/Maxio/Models/PaginatedMetadata.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -4948,7 +4948,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListMetadataForResourceTypeRequest](Requests/CustomFields/ListMetadataForResourceTypeRequest.cs)</code>
+<code>[ListMetadataForResourceTypeRequest](src/Maxio/Requests/CustomFields/ListMetadataForResourceTypeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -4958,9 +4958,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaginatedMetadata](Models/PaginatedMetadata.cs)</code>
+**OnSuccess**: <code>[PaginatedMetadata](src/Maxio/Models/PaginatedMetadata.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5016,7 +5016,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListMetafieldsRequest](Requests/CustomFields/ListMetafieldsRequest.cs)</code>
+<code>[ListMetafieldsRequest](src/Maxio/Requests/CustomFields/ListMetafieldsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5026,9 +5026,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListMetafieldsResponse](Models/ListMetafieldsResponse.cs)</code>
+**OnSuccess**: <code>[ListMetafieldsResponse](src/Maxio/Models/ListMetafieldsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5090,7 +5090,7 @@ catch (ApiException<UpdateMetadataError> ex)
 <dl>
 <dd>
 
-<code>[UpdateMetadataOperationRequest](Requests/CustomFields/UpdateMetadataOperationRequest.cs)</code>
+<code>[UpdateMetadataOperationRequest](src/Maxio/Requests/CustomFields/UpdateMetadataOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5100,9 +5100,9 @@ catch (ApiException<UpdateMetadataError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Metadata](Models/Metadata.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Metadata](src/Maxio/Models/Metadata.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateMetadataError](Errors/UpdateMetadataError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateMetadataError](src/Maxio/Errors/UpdateMetadataError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5180,7 +5180,7 @@ catch (ApiException<UpdateMetafieldError> ex)
 <dl>
 <dd>
 
-<code>[UpdateMetafieldRequest](Requests/CustomFields/UpdateMetafieldRequest.cs)</code>
+<code>[UpdateMetafieldRequest](src/Maxio/Requests/CustomFields/UpdateMetafieldRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5190,9 +5190,9 @@ catch (ApiException<UpdateMetafieldError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Metafield](Models/Metafield.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Metafield](src/Maxio/Models/Metafield.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateMetafieldError](Errors/UpdateMetafieldError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateMetafieldError](src/Maxio/Errors/UpdateMetafieldError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5204,7 +5204,7 @@ catch (ApiException<UpdateMetafieldError> ex)
 
 ## Customers
 
-> Source: [Customers](Api/Customers.cs)
+> Source: [Customers](src/Maxio/Api/Customers.cs)
 
 <details>
 <summary><code>Task&lt;CustomerResponse&gt; CreateCustomer(CreateCustomerOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -5308,7 +5308,7 @@ catch (ApiException<CreateCustomerError> ex)
 <dl>
 <dd>
 
-<code>[CreateCustomerOperationRequest](Requests/Customers/CreateCustomerOperationRequest.cs)</code>
+<code>[CreateCustomerOperationRequest](src/Maxio/Requests/Customers/CreateCustomerOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5318,9 +5318,9 @@ catch (ApiException<CreateCustomerError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
+**OnSuccess**: <code>[CustomerResponse](src/Maxio/Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateCustomerError](Errors/CreateCustomerError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateCustomerError](src/Maxio/Errors/CreateCustomerError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5370,7 +5370,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[DeleteCustomerRequest](Requests/Customers/DeleteCustomerRequest.cs)</code>
+<code>[DeleteCustomerRequest](src/Maxio/Requests/Customers/DeleteCustomerRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5382,7 +5382,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5438,7 +5438,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListCustomerSubscriptionsRequest](Requests/Customers/ListCustomerSubscriptionsRequest.cs)</code>
+<code>[ListCustomerSubscriptionsRequest](src/Maxio/Requests/Customers/ListCustomerSubscriptionsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5448,9 +5448,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionResponse](Models/SubscriptionResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5520,7 +5520,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListCustomersRequest](Requests/Customers/ListCustomersRequest.cs)</code>
+<code>[ListCustomersRequest](src/Maxio/Requests/Customers/ListCustomersRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5530,9 +5530,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[CustomerResponse](Models/CustomerResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[CustomerResponse](src/Maxio/Models/CustomerResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5583,7 +5583,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadCustomerRequest](Requests/Customers/ReadCustomerRequest.cs)</code>
+<code>[ReadCustomerRequest](src/Maxio/Requests/Customers/ReadCustomerRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5593,9 +5593,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
+**OnSuccess**: <code>[CustomerResponse](src/Maxio/Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5649,7 +5649,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadCustomerByReferenceRequest](Requests/Customers/ReadCustomerByReferenceRequest.cs)</code>
+<code>[ReadCustomerByReferenceRequest](src/Maxio/Requests/Customers/ReadCustomerByReferenceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5659,9 +5659,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
+**OnSuccess**: <code>[CustomerResponse](src/Maxio/Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5745,7 +5745,7 @@ catch (ApiException<UpdateCustomerError> ex)
 <dl>
 <dd>
 
-<code>[UpdateCustomerOperationRequest](Requests/Customers/UpdateCustomerOperationRequest.cs)</code>
+<code>[UpdateCustomerOperationRequest](src/Maxio/Requests/Customers/UpdateCustomerOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5755,9 +5755,9 @@ catch (ApiException<UpdateCustomerError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CustomerResponse](Models/CustomerResponse.cs)</code>
+**OnSuccess**: <code>[CustomerResponse](src/Maxio/Models/CustomerResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCustomerError](Errors/UpdateCustomerError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateCustomerError](src/Maxio/Errors/UpdateCustomerError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5769,7 +5769,7 @@ catch (ApiException<UpdateCustomerError> ex)
 
 ## Entitlements
 
-> Source: [Entitlements](Api/Entitlements.cs)
+> Source: [Entitlements](src/Maxio/Api/Entitlements.cs)
 
 <details>
 <summary><code>Task&lt;AggregatedEntitlementsResponse&gt; ReadSubscriptionEntitlements(ReadSubscriptionEntitlementsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -5825,7 +5825,7 @@ catch (ApiException<ReadSubscriptionEntitlementsError> ex)
 <dl>
 <dd>
 
-<code>[ReadSubscriptionEntitlementsRequest](Requests/Entitlements/ReadSubscriptionEntitlementsRequest.cs)</code>
+<code>[ReadSubscriptionEntitlementsRequest](src/Maxio/Requests/Entitlements/ReadSubscriptionEntitlementsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5835,9 +5835,9 @@ catch (ApiException<ReadSubscriptionEntitlementsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AggregatedEntitlementsResponse](Models/AggregatedEntitlementsResponse.cs)</code>
+**OnSuccess**: <code>[AggregatedEntitlementsResponse](src/Maxio/Models/AggregatedEntitlementsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionEntitlementsError](Errors/ReadSubscriptionEntitlementsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionEntitlementsError](src/Maxio/Errors/ReadSubscriptionEntitlementsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -5849,7 +5849,7 @@ catch (ApiException<ReadSubscriptionEntitlementsError> ex)
 
 ## Events
 
-> Source: [Events](Api/Events.cs)
+> Source: [Events](src/Maxio/Api/Events.cs)
 
 <details>
 <summary><code>Task&lt;IReadOnlyList&lt;EventResponse&gt;&gt; ListEvents(ListEventsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -5977,7 +5977,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListEventsRequest](Requests/Events/ListEventsRequest.cs)</code>
+<code>[ListEventsRequest](src/Maxio/Requests/Events/ListEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -5987,9 +5987,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[EventResponse](Models/EventResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[EventResponse](src/Maxio/Models/EventResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6071,7 +6071,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionEventsRequest](Requests/Events/ListSubscriptionEventsRequest.cs)</code>
+<code>[ListSubscriptionEventsRequest](src/Maxio/Requests/Events/ListSubscriptionEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6081,9 +6081,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[EventResponse](Models/EventResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[EventResponse](src/Maxio/Models/EventResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6153,7 +6153,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadEventsCountRequest](Requests/Events/ReadEventsCountRequest.cs)</code>
+<code>[ReadEventsCountRequest](src/Maxio/Requests/Events/ReadEventsCountRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6163,9 +6163,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CountResponse](Models/CountResponse.cs)</code>
+**OnSuccess**: <code>[CountResponse](src/Maxio/Models/CountResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6177,7 +6177,7 @@ catch (ApiException<RawError> ex)
 
 ## EventsBasedBillingSegments
 
-> Source: [EventsBasedBillingSegments](Api/EventsBasedBillingSegments.cs)
+> Source: [EventsBasedBillingSegments](src/Maxio/Api/EventsBasedBillingSegments.cs)
 
 <details>
 <summary><code>Task&lt;ListSegmentsResponse&gt; BulkCreateSegments(BulkCreateSegmentsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -6231,7 +6231,7 @@ catch (ApiException<BulkCreateSegmentsError> ex)
 <dl>
 <dd>
 
-<code>[BulkCreateSegmentsRequest](Requests/EventsBasedBillingSegments/BulkCreateSegmentsRequest.cs)</code>
+<code>[BulkCreateSegmentsRequest](src/Maxio/Requests/EventsBasedBillingSegments/BulkCreateSegmentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6241,9 +6241,9 @@ catch (ApiException<BulkCreateSegmentsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListSegmentsResponse](Models/ListSegmentsResponse.cs)</code>
+**OnSuccess**: <code>[ListSegmentsResponse](src/Maxio/Models/ListSegmentsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkCreateSegmentsError](Errors/BulkCreateSegmentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[BulkCreateSegmentsError](src/Maxio/Errors/BulkCreateSegmentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6305,7 +6305,7 @@ catch (ApiException<BulkUpdateSegmentsError> ex)
 <dl>
 <dd>
 
-<code>[BulkUpdateSegmentsRequest](Requests/EventsBasedBillingSegments/BulkUpdateSegmentsRequest.cs)</code>
+<code>[BulkUpdateSegmentsRequest](src/Maxio/Requests/EventsBasedBillingSegments/BulkUpdateSegmentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6315,9 +6315,9 @@ catch (ApiException<BulkUpdateSegmentsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListSegmentsResponse](Models/ListSegmentsResponse.cs)</code>
+**OnSuccess**: <code>[ListSegmentsResponse](src/Maxio/Models/ListSegmentsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkUpdateSegmentsError](Errors/BulkUpdateSegmentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[BulkUpdateSegmentsError](src/Maxio/Errors/BulkUpdateSegmentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6390,7 +6390,7 @@ catch (ApiException<CreateSegmentError> ex)
 <dl>
 <dd>
 
-<code>[CreateSegmentOperationRequest](Requests/EventsBasedBillingSegments/CreateSegmentOperationRequest.cs)</code>
+<code>[CreateSegmentOperationRequest](src/Maxio/Requests/EventsBasedBillingSegments/CreateSegmentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6400,9 +6400,9 @@ catch (ApiException<CreateSegmentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SegmentResponse](Models/SegmentResponse.cs)</code>
+**OnSuccess**: <code>[SegmentResponse](src/Maxio/Models/SegmentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSegmentError](Errors/CreateSegmentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateSegmentError](src/Maxio/Errors/CreateSegmentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6462,7 +6462,7 @@ catch (ApiException<DeleteSegmentError> ex)
 <dl>
 <dd>
 
-<code>[DeleteSegmentRequest](Requests/EventsBasedBillingSegments/DeleteSegmentRequest.cs)</code>
+<code>[DeleteSegmentRequest](src/Maxio/Requests/EventsBasedBillingSegments/DeleteSegmentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6474,7 +6474,7 @@ catch (ApiException<DeleteSegmentError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteSegmentError](Errors/DeleteSegmentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteSegmentError](src/Maxio/Errors/DeleteSegmentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6539,7 +6539,7 @@ catch (ApiException<ListSegmentsForPricePointError> ex)
 <dl>
 <dd>
 
-<code>[ListSegmentsForPricePointRequest](Requests/EventsBasedBillingSegments/ListSegmentsForPricePointRequest.cs)</code>
+<code>[ListSegmentsForPricePointRequest](src/Maxio/Requests/EventsBasedBillingSegments/ListSegmentsForPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6549,9 +6549,9 @@ catch (ApiException<ListSegmentsForPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListSegmentsResponse](Models/ListSegmentsResponse.cs)</code>
+**OnSuccess**: <code>[ListSegmentsResponse](src/Maxio/Models/ListSegmentsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListSegmentsForPricePointError](Errors/ListSegmentsForPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListSegmentsForPricePointError](src/Maxio/Errors/ListSegmentsForPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6612,7 +6612,7 @@ catch (ApiException<UpdateSegmentError> ex)
 <dl>
 <dd>
 
-<code>[UpdateSegmentOperationRequest](Requests/EventsBasedBillingSegments/UpdateSegmentOperationRequest.cs)</code>
+<code>[UpdateSegmentOperationRequest](src/Maxio/Requests/EventsBasedBillingSegments/UpdateSegmentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6622,9 +6622,9 @@ catch (ApiException<UpdateSegmentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SegmentResponse](Models/SegmentResponse.cs)</code>
+**OnSuccess**: <code>[SegmentResponse](src/Maxio/Models/SegmentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSegmentError](Errors/UpdateSegmentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateSegmentError](src/Maxio/Errors/UpdateSegmentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6636,7 +6636,7 @@ catch (ApiException<UpdateSegmentError> ex)
 
 ## FeatureTemplates
 
-> Source: [FeatureTemplates](Api/FeatureTemplates.cs)
+> Source: [FeatureTemplates](src/Maxio/Api/FeatureTemplates.cs)
 
 <details>
 <summary><code>Task ArchiveFeatureTemplate(ArchiveFeatureTemplateRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -6683,7 +6683,7 @@ catch (ApiException<ArchiveFeatureTemplateError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveFeatureTemplateRequest](Requests/FeatureTemplates/ArchiveFeatureTemplateRequest.cs)</code>
+<code>[ArchiveFeatureTemplateRequest](src/Maxio/Requests/FeatureTemplates/ArchiveFeatureTemplateRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6695,7 +6695,7 @@ catch (ApiException<ArchiveFeatureTemplateError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveFeatureTemplateError](Errors/ArchiveFeatureTemplateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ArchiveFeatureTemplateError](src/Maxio/Errors/ArchiveFeatureTemplateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6755,7 +6755,7 @@ catch (ApiException<CreateFeatureTemplateError> ex)
 <dl>
 <dd>
 
-<code>[CreateFeatureTemplateOperationRequest](Requests/FeatureTemplates/CreateFeatureTemplateOperationRequest.cs)</code>
+<code>[CreateFeatureTemplateOperationRequest](src/Maxio/Requests/FeatureTemplates/CreateFeatureTemplateOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6765,9 +6765,9 @@ catch (ApiException<CreateFeatureTemplateError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+**OnSuccess**: <code>[FeatureTemplateResponse](src/Maxio/Models/FeatureTemplateResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateFeatureTemplateError](Errors/CreateFeatureTemplateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateFeatureTemplateError](src/Maxio/Errors/CreateFeatureTemplateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6827,7 +6827,7 @@ catch (ApiException<ListFeatureTemplatesError> ex)
 <dl>
 <dd>
 
-<code>[ListFeatureTemplatesRequest](Requests/FeatureTemplates/ListFeatureTemplatesRequest.cs)</code>
+<code>[ListFeatureTemplatesRequest](src/Maxio/Requests/FeatureTemplates/ListFeatureTemplatesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6837,9 +6837,9 @@ catch (ApiException<ListFeatureTemplatesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureTemplatesListResponse](Models/FeatureTemplatesListResponse.cs)</code>
+**OnSuccess**: <code>[FeatureTemplatesListResponse](src/Maxio/Models/FeatureTemplatesListResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListFeatureTemplatesError](Errors/ListFeatureTemplatesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListFeatureTemplatesError](src/Maxio/Errors/ListFeatureTemplatesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6893,7 +6893,7 @@ catch (ApiException<ReadFeatureTemplateError> ex)
 <dl>
 <dd>
 
-<code>[ReadFeatureTemplateRequest](Requests/FeatureTemplates/ReadFeatureTemplateRequest.cs)</code>
+<code>[ReadFeatureTemplateRequest](src/Maxio/Requests/FeatureTemplates/ReadFeatureTemplateRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6903,9 +6903,9 @@ catch (ApiException<ReadFeatureTemplateError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+**OnSuccess**: <code>[FeatureTemplateResponse](src/Maxio/Models/FeatureTemplateResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadFeatureTemplateError](Errors/ReadFeatureTemplateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadFeatureTemplateError](src/Maxio/Errors/ReadFeatureTemplateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -6959,7 +6959,7 @@ catch (ApiException<RestoreFeatureTemplateError> ex)
 <dl>
 <dd>
 
-<code>[RestoreFeatureTemplateRequest](Requests/FeatureTemplates/RestoreFeatureTemplateRequest.cs)</code>
+<code>[RestoreFeatureTemplateRequest](src/Maxio/Requests/FeatureTemplates/RestoreFeatureTemplateRequest.cs)</code>
 
 </dd>
 </dl>
@@ -6969,9 +6969,9 @@ catch (ApiException<RestoreFeatureTemplateError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+**OnSuccess**: <code>[FeatureTemplateResponse](src/Maxio/Models/FeatureTemplateResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RestoreFeatureTemplateError](Errors/RestoreFeatureTemplateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RestoreFeatureTemplateError](src/Maxio/Errors/RestoreFeatureTemplateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7030,7 +7030,7 @@ catch (ApiException<UpdateFeatureTemplateError> ex)
 <dl>
 <dd>
 
-<code>[UpdateFeatureTemplateOperationRequest](Requests/FeatureTemplates/UpdateFeatureTemplateOperationRequest.cs)</code>
+<code>[UpdateFeatureTemplateOperationRequest](src/Maxio/Requests/FeatureTemplates/UpdateFeatureTemplateOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7040,9 +7040,9 @@ catch (ApiException<UpdateFeatureTemplateError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureTemplateResponse](Models/FeatureTemplateResponse.cs)</code>
+**OnSuccess**: <code>[FeatureTemplateResponse](src/Maxio/Models/FeatureTemplateResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateFeatureTemplateError](Errors/UpdateFeatureTemplateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateFeatureTemplateError](src/Maxio/Errors/UpdateFeatureTemplateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7054,7 +7054,7 @@ catch (ApiException<UpdateFeatureTemplateError> ex)
 
 ## Insights
 
-> Source: [Insights](Api/Insights.cs)
+> Source: [Insights](src/Maxio/Api/Insights.cs)
 
 <details>
 <summary><code>Task&lt;ListMrrResponse&gt; ListMrrMovements(ListMrrMovementsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -7118,7 +7118,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListMrrMovementsRequest](Requests/Insights/ListMrrMovementsRequest.cs)</code>
+<code>[ListMrrMovementsRequest](src/Maxio/Requests/Insights/ListMrrMovementsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7128,9 +7128,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListMrrResponse](Models/ListMrrResponse.cs)</code>
+**OnSuccess**: <code>[ListMrrResponse](src/Maxio/Models/ListMrrResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7190,7 +7190,7 @@ catch (ApiException<ListMrrPerSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[ListMrrPerSubscriptionRequest](Requests/Insights/ListMrrPerSubscriptionRequest.cs)</code>
+<code>[ListMrrPerSubscriptionRequest](src/Maxio/Requests/Insights/ListMrrPerSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7200,9 +7200,9 @@ catch (ApiException<ListMrrPerSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionMrrResponse](Models/SubscriptionMrrResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionMrrResponse](src/Maxio/Models/SubscriptionMrrResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListMrrPerSubscriptionError](Errors/ListMrrPerSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListMrrPerSubscriptionError](src/Maxio/Errors/ListMrrPerSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7253,7 +7253,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadMrrRequest](Requests/Insights/ReadMrrRequest.cs)</code>
+<code>[ReadMrrRequest](src/Maxio/Requests/Insights/ReadMrrRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7263,9 +7263,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[MrrResponse](Models/MrrResponse.cs)</code>
+**OnSuccess**: <code>[MrrResponse](src/Maxio/Models/MrrResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7324,9 +7324,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SiteSummary](Models/SiteSummary.cs)</code>
+**OnSuccess**: <code>[SiteSummary](src/Maxio/Models/SiteSummary.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7338,7 +7338,7 @@ catch (ApiException<RawError> ex)
 
 ## Invoices
 
-> Source: [Invoices](Api/Invoices.cs)
+> Source: [Invoices](src/Maxio/Api/Invoices.cs)
 
 <details>
 <summary><code>Task&lt;InvoiceResponse&gt; CreateInvoice(CreateInvoiceOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -7572,7 +7572,7 @@ catch (ApiException<CreateInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[CreateInvoiceOperationRequest](Requests/Invoices/CreateInvoiceOperationRequest.cs)</code>
+<code>[CreateInvoiceOperationRequest](src/Maxio/Requests/Invoices/CreateInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7582,9 +7582,9 @@ catch (ApiException<CreateInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[InvoiceResponse](Models/InvoiceResponse.cs)</code>
+**OnSuccess**: <code>[InvoiceResponse](src/Maxio/Models/InvoiceResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateInvoiceError](Errors/CreateInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateInvoiceError](src/Maxio/Errors/CreateInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7641,7 +7641,7 @@ catch (ApiException<DeleteInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[DeleteInvoiceRequest](Requests/Invoices/DeleteInvoiceRequest.cs)</code>
+<code>[DeleteInvoiceRequest](src/Maxio/Requests/Invoices/DeleteInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7653,7 +7653,7 @@ catch (ApiException<DeleteInvoiceError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteInvoiceError](Errors/DeleteInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteInvoiceError](src/Maxio/Errors/DeleteInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7716,7 +7716,7 @@ catch (ApiException<IssueInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[IssueInvoiceOperationRequest](Requests/Invoices/IssueInvoiceOperationRequest.cs)</code>
+<code>[IssueInvoiceOperationRequest](src/Maxio/Requests/Invoices/IssueInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7726,9 +7726,9 @@ catch (ApiException<IssueInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueInvoiceError](Errors/IssueInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[IssueInvoiceError](src/Maxio/Errors/IssueInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7784,7 +7784,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListConsolidatedInvoiceSegmentsRequest](Requests/Invoices/ListConsolidatedInvoiceSegmentsRequest.cs)</code>
+<code>[ListConsolidatedInvoiceSegmentsRequest](src/Maxio/Requests/Invoices/ListConsolidatedInvoiceSegmentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7794,9 +7794,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ConsolidatedInvoice](Models/ConsolidatedInvoice.cs)</code>
+**OnSuccess**: <code>[ConsolidatedInvoice](src/Maxio/Models/ConsolidatedInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7854,7 +7854,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListCreditNotesRequest](Requests/Invoices/ListCreditNotesRequest.cs)</code>
+<code>[ListCreditNotesRequest](src/Maxio/Requests/Invoices/ListCreditNotesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7864,9 +7864,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListCreditNotesResponse](Models/ListCreditNotesResponse.cs)</code>
+**OnSuccess**: <code>[ListCreditNotesResponse](src/Maxio/Models/ListCreditNotesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -7940,7 +7940,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListInvoiceEventsRequest](Requests/Invoices/ListInvoiceEventsRequest.cs)</code>
+<code>[ListInvoiceEventsRequest](src/Maxio/Requests/Invoices/ListInvoiceEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -7950,9 +7950,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListInvoiceEventsResponse](Models/ListInvoiceEventsResponse.cs)</code>
+**OnSuccess**: <code>[ListInvoiceEventsResponse](src/Maxio/Models/ListInvoiceEventsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8012,7 +8012,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListInvoicesRequest](Requests/Invoices/ListInvoicesRequest.cs)</code>
+<code>[ListInvoicesRequest](src/Maxio/Requests/Invoices/ListInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8022,9 +8022,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListInvoicesResponse](Models/ListInvoicesResponse.cs)</code>
+**OnSuccess**: <code>[ListInvoicesResponse](src/Maxio/Models/ListInvoicesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8083,7 +8083,7 @@ catch (ApiException<PreviewCustomerInformationChangesError> ex)
 <dl>
 <dd>
 
-<code>[PreviewCustomerInformationChangesRequest](Requests/Invoices/PreviewCustomerInformationChangesRequest.cs)</code>
+<code>[PreviewCustomerInformationChangesRequest](src/Maxio/Requests/Invoices/PreviewCustomerInformationChangesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8093,9 +8093,9 @@ catch (ApiException<PreviewCustomerInformationChangesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CustomerChangesPreviewResponse](Models/CustomerChangesPreviewResponse.cs)</code>
+**OnSuccess**: <code>[CustomerChangesPreviewResponse](src/Maxio/Models/CustomerChangesPreviewResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewCustomerInformationChangesError](Errors/PreviewCustomerInformationChangesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PreviewCustomerInformationChangesError](src/Maxio/Errors/PreviewCustomerInformationChangesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8146,7 +8146,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadCreditNoteRequest](Requests/Invoices/ReadCreditNoteRequest.cs)</code>
+<code>[ReadCreditNoteRequest](src/Maxio/Requests/Invoices/ReadCreditNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8156,9 +8156,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CreditNote](Models/CreditNote.cs)</code>
+**OnSuccess**: <code>[CreditNote](src/Maxio/Models/CreditNote.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8221,7 +8221,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadInvoiceRequest](Requests/Invoices/ReadInvoiceRequest.cs)</code>
+<code>[ReadInvoiceRequest](src/Maxio/Requests/Invoices/ReadInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8231,9 +8231,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8300,7 +8300,7 @@ catch (ApiException<RecordPaymentForInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[RecordPaymentForInvoiceRequest](Requests/Invoices/RecordPaymentForInvoiceRequest.cs)</code>
+<code>[RecordPaymentForInvoiceRequest](src/Maxio/Requests/Invoices/RecordPaymentForInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8310,9 +8310,9 @@ catch (ApiException<RecordPaymentForInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForInvoiceError](Errors/RecordPaymentForInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForInvoiceError](src/Maxio/Errors/RecordPaymentForInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8386,7 +8386,7 @@ catch (ApiException<RecordPaymentForMultipleInvoicesError> ex)
 <dl>
 <dd>
 
-<code>[RecordPaymentForMultipleInvoicesRequest](Requests/Invoices/RecordPaymentForMultipleInvoicesRequest.cs)</code>
+<code>[RecordPaymentForMultipleInvoicesRequest](src/Maxio/Requests/Invoices/RecordPaymentForMultipleInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8396,9 +8396,9 @@ catch (ApiException<RecordPaymentForMultipleInvoicesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[MultiInvoicePaymentResponse](Models/MultiInvoicePaymentResponse.cs)</code>
+**OnSuccess**: <code>[MultiInvoicePaymentResponse](src/Maxio/Models/MultiInvoicePaymentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForMultipleInvoicesError](Errors/RecordPaymentForMultipleInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForMultipleInvoicesError](src/Maxio/Errors/RecordPaymentForMultipleInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8471,7 +8471,7 @@ catch (ApiException<RecordPaymentForSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[RecordPaymentForSubscriptionRequest](Requests/Invoices/RecordPaymentForSubscriptionRequest.cs)</code>
+<code>[RecordPaymentForSubscriptionRequest](src/Maxio/Requests/Invoices/RecordPaymentForSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8481,9 +8481,9 @@ catch (ApiException<RecordPaymentForSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[RecordPaymentResponse](Models/RecordPaymentResponse.cs)</code>
+**OnSuccess**: <code>[RecordPaymentResponse](src/Maxio/Models/RecordPaymentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForSubscriptionError](Errors/RecordPaymentForSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RecordPaymentForSubscriptionError](src/Maxio/Errors/RecordPaymentForSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8558,7 +8558,7 @@ catch (ApiException<RefundInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[RefundInvoiceOperationRequest](Requests/Invoices/RefundInvoiceOperationRequest.cs)</code>
+<code>[RefundInvoiceOperationRequest](src/Maxio/Requests/Invoices/RefundInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8568,9 +8568,9 @@ catch (ApiException<RefundInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RefundInvoiceError](Errors/RefundInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RefundInvoiceError](src/Maxio/Errors/RefundInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8635,7 +8635,7 @@ catch (ApiException<ReopenInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[ReopenInvoiceRequest](Requests/Invoices/ReopenInvoiceRequest.cs)</code>
+<code>[ReopenInvoiceRequest](src/Maxio/Requests/Invoices/ReopenInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8645,9 +8645,9 @@ catch (ApiException<ReopenInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReopenInvoiceError](Errors/ReopenInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReopenInvoiceError](src/Maxio/Errors/ReopenInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8715,7 +8715,7 @@ catch (ApiException<SendInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[SendInvoiceOperationRequest](Requests/Invoices/SendInvoiceOperationRequest.cs)</code>
+<code>[SendInvoiceOperationRequest](src/Maxio/Requests/Invoices/SendInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8727,7 +8727,7 @@ catch (ApiException<SendInvoiceError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[SendInvoiceError](Errors/SendInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[SendInvoiceError](src/Maxio/Errors/SendInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8786,7 +8786,7 @@ catch (ApiException<UpdateCustomerInformationError> ex)
 <dl>
 <dd>
 
-<code>[UpdateCustomerInformationRequest](Requests/Invoices/UpdateCustomerInformationRequest.cs)</code>
+<code>[UpdateCustomerInformationRequest](src/Maxio/Requests/Invoices/UpdateCustomerInformationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8796,9 +8796,9 @@ catch (ApiException<UpdateCustomerInformationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateCustomerInformationError](Errors/UpdateCustomerInformationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateCustomerInformationError](src/Maxio/Errors/UpdateCustomerInformationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8897,7 +8897,7 @@ catch (ApiException<UpdateInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[UpdateInvoiceOperationRequest](Requests/Invoices/UpdateInvoiceOperationRequest.cs)</code>
+<code>[UpdateInvoiceOperationRequest](src/Maxio/Requests/Invoices/UpdateInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8907,9 +8907,9 @@ catch (ApiException<UpdateInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[InvoiceResponse](Models/InvoiceResponse.cs)</code>
+**OnSuccess**: <code>[InvoiceResponse](src/Maxio/Models/InvoiceResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateInvoiceError](Errors/UpdateInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateInvoiceError](src/Maxio/Errors/UpdateInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8967,7 +8967,7 @@ catch (ApiException<VoidInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[VoidInvoiceOperationRequest](Requests/Invoices/VoidInvoiceOperationRequest.cs)</code>
+<code>[VoidInvoiceOperationRequest](src/Maxio/Requests/Invoices/VoidInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -8977,9 +8977,9 @@ catch (ApiException<VoidInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[Invoice](Models/Invoice.cs)</code>
+**OnSuccess**: <code>[Invoice](src/Maxio/Models/Invoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VoidInvoiceError](Errors/VoidInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[VoidInvoiceError](src/Maxio/Errors/VoidInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -8991,7 +8991,7 @@ catch (ApiException<VoidInvoiceError> ex)
 
 ## Offers
 
-> Source: [Offers](Api/Offers.cs)
+> Source: [Offers](src/Maxio/Api/Offers.cs)
 
 <details>
 <summary><code>Task ArchiveOffer(ArchiveOfferRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -9033,7 +9033,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveOfferRequest](Requests/Offers/ArchiveOfferRequest.cs)</code>
+<code>[ArchiveOfferRequest](src/Maxio/Requests/Offers/ArchiveOfferRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9045,7 +9045,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9124,7 +9124,7 @@ catch (ApiException<CreateOfferError> ex)
 <dl>
 <dd>
 
-<code>[CreateOfferOperationRequest](Requests/Offers/CreateOfferOperationRequest.cs)</code>
+<code>[CreateOfferOperationRequest](src/Maxio/Requests/Offers/CreateOfferOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9134,9 +9134,9 @@ catch (ApiException<CreateOfferError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[OfferResponse](Models/OfferResponse.cs)</code>
+**OnSuccess**: <code>[OfferResponse](src/Maxio/Models/OfferResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateOfferError](Errors/CreateOfferError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateOfferError](src/Maxio/Errors/CreateOfferError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9195,7 +9195,7 @@ catch (ApiException<ListOffersError> ex)
 <dl>
 <dd>
 
-<code>[ListOffersRequest](Requests/Offers/ListOffersRequest.cs)</code>
+<code>[ListOffersRequest](src/Maxio/Requests/Offers/ListOffersRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9205,9 +9205,9 @@ catch (ApiException<ListOffersError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListOffersResponse](Models/ListOffersResponse.cs)</code>
+**OnSuccess**: <code>[ListOffersResponse](src/Maxio/Models/ListOffersResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListOffersError](Errors/ListOffersError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListOffersError](src/Maxio/Errors/ListOffersError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9258,7 +9258,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadOfferRequest](Requests/Offers/ReadOfferRequest.cs)</code>
+<code>[ReadOfferRequest](src/Maxio/Requests/Offers/ReadOfferRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9268,9 +9268,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[OfferResponse](Models/OfferResponse.cs)</code>
+**OnSuccess**: <code>[OfferResponse](src/Maxio/Models/OfferResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9320,7 +9320,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[UnarchiveOfferRequest](Requests/Offers/UnarchiveOfferRequest.cs)</code>
+<code>[UnarchiveOfferRequest](src/Maxio/Requests/Offers/UnarchiveOfferRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9332,7 +9332,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9344,7 +9344,7 @@ catch (ApiException<RawError> ex)
 
 ## PaymentProfiles
 
-> Source: [PaymentProfiles](Api/PaymentProfiles.cs)
+> Source: [PaymentProfiles](src/Maxio/Api/PaymentProfiles.cs)
 
 <details>
 <summary><code>Task&lt;PaymentProfileResponse&gt; ChangeSubscriptionDefaultPaymentProfile(ChangeSubscriptionDefaultPaymentProfileRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -9393,7 +9393,7 @@ catch (ApiException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 <dl>
 <dd>
 
-<code>[ChangeSubscriptionDefaultPaymentProfileRequest](Requests/PaymentProfiles/ChangeSubscriptionDefaultPaymentProfileRequest.cs)</code>
+<code>[ChangeSubscriptionDefaultPaymentProfileRequest](src/Maxio/Requests/PaymentProfiles/ChangeSubscriptionDefaultPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9403,9 +9403,9 @@ catch (ApiException<ChangeSubscriptionDefaultPaymentProfileError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
+**OnSuccess**: <code>[PaymentProfileResponse](src/Maxio/Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ChangeSubscriptionDefaultPaymentProfileError](Errors/ChangeSubscriptionDefaultPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ChangeSubscriptionDefaultPaymentProfileError](src/Maxio/Errors/ChangeSubscriptionDefaultPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9464,7 +9464,7 @@ catch (ApiException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 <dl>
 <dd>
 
-<code>[ChangeSubscriptionGroupDefaultPaymentProfileRequest](Requests/PaymentProfiles/ChangeSubscriptionGroupDefaultPaymentProfileRequest.cs)</code>
+<code>[ChangeSubscriptionGroupDefaultPaymentProfileRequest](src/Maxio/Requests/PaymentProfiles/ChangeSubscriptionGroupDefaultPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9474,9 +9474,9 @@ catch (ApiException<ChangeSubscriptionGroupDefaultPaymentProfileError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
+**OnSuccess**: <code>[PaymentProfileResponse](src/Maxio/Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ChangeSubscriptionGroupDefaultPaymentProfileError](Errors/ChangeSubscriptionGroupDefaultPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ChangeSubscriptionGroupDefaultPaymentProfileError](src/Maxio/Errors/ChangeSubscriptionGroupDefaultPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9572,7 +9572,7 @@ catch (ApiException<CreatePaymentProfileError> ex)
 <dl>
 <dd>
 
-<code>[CreatePaymentProfileOperationRequest](Requests/PaymentProfiles/CreatePaymentProfileOperationRequest.cs)</code>
+<code>[CreatePaymentProfileOperationRequest](src/Maxio/Requests/PaymentProfiles/CreatePaymentProfileOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9582,9 +9582,9 @@ catch (ApiException<CreatePaymentProfileError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
+**OnSuccess**: <code>[PaymentProfileResponse](src/Maxio/Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreatePaymentProfileError](Errors/CreatePaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreatePaymentProfileError](src/Maxio/Errors/CreatePaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9640,7 +9640,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[DeleteSubscriptionGroupPaymentProfileRequest](Requests/PaymentProfiles/DeleteSubscriptionGroupPaymentProfileRequest.cs)</code>
+<code>[DeleteSubscriptionGroupPaymentProfileRequest](src/Maxio/Requests/PaymentProfiles/DeleteSubscriptionGroupPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9652,7 +9652,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9710,7 +9710,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[DeleteSubscriptionsPaymentProfileRequest](Requests/PaymentProfiles/DeleteSubscriptionsPaymentProfileRequest.cs)</code>
+<code>[DeleteSubscriptionsPaymentProfileRequest](src/Maxio/Requests/PaymentProfiles/DeleteSubscriptionsPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9722,7 +9722,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9780,7 +9780,7 @@ catch (ApiException<DeleteUnusedPaymentProfileError> ex)
 <dl>
 <dd>
 
-<code>[DeleteUnusedPaymentProfileRequest](Requests/PaymentProfiles/DeleteUnusedPaymentProfileRequest.cs)</code>
+<code>[DeleteUnusedPaymentProfileRequest](src/Maxio/Requests/PaymentProfiles/DeleteUnusedPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9792,7 +9792,7 @@ catch (ApiException<DeleteUnusedPaymentProfileError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteUnusedPaymentProfileError](Errors/DeleteUnusedPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteUnusedPaymentProfileError](src/Maxio/Errors/DeleteUnusedPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9847,7 +9847,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListPaymentProfilesRequest](Requests/PaymentProfiles/ListPaymentProfilesRequest.cs)</code>
+<code>[ListPaymentProfilesRequest](src/Maxio/Requests/PaymentProfiles/ListPaymentProfilesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9857,9 +9857,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[PaymentProfileResponse](Models/PaymentProfileResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[PaymentProfileResponse](src/Maxio/Models/PaymentProfileResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -9920,7 +9920,7 @@ catch (ApiException<ReadOneTimeTokenError> ex)
 <dl>
 <dd>
 
-<code>[ReadOneTimeTokenRequest](Requests/PaymentProfiles/ReadOneTimeTokenRequest.cs)</code>
+<code>[ReadOneTimeTokenRequest](src/Maxio/Requests/PaymentProfiles/ReadOneTimeTokenRequest.cs)</code>
 
 </dd>
 </dl>
@@ -9930,9 +9930,9 @@ catch (ApiException<ReadOneTimeTokenError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetOneTimeTokenRequest](Models/GetOneTimeTokenRequest.cs)</code>
+**OnSuccess**: <code>[GetOneTimeTokenRequest](src/Maxio/Models/GetOneTimeTokenRequest.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadOneTimeTokenError](Errors/ReadOneTimeTokenError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadOneTimeTokenError](src/Maxio/Errors/ReadOneTimeTokenError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10025,7 +10025,7 @@ catch (ApiException<ReadPaymentProfileError> ex)
 <dl>
 <dd>
 
-<code>[ReadPaymentProfileRequest](Requests/PaymentProfiles/ReadPaymentProfileRequest.cs)</code>
+<code>[ReadPaymentProfileRequest](src/Maxio/Requests/PaymentProfiles/ReadPaymentProfileRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10035,9 +10035,9 @@ catch (ApiException<ReadPaymentProfileError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
+**OnSuccess**: <code>[PaymentProfileResponse](src/Maxio/Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadPaymentProfileError](Errors/ReadPaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadPaymentProfileError](src/Maxio/Errors/ReadPaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10099,7 +10099,7 @@ catch (ApiException<SendRequestUpdatePaymentEmailError> ex)
 <dl>
 <dd>
 
-<code>[SendRequestUpdatePaymentEmailRequest](Requests/PaymentProfiles/SendRequestUpdatePaymentEmailRequest.cs)</code>
+<code>[SendRequestUpdatePaymentEmailRequest](src/Maxio/Requests/PaymentProfiles/SendRequestUpdatePaymentEmailRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10111,7 +10111,7 @@ catch (ApiException<SendRequestUpdatePaymentEmailError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[SendRequestUpdatePaymentEmailError](Errors/SendRequestUpdatePaymentEmailError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[SendRequestUpdatePaymentEmailError](src/Maxio/Errors/SendRequestUpdatePaymentEmailError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10217,7 +10217,7 @@ catch (ApiException<UpdatePaymentProfileError> ex)
 <dl>
 <dd>
 
-<code>[UpdatePaymentProfileOperationRequest](Requests/PaymentProfiles/UpdatePaymentProfileOperationRequest.cs)</code>
+<code>[UpdatePaymentProfileOperationRequest](src/Maxio/Requests/PaymentProfiles/UpdatePaymentProfileOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10227,9 +10227,9 @@ catch (ApiException<UpdatePaymentProfileError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PaymentProfileResponse](Models/PaymentProfileResponse.cs)</code>
+**OnSuccess**: <code>[PaymentProfileResponse](src/Maxio/Models/PaymentProfileResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdatePaymentProfileError](Errors/UpdatePaymentProfileError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdatePaymentProfileError](src/Maxio/Errors/UpdatePaymentProfileError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10290,7 +10290,7 @@ catch (ApiException<VerifyBankAccountError> ex)
 <dl>
 <dd>
 
-<code>[VerifyBankAccountRequest](Requests/PaymentProfiles/VerifyBankAccountRequest.cs)</code>
+<code>[VerifyBankAccountRequest](src/Maxio/Requests/PaymentProfiles/VerifyBankAccountRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10300,9 +10300,9 @@ catch (ApiException<VerifyBankAccountError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BankAccountResponse](Models/BankAccountResponse.cs)</code>
+**OnSuccess**: <code>[BankAccountResponse](src/Maxio/Models/BankAccountResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VerifyBankAccountError](Errors/VerifyBankAccountError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[VerifyBankAccountError](src/Maxio/Errors/VerifyBankAccountError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10314,7 +10314,7 @@ catch (ApiException<VerifyBankAccountError> ex)
 
 ## ProductFamilies
 
-> Source: [ProductFamilies](Api/ProductFamilies.cs)
+> Source: [ProductFamilies](src/Maxio/Api/ProductFamilies.cs)
 
 <details>
 <summary><code>Task&lt;ProductFamilyResponse&gt; CreateProductFamily(CreateProductFamilyOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -10373,7 +10373,7 @@ catch (ApiException<CreateProductFamilyError> ex)
 <dl>
 <dd>
 
-<code>[CreateProductFamilyOperationRequest](Requests/ProductFamilies/CreateProductFamilyOperationRequest.cs)</code>
+<code>[CreateProductFamilyOperationRequest](src/Maxio/Requests/ProductFamilies/CreateProductFamilyOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10383,9 +10383,9 @@ catch (ApiException<CreateProductFamilyError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductFamilyResponse](Models/ProductFamilyResponse.cs)</code>
+**OnSuccess**: <code>[ProductFamilyResponse](src/Maxio/Models/ProductFamilyResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductFamilyError](Errors/CreateProductFamilyError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateProductFamilyError](src/Maxio/Errors/CreateProductFamilyError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10439,7 +10439,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListProductFamiliesRequest](Requests/ProductFamilies/ListProductFamiliesRequest.cs)</code>
+<code>[ListProductFamiliesRequest](src/Maxio/Requests/ProductFamilies/ListProductFamiliesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10449,9 +10449,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ProductFamilyResponse](Models/ProductFamilyResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ProductFamilyResponse](src/Maxio/Models/ProductFamilyResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10512,7 +10512,7 @@ catch (ApiException<ListProductsForProductFamilyError> ex)
 <dl>
 <dd>
 
-<code>[ListProductsForProductFamilyRequest](Requests/ProductFamilies/ListProductsForProductFamilyRequest.cs)</code>
+<code>[ListProductsForProductFamilyRequest](src/Maxio/Requests/ProductFamilies/ListProductsForProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10522,9 +10522,9 @@ catch (ApiException<ListProductsForProductFamilyError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ProductResponse](Models/ProductResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ProductResponse](src/Maxio/Models/ProductResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListProductsForProductFamilyError](Errors/ListProductsForProductFamilyError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListProductsForProductFamilyError](src/Maxio/Errors/ListProductsForProductFamilyError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10577,7 +10577,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadProductFamilyRequest](Requests/ProductFamilies/ReadProductFamilyRequest.cs)</code>
+<code>[ReadProductFamilyRequest](src/Maxio/Requests/ProductFamilies/ReadProductFamilyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10587,9 +10587,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductFamilyResponse](Models/ProductFamilyResponse.cs)</code>
+**OnSuccess**: <code>[ProductFamilyResponse](src/Maxio/Models/ProductFamilyResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10601,7 +10601,7 @@ catch (ApiException<RawError> ex)
 
 ## ProductFeatures
 
-> Source: [ProductFeatures](Api/ProductFeatures.cs)
+> Source: [ProductFeatures](src/Maxio/Api/ProductFeatures.cs)
 
 <details>
 <summary><code>Task&lt;FeatureCatalogItemResponse&gt; CreateProductFeature(CreateProductFeatureRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -10647,7 +10647,7 @@ catch (ApiException<CreateProductFeatureError> ex)
 <dl>
 <dd>
 
-<code>[CreateProductFeatureRequest](Requests/ProductFeatures/CreateProductFeatureRequest.cs)</code>
+<code>[CreateProductFeatureRequest](src/Maxio/Requests/ProductFeatures/CreateProductFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10657,9 +10657,9 @@ catch (ApiException<CreateProductFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductFeatureError](Errors/CreateProductFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateProductFeatureError](src/Maxio/Errors/CreateProductFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10713,7 +10713,7 @@ catch (ApiException<ListProductFeaturesError> ex)
 <dl>
 <dd>
 
-<code>[ListProductFeaturesRequest](Requests/ProductFeatures/ListProductFeaturesRequest.cs)</code>
+<code>[ListProductFeaturesRequest](src/Maxio/Requests/ProductFeatures/ListProductFeaturesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10723,9 +10723,9 @@ catch (ApiException<ListProductFeaturesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemsListResponse](Models/FeatureCatalogItemsListResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemsListResponse](src/Maxio/Models/FeatureCatalogItemsListResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListProductFeaturesError](Errors/ListProductFeaturesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListProductFeaturesError](src/Maxio/Errors/ListProductFeaturesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10783,7 +10783,7 @@ catch (ApiException<ReadProductFeatureError> ex)
 <dl>
 <dd>
 
-<code>[ReadProductFeatureRequest](Requests/ProductFeatures/ReadProductFeatureRequest.cs)</code>
+<code>[ReadProductFeatureRequest](src/Maxio/Requests/ProductFeatures/ReadProductFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10793,9 +10793,9 @@ catch (ApiException<ReadProductFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadProductFeatureError](Errors/ReadProductFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadProductFeatureError](src/Maxio/Errors/ReadProductFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10848,7 +10848,7 @@ catch (ApiException<RemoveProductFeatureError> ex)
 <dl>
 <dd>
 
-<code>[RemoveProductFeatureRequest](Requests/ProductFeatures/RemoveProductFeatureRequest.cs)</code>
+<code>[RemoveProductFeatureRequest](src/Maxio/Requests/ProductFeatures/RemoveProductFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10860,7 +10860,7 @@ catch (ApiException<RemoveProductFeatureError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveProductFeatureError](Errors/RemoveProductFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RemoveProductFeatureError](src/Maxio/Errors/RemoveProductFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10918,7 +10918,7 @@ catch (ApiException<RestoreProductFeatureError> ex)
 <dl>
 <dd>
 
-<code>[RestoreProductFeatureRequest](Requests/ProductFeatures/RestoreProductFeatureRequest.cs)</code>
+<code>[RestoreProductFeatureRequest](src/Maxio/Requests/ProductFeatures/RestoreProductFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10928,9 +10928,9 @@ catch (ApiException<RestoreProductFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RestoreProductFeatureError](Errors/RestoreProductFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RestoreProductFeatureError](src/Maxio/Errors/RestoreProductFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -10988,7 +10988,7 @@ catch (ApiException<UpdateProductFeatureError> ex)
 <dl>
 <dd>
 
-<code>[UpdateProductFeatureRequest](Requests/ProductFeatures/UpdateProductFeatureRequest.cs)</code>
+<code>[UpdateProductFeatureRequest](src/Maxio/Requests/ProductFeatures/UpdateProductFeatureRequest.cs)</code>
 
 </dd>
 </dl>
@@ -10998,9 +10998,9 @@ catch (ApiException<UpdateProductFeatureError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FeatureCatalogItemResponse](Models/FeatureCatalogItemResponse.cs)</code>
+**OnSuccess**: <code>[FeatureCatalogItemResponse](src/Maxio/Models/FeatureCatalogItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductFeatureError](Errors/UpdateProductFeatureError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateProductFeatureError](src/Maxio/Errors/UpdateProductFeatureError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11012,7 +11012,7 @@ catch (ApiException<UpdateProductFeatureError> ex)
 
 ## ProductPricePoints
 
-> Source: [ProductPricePoints](Api/ProductPricePoints.cs)
+> Source: [ProductPricePoints](src/Maxio/Api/ProductPricePoints.cs)
 
 <details>
 <summary><code>Task&lt;ProductPricePointResponse&gt; ArchiveProductPricePoint(ArchiveProductPricePointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -11062,7 +11062,7 @@ catch (ApiException<ArchiveProductPricePointError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveProductPricePointRequest](Requests/ProductPricePoints/ArchiveProductPricePointRequest.cs)</code>
+<code>[ArchiveProductPricePointRequest](src/Maxio/Requests/ProductPricePoints/ArchiveProductPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11072,9 +11072,9 @@ catch (ApiException<ArchiveProductPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ProductPricePointResponse](src/Maxio/Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveProductPricePointError](Errors/ArchiveProductPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ArchiveProductPricePointError](src/Maxio/Errors/ArchiveProductPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11169,7 +11169,7 @@ catch (ApiException<BulkCreateProductPricePointsError> ex)
 <dl>
 <dd>
 
-<code>[BulkCreateProductPricePointsOperationRequest](Requests/ProductPricePoints/BulkCreateProductPricePointsOperationRequest.cs)</code>
+<code>[BulkCreateProductPricePointsOperationRequest](src/Maxio/Requests/ProductPricePoints/BulkCreateProductPricePointsOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11179,9 +11179,9 @@ catch (ApiException<BulkCreateProductPricePointsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BulkCreateProductPricePointsResponse](Models/BulkCreateProductPricePointsResponse.cs)</code>
+**OnSuccess**: <code>[BulkCreateProductPricePointsResponse](src/Maxio/Models/BulkCreateProductPricePointsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkCreateProductPricePointsError](Errors/BulkCreateProductPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[BulkCreateProductPricePointsError](src/Maxio/Errors/BulkCreateProductPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11251,7 +11251,7 @@ catch (ApiException<CreateProductCurrencyPricesError> ex)
 <dl>
 <dd>
 
-<code>[CreateProductCurrencyPricesOperationRequest](Requests/ProductPricePoints/CreateProductCurrencyPricesOperationRequest.cs)</code>
+<code>[CreateProductCurrencyPricesOperationRequest](src/Maxio/Requests/ProductPricePoints/CreateProductCurrencyPricesOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11261,9 +11261,9 @@ catch (ApiException<CreateProductCurrencyPricesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CurrencyPricesResponse](Models/CurrencyPricesResponse.cs)</code>
+**OnSuccess**: <code>[CurrencyPricesResponse](src/Maxio/Models/CurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductCurrencyPricesError](Errors/CreateProductCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateProductCurrencyPricesError](src/Maxio/Errors/CreateProductCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11339,7 +11339,7 @@ catch (ApiException<CreateProductPricePointError> ex)
 <dl>
 <dd>
 
-<code>[CreateProductPricePointOperationRequest](Requests/ProductPricePoints/CreateProductPricePointOperationRequest.cs)</code>
+<code>[CreateProductPricePointOperationRequest](src/Maxio/Requests/ProductPricePoints/CreateProductPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11349,9 +11349,9 @@ catch (ApiException<CreateProductPricePointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ProductPricePointResponse](src/Maxio/Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductPricePointError](Errors/CreateProductPricePointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateProductPricePointError](src/Maxio/Errors/CreateProductPricePointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11410,7 +11410,7 @@ catch (ApiException<ListAllProductPricePointsError> ex)
 <dl>
 <dd>
 
-<code>[ListAllProductPricePointsRequest](Requests/ProductPricePoints/ListAllProductPricePointsRequest.cs)</code>
+<code>[ListAllProductPricePointsRequest](src/Maxio/Requests/ProductPricePoints/ListAllProductPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11420,9 +11420,9 @@ catch (ApiException<ListAllProductPricePointsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProductPricePointsResponse](Models/ListProductPricePointsResponse.cs)</code>
+**OnSuccess**: <code>[ListProductPricePointsResponse](src/Maxio/Models/ListProductPricePointsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListAllProductPricePointsError](Errors/ListAllProductPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListAllProductPricePointsError](src/Maxio/Errors/ListAllProductPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11478,7 +11478,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListProductPricePointsRequest](Requests/ProductPricePoints/ListProductPricePointsRequest.cs)</code>
+<code>[ListProductPricePointsRequest](src/Maxio/Requests/ProductPricePoints/ListProductPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11488,9 +11488,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProductPricePointsResponse](Models/ListProductPricePointsResponse.cs)</code>
+**OnSuccess**: <code>[ListProductPricePointsResponse](src/Maxio/Models/ListProductPricePointsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11544,7 +11544,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[PromoteProductPricePointToDefaultRequest](Requests/ProductPricePoints/PromoteProductPricePointToDefaultRequest.cs)</code>
+<code>[PromoteProductPricePointToDefaultRequest](src/Maxio/Requests/ProductPricePoints/PromoteProductPricePointToDefaultRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11554,9 +11554,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
+**OnSuccess**: <code>[ProductResponse](src/Maxio/Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11611,7 +11611,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadProductPricePointRequest](Requests/ProductPricePoints/ReadProductPricePointRequest.cs)</code>
+<code>[ReadProductPricePointRequest](src/Maxio/Requests/ProductPricePoints/ReadProductPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11621,9 +11621,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ProductPricePointResponse](src/Maxio/Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11678,7 +11678,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[UnarchiveProductPricePointRequest](Requests/ProductPricePoints/UnarchiveProductPricePointRequest.cs)</code>
+<code>[UnarchiveProductPricePointRequest](src/Maxio/Requests/ProductPricePoints/UnarchiveProductPricePointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11688,9 +11688,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ProductPricePointResponse](src/Maxio/Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11758,7 +11758,7 @@ catch (ApiException<UpdateProductCurrencyPricesError> ex)
 <dl>
 <dd>
 
-<code>[UpdateProductCurrencyPricesRequest](Requests/ProductPricePoints/UpdateProductCurrencyPricesRequest.cs)</code>
+<code>[UpdateProductCurrencyPricesRequest](src/Maxio/Requests/ProductPricePoints/UpdateProductCurrencyPricesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11768,9 +11768,9 @@ catch (ApiException<UpdateProductCurrencyPricesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CurrencyPricesResponse](Models/CurrencyPricesResponse.cs)</code>
+**OnSuccess**: <code>[CurrencyPricesResponse](src/Maxio/Models/CurrencyPricesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductCurrencyPricesError](Errors/UpdateProductCurrencyPricesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateProductCurrencyPricesError](src/Maxio/Errors/UpdateProductCurrencyPricesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11831,7 +11831,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[UpdateProductPricePointOperationRequest](Requests/ProductPricePoints/UpdateProductPricePointOperationRequest.cs)</code>
+<code>[UpdateProductPricePointOperationRequest](src/Maxio/Requests/ProductPricePoints/UpdateProductPricePointOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11841,9 +11841,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductPricePointResponse](Models/ProductPricePointResponse.cs)</code>
+**OnSuccess**: <code>[ProductPricePointResponse](src/Maxio/Models/ProductPricePointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11855,7 +11855,7 @@ catch (ApiException<RawError> ex)
 
 ## Products
 
-> Source: [Products](Api/Products.cs)
+> Source: [Products](src/Maxio/Api/Products.cs)
 
 <details>
 <summary><code>Task&lt;ProductResponse&gt; ArchiveProduct(ArchiveProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -11903,7 +11903,7 @@ catch (ApiException<ArchiveProductError> ex)
 <dl>
 <dd>
 
-<code>[ArchiveProductRequest](Requests/Products/ArchiveProductRequest.cs)</code>
+<code>[ArchiveProductRequest](src/Maxio/Requests/Products/ArchiveProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -11913,9 +11913,9 @@ catch (ApiException<ArchiveProductError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
+**OnSuccess**: <code>[ProductResponse](src/Maxio/Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ArchiveProductError](Errors/ArchiveProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ArchiveProductError](src/Maxio/Errors/ArchiveProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -11995,7 +11995,7 @@ catch (ApiException<CreateProductError> ex)
 <dl>
 <dd>
 
-<code>[CreateProductRequest](Requests/Products/CreateProductRequest.cs)</code>
+<code>[CreateProductRequest](src/Maxio/Requests/Products/CreateProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12005,9 +12005,9 @@ catch (ApiException<CreateProductError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
+**OnSuccess**: <code>[ProductResponse](src/Maxio/Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProductError](Errors/CreateProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateProductError](src/Maxio/Errors/CreateProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12065,7 +12065,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListProductsRequest](Requests/Products/ListProductsRequest.cs)</code>
+<code>[ListProductsRequest](src/Maxio/Requests/Products/ListProductsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12075,9 +12075,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ProductResponse](Models/ProductResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ProductResponse](src/Maxio/Models/ProductResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12128,7 +12128,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadProductRequest](Requests/Products/ReadProductRequest.cs)</code>
+<code>[ReadProductRequest](src/Maxio/Requests/Products/ReadProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12138,9 +12138,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
+**OnSuccess**: <code>[ProductResponse](src/Maxio/Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12194,7 +12194,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadProductByHandleRequest](Requests/Products/ReadProductByHandleRequest.cs)</code>
+<code>[ReadProductByHandleRequest](src/Maxio/Requests/Products/ReadProductByHandleRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12204,9 +12204,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
+**OnSuccess**: <code>[ProductResponse](src/Maxio/Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12268,7 +12268,7 @@ catch (ApiException<UpdateProductError> ex)
 <dl>
 <dd>
 
-<code>[UpdateProductRequest](Requests/Products/UpdateProductRequest.cs)</code>
+<code>[UpdateProductRequest](src/Maxio/Requests/Products/UpdateProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12278,9 +12278,9 @@ catch (ApiException<UpdateProductError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProductResponse](Models/ProductResponse.cs)</code>
+**OnSuccess**: <code>[ProductResponse](src/Maxio/Models/ProductResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateProductError](Errors/UpdateProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateProductError](src/Maxio/Errors/UpdateProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12292,7 +12292,7 @@ catch (ApiException<UpdateProductError> ex)
 
 ## ProformaInvoices
 
-> Source: [ProformaInvoices](Api/ProformaInvoices.cs)
+> Source: [ProformaInvoices](src/Maxio/Api/ProformaInvoices.cs)
 
 <details>
 <summary><code>Task CreateConsolidatedProformaInvoice(CreateConsolidatedProformaInvoiceRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -12346,7 +12346,7 @@ catch (ApiException<CreateConsolidatedProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[CreateConsolidatedProformaInvoiceRequest](Requests/ProformaInvoices/CreateConsolidatedProformaInvoiceRequest.cs)</code>
+<code>[CreateConsolidatedProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/CreateConsolidatedProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12358,7 +12358,7 @@ catch (ApiException<CreateConsolidatedProformaInvoiceError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateConsolidatedProformaInvoiceError](Errors/CreateConsolidatedProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateConsolidatedProformaInvoiceError](src/Maxio/Errors/CreateConsolidatedProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12421,7 +12421,7 @@ catch (ApiException<CreateProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[CreateProformaInvoiceRequest](Requests/ProformaInvoices/CreateProformaInvoiceRequest.cs)</code>
+<code>[CreateProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/CreateProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12431,9 +12431,9 @@ catch (ApiException<CreateProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
+**OnSuccess**: <code>[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateProformaInvoiceError](Errors/CreateProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateProformaInvoiceError](src/Maxio/Errors/CreateProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12506,7 +12506,7 @@ catch (ApiException<CreateSignupProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[CreateSignupProformaInvoiceRequest](Requests/ProformaInvoices/CreateSignupProformaInvoiceRequest.cs)</code>
+<code>[CreateSignupProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/CreateSignupProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12516,9 +12516,9 @@ catch (ApiException<CreateSignupProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
+**OnSuccess**: <code>[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSignupProformaInvoiceError](Errors/CreateSignupProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateSignupProformaInvoiceError](src/Maxio/Errors/CreateSignupProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12586,7 +12586,7 @@ catch (ApiException<DeliverProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[DeliverProformaInvoiceOperationRequest](Requests/ProformaInvoices/DeliverProformaInvoiceOperationRequest.cs)</code>
+<code>[DeliverProformaInvoiceOperationRequest](src/Maxio/Requests/ProformaInvoices/DeliverProformaInvoiceOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12596,9 +12596,9 @@ catch (ApiException<DeliverProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
+**OnSuccess**: <code>[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeliverProformaInvoiceError](Errors/DeliverProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeliverProformaInvoiceError](src/Maxio/Errors/DeliverProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12654,7 +12654,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListProformaInvoicesRequest](Requests/ProformaInvoices/ListProformaInvoicesRequest.cs)</code>
+<code>[ListProformaInvoicesRequest](src/Maxio/Requests/ProformaInvoices/ListProformaInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12664,9 +12664,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProformaInvoicesResponse](Models/ListProformaInvoicesResponse.cs)</code>
+**OnSuccess**: <code>[ListProformaInvoicesResponse](src/Maxio/Models/ListProformaInvoicesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12723,7 +12723,7 @@ catch (ApiException<ListSubscriptionGroupProformaInvoicesError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionGroupProformaInvoicesRequest](Requests/ProformaInvoices/ListSubscriptionGroupProformaInvoicesRequest.cs)</code>
+<code>[ListSubscriptionGroupProformaInvoicesRequest](src/Maxio/Requests/ProformaInvoices/ListSubscriptionGroupProformaInvoicesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12733,9 +12733,9 @@ catch (ApiException<ListSubscriptionGroupProformaInvoicesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProformaInvoicesResponse](Models/ListProformaInvoicesResponse.cs)</code>
+**OnSuccess**: <code>[ListProformaInvoicesResponse](src/Maxio/Models/ListProformaInvoicesResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListSubscriptionGroupProformaInvoicesError](Errors/ListSubscriptionGroupProformaInvoicesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListSubscriptionGroupProformaInvoicesError](src/Maxio/Errors/ListSubscriptionGroupProformaInvoicesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12798,7 +12798,7 @@ catch (ApiException<PreviewProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[PreviewProformaInvoiceRequest](Requests/ProformaInvoices/PreviewProformaInvoiceRequest.cs)</code>
+<code>[PreviewProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/PreviewProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12808,9 +12808,9 @@ catch (ApiException<PreviewProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
+**OnSuccess**: <code>[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewProformaInvoiceError](Errors/PreviewProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PreviewProformaInvoiceError](src/Maxio/Errors/PreviewProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12884,7 +12884,7 @@ catch (ApiException<PreviewSignupProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[PreviewSignupProformaInvoiceRequest](Requests/ProformaInvoices/PreviewSignupProformaInvoiceRequest.cs)</code>
+<code>[PreviewSignupProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/PreviewSignupProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12894,9 +12894,9 @@ catch (ApiException<PreviewSignupProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SignupProformaPreviewResponse](Models/SignupProformaPreviewResponse.cs)</code>
+**OnSuccess**: <code>[SignupProformaPreviewResponse](src/Maxio/Models/SignupProformaPreviewResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewSignupProformaInvoiceError](Errors/PreviewSignupProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PreviewSignupProformaInvoiceError](src/Maxio/Errors/PreviewSignupProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -12957,7 +12957,7 @@ catch (ApiException<ReadProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[ReadProformaInvoiceRequest](Requests/ProformaInvoices/ReadProformaInvoiceRequest.cs)</code>
+<code>[ReadProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/ReadProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -12967,9 +12967,9 @@ catch (ApiException<ReadProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
+**OnSuccess**: <code>[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadProformaInvoiceError](Errors/ReadProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadProformaInvoiceError](src/Maxio/Errors/ReadProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13034,7 +13034,7 @@ catch (ApiException<VoidProformaInvoiceError> ex)
 <dl>
 <dd>
 
-<code>[VoidProformaInvoiceRequest](Requests/ProformaInvoices/VoidProformaInvoiceRequest.cs)</code>
+<code>[VoidProformaInvoiceRequest](src/Maxio/Requests/ProformaInvoices/VoidProformaInvoiceRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13044,9 +13044,9 @@ catch (ApiException<VoidProformaInvoiceError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ProformaInvoice](Models/ProformaInvoice.cs)</code>
+**OnSuccess**: <code>[ProformaInvoice](src/Maxio/Models/ProformaInvoice.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[VoidProformaInvoiceError](Errors/VoidProformaInvoiceError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[VoidProformaInvoiceError](src/Maxio/Errors/VoidProformaInvoiceError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13058,7 +13058,7 @@ catch (ApiException<VoidProformaInvoiceError> ex)
 
 ## ReasonCodes
 
-> Source: [ReasonCodes](Api/ReasonCodes.cs)
+> Source: [ReasonCodes](src/Maxio/Api/ReasonCodes.cs)
 
 <details>
 <summary><code>Task&lt;ReasonCodeResponse&gt; CreateReasonCode(CreateReasonCodeOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -13116,7 +13116,7 @@ catch (ApiException<CreateReasonCodeError> ex)
 <dl>
 <dd>
 
-<code>[CreateReasonCodeOperationRequest](Requests/ReasonCodes/CreateReasonCodeOperationRequest.cs)</code>
+<code>[CreateReasonCodeOperationRequest](src/Maxio/Requests/ReasonCodes/CreateReasonCodeOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13126,9 +13126,9 @@ catch (ApiException<CreateReasonCodeError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReasonCodeResponse](Models/ReasonCodeResponse.cs)</code>
+**OnSuccess**: <code>[ReasonCodeResponse](src/Maxio/Models/ReasonCodeResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateReasonCodeError](Errors/CreateReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateReasonCodeError](src/Maxio/Errors/CreateReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13182,7 +13182,7 @@ catch (ApiException<DeleteReasonCodeError> ex)
 <dl>
 <dd>
 
-<code>[DeleteReasonCodeRequest](Requests/ReasonCodes/DeleteReasonCodeRequest.cs)</code>
+<code>[DeleteReasonCodeRequest](src/Maxio/Requests/ReasonCodes/DeleteReasonCodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13192,9 +13192,9 @@ catch (ApiException<DeleteReasonCodeError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[OkResponse](Models/OkResponse.cs)</code>
+**OnSuccess**: <code>[OkResponse](src/Maxio/Models/OkResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteReasonCodeError](Errors/DeleteReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteReasonCodeError](src/Maxio/Errors/DeleteReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13248,7 +13248,7 @@ catch (ApiException<ListReasonCodesError> ex)
 <dl>
 <dd>
 
-<code>[ListReasonCodesRequest](Requests/ReasonCodes/ListReasonCodesRequest.cs)</code>
+<code>[ListReasonCodesRequest](src/Maxio/Requests/ReasonCodes/ListReasonCodesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13258,9 +13258,9 @@ catch (ApiException<ListReasonCodesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ReasonCodeResponse](Models/ReasonCodeResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ReasonCodeResponse](src/Maxio/Models/ReasonCodeResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListReasonCodesError](Errors/ListReasonCodesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListReasonCodesError](src/Maxio/Errors/ListReasonCodesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13314,7 +13314,7 @@ catch (ApiException<ReadReasonCodeError> ex)
 <dl>
 <dd>
 
-<code>[ReadReasonCodeRequest](Requests/ReasonCodes/ReadReasonCodeRequest.cs)</code>
+<code>[ReadReasonCodeRequest](src/Maxio/Requests/ReasonCodes/ReadReasonCodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13324,9 +13324,9 @@ catch (ApiException<ReadReasonCodeError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReasonCodeResponse](Models/ReasonCodeResponse.cs)</code>
+**OnSuccess**: <code>[ReasonCodeResponse](src/Maxio/Models/ReasonCodeResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadReasonCodeError](Errors/ReadReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadReasonCodeError](src/Maxio/Errors/ReadReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13380,7 +13380,7 @@ catch (ApiException<UpdateReasonCodeError> ex)
 <dl>
 <dd>
 
-<code>[UpdateReasonCodeOperationRequest](Requests/ReasonCodes/UpdateReasonCodeOperationRequest.cs)</code>
+<code>[UpdateReasonCodeOperationRequest](src/Maxio/Requests/ReasonCodes/UpdateReasonCodeOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13390,9 +13390,9 @@ catch (ApiException<UpdateReasonCodeError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReasonCodeResponse](Models/ReasonCodeResponse.cs)</code>
+**OnSuccess**: <code>[ReasonCodeResponse](src/Maxio/Models/ReasonCodeResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateReasonCodeError](Errors/UpdateReasonCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateReasonCodeError](src/Maxio/Errors/UpdateReasonCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13404,7 +13404,7 @@ catch (ApiException<UpdateReasonCodeError> ex)
 
 ## ReferralCodes
 
-> Source: [ReferralCodes](Api/ReferralCodes.cs)
+> Source: [ReferralCodes](src/Maxio/Api/ReferralCodes.cs)
 
 <details>
 <summary><code>Task&lt;ReferralValidationResponse&gt; ValidateReferralCode(ValidateReferralCodeRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -13455,7 +13455,7 @@ catch (ApiException<ValidateReferralCodeError> ex)
 <dl>
 <dd>
 
-<code>[ValidateReferralCodeRequest](Requests/ReferralCodes/ValidateReferralCodeRequest.cs)</code>
+<code>[ValidateReferralCodeRequest](src/Maxio/Requests/ReferralCodes/ValidateReferralCodeRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13465,9 +13465,9 @@ catch (ApiException<ValidateReferralCodeError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReferralValidationResponse](Models/ReferralValidationResponse.cs)</code>
+**OnSuccess**: <code>[ReferralValidationResponse](src/Maxio/Models/ReferralValidationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ValidateReferralCodeError](Errors/ValidateReferralCodeError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ValidateReferralCodeError](src/Maxio/Errors/ValidateReferralCodeError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13479,7 +13479,7 @@ catch (ApiException<ValidateReferralCodeError> ex)
 
 ## SalesCommissions
 
-> Source: [SalesCommissions](Api/SalesCommissions.cs)
+> Source: [SalesCommissions](src/Maxio/Api/SalesCommissions.cs)
 
 <details>
 <summary><code>Task&lt;IReadOnlyList&lt;SaleRepSettings&gt;&gt; ListSalesCommissionSettings(ListSalesCommissionSettingsRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -13534,7 +13534,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSalesCommissionSettingsRequest](Requests/SalesCommissions/ListSalesCommissionSettingsRequest.cs)</code>
+<code>[ListSalesCommissionSettingsRequest](src/Maxio/Requests/SalesCommissions/ListSalesCommissionSettingsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13544,9 +13544,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[SaleRepSettings](Models/SaleRepSettings.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[SaleRepSettings](src/Maxio/Models/SaleRepSettings.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13609,7 +13609,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSalesRepsRequest](Requests/SalesCommissions/ListSalesRepsRequest.cs)</code>
+<code>[ListSalesRepsRequest](src/Maxio/Requests/SalesCommissions/ListSalesRepsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13619,9 +13619,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[ListSaleRepItem](Models/ListSaleRepItem.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[ListSaleRepItem](src/Maxio/Models/ListSaleRepItem.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13685,7 +13685,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadSalesRepRequest](Requests/SalesCommissions/ReadSalesRepRequest.cs)</code>
+<code>[ReadSalesRepRequest](src/Maxio/Requests/SalesCommissions/ReadSalesRepRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13695,9 +13695,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SaleRep](Models/SaleRep.cs)</code>
+**OnSuccess**: <code>[SaleRep](src/Maxio/Models/SaleRep.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13709,7 +13709,7 @@ catch (ApiException<RawError> ex)
 
 ## Sites
 
-> Source: [Sites](Api/Sites.cs)
+> Source: [Sites](src/Maxio/Api/Sites.cs)
 
 <details>
 <summary><code>Task ClearSite(ClearSiteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -13753,7 +13753,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ClearSiteRequest](Requests/Sites/ClearSiteRequest.cs)</code>
+<code>[ClearSiteRequest](src/Maxio/Requests/Sites/ClearSiteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13765,7 +13765,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13820,7 +13820,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListChargifyJsPublicKeysRequest](Requests/Sites/ListChargifyJsPublicKeysRequest.cs)</code>
+<code>[ListChargifyJsPublicKeysRequest](src/Maxio/Requests/Sites/ListChargifyJsPublicKeysRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13830,9 +13830,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListPublicKeysResponse](Models/ListPublicKeysResponse.cs)</code>
+**OnSuccess**: <code>[ListPublicKeysResponse](src/Maxio/Models/ListPublicKeysResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13896,9 +13896,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SiteResponse](Models/SiteResponse.cs)</code>
+**OnSuccess**: <code>[SiteResponse](src/Maxio/Models/SiteResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -13910,7 +13910,7 @@ catch (ApiException<RawError> ex)
 
 ## SubscriptionComponents
 
-> Source: [SubscriptionComponents](Api/SubscriptionComponents.cs)
+> Source: [SubscriptionComponents](src/Maxio/Api/SubscriptionComponents.cs)
 
 <details>
 <summary><code>Task ActivateEventBasedComponent(ActivateEventBasedComponentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -13977,7 +13977,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ActivateEventBasedComponentRequest](Requests/SubscriptionComponents/ActivateEventBasedComponentRequest.cs)</code>
+<code>[ActivateEventBasedComponentRequest](src/Maxio/Requests/SubscriptionComponents/ActivateEventBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -13989,7 +13989,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14107,7 +14107,7 @@ catch (ApiException<AllocateComponentError> ex)
 <dl>
 <dd>
 
-<code>[AllocateComponentRequest](Requests/SubscriptionComponents/AllocateComponentRequest.cs)</code>
+<code>[AllocateComponentRequest](src/Maxio/Requests/SubscriptionComponents/AllocateComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14117,9 +14117,9 @@ catch (ApiException<AllocateComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AllocationResponse](Models/AllocationResponse.cs)</code>
+**OnSuccess**: <code>[AllocationResponse](src/Maxio/Models/AllocationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[AllocateComponentError](Errors/AllocateComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[AllocateComponentError](src/Maxio/Errors/AllocateComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14203,7 +14203,7 @@ catch (ApiException<AllocateComponentsError> ex)
 <dl>
 <dd>
 
-<code>[AllocateComponentsRequest](Requests/SubscriptionComponents/AllocateComponentsRequest.cs)</code>
+<code>[AllocateComponentsRequest](src/Maxio/Requests/SubscriptionComponents/AllocateComponentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14213,9 +14213,9 @@ catch (ApiException<AllocateComponentsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[AllocationResponse](Models/AllocationResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[AllocationResponse](src/Maxio/Models/AllocationResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[AllocateComponentsError](Errors/AllocateComponentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[AllocateComponentsError](src/Maxio/Errors/AllocateComponentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14272,7 +14272,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[BulkRecordEventsRequest](Requests/SubscriptionComponents/BulkRecordEventsRequest.cs)</code>
+<code>[BulkRecordEventsRequest](src/Maxio/Requests/SubscriptionComponents/BulkRecordEventsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14284,7 +14284,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14338,7 +14338,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[BulkResetSubscriptionComponentsPricePointsRequest](Requests/SubscriptionComponents/BulkResetSubscriptionComponentsPricePointsRequest.cs)</code>
+<code>[BulkResetSubscriptionComponentsPricePointsRequest](src/Maxio/Requests/SubscriptionComponents/BulkResetSubscriptionComponentsPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14348,9 +14348,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14421,7 +14421,7 @@ catch (ApiException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 <dl>
 <dd>
 
-<code>[BulkUpdateSubscriptionComponentsPricePointsRequest](Requests/SubscriptionComponents/BulkUpdateSubscriptionComponentsPricePointsRequest.cs)</code>
+<code>[BulkUpdateSubscriptionComponentsPricePointsRequest](src/Maxio/Requests/SubscriptionComponents/BulkUpdateSubscriptionComponentsPricePointsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14431,9 +14431,9 @@ catch (ApiException<BulkUpdateSubscriptionComponentsPricePointsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BulkComponentsPricePointAssignment](Models/BulkComponentsPricePointAssignment.cs)</code>
+**OnSuccess**: <code>[BulkComponentsPricePointAssignment](src/Maxio/Models/BulkComponentsPricePointAssignment.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[BulkUpdateSubscriptionComponentsPricePointsError](Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[BulkUpdateSubscriptionComponentsPricePointsError](src/Maxio/Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14544,7 +14544,7 @@ catch (ApiException<CreateUsageError> ex)
 <dl>
 <dd>
 
-<code>[CreateUsageOperationRequest](Requests/SubscriptionComponents/CreateUsageOperationRequest.cs)</code>
+<code>[CreateUsageOperationRequest](src/Maxio/Requests/SubscriptionComponents/CreateUsageOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14554,9 +14554,9 @@ catch (ApiException<CreateUsageError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[UsageResponse](Models/UsageResponse.cs)</code>
+**OnSuccess**: <code>[UsageResponse](src/Maxio/Models/UsageResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateUsageError](Errors/CreateUsageError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateUsageError](src/Maxio/Errors/CreateUsageError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14610,7 +14610,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[DeactivateEventBasedComponentRequest](Requests/SubscriptionComponents/DeactivateEventBasedComponentRequest.cs)</code>
+<code>[DeactivateEventBasedComponentRequest](src/Maxio/Requests/SubscriptionComponents/DeactivateEventBasedComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14622,7 +14622,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14691,7 +14691,7 @@ catch (ApiException<DeletePrepaidUsageAllocationError> ex)
 <dl>
 <dd>
 
-<code>[DeletePrepaidUsageAllocationRequest](Requests/SubscriptionComponents/DeletePrepaidUsageAllocationRequest.cs)</code>
+<code>[DeletePrepaidUsageAllocationRequest](src/Maxio/Requests/SubscriptionComponents/DeletePrepaidUsageAllocationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14703,7 +14703,7 @@ catch (ApiException<DeletePrepaidUsageAllocationError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeletePrepaidUsageAllocationError](Errors/DeletePrepaidUsageAllocationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeletePrepaidUsageAllocationError](src/Maxio/Errors/DeletePrepaidUsageAllocationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14766,7 +14766,7 @@ catch (ApiException<ListAllocationsError> ex)
 <dl>
 <dd>
 
-<code>[ListAllocationsRequest](Requests/SubscriptionComponents/ListAllocationsRequest.cs)</code>
+<code>[ListAllocationsRequest](src/Maxio/Requests/SubscriptionComponents/ListAllocationsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14776,9 +14776,9 @@ catch (ApiException<ListAllocationsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[AllocationResponse](Models/AllocationResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[AllocationResponse](src/Maxio/Models/AllocationResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListAllocationsError](Errors/ListAllocationsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListAllocationsError](src/Maxio/Errors/ListAllocationsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14842,7 +14842,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionComponentsRequest](Requests/SubscriptionComponents/ListSubscriptionComponentsRequest.cs)</code>
+<code>[ListSubscriptionComponentsRequest](src/Maxio/Requests/SubscriptionComponents/ListSubscriptionComponentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14852,9 +14852,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionComponentResponse](Models/SubscriptionComponentResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionComponentResponse](src/Maxio/Models/SubscriptionComponentResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14916,7 +14916,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionComponentsForSiteRequest](Requests/SubscriptionComponents/ListSubscriptionComponentsForSiteRequest.cs)</code>
+<code>[ListSubscriptionComponentsForSiteRequest](src/Maxio/Requests/SubscriptionComponents/ListSubscriptionComponentsForSiteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -14926,9 +14926,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListSubscriptionComponentsResponse](Models/ListSubscriptionComponentsResponse.cs)</code>
+**OnSuccess**: <code>[ListSubscriptionComponentsResponse](src/Maxio/Models/ListSubscriptionComponentsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -14999,7 +14999,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListUsagesRequest](Requests/SubscriptionComponents/ListUsagesRequest.cs)</code>
+<code>[ListUsagesRequest](src/Maxio/Requests/SubscriptionComponents/ListUsagesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15009,9 +15009,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[UsageResponse](Models/UsageResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[UsageResponse](src/Maxio/Models/UsageResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15089,7 +15089,7 @@ catch (ApiException<PreviewAllocationsError> ex)
 <dl>
 <dd>
 
-<code>[PreviewAllocationsOperationRequest](Requests/SubscriptionComponents/PreviewAllocationsOperationRequest.cs)</code>
+<code>[PreviewAllocationsOperationRequest](src/Maxio/Requests/SubscriptionComponents/PreviewAllocationsOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15099,9 +15099,9 @@ catch (ApiException<PreviewAllocationsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AllocationPreviewResponse](Models/AllocationPreviewResponse.cs)</code>
+**OnSuccess**: <code>[AllocationPreviewResponse](src/Maxio/Models/AllocationPreviewResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewAllocationsError](Errors/PreviewAllocationsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PreviewAllocationsError](src/Maxio/Errors/PreviewAllocationsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15159,7 +15159,7 @@ catch (ApiException<ReadSubscriptionComponentError> ex)
 <dl>
 <dd>
 
-<code>[ReadSubscriptionComponentRequest](Requests/SubscriptionComponents/ReadSubscriptionComponentRequest.cs)</code>
+<code>[ReadSubscriptionComponentRequest](src/Maxio/Requests/SubscriptionComponents/ReadSubscriptionComponentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15169,9 +15169,9 @@ catch (ApiException<ReadSubscriptionComponentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionComponentResponse](Models/SubscriptionComponentResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionComponentResponse](src/Maxio/Models/SubscriptionComponentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionComponentError](Errors/ReadSubscriptionComponentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReadSubscriptionComponentError](src/Maxio/Errors/ReadSubscriptionComponentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15242,7 +15242,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[RecordEventRequest](Requests/SubscriptionComponents/RecordEventRequest.cs)</code>
+<code>[RecordEventRequest](src/Maxio/Requests/SubscriptionComponents/RecordEventRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15254,7 +15254,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15327,7 +15327,7 @@ catch (ApiException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 <dl>
 <dd>
 
-<code>[UpdatePrepaidUsageAllocationExpirationDateRequest](Requests/SubscriptionComponents/UpdatePrepaidUsageAllocationExpirationDateRequest.cs)</code>
+<code>[UpdatePrepaidUsageAllocationExpirationDateRequest](src/Maxio/Requests/SubscriptionComponents/UpdatePrepaidUsageAllocationExpirationDateRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15339,7 +15339,7 @@ catch (ApiException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdatePrepaidUsageAllocationExpirationDateError](Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdatePrepaidUsageAllocationExpirationDateError](src/Maxio/Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15351,7 +15351,7 @@ catch (ApiException<UpdatePrepaidUsageAllocationExpirationDateError> ex)
 
 ## SubscriptionGroupInvoiceAccount
 
-> Source: [SubscriptionGroupInvoiceAccount](Api/SubscriptionGroupInvoiceAccount.cs)
+> Source: [SubscriptionGroupInvoiceAccount](src/Maxio/Api/SubscriptionGroupInvoiceAccount.cs)
 
 <details>
 <summary><code>Task&lt;SubscriptionGroupPrepaymentResponse&gt; CreateSubscriptionGroupPrepayment(CreateSubscriptionGroupPrepaymentRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -15398,7 +15398,7 @@ catch (ApiException<CreateSubscriptionGroupPrepaymentError> ex)
 <dl>
 <dd>
 
-<code>[CreateSubscriptionGroupPrepaymentRequest](Requests/SubscriptionGroupInvoiceAccount/CreateSubscriptionGroupPrepaymentRequest.cs)</code>
+<code>[CreateSubscriptionGroupPrepaymentRequest](src/Maxio/Requests/SubscriptionGroupInvoiceAccount/CreateSubscriptionGroupPrepaymentRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15408,9 +15408,9 @@ catch (ApiException<CreateSubscriptionGroupPrepaymentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionGroupPrepaymentResponse](Models/SubscriptionGroupPrepaymentResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionGroupPrepaymentResponse](src/Maxio/Models/SubscriptionGroupPrepaymentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionGroupPrepaymentError](Errors/CreateSubscriptionGroupPrepaymentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionGroupPrepaymentError](src/Maxio/Errors/CreateSubscriptionGroupPrepaymentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15472,7 +15472,7 @@ catch (ApiException<DeductSubscriptionGroupServiceCreditError> ex)
 <dl>
 <dd>
 
-<code>[DeductSubscriptionGroupServiceCreditRequest](Requests/SubscriptionGroupInvoiceAccount/DeductSubscriptionGroupServiceCreditRequest.cs)</code>
+<code>[DeductSubscriptionGroupServiceCreditRequest](src/Maxio/Requests/SubscriptionGroupInvoiceAccount/DeductSubscriptionGroupServiceCreditRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15482,9 +15482,9 @@ catch (ApiException<DeductSubscriptionGroupServiceCreditError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ServiceCredit](Models/ServiceCredit.cs)</code>
+**OnSuccess**: <code>[ServiceCredit](src/Maxio/Models/ServiceCredit.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeductSubscriptionGroupServiceCreditError](Errors/DeductSubscriptionGroupServiceCreditError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeductSubscriptionGroupServiceCreditError](src/Maxio/Errors/DeductSubscriptionGroupServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15546,7 +15546,7 @@ catch (ApiException<IssueSubscriptionGroupServiceCreditError> ex)
 <dl>
 <dd>
 
-<code>[IssueSubscriptionGroupServiceCreditRequest](Requests/SubscriptionGroupInvoiceAccount/IssueSubscriptionGroupServiceCreditRequest.cs)</code>
+<code>[IssueSubscriptionGroupServiceCreditRequest](src/Maxio/Requests/SubscriptionGroupInvoiceAccount/IssueSubscriptionGroupServiceCreditRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15556,9 +15556,9 @@ catch (ApiException<IssueSubscriptionGroupServiceCreditError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ServiceCreditResponse](Models/ServiceCreditResponse.cs)</code>
+**OnSuccess**: <code>[ServiceCreditResponse](src/Maxio/Models/ServiceCreditResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueSubscriptionGroupServiceCreditError](Errors/IssueSubscriptionGroupServiceCreditError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[IssueSubscriptionGroupServiceCreditError](src/Maxio/Errors/IssueSubscriptionGroupServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15613,7 +15613,7 @@ catch (ApiException<ListPrepaymentsForSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-<code>[ListPrepaymentsForSubscriptionGroupRequest](Requests/SubscriptionGroupInvoiceAccount/ListPrepaymentsForSubscriptionGroupRequest.cs)</code>
+<code>[ListPrepaymentsForSubscriptionGroupRequest](src/Maxio/Requests/SubscriptionGroupInvoiceAccount/ListPrepaymentsForSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15623,9 +15623,9 @@ catch (ApiException<ListPrepaymentsForSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListSubscriptionGroupPrepaymentResponse](Models/ListSubscriptionGroupPrepaymentResponse.cs)</code>
+**OnSuccess**: <code>[ListSubscriptionGroupPrepaymentResponse](src/Maxio/Models/ListSubscriptionGroupPrepaymentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListPrepaymentsForSubscriptionGroupError](Errors/ListPrepaymentsForSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListPrepaymentsForSubscriptionGroupError](src/Maxio/Errors/ListPrepaymentsForSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15637,7 +15637,7 @@ catch (ApiException<ListPrepaymentsForSubscriptionGroupError> ex)
 
 ## SubscriptionGroupStatus
 
-> Source: [SubscriptionGroupStatus](Api/SubscriptionGroupStatus.cs)
+> Source: [SubscriptionGroupStatus](src/Maxio/Api/SubscriptionGroupStatus.cs)
 
 <details>
 <summary><code>Task CancelDelayedCancellationForGroup(CancelDelayedCancellationForGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -15687,7 +15687,7 @@ catch (ApiException<CancelDelayedCancellationForGroupError> ex)
 <dl>
 <dd>
 
-<code>[CancelDelayedCancellationForGroupRequest](Requests/SubscriptionGroupStatus/CancelDelayedCancellationForGroupRequest.cs)</code>
+<code>[CancelDelayedCancellationForGroupRequest](src/Maxio/Requests/SubscriptionGroupStatus/CancelDelayedCancellationForGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15699,7 +15699,7 @@ catch (ApiException<CancelDelayedCancellationForGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelDelayedCancellationForGroupError](Errors/CancelDelayedCancellationForGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CancelDelayedCancellationForGroupError](src/Maxio/Errors/CancelDelayedCancellationForGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15758,7 +15758,7 @@ catch (ApiException<CancelSubscriptionsInGroupError> ex)
 <dl>
 <dd>
 
-<code>[CancelSubscriptionsInGroupRequest](Requests/SubscriptionGroupStatus/CancelSubscriptionsInGroupRequest.cs)</code>
+<code>[CancelSubscriptionsInGroupRequest](src/Maxio/Requests/SubscriptionGroupStatus/CancelSubscriptionsInGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15770,7 +15770,7 @@ catch (ApiException<CancelSubscriptionsInGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelSubscriptionsInGroupError](Errors/CancelSubscriptionsInGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CancelSubscriptionsInGroupError](src/Maxio/Errors/CancelSubscriptionsInGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15826,7 +15826,7 @@ catch (ApiException<InitiateDelayedCancellationForGroupError> ex)
 <dl>
 <dd>
 
-<code>[InitiateDelayedCancellationForGroupRequest](Requests/SubscriptionGroupStatus/InitiateDelayedCancellationForGroupRequest.cs)</code>
+<code>[InitiateDelayedCancellationForGroupRequest](src/Maxio/Requests/SubscriptionGroupStatus/InitiateDelayedCancellationForGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15838,7 +15838,7 @@ catch (ApiException<InitiateDelayedCancellationForGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[InitiateDelayedCancellationForGroupError](Errors/InitiateDelayedCancellationForGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[InitiateDelayedCancellationForGroupError](src/Maxio/Errors/InitiateDelayedCancellationForGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15922,7 +15922,7 @@ catch (ApiException<ReactivateSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-<code>[ReactivateSubscriptionGroupOperationRequest](Requests/SubscriptionGroupStatus/ReactivateSubscriptionGroupOperationRequest.cs)</code>
+<code>[ReactivateSubscriptionGroupOperationRequest](src/Maxio/Requests/SubscriptionGroupStatus/ReactivateSubscriptionGroupOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -15932,9 +15932,9 @@ catch (ApiException<ReactivateSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReactivateSubscriptionGroupResponse](Models/ReactivateSubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[ReactivateSubscriptionGroupResponse](src/Maxio/Models/ReactivateSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReactivateSubscriptionGroupError](Errors/ReactivateSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReactivateSubscriptionGroupError](src/Maxio/Errors/ReactivateSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -15946,7 +15946,7 @@ catch (ApiException<ReactivateSubscriptionGroupError> ex)
 
 ## SubscriptionGroups
 
-> Source: [SubscriptionGroups](Api/SubscriptionGroups.cs)
+> Source: [SubscriptionGroups](src/Maxio/Api/SubscriptionGroups.cs)
 
 <details>
 <summary><code>Task&lt;SubscriptionGroupResponse&gt; AddSubscriptionToGroup(AddSubscriptionToGroupRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -16012,7 +16012,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[AddSubscriptionToGroupRequest](Requests/SubscriptionGroups/AddSubscriptionToGroupRequest.cs)</code>
+<code>[AddSubscriptionToGroupRequest](src/Maxio/Requests/SubscriptionGroups/AddSubscriptionToGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16022,9 +16022,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionGroupResponse](Models/SubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionGroupResponse](src/Maxio/Models/SubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16084,7 +16084,7 @@ catch (ApiException<CreateSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-<code>[CreateSubscriptionGroupOperationRequest](Requests/SubscriptionGroups/CreateSubscriptionGroupOperationRequest.cs)</code>
+<code>[CreateSubscriptionGroupOperationRequest](src/Maxio/Requests/SubscriptionGroups/CreateSubscriptionGroupOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16094,9 +16094,9 @@ catch (ApiException<CreateSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionGroupResponse](Models/SubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionGroupResponse](src/Maxio/Models/SubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionGroupError](Errors/CreateSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionGroupError](src/Maxio/Errors/CreateSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16154,7 +16154,7 @@ catch (ApiException<DeleteSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-<code>[DeleteSubscriptionGroupRequest](Requests/SubscriptionGroups/DeleteSubscriptionGroupRequest.cs)</code>
+<code>[DeleteSubscriptionGroupRequest](src/Maxio/Requests/SubscriptionGroups/DeleteSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16164,9 +16164,9 @@ catch (ApiException<DeleteSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DeleteSubscriptionGroupResponse](Models/DeleteSubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[DeleteSubscriptionGroupResponse](src/Maxio/Models/DeleteSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteSubscriptionGroupError](Errors/DeleteSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteSubscriptionGroupError](src/Maxio/Errors/DeleteSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16225,7 +16225,7 @@ catch (ApiException<FindSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-<code>[FindSubscriptionGroupRequest](Requests/SubscriptionGroups/FindSubscriptionGroupRequest.cs)</code>
+<code>[FindSubscriptionGroupRequest](src/Maxio/Requests/SubscriptionGroups/FindSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16235,9 +16235,9 @@ catch (ApiException<FindSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FullSubscriptionGroupResponse](Models/FullSubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[FullSubscriptionGroupResponse](src/Maxio/Models/FullSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[FindSubscriptionGroupError](Errors/FindSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[FindSubscriptionGroupError](src/Maxio/Errors/FindSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16297,7 +16297,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionGroupsRequest](Requests/SubscriptionGroups/ListSubscriptionGroupsRequest.cs)</code>
+<code>[ListSubscriptionGroupsRequest](src/Maxio/Requests/SubscriptionGroups/ListSubscriptionGroupsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16307,9 +16307,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListSubscriptionGroupsResponse](Models/ListSubscriptionGroupsResponse.cs)</code>
+**OnSuccess**: <code>[ListSubscriptionGroupsResponse](src/Maxio/Models/ListSubscriptionGroupsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16368,7 +16368,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadSubscriptionGroupRequest](Requests/SubscriptionGroups/ReadSubscriptionGroupRequest.cs)</code>
+<code>[ReadSubscriptionGroupRequest](src/Maxio/Requests/SubscriptionGroups/ReadSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16378,9 +16378,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FullSubscriptionGroupResponse](Models/FullSubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[FullSubscriptionGroupResponse](src/Maxio/Models/FullSubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16436,7 +16436,7 @@ catch (ApiException<RemoveSubscriptionFromGroupError> ex)
 <dl>
 <dd>
 
-<code>[RemoveSubscriptionFromGroupRequest](Requests/SubscriptionGroups/RemoveSubscriptionFromGroupRequest.cs)</code>
+<code>[RemoveSubscriptionFromGroupRequest](src/Maxio/Requests/SubscriptionGroups/RemoveSubscriptionFromGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16448,7 +16448,7 @@ catch (ApiException<RemoveSubscriptionFromGroupError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveSubscriptionFromGroupError](Errors/RemoveSubscriptionFromGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RemoveSubscriptionFromGroupError](src/Maxio/Errors/RemoveSubscriptionFromGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16527,7 +16527,7 @@ catch (ApiException<SignupWithSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-<code>[SignupWithSubscriptionGroupRequest](Requests/SubscriptionGroups/SignupWithSubscriptionGroupRequest.cs)</code>
+<code>[SignupWithSubscriptionGroupRequest](src/Maxio/Requests/SubscriptionGroups/SignupWithSubscriptionGroupRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16537,9 +16537,9 @@ catch (ApiException<SignupWithSubscriptionGroupError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionGroupSignupResponse](Models/SubscriptionGroupSignupResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionGroupSignupResponse](src/Maxio/Models/SubscriptionGroupSignupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[SignupWithSubscriptionGroupError](Errors/SignupWithSubscriptionGroupError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[SignupWithSubscriptionGroupError](src/Maxio/Errors/SignupWithSubscriptionGroupError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16602,7 +16602,7 @@ catch (ApiException<UpdateSubscriptionGroupMembersError> ex)
 <dl>
 <dd>
 
-<code>[UpdateSubscriptionGroupMembersRequest](Requests/SubscriptionGroups/UpdateSubscriptionGroupMembersRequest.cs)</code>
+<code>[UpdateSubscriptionGroupMembersRequest](src/Maxio/Requests/SubscriptionGroups/UpdateSubscriptionGroupMembersRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16612,9 +16612,9 @@ catch (ApiException<UpdateSubscriptionGroupMembersError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionGroupResponse](Models/SubscriptionGroupResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionGroupResponse](src/Maxio/Models/SubscriptionGroupResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionGroupMembersError](Errors/UpdateSubscriptionGroupMembersError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionGroupMembersError](src/Maxio/Errors/UpdateSubscriptionGroupMembersError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16626,7 +16626,7 @@ catch (ApiException<UpdateSubscriptionGroupMembersError> ex)
 
 ## SubscriptionInvoiceAccount
 
-> Source: [SubscriptionInvoiceAccount](Api/SubscriptionInvoiceAccount.cs)
+> Source: [SubscriptionInvoiceAccount](src/Maxio/Api/SubscriptionInvoiceAccount.cs)
 
 <details>
 <summary><code>Task&lt;CreatePrepaymentResponse&gt; CreatePrepayment(CreatePrepaymentOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -16697,7 +16697,7 @@ catch (ApiException<CreatePrepaymentError> ex)
 <dl>
 <dd>
 
-<code>[CreatePrepaymentOperationRequest](Requests/SubscriptionInvoiceAccount/CreatePrepaymentOperationRequest.cs)</code>
+<code>[CreatePrepaymentOperationRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/CreatePrepaymentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16707,9 +16707,9 @@ catch (ApiException<CreatePrepaymentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CreatePrepaymentResponse](Models/CreatePrepaymentResponse.cs)</code>
+**OnSuccess**: <code>[CreatePrepaymentResponse](src/Maxio/Models/CreatePrepaymentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreatePrepaymentError](Errors/CreatePrepaymentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreatePrepaymentError](src/Maxio/Errors/CreatePrepaymentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16769,7 +16769,7 @@ catch (ApiException<DeductServiceCreditError> ex)
 <dl>
 <dd>
 
-<code>[DeductServiceCreditOperationRequest](Requests/SubscriptionInvoiceAccount/DeductServiceCreditOperationRequest.cs)</code>
+<code>[DeductServiceCreditOperationRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/DeductServiceCreditOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16781,7 +16781,7 @@ catch (ApiException<DeductServiceCreditError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeductServiceCreditError](Errors/DeductServiceCreditError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeductServiceCreditError](src/Maxio/Errors/DeductServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16839,7 +16839,7 @@ catch (ApiException<IssueServiceCreditError> ex)
 <dl>
 <dd>
 
-<code>[IssueServiceCreditOperationRequest](Requests/SubscriptionInvoiceAccount/IssueServiceCreditOperationRequest.cs)</code>
+<code>[IssueServiceCreditOperationRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/IssueServiceCreditOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16849,9 +16849,9 @@ catch (ApiException<IssueServiceCreditError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ServiceCredit](Models/ServiceCredit.cs)</code>
+**OnSuccess**: <code>[ServiceCredit](src/Maxio/Models/ServiceCredit.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[IssueServiceCreditError](Errors/IssueServiceCreditError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[IssueServiceCreditError](src/Maxio/Errors/IssueServiceCreditError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16910,7 +16910,7 @@ catch (ApiException<ListPrepaymentsError> ex)
 <dl>
 <dd>
 
-<code>[ListPrepaymentsRequest](Requests/SubscriptionInvoiceAccount/ListPrepaymentsRequest.cs)</code>
+<code>[ListPrepaymentsRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/ListPrepaymentsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16920,9 +16920,9 @@ catch (ApiException<ListPrepaymentsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PrepaymentsResponse](Models/PrepaymentsResponse.cs)</code>
+**OnSuccess**: <code>[PrepaymentsResponse](src/Maxio/Models/PrepaymentsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListPrepaymentsError](Errors/ListPrepaymentsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListPrepaymentsError](src/Maxio/Errors/ListPrepaymentsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -16981,7 +16981,7 @@ catch (ApiException<ListServiceCreditsError> ex)
 <dl>
 <dd>
 
-<code>[ListServiceCreditsRequest](Requests/SubscriptionInvoiceAccount/ListServiceCreditsRequest.cs)</code>
+<code>[ListServiceCreditsRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/ListServiceCreditsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -16991,9 +16991,9 @@ catch (ApiException<ListServiceCreditsError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListServiceCreditsResponse](Models/ListServiceCreditsResponse.cs)</code>
+**OnSuccess**: <code>[ListServiceCreditsResponse](src/Maxio/Models/ListServiceCreditsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListServiceCreditsError](Errors/ListServiceCreditsError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListServiceCreditsError](src/Maxio/Errors/ListServiceCreditsError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17047,7 +17047,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadAccountBalancesRequest](Requests/SubscriptionInvoiceAccount/ReadAccountBalancesRequest.cs)</code>
+<code>[ReadAccountBalancesRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/ReadAccountBalancesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17057,9 +17057,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AccountBalances](Models/AccountBalances.cs)</code>
+**OnSuccess**: <code>[AccountBalances](src/Maxio/Models/AccountBalances.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17119,7 +17119,7 @@ catch (ApiException<RefundPrepaymentError> ex)
 <dl>
 <dd>
 
-<code>[RefundPrepaymentOperationRequest](Requests/SubscriptionInvoiceAccount/RefundPrepaymentOperationRequest.cs)</code>
+<code>[RefundPrepaymentOperationRequest](src/Maxio/Requests/SubscriptionInvoiceAccount/RefundPrepaymentOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17129,9 +17129,9 @@ catch (ApiException<RefundPrepaymentError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PrepaymentResponse](Models/PrepaymentResponse.cs)</code>
+**OnSuccess**: <code>[PrepaymentResponse](src/Maxio/Models/PrepaymentResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RefundPrepaymentError](Errors/RefundPrepaymentError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RefundPrepaymentError](src/Maxio/Errors/RefundPrepaymentError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17143,7 +17143,7 @@ catch (ApiException<RefundPrepaymentError> ex)
 
 ## SubscriptionNotes
 
-> Source: [SubscriptionNotes](Api/SubscriptionNotes.cs)
+> Source: [SubscriptionNotes](src/Maxio/Api/SubscriptionNotes.cs)
 
 <details>
 <summary><code>Task&lt;SubscriptionNoteResponse&gt; CreateSubscriptionNote(CreateSubscriptionNoteRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -17202,7 +17202,7 @@ catch (ApiException<CreateSubscriptionNoteError> ex)
 <dl>
 <dd>
 
-<code>[CreateSubscriptionNoteRequest](Requests/SubscriptionNotes/CreateSubscriptionNoteRequest.cs)</code>
+<code>[CreateSubscriptionNoteRequest](src/Maxio/Requests/SubscriptionNotes/CreateSubscriptionNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17212,9 +17212,9 @@ catch (ApiException<CreateSubscriptionNoteError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionNoteResponse](src/Maxio/Models/SubscriptionNoteResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionNoteError](Errors/CreateSubscriptionNoteError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionNoteError](src/Maxio/Errors/CreateSubscriptionNoteError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17268,7 +17268,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[DeleteSubscriptionNoteRequest](Requests/SubscriptionNotes/DeleteSubscriptionNoteRequest.cs)</code>
+<code>[DeleteSubscriptionNoteRequest](src/Maxio/Requests/SubscriptionNotes/DeleteSubscriptionNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17280,7 +17280,7 @@ catch (ApiException<RawError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17339,7 +17339,7 @@ catch (ApiException<ListSubscriptionNotesError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionNotesRequest](Requests/SubscriptionNotes/ListSubscriptionNotesRequest.cs)</code>
+<code>[ListSubscriptionNotesRequest](src/Maxio/Requests/SubscriptionNotes/ListSubscriptionNotesRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17349,9 +17349,9 @@ catch (ApiException<ListSubscriptionNotesError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionNoteResponse](src/Maxio/Models/SubscriptionNoteResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ListSubscriptionNotesError](Errors/ListSubscriptionNotesError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ListSubscriptionNotesError](src/Maxio/Errors/ListSubscriptionNotesError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17406,7 +17406,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadSubscriptionNoteRequest](Requests/SubscriptionNotes/ReadSubscriptionNoteRequest.cs)</code>
+<code>[ReadSubscriptionNoteRequest](src/Maxio/Requests/SubscriptionNotes/ReadSubscriptionNoteRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17416,9 +17416,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionNoteResponse](src/Maxio/Models/SubscriptionNoteResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17480,7 +17480,7 @@ catch (ApiException<UpdateSubscriptionNoteError> ex)
 <dl>
 <dd>
 
-<code>[UpdateSubscriptionNoteOperationRequest](Requests/SubscriptionNotes/UpdateSubscriptionNoteOperationRequest.cs)</code>
+<code>[UpdateSubscriptionNoteOperationRequest](src/Maxio/Requests/SubscriptionNotes/UpdateSubscriptionNoteOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17490,9 +17490,9 @@ catch (ApiException<UpdateSubscriptionNoteError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionNoteResponse](Models/SubscriptionNoteResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionNoteResponse](src/Maxio/Models/SubscriptionNoteResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionNoteError](Errors/UpdateSubscriptionNoteError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionNoteError](src/Maxio/Errors/UpdateSubscriptionNoteError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17504,7 +17504,7 @@ catch (ApiException<UpdateSubscriptionNoteError> ex)
 
 ## SubscriptionProducts
 
-> Source: [SubscriptionProducts](Api/SubscriptionProducts.cs)
+> Source: [SubscriptionProducts](src/Maxio/Api/SubscriptionProducts.cs)
 
 <details>
 <summary><code>Task&lt;SubscriptionResponse&gt; MigrateSubscriptionProduct(MigrateSubscriptionProductRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -17584,7 +17584,7 @@ catch (ApiException<MigrateSubscriptionProductError> ex)
 <dl>
 <dd>
 
-<code>[MigrateSubscriptionProductRequest](Requests/SubscriptionProducts/MigrateSubscriptionProductRequest.cs)</code>
+<code>[MigrateSubscriptionProductRequest](src/Maxio/Requests/SubscriptionProducts/MigrateSubscriptionProductRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17594,9 +17594,9 @@ catch (ApiException<MigrateSubscriptionProductError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[MigrateSubscriptionProductError](Errors/MigrateSubscriptionProductError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[MigrateSubscriptionProductError](src/Maxio/Errors/MigrateSubscriptionProductError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17656,7 +17656,7 @@ catch (ApiException<PreviewSubscriptionProductMigrationError> ex)
 <dl>
 <dd>
 
-<code>[PreviewSubscriptionProductMigrationRequest](Requests/SubscriptionProducts/PreviewSubscriptionProductMigrationRequest.cs)</code>
+<code>[PreviewSubscriptionProductMigrationRequest](src/Maxio/Requests/SubscriptionProducts/PreviewSubscriptionProductMigrationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17666,9 +17666,9 @@ catch (ApiException<PreviewSubscriptionProductMigrationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionMigrationPreviewResponse](Models/SubscriptionMigrationPreviewResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionMigrationPreviewResponse](src/Maxio/Models/SubscriptionMigrationPreviewResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewSubscriptionProductMigrationError](Errors/PreviewSubscriptionProductMigrationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PreviewSubscriptionProductMigrationError](src/Maxio/Errors/PreviewSubscriptionProductMigrationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17680,7 +17680,7 @@ catch (ApiException<PreviewSubscriptionProductMigrationError> ex)
 
 ## SubscriptionRenewals
 
-> Source: [SubscriptionRenewals](Api/SubscriptionRenewals.cs)
+> Source: [SubscriptionRenewals](src/Maxio/Api/SubscriptionRenewals.cs)
 
 <details>
 <summary><code>Task&lt;ScheduledRenewalConfigurationResponse&gt; CancelScheduledRenewalConfiguration(CancelScheduledRenewalConfigurationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -17727,7 +17727,7 @@ catch (ApiException<CancelScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-<code>[CancelScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/CancelScheduledRenewalConfigurationRequest.cs)</code>
+<code>[CancelScheduledRenewalConfigurationRequest](src/Maxio/Requests/SubscriptionRenewals/CancelScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17737,9 +17737,9 @@ catch (ApiException<CancelScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelScheduledRenewalConfigurationError](Errors/CancelScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CancelScheduledRenewalConfigurationError](src/Maxio/Errors/CancelScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17807,7 +17807,7 @@ catch (ApiException<CreateScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-<code>[CreateScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationRequest.cs)</code>
+<code>[CreateScheduledRenewalConfigurationRequest](src/Maxio/Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17817,9 +17817,9 @@ catch (ApiException<CreateScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateScheduledRenewalConfigurationError](Errors/CreateScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateScheduledRenewalConfigurationError](src/Maxio/Errors/CreateScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17864,7 +17864,6 @@ try
             {
                 RenewalConfigurationItem = new ScheduledRenewalItemRequestBodyComponent
                 {
-                    ItemType = ItemType.Component,
                     ItemId = 57,
                     Quantity = 1,
                     CustomPrice = new ScheduledRenewalComponentCustomPrice
@@ -17894,7 +17893,7 @@ catch (ApiException<CreateScheduledRenewalConfigurationItemError> ex)
 <dl>
 <dd>
 
-<code>[CreateScheduledRenewalConfigurationItemRequest](Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationItemRequest.cs)</code>
+<code>[CreateScheduledRenewalConfigurationItemRequest](src/Maxio/Requests/SubscriptionRenewals/CreateScheduledRenewalConfigurationItemRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17904,9 +17903,9 @@ catch (ApiException<CreateScheduledRenewalConfigurationItemError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationItemResponse](Models/ScheduledRenewalConfigurationItemResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationItemResponse](src/Maxio/Models/ScheduledRenewalConfigurationItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateScheduledRenewalConfigurationItemError](Errors/CreateScheduledRenewalConfigurationItemError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateScheduledRenewalConfigurationItemError](src/Maxio/Errors/CreateScheduledRenewalConfigurationItemError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -17965,7 +17964,7 @@ catch (ApiException<DeleteScheduledRenewalConfigurationItemError> ex)
 <dl>
 <dd>
 
-<code>[DeleteScheduledRenewalConfigurationItemRequest](Requests/SubscriptionRenewals/DeleteScheduledRenewalConfigurationItemRequest.cs)</code>
+<code>[DeleteScheduledRenewalConfigurationItemRequest](src/Maxio/Requests/SubscriptionRenewals/DeleteScheduledRenewalConfigurationItemRequest.cs)</code>
 
 </dd>
 </dl>
@@ -17977,7 +17976,7 @@ catch (ApiException<DeleteScheduledRenewalConfigurationItemError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[DeleteScheduledRenewalConfigurationItemError](Errors/DeleteScheduledRenewalConfigurationItemError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[DeleteScheduledRenewalConfigurationItemError](src/Maxio/Errors/DeleteScheduledRenewalConfigurationItemError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18029,7 +18028,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListScheduledRenewalConfigurationsRequest](Requests/SubscriptionRenewals/ListScheduledRenewalConfigurationsRequest.cs)</code>
+<code>[ListScheduledRenewalConfigurationsRequest](src/Maxio/Requests/SubscriptionRenewals/ListScheduledRenewalConfigurationsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18039,9 +18038,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationsResponse](Models/ScheduledRenewalConfigurationsResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationsResponse](src/Maxio/Models/ScheduledRenewalConfigurationsResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18096,7 +18095,7 @@ catch (ApiException<LockInScheduledRenewalImmediatelyError> ex)
 <dl>
 <dd>
 
-<code>[LockInScheduledRenewalImmediatelyRequest](Requests/SubscriptionRenewals/LockInScheduledRenewalImmediatelyRequest.cs)</code>
+<code>[LockInScheduledRenewalImmediatelyRequest](src/Maxio/Requests/SubscriptionRenewals/LockInScheduledRenewalImmediatelyRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18106,9 +18105,9 @@ catch (ApiException<LockInScheduledRenewalImmediatelyError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[LockInScheduledRenewalImmediatelyError](Errors/LockInScheduledRenewalImmediatelyError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[LockInScheduledRenewalImmediatelyError](src/Maxio/Errors/LockInScheduledRenewalImmediatelyError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18160,7 +18159,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/ReadScheduledRenewalConfigurationRequest.cs)</code>
+<code>[ReadScheduledRenewalConfigurationRequest](src/Maxio/Requests/SubscriptionRenewals/ReadScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18170,9 +18169,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18232,7 +18231,7 @@ catch (ApiException<ScheduleScheduledRenewalLockInError> ex)
 <dl>
 <dd>
 
-<code>[ScheduleScheduledRenewalLockInRequest](Requests/SubscriptionRenewals/ScheduleScheduledRenewalLockInRequest.cs)</code>
+<code>[ScheduleScheduledRenewalLockInRequest](src/Maxio/Requests/SubscriptionRenewals/ScheduleScheduledRenewalLockInRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18242,9 +18241,9 @@ catch (ApiException<ScheduleScheduledRenewalLockInError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ScheduleScheduledRenewalLockInError](Errors/ScheduleScheduledRenewalLockInError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ScheduleScheduledRenewalLockInError](src/Maxio/Errors/ScheduleScheduledRenewalLockInError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18299,7 +18298,7 @@ catch (ApiException<UnpublishScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-<code>[UnpublishScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/UnpublishScheduledRenewalConfigurationRequest.cs)</code>
+<code>[UnpublishScheduledRenewalConfigurationRequest](src/Maxio/Requests/SubscriptionRenewals/UnpublishScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18309,9 +18308,9 @@ catch (ApiException<UnpublishScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UnpublishScheduledRenewalConfigurationError](Errors/UnpublishScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UnpublishScheduledRenewalConfigurationError](src/Maxio/Errors/UnpublishScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18379,7 +18378,7 @@ catch (ApiException<UpdateScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-<code>[UpdateScheduledRenewalConfigurationRequest](Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationRequest.cs)</code>
+<code>[UpdateScheduledRenewalConfigurationRequest](src/Maxio/Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18389,9 +18388,9 @@ catch (ApiException<UpdateScheduledRenewalConfigurationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](Models/ScheduledRenewalConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationResponse](src/Maxio/Models/ScheduledRenewalConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateScheduledRenewalConfigurationError](Errors/UpdateScheduledRenewalConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateScheduledRenewalConfigurationError](src/Maxio/Errors/UpdateScheduledRenewalConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18437,7 +18436,6 @@ try
             {
                 RenewalConfigurationItem = new ScheduledRenewalItemRequestBodyComponent
                 {
-                    ItemType = ItemType.Component,
                     ItemId = 57,
                     Quantity = 2,
                     CustomPrice = new ScheduledRenewalComponentCustomPrice
@@ -18467,7 +18465,7 @@ catch (ApiException<UpdateScheduledRenewalConfigurationItemError> ex)
 <dl>
 <dd>
 
-<code>[UpdateScheduledRenewalConfigurationItemRequest](Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationItemRequest.cs)</code>
+<code>[UpdateScheduledRenewalConfigurationItemRequest](src/Maxio/Requests/SubscriptionRenewals/UpdateScheduledRenewalConfigurationItemRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18477,9 +18475,9 @@ catch (ApiException<UpdateScheduledRenewalConfigurationItemError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ScheduledRenewalConfigurationItemResponse](Models/ScheduledRenewalConfigurationItemResponse.cs)</code>
+**OnSuccess**: <code>[ScheduledRenewalConfigurationItemResponse](src/Maxio/Models/ScheduledRenewalConfigurationItemResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateScheduledRenewalConfigurationItemError](Errors/UpdateScheduledRenewalConfigurationItemError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateScheduledRenewalConfigurationItemError](src/Maxio/Errors/UpdateScheduledRenewalConfigurationItemError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18491,7 +18489,7 @@ catch (ApiException<UpdateScheduledRenewalConfigurationItemError> ex)
 
 ## SubscriptionStatus
 
-> Source: [SubscriptionStatus](Api/SubscriptionStatus.cs)
+> Source: [SubscriptionStatus](src/Maxio/Api/SubscriptionStatus.cs)
 
 <details>
 <summary><code>Task&lt;DelayedCancellationResponse&gt; CancelDelayedCancellation(CancelDelayedCancellationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -18542,7 +18540,7 @@ catch (ApiException<CancelDelayedCancellationError> ex)
 <dl>
 <dd>
 
-<code>[CancelDelayedCancellationRequest](Requests/SubscriptionStatus/CancelDelayedCancellationRequest.cs)</code>
+<code>[CancelDelayedCancellationRequest](src/Maxio/Requests/SubscriptionStatus/CancelDelayedCancellationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18552,9 +18550,9 @@ catch (ApiException<CancelDelayedCancellationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DelayedCancellationResponse](Models/DelayedCancellationResponse.cs)</code>
+**OnSuccess**: <code>[DelayedCancellationResponse](src/Maxio/Models/DelayedCancellationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelDelayedCancellationError](Errors/CancelDelayedCancellationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CancelDelayedCancellationError](src/Maxio/Errors/CancelDelayedCancellationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18608,7 +18606,7 @@ catch (ApiException<CancelDunningError> ex)
 <dl>
 <dd>
 
-<code>[CancelDunningRequest](Requests/SubscriptionStatus/CancelDunningRequest.cs)</code>
+<code>[CancelDunningRequest](src/Maxio/Requests/SubscriptionStatus/CancelDunningRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18618,9 +18616,9 @@ catch (ApiException<CancelDunningError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelDunningError](Errors/CancelDunningError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CancelDunningError](src/Maxio/Errors/CancelDunningError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18678,7 +18676,7 @@ catch (ApiException<CancelSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[CancelSubscriptionRequest](Requests/SubscriptionStatus/CancelSubscriptionRequest.cs)</code>
+<code>[CancelSubscriptionRequest](src/Maxio/Requests/SubscriptionStatus/CancelSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18688,9 +18686,9 @@ catch (ApiException<CancelSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CancelSubscriptionError](Errors/CancelSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CancelSubscriptionError](src/Maxio/Errors/CancelSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18747,7 +18745,7 @@ catch (ApiException<InitiateDelayedCancellationError> ex)
 <dl>
 <dd>
 
-<code>[InitiateDelayedCancellationRequest](Requests/SubscriptionStatus/InitiateDelayedCancellationRequest.cs)</code>
+<code>[InitiateDelayedCancellationRequest](src/Maxio/Requests/SubscriptionStatus/InitiateDelayedCancellationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18757,9 +18755,9 @@ catch (ApiException<InitiateDelayedCancellationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DelayedCancellationResponse](Models/DelayedCancellationResponse.cs)</code>
+**OnSuccess**: <code>[DelayedCancellationResponse](src/Maxio/Models/DelayedCancellationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[InitiateDelayedCancellationError](Errors/InitiateDelayedCancellationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[InitiateDelayedCancellationError](src/Maxio/Errors/InitiateDelayedCancellationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18824,7 +18822,7 @@ catch (ApiException<PauseSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[PauseSubscriptionRequest](Requests/SubscriptionStatus/PauseSubscriptionRequest.cs)</code>
+<code>[PauseSubscriptionRequest](src/Maxio/Requests/SubscriptionStatus/PauseSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18834,9 +18832,9 @@ catch (ApiException<PauseSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PauseSubscriptionError](Errors/PauseSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PauseSubscriptionError](src/Maxio/Errors/PauseSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -18932,7 +18930,7 @@ catch (ApiException<PreviewRenewalError> ex)
 <dl>
 <dd>
 
-<code>[PreviewRenewalRequest](Requests/SubscriptionStatus/PreviewRenewalRequest.cs)</code>
+<code>[PreviewRenewalRequest](src/Maxio/Requests/SubscriptionStatus/PreviewRenewalRequest.cs)</code>
 
 </dd>
 </dl>
@@ -18942,9 +18940,9 @@ catch (ApiException<PreviewRenewalError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[RenewalPreviewResponse](Models/RenewalPreviewResponse.cs)</code>
+**OnSuccess**: <code>[RenewalPreviewResponse](src/Maxio/Models/RenewalPreviewResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PreviewRenewalError](Errors/PreviewRenewalError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PreviewRenewalError](src/Maxio/Errors/PreviewRenewalError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19169,7 +19167,7 @@ catch (ApiException<ReactivateSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[ReactivateSubscriptionOperationRequest](Requests/SubscriptionStatus/ReactivateSubscriptionOperationRequest.cs)</code>
+<code>[ReactivateSubscriptionOperationRequest](src/Maxio/Requests/SubscriptionStatus/ReactivateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19179,9 +19177,9 @@ catch (ApiException<ReactivateSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ReactivateSubscriptionError](Errors/ReactivateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ReactivateSubscriptionError](src/Maxio/Errors/ReactivateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19238,7 +19236,7 @@ catch (ApiException<ResumeSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[ResumeSubscriptionRequest](Requests/SubscriptionStatus/ResumeSubscriptionRequest.cs)</code>
+<code>[ResumeSubscriptionRequest](src/Maxio/Requests/SubscriptionStatus/ResumeSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19248,9 +19246,9 @@ catch (ApiException<ResumeSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ResumeSubscriptionError](Errors/ResumeSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ResumeSubscriptionError](src/Maxio/Errors/ResumeSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19313,7 +19311,7 @@ catch (ApiException<RetrySubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[RetrySubscriptionRequest](Requests/SubscriptionStatus/RetrySubscriptionRequest.cs)</code>
+<code>[RetrySubscriptionRequest](src/Maxio/Requests/SubscriptionStatus/RetrySubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19323,9 +19321,9 @@ catch (ApiException<RetrySubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RetrySubscriptionError](Errors/RetrySubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RetrySubscriptionError](src/Maxio/Errors/RetrySubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19393,7 +19391,7 @@ catch (ApiException<UpdateAutomaticSubscriptionResumptionError> ex)
 <dl>
 <dd>
 
-<code>[UpdateAutomaticSubscriptionResumptionRequest](Requests/SubscriptionStatus/UpdateAutomaticSubscriptionResumptionRequest.cs)</code>
+<code>[UpdateAutomaticSubscriptionResumptionRequest](src/Maxio/Requests/SubscriptionStatus/UpdateAutomaticSubscriptionResumptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19403,9 +19401,9 @@ catch (ApiException<UpdateAutomaticSubscriptionResumptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateAutomaticSubscriptionResumptionError](Errors/UpdateAutomaticSubscriptionResumptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateAutomaticSubscriptionResumptionError](src/Maxio/Errors/UpdateAutomaticSubscriptionResumptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19417,7 +19415,7 @@ catch (ApiException<UpdateAutomaticSubscriptionResumptionError> ex)
 
 ## Subscriptions
 
-> Source: [Subscriptions](Api/Subscriptions.cs)
+> Source: [Subscriptions](src/Maxio/Api/Subscriptions.cs)
 
 <details>
 <summary><code>Task&lt;SubscriptionResponse&gt; ActivateSubscription(ActivateSubscriptionOperationRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -19505,7 +19503,7 @@ catch (ApiException<ActivateSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[ActivateSubscriptionOperationRequest](Requests/Subscriptions/ActivateSubscriptionOperationRequest.cs)</code>
+<code>[ActivateSubscriptionOperationRequest](src/Maxio/Requests/Subscriptions/ActivateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19515,9 +19513,9 @@ catch (ApiException<ActivateSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ActivateSubscriptionError](Errors/ActivateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ActivateSubscriptionError](src/Maxio/Errors/ActivateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19583,7 +19581,7 @@ catch (ApiException<ApplyCouponsToSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[ApplyCouponsToSubscriptionRequest](Requests/Subscriptions/ApplyCouponsToSubscriptionRequest.cs)</code>
+<code>[ApplyCouponsToSubscriptionRequest](src/Maxio/Requests/Subscriptions/ApplyCouponsToSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19593,9 +19591,9 @@ catch (ApiException<ApplyCouponsToSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[ApplyCouponsToSubscriptionError](Errors/ApplyCouponsToSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[ApplyCouponsToSubscriptionError](src/Maxio/Errors/ApplyCouponsToSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19737,7 +19735,7 @@ catch (ApiException<CreateSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[CreateSubscriptionOperationRequest](Requests/Subscriptions/CreateSubscriptionOperationRequest.cs)</code>
+<code>[CreateSubscriptionOperationRequest](src/Maxio/Requests/Subscriptions/CreateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19747,9 +19745,9 @@ catch (ApiException<CreateSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionError](Errors/CreateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateSubscriptionError](src/Maxio/Errors/CreateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19803,7 +19801,7 @@ catch (ApiException<FindSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[FindSubscriptionRequest](Requests/Subscriptions/FindSubscriptionRequest.cs)</code>
+<code>[FindSubscriptionRequest](src/Maxio/Requests/Subscriptions/FindSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19813,9 +19811,9 @@ catch (ApiException<FindSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[FindSubscriptionError](Errors/FindSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[FindSubscriptionError](src/Maxio/Errors/FindSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19881,7 +19879,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListSubscriptionsRequest](Requests/Subscriptions/ListSubscriptionsRequest.cs)</code>
+<code>[ListSubscriptionsRequest](src/Maxio/Requests/Subscriptions/ListSubscriptionsRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19891,9 +19889,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionResponse](Models/SubscriptionResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -19977,7 +19975,7 @@ catch (ApiException<OverrideSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[OverrideSubscriptionOperationRequest](Requests/Subscriptions/OverrideSubscriptionOperationRequest.cs)</code>
+<code>[OverrideSubscriptionOperationRequest](src/Maxio/Requests/Subscriptions/OverrideSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -19989,7 +19987,7 @@ catch (ApiException<OverrideSubscriptionError> ex)
 
 **OnSuccess**: No content
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[OverrideSubscriptionError](Errors/OverrideSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[OverrideSubscriptionError](src/Maxio/Errors/OverrideSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20085,7 +20083,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[PreviewSubscriptionRequest](Requests/Subscriptions/PreviewSubscriptionRequest.cs)</code>
+<code>[PreviewSubscriptionRequest](src/Maxio/Requests/Subscriptions/PreviewSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20095,9 +20093,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionPreviewResponse](Models/SubscriptionPreviewResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionPreviewResponse](src/Maxio/Models/SubscriptionPreviewResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20164,7 +20162,7 @@ catch (ApiException<PurgeSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[PurgeSubscriptionRequest](Requests/Subscriptions/PurgeSubscriptionRequest.cs)</code>
+<code>[PurgeSubscriptionRequest](src/Maxio/Requests/Subscriptions/PurgeSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20174,9 +20172,9 @@ catch (ApiException<PurgeSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[PurgeSubscriptionError](Errors/PurgeSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[PurgeSubscriptionError](src/Maxio/Errors/PurgeSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20237,7 +20235,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReadSubscriptionRequest](Requests/Subscriptions/ReadSubscriptionRequest.cs)</code>
+<code>[ReadSubscriptionRequest](src/Maxio/Requests/Subscriptions/ReadSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20247,9 +20245,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20308,7 +20306,7 @@ catch (ApiException<RemoveCouponFromSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[RemoveCouponFromSubscriptionRequest](Requests/Subscriptions/RemoveCouponFromSubscriptionRequest.cs)</code>
+<code>[RemoveCouponFromSubscriptionRequest](src/Maxio/Requests/Subscriptions/RemoveCouponFromSubscriptionRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20320,7 +20318,7 @@ catch (ApiException<RemoveCouponFromSubscriptionError> ex)
 
 **OnSuccess**: <code>string</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RemoveCouponFromSubscriptionError](Errors/RemoveCouponFromSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RemoveCouponFromSubscriptionError](src/Maxio/Errors/RemoveCouponFromSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20388,7 +20386,7 @@ catch (ApiException<UpdatePrepaidSubscriptionConfigurationError> ex)
 <dl>
 <dd>
 
-<code>[UpdatePrepaidSubscriptionConfigurationRequest](Requests/Subscriptions/UpdatePrepaidSubscriptionConfigurationRequest.cs)</code>
+<code>[UpdatePrepaidSubscriptionConfigurationRequest](src/Maxio/Requests/Subscriptions/UpdatePrepaidSubscriptionConfigurationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20398,9 +20396,9 @@ catch (ApiException<UpdatePrepaidSubscriptionConfigurationError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PrepaidConfigurationResponse](Models/PrepaidConfigurationResponse.cs)</code>
+**OnSuccess**: <code>[PrepaidConfigurationResponse](src/Maxio/Models/PrepaidConfigurationResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdatePrepaidSubscriptionConfigurationError](Errors/UpdatePrepaidSubscriptionConfigurationError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdatePrepaidSubscriptionConfigurationError](src/Maxio/Errors/UpdatePrepaidSubscriptionConfigurationError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20515,7 +20513,7 @@ catch (ApiException<UpdateSubscriptionError> ex)
 <dl>
 <dd>
 
-<code>[UpdateSubscriptionOperationRequest](Requests/Subscriptions/UpdateSubscriptionOperationRequest.cs)</code>
+<code>[UpdateSubscriptionOperationRequest](src/Maxio/Requests/Subscriptions/UpdateSubscriptionOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20525,9 +20523,9 @@ catch (ApiException<UpdateSubscriptionError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SubscriptionResponse](Models/SubscriptionResponse.cs)</code>
+**OnSuccess**: <code>[SubscriptionResponse](src/Maxio/Models/SubscriptionResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionError](Errors/UpdateSubscriptionError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateSubscriptionError](src/Maxio/Errors/UpdateSubscriptionError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20539,7 +20537,7 @@ catch (ApiException<UpdateSubscriptionError> ex)
 
 ## WebhooksApi
 
-> Source: [WebhooksApi](Api/WebhooksApi.cs)
+> Source: [WebhooksApi](src/Maxio/Api/WebhooksApi.cs)
 
 <details>
 <summary><code>Task&lt;EndpointResponse&gt; CreateEndpoint(CreateEndpointRequest request, RequestOptions? requestOptions = null, CancellationToken cancellationToken = default);</code></summary>
@@ -20600,7 +20598,7 @@ catch (ApiException<CreateEndpointError> ex)
 <dl>
 <dd>
 
-<code>[CreateEndpointRequest](Requests/WebhooksApi/CreateEndpointRequest.cs)</code>
+<code>[CreateEndpointRequest](src/Maxio/Requests/WebhooksApi/CreateEndpointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20610,9 +20608,9 @@ catch (ApiException<CreateEndpointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[EndpointResponse](Models/EndpointResponse.cs)</code>
+**OnSuccess**: <code>[EndpointResponse](src/Maxio/Models/EndpointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[CreateEndpointError](Errors/CreateEndpointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[CreateEndpointError](src/Maxio/Errors/CreateEndpointError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20666,7 +20664,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[EnableWebhooksOperationRequest](Requests/WebhooksApi/EnableWebhooksOperationRequest.cs)</code>
+<code>[EnableWebhooksOperationRequest](src/Maxio/Requests/WebhooksApi/EnableWebhooksOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20676,9 +20674,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[EnableWebhooksResponse](Models/EnableWebhooksResponse.cs)</code>
+**OnSuccess**: <code>[EnableWebhooksResponse](src/Maxio/Models/EnableWebhooksResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20729,9 +20727,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[Endpoint](Models/Endpoint.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[Endpoint](src/Maxio/Models/Endpoint.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20782,7 +20780,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ListWebhooksRequest](Requests/WebhooksApi/ListWebhooksRequest.cs)</code>
+<code>[ListWebhooksRequest](src/Maxio/Requests/WebhooksApi/ListWebhooksRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20792,9 +20790,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>IReadOnlyList&lt;[WebhookResponse](Models/WebhookResponse.cs)&gt;</code>
+**OnSuccess**: <code>IReadOnlyList&lt;[WebhookResponse](src/Maxio/Models/WebhookResponse.cs)&gt;</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20848,7 +20846,7 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-<code>[ReplayWebhooksOperationRequest](Requests/WebhooksApi/ReplayWebhooksOperationRequest.cs)</code>
+<code>[ReplayWebhooksOperationRequest](src/Maxio/Requests/WebhooksApi/ReplayWebhooksOperationRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20858,9 +20856,9 @@ catch (ApiException<RawError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReplayWebhooksResponse](Models/ReplayWebhooksResponse.cs)</code>
+**OnSuccess**: <code>[ReplayWebhooksResponse](src/Maxio/Models/ReplayWebhooksResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[RawError](Core/ErrorResponse/RawError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[RawError](src/Maxio/Core/ErrorResponse/RawError.cs)&gt;</code>
 
 </dd>
 </dl>
@@ -20934,7 +20932,7 @@ catch (ApiException<UpdateEndpointError> ex)
 <dl>
 <dd>
 
-<code>[UpdateEndpointRequest](Requests/WebhooksApi/UpdateEndpointRequest.cs)</code>
+<code>[UpdateEndpointRequest](src/Maxio/Requests/WebhooksApi/UpdateEndpointRequest.cs)</code>
 
 </dd>
 </dl>
@@ -20944,9 +20942,9 @@ catch (ApiException<UpdateEndpointError> ex)
 <dl>
 <dd>
 
-**OnSuccess**: <code>[EndpointResponse](Models/EndpointResponse.cs)</code>
+**OnSuccess**: <code>[EndpointResponse](src/Maxio/Models/EndpointResponse.cs)</code>
 
-**OnError**: <code>[ApiException](Core/Exceptions/ApiException.cs)&lt;[UpdateEndpointError](Errors/UpdateEndpointError.cs)&gt;</code>
+**OnError**: <code>[ApiException](src/Maxio/Core/Exceptions/ApiException.cs)&lt;[UpdateEndpointError](src/Maxio/Errors/UpdateEndpointError.cs)&gt;</code>
 
 </dd>
 </dl>

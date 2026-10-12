@@ -2,7 +2,7 @@
 
 # WebhooksApi — operations
 
-Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
+Accessor: `client.WebhooksApi` · Source: `src/Maxio/Api/WebhooksApi.cs` · 6 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,11 +16,11 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateEndpointRequest` | `Requests/WebhooksApi/CreateEndpointRequest.cs` |
-| `CreateOrUpdateEndpointRequest` | `Models/CreateOrUpdateEndpointRequest.cs` |
-| `EndpointResponse` | `Models/EndpointResponse.cs` |
-| `CreateEndpointError` | `Errors/CreateEndpointError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateEndpointRequest` | `src/Maxio/Requests/WebhooksApi/CreateEndpointRequest.cs` |
+| `CreateOrUpdateEndpointRequest` | `src/Maxio/Models/CreateOrUpdateEndpointRequest.cs` |
+| `EndpointResponse` | `src/Maxio/Models/EndpointResponse.cs` |
+| `CreateEndpointError` | `src/Maxio/Errors/CreateEndpointError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### EnableWebhooks
 
@@ -31,9 +31,9 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `EnableWebhooksOperationRequest` | `Requests/WebhooksApi/EnableWebhooksOperationRequest.cs` |
-| `EnableWebhooksRequest` | `Models/EnableWebhooksRequest.cs` |
-| `EnableWebhooksResponse` | `Models/EnableWebhooksResponse.cs` |
+| `EnableWebhooksOperationRequest` | `src/Maxio/Requests/WebhooksApi/EnableWebhooksOperationRequest.cs` |
+| `EnableWebhooksRequest` | `src/Maxio/Models/EnableWebhooksRequest.cs` |
+| `EnableWebhooksResponse` | `src/Maxio/Models/EnableWebhooksResponse.cs` |
 
 ### ListEndpoints
 
@@ -44,7 +44,7 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `Endpoint` | `Models/Endpoint.cs` |
+| `Endpoint` | `src/Maxio/Models/Endpoint.cs` |
 
 ### ListWebhooks
 
@@ -56,10 +56,10 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `ListWebhooksRequest` | `Requests/WebhooksApi/ListWebhooksRequest.cs` |
-| `WebhookStatus` | `Models/Enums/WebhookStatus.cs` |
-| `WebhookOrder` | `Models/Enums/WebhookOrder.cs` |
-| `WebhookResponse` | `Models/WebhookResponse.cs` |
+| `ListWebhooksRequest` | `src/Maxio/Requests/WebhooksApi/ListWebhooksRequest.cs` |
+| `WebhookStatus` | `src/Maxio/Models/Enums/WebhookStatus.cs` |
+| `WebhookOrder` | `src/Maxio/Models/Enums/WebhookOrder.cs` |
+| `WebhookResponse` | `src/Maxio/Models/WebhookResponse.cs` |
 
 ### ReplayWebhooks
 
@@ -70,9 +70,9 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `ReplayWebhooksOperationRequest` | `Requests/WebhooksApi/ReplayWebhooksOperationRequest.cs` |
-| `ReplayWebhooksRequest` | `Models/ReplayWebhooksRequest.cs` |
-| `ReplayWebhooksResponse` | `Models/ReplayWebhooksResponse.cs` |
+| `ReplayWebhooksOperationRequest` | `src/Maxio/Requests/WebhooksApi/ReplayWebhooksOperationRequest.cs` |
+| `ReplayWebhooksRequest` | `src/Maxio/Models/ReplayWebhooksRequest.cs` |
+| `ReplayWebhooksResponse` | `src/Maxio/Models/ReplayWebhooksResponse.cs` |
 
 ### UpdateEndpoint
 
@@ -85,9 +85,9 @@ Accessor: `client.WebhooksApi` · Source: `Api/WebhooksApi.cs` · 6 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateEndpointRequest` | `Requests/WebhooksApi/UpdateEndpointRequest.cs` |
-| `CreateOrUpdateEndpointRequest` | `Models/CreateOrUpdateEndpointRequest.cs` |
-| `EndpointResponse` | `Models/EndpointResponse.cs` |
-| `UpdateEndpointError` | `Errors/UpdateEndpointError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateEndpointRequest` | `src/Maxio/Requests/WebhooksApi/UpdateEndpointRequest.cs` |
+| `CreateOrUpdateEndpointRequest` | `src/Maxio/Models/CreateOrUpdateEndpointRequest.cs` |
+| `EndpointResponse` | `src/Maxio/Models/EndpointResponse.cs` |
+| `UpdateEndpointError` | `src/Maxio/Errors/UpdateEndpointError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

@@ -2,7 +2,7 @@
 
 # Subscriptions — operations
 
-Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operations
+Accessor: `client.Subscriptions` · Source: `src/Maxio/Api/Subscriptions.cs` · 12 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `ActivateSubscriptionOperationRequest` | `Requests/Subscriptions/ActivateSubscriptionOperationRequest.cs` |
-| `ActivateSubscriptionRequest` | `Models/ActivateSubscriptionRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `ActivateSubscriptionError` | `Errors/ActivateSubscriptionError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `ActivateSubscriptionOperationRequest` | `src/Maxio/Requests/Subscriptions/ActivateSubscriptionOperationRequest.cs` |
+| `ActivateSubscriptionRequest` | `src/Maxio/Models/ActivateSubscriptionRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `ActivateSubscriptionError` | `src/Maxio/Errors/ActivateSubscriptionError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### ApplyCouponsToSubscription
 
@@ -35,11 +35,11 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `ApplyCouponsToSubscriptionRequest` | `Requests/Subscriptions/ApplyCouponsToSubscriptionRequest.cs` |
-| `AddCouponsRequest` | `Models/AddCouponsRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `ApplyCouponsToSubscriptionError` | `Errors/ApplyCouponsToSubscriptionError.cs` |
-| `SubscriptionAddCouponError1` | `Models/SubscriptionAddCouponError1.cs` |
+| `ApplyCouponsToSubscriptionRequest` | `src/Maxio/Requests/Subscriptions/ApplyCouponsToSubscriptionRequest.cs` |
+| `AddCouponsRequest` | `src/Maxio/Models/AddCouponsRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `ApplyCouponsToSubscriptionError` | `src/Maxio/Errors/ApplyCouponsToSubscriptionError.cs` |
+| `SubscriptionAddCouponError1` | `src/Maxio/Models/SubscriptionAddCouponError1.cs` |
 
 ### CreateSubscription
 
@@ -51,11 +51,11 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `CreateSubscriptionOperationRequest` | `Requests/Subscriptions/CreateSubscriptionOperationRequest.cs` |
-| `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `CreateSubscriptionError` | `Errors/CreateSubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateSubscriptionOperationRequest` | `src/Maxio/Requests/Subscriptions/CreateSubscriptionOperationRequest.cs` |
+| `CreateSubscriptionRequest` | `src/Maxio/Models/CreateSubscriptionRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `CreateSubscriptionError` | `src/Maxio/Errors/CreateSubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### FindSubscription
 
@@ -68,9 +68,9 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `FindSubscriptionRequest` | `Requests/Subscriptions/FindSubscriptionRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `FindSubscriptionError` | `Errors/FindSubscriptionError.cs` |
+| `FindSubscriptionRequest` | `src/Maxio/Requests/Subscriptions/FindSubscriptionRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `FindSubscriptionError` | `src/Maxio/Errors/FindSubscriptionError.cs` |
 
 ### ListSubscriptions
 
@@ -82,17 +82,17 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionsRequest` | `Requests/Subscriptions/ListSubscriptionsRequest.cs` |
-| `SubscriptionSort` | `Models/Enums/SubscriptionSort.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `SubscriptionStateFilter` | `Models/Enums/SubscriptionStateFilter.cs` |
-| `Product1` | `Models/AnyOf/Product1.cs` |
-| `QScope` | `Models/Enums/QScope.cs` |
-| `CollectionMethod1` | `Models/Enums/CollectionMethod1.cs` |
-| `SubscriptionDateField` | `Models/Enums/SubscriptionDateField.cs` |
-| `GroupStatus` | `Models/Enums/GroupStatus.cs` |
-| `SubscriptionListInclude` | `Models/Enums/SubscriptionListInclude.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
+| `ListSubscriptionsRequest` | `src/Maxio/Requests/Subscriptions/ListSubscriptionsRequest.cs` |
+| `SubscriptionSort` | `src/Maxio/Models/Enums/SubscriptionSort.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `SubscriptionStateFilter` | `src/Maxio/Models/Enums/SubscriptionStateFilter.cs` |
+| `Product1` | `src/Maxio/Models/AnyOf/Product1.cs` |
+| `QScope` | `src/Maxio/Models/Enums/QScope.cs` |
+| `CollectionMethod1` | `src/Maxio/Models/Enums/CollectionMethod1.cs` |
+| `SubscriptionDateField` | `src/Maxio/Models/Enums/SubscriptionDateField.cs` |
+| `GroupStatus` | `src/Maxio/Models/Enums/GroupStatus.cs` |
+| `SubscriptionListInclude` | `src/Maxio/Models/Enums/SubscriptionListInclude.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
 
 ### OverrideSubscription
 
@@ -105,10 +105,10 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `OverrideSubscriptionOperationRequest` | `Requests/Subscriptions/OverrideSubscriptionOperationRequest.cs` |
-| `OverrideSubscriptionRequest` | `Models/OverrideSubscriptionRequest.cs` |
-| `OverrideSubscriptionError` | `Errors/OverrideSubscriptionError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `OverrideSubscriptionOperationRequest` | `src/Maxio/Requests/Subscriptions/OverrideSubscriptionOperationRequest.cs` |
+| `OverrideSubscriptionRequest` | `src/Maxio/Models/OverrideSubscriptionRequest.cs` |
+| `OverrideSubscriptionError` | `src/Maxio/Errors/OverrideSubscriptionError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### PreviewSubscription
 
@@ -119,9 +119,9 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `PreviewSubscriptionRequest` | `Requests/Subscriptions/PreviewSubscriptionRequest.cs` |
-| `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
-| `SubscriptionPreviewResponse` | `Models/SubscriptionPreviewResponse.cs` |
+| `PreviewSubscriptionRequest` | `src/Maxio/Requests/Subscriptions/PreviewSubscriptionRequest.cs` |
+| `CreateSubscriptionRequest` | `src/Maxio/Models/CreateSubscriptionRequest.cs` |
+| `SubscriptionPreviewResponse` | `src/Maxio/Models/SubscriptionPreviewResponse.cs` |
 
 ### PurgeSubscription
 
@@ -135,10 +135,10 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `PurgeSubscriptionRequest` | `Requests/Subscriptions/PurgeSubscriptionRequest.cs` |
-| `SubscriptionPurgeType` | `Models/Enums/SubscriptionPurgeType.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `PurgeSubscriptionError` | `Errors/PurgeSubscriptionError.cs` |
+| `PurgeSubscriptionRequest` | `src/Maxio/Requests/Subscriptions/PurgeSubscriptionRequest.cs` |
+| `SubscriptionPurgeType` | `src/Maxio/Models/Enums/SubscriptionPurgeType.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `PurgeSubscriptionError` | `src/Maxio/Errors/PurgeSubscriptionError.cs` |
 
 ### ReadSubscription
 
@@ -151,9 +151,9 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `ReadSubscriptionRequest` | `Requests/Subscriptions/ReadSubscriptionRequest.cs` |
-| `SubscriptionInclude` | `Models/Enums/SubscriptionInclude.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
+| `ReadSubscriptionRequest` | `src/Maxio/Requests/Subscriptions/ReadSubscriptionRequest.cs` |
+| `SubscriptionInclude` | `src/Maxio/Models/Enums/SubscriptionInclude.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
 
 ### RemoveCouponFromSubscription
 
@@ -167,9 +167,9 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `RemoveCouponFromSubscriptionRequest` | `Requests/Subscriptions/RemoveCouponFromSubscriptionRequest.cs` |
-| `RemoveCouponFromSubscriptionError` | `Errors/RemoveCouponFromSubscriptionError.cs` |
-| `SubscriptionRemoveCouponErrors1` | `Models/SubscriptionRemoveCouponErrors1.cs` |
+| `RemoveCouponFromSubscriptionRequest` | `src/Maxio/Requests/Subscriptions/RemoveCouponFromSubscriptionRequest.cs` |
+| `RemoveCouponFromSubscriptionError` | `src/Maxio/Errors/RemoveCouponFromSubscriptionError.cs` |
+| `SubscriptionRemoveCouponErrors1` | `src/Maxio/Models/SubscriptionRemoveCouponErrors1.cs` |
 
 ### UpdatePrepaidSubscriptionConfiguration
 
@@ -182,11 +182,11 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `UpdatePrepaidSubscriptionConfigurationRequest` | `Requests/Subscriptions/UpdatePrepaidSubscriptionConfigurationRequest.cs` |
-| `UpsertPrepaidConfigurationRequest` | `Models/UpsertPrepaidConfigurationRequest.cs` |
-| `PrepaidConfigurationResponse` | `Models/PrepaidConfigurationResponse.cs` |
-| `UpdatePrepaidSubscriptionConfigurationError` | `Errors/UpdatePrepaidSubscriptionConfigurationError.cs` |
-| `PrepaidConfigurationErrorResponse` | `Models/AnyOf/PrepaidConfigurationErrorResponse.cs` |
+| `UpdatePrepaidSubscriptionConfigurationRequest` | `src/Maxio/Requests/Subscriptions/UpdatePrepaidSubscriptionConfigurationRequest.cs` |
+| `UpsertPrepaidConfigurationRequest` | `src/Maxio/Models/UpsertPrepaidConfigurationRequest.cs` |
+| `PrepaidConfigurationResponse` | `src/Maxio/Models/PrepaidConfigurationResponse.cs` |
+| `UpdatePrepaidSubscriptionConfigurationError` | `src/Maxio/Errors/UpdatePrepaidSubscriptionConfigurationError.cs` |
+| `PrepaidConfigurationErrorResponse` | `src/Maxio/Models/AnyOf/PrepaidConfigurationErrorResponse.cs` |
 
 ### UpdateSubscription
 
@@ -199,9 +199,9 @@ Accessor: `client.Subscriptions` · Source: `Api/Subscriptions.cs` · 12 operati
 
 | Type | Source |
 | --- | --- |
-| `UpdateSubscriptionOperationRequest` | `Requests/Subscriptions/UpdateSubscriptionOperationRequest.cs` |
-| `UpdateSubscriptionRequest` | `Models/UpdateSubscriptionRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
-| `UpdateSubscriptionError` | `Errors/UpdateSubscriptionError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateSubscriptionOperationRequest` | `src/Maxio/Requests/Subscriptions/UpdateSubscriptionOperationRequest.cs` |
+| `UpdateSubscriptionRequest` | `src/Maxio/Models/UpdateSubscriptionRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
+| `UpdateSubscriptionError` | `src/Maxio/Errors/UpdateSubscriptionError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

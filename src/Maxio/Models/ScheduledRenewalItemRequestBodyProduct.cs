@@ -1,16 +1,15 @@
 using System.Text.Json.Serialization;
 using Maxio.Core.Models;
-using Maxio.Models.Enums;
 
 namespace Maxio.Models;
 
-public record ScheduledRenewalItemRequestBodyComponent
+public record ScheduledRenewalItemRequestBodyProduct
 {
     /// <summary>
     /// Item type to add. Either Product or Component.
     /// </summary>
     [JsonPropertyName("item_type")]
-    public required ItemType ItemType { get; init; }
+    public string ItemType { get; } = "Product";
 
     /// <summary>
     /// Product or component identifier.
@@ -33,11 +32,11 @@ public record ScheduledRenewalItemRequestBodyComponent
     public int? Quantity { get; init; }
 
     /// <summary>
-    /// Custom pricing for a component within a scheduled renewal.
+    /// Custom pricing for a product within a scheduled renewal.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("custom_price")]
-    public ScheduledRenewalComponentCustomPrice? CustomPrice { get; init; }
+    public ScheduledRenewalProductPricePoint? CustomPrice { get; init; }
 
     [JsonExtensionData]
     public AdditionalProperties AdditionalProperties { get; init; } = [];

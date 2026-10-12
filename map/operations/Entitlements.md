@@ -2,7 +2,7 @@
 
 # Entitlements — operations
 
-Accessor: `client.Entitlements` · Source: `Api/Entitlements.cs` · 1 operation
+Accessor: `client.Entitlements` · Source: `src/Maxio/Api/Entitlements.cs` · 1 operation
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,8 +17,8 @@ Accessor: `client.Entitlements` · Source: `Api/Entitlements.cs` · 1 operation
 
 | Type | Source |
 | --- | --- |
-| `ReadSubscriptionEntitlementsRequest` | `Requests/Entitlements/ReadSubscriptionEntitlementsRequest.cs` |
-| `AggregatedEntitlementsResponse` | `Models/AggregatedEntitlementsResponse.cs` |
-| `ReadSubscriptionEntitlementsError` | `Errors/ReadSubscriptionEntitlementsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReadSubscriptionEntitlementsRequest` | `src/Maxio/Requests/Entitlements/ReadSubscriptionEntitlementsRequest.cs` |
+| `AggregatedEntitlementsResponse` | `src/Maxio/Models/AggregatedEntitlementsResponse.cs` |
+| `ReadSubscriptionEntitlementsError` | `src/Maxio/Errors/ReadSubscriptionEntitlementsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

@@ -2,7 +2,7 @@
 
 # Events — operations
 
-Accessor: `client.Events` · Source: `Api/Events.cs` · 3 operations
+Accessor: `client.Events` · Source: `src/Maxio/Api/Events.cs` · 3 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,11 +16,11 @@ Accessor: `client.Events` · Source: `Api/Events.cs` · 3 operations
 
 | Type | Source |
 | --- | --- |
-| `ListEventsRequest` | `Requests/Events/ListEventsRequest.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `EventKey` | `Models/Enums/EventKey.cs` |
-| `ListEventsDateField` | `Models/Enums/ListEventsDateField.cs` |
-| `EventResponse` | `Models/EventResponse.cs` |
+| `ListEventsRequest` | `src/Maxio/Requests/Events/ListEventsRequest.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `EventKey` | `src/Maxio/Models/Enums/EventKey.cs` |
+| `ListEventsDateField` | `src/Maxio/Models/Enums/ListEventsDateField.cs` |
+| `EventResponse` | `src/Maxio/Models/EventResponse.cs` |
 
 ### ListSubscriptionEvents
 
@@ -33,10 +33,10 @@ Accessor: `client.Events` · Source: `Api/Events.cs` · 3 operations
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionEventsRequest` | `Requests/Events/ListSubscriptionEventsRequest.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `EventKey` | `Models/Enums/EventKey.cs` |
-| `EventResponse` | `Models/EventResponse.cs` |
+| `ListSubscriptionEventsRequest` | `src/Maxio/Requests/Events/ListSubscriptionEventsRequest.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `EventKey` | `src/Maxio/Models/Enums/EventKey.cs` |
+| `EventResponse` | `src/Maxio/Models/EventResponse.cs` |
 
 ### ReadEventsCount
 
@@ -48,8 +48,8 @@ Accessor: `client.Events` · Source: `Api/Events.cs` · 3 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadEventsCountRequest` | `Requests/Events/ReadEventsCountRequest.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `EventKey` | `Models/Enums/EventKey.cs` |
-| `CountResponse` | `Models/CountResponse.cs` |
+| `ReadEventsCountRequest` | `src/Maxio/Requests/Events/ReadEventsCountRequest.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `EventKey` | `src/Maxio/Models/Enums/EventKey.cs` |
+| `CountResponse` | `src/Maxio/Models/CountResponse.cs` |
 

@@ -2,7 +2,7 @@
 
 # ReasonCodes — operations
 
-Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
+Accessor: `client.ReasonCodes` · Source: `src/Maxio/Api/ReasonCodes.cs` · 5 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,11 +16,11 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateReasonCodeOperationRequest` | `Requests/ReasonCodes/CreateReasonCodeOperationRequest.cs` |
-| `CreateReasonCodeRequest` | `Models/CreateReasonCodeRequest.cs` |
-| `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
-| `CreateReasonCodeError` | `Errors/CreateReasonCodeError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateReasonCodeOperationRequest` | `src/Maxio/Requests/ReasonCodes/CreateReasonCodeOperationRequest.cs` |
+| `CreateReasonCodeRequest` | `src/Maxio/Models/CreateReasonCodeRequest.cs` |
+| `ReasonCodeResponse` | `src/Maxio/Models/ReasonCodeResponse.cs` |
+| `CreateReasonCodeError` | `src/Maxio/Errors/CreateReasonCodeError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### DeleteReasonCode
 
@@ -33,9 +33,9 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `DeleteReasonCodeRequest` | `Requests/ReasonCodes/DeleteReasonCodeRequest.cs` |
-| `OkResponse` | `Models/OkResponse.cs` |
-| `DeleteReasonCodeError` | `Errors/DeleteReasonCodeError.cs` |
+| `DeleteReasonCodeRequest` | `src/Maxio/Requests/ReasonCodes/DeleteReasonCodeRequest.cs` |
+| `OkResponse` | `src/Maxio/Models/OkResponse.cs` |
+| `DeleteReasonCodeError` | `src/Maxio/Errors/DeleteReasonCodeError.cs` |
 
 ### ListReasonCodes
 
@@ -48,10 +48,10 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `ListReasonCodesRequest` | `Requests/ReasonCodes/ListReasonCodesRequest.cs` |
-| `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
-| `ListReasonCodesError` | `Errors/ListReasonCodesError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListReasonCodesRequest` | `src/Maxio/Requests/ReasonCodes/ListReasonCodesRequest.cs` |
+| `ReasonCodeResponse` | `src/Maxio/Models/ReasonCodeResponse.cs` |
+| `ListReasonCodesError` | `src/Maxio/Errors/ListReasonCodesError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadReasonCode
 
@@ -64,9 +64,9 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadReasonCodeRequest` | `Requests/ReasonCodes/ReadReasonCodeRequest.cs` |
-| `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
-| `ReadReasonCodeError` | `Errors/ReadReasonCodeError.cs` |
+| `ReadReasonCodeRequest` | `src/Maxio/Requests/ReasonCodes/ReadReasonCodeRequest.cs` |
+| `ReasonCodeResponse` | `src/Maxio/Models/ReasonCodeResponse.cs` |
+| `ReadReasonCodeError` | `src/Maxio/Errors/ReadReasonCodeError.cs` |
 
 ### UpdateReasonCode
 
@@ -79,9 +79,9 @@ Accessor: `client.ReasonCodes` · Source: `Api/ReasonCodes.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateReasonCodeOperationRequest` | `Requests/ReasonCodes/UpdateReasonCodeOperationRequest.cs` |
-| `UpdateReasonCodeRequest` | `Models/UpdateReasonCodeRequest.cs` |
-| `ReasonCodeResponse` | `Models/ReasonCodeResponse.cs` |
-| `UpdateReasonCodeError` | `Errors/UpdateReasonCodeError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateReasonCodeOperationRequest` | `src/Maxio/Requests/ReasonCodes/UpdateReasonCodeOperationRequest.cs` |
+| `UpdateReasonCodeRequest` | `src/Maxio/Models/UpdateReasonCodeRequest.cs` |
+| `ReasonCodeResponse` | `src/Maxio/Models/ReasonCodeResponse.cs` |
+| `UpdateReasonCodeError` | `src/Maxio/Errors/UpdateReasonCodeError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

@@ -2,7 +2,7 @@
 
 # CustomFields — operations
 
-Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
+Accessor: `client.CustomFields` · Source: `src/Maxio/Api/CustomFields.cs` · 9 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,12 +17,12 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateMetadataOperationRequest` | `Requests/CustomFields/CreateMetadataOperationRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `CreateMetadataRequest` | `Models/CreateMetadataRequest.cs` |
-| `Metadata` | `Models/Metadata.cs` |
-| `CreateMetadataError` | `Errors/CreateMetadataError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `CreateMetadataOperationRequest` | `src/Maxio/Requests/CustomFields/CreateMetadataOperationRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `CreateMetadataRequest` | `src/Maxio/Models/CreateMetadataRequest.cs` |
+| `Metadata` | `src/Maxio/Models/Metadata.cs` |
+| `CreateMetadataError` | `src/Maxio/Errors/CreateMetadataError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### CreateMetafields
 
@@ -35,12 +35,12 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateMetafieldsOperationRequest` | `Requests/CustomFields/CreateMetafieldsOperationRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `CreateMetafieldsRequest` | `Models/CreateMetafieldsRequest.cs` |
-| `Metafield` | `Models/Metafield.cs` |
-| `CreateMetafieldsError` | `Errors/CreateMetafieldsError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `CreateMetafieldsOperationRequest` | `src/Maxio/Requests/CustomFields/CreateMetafieldsOperationRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `CreateMetafieldsRequest` | `src/Maxio/Models/CreateMetafieldsRequest.cs` |
+| `Metafield` | `src/Maxio/Models/Metafield.cs` |
+| `CreateMetafieldsError` | `src/Maxio/Errors/CreateMetafieldsError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### DeleteMetadata
 
@@ -54,9 +54,9 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `DeleteMetadataRequest` | `Requests/CustomFields/DeleteMetadataRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `DeleteMetadataError` | `Errors/DeleteMetadataError.cs` |
+| `DeleteMetadataRequest` | `src/Maxio/Requests/CustomFields/DeleteMetadataRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `DeleteMetadataError` | `src/Maxio/Errors/DeleteMetadataError.cs` |
 
 ### DeleteMetafield
 
@@ -70,9 +70,9 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `DeleteMetafieldRequest` | `Requests/CustomFields/DeleteMetafieldRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `DeleteMetafieldError` | `Errors/DeleteMetafieldError.cs` |
+| `DeleteMetafieldRequest` | `src/Maxio/Requests/CustomFields/DeleteMetafieldRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `DeleteMetafieldError` | `src/Maxio/Errors/DeleteMetafieldError.cs` |
 
 ### ListMetadata
 
@@ -85,9 +85,9 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ListMetadataRequest` | `Requests/CustomFields/ListMetadataRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `PaginatedMetadata` | `Models/PaginatedMetadata.cs` |
+| `ListMetadataRequest` | `src/Maxio/Requests/CustomFields/ListMetadataRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `PaginatedMetadata` | `src/Maxio/Models/PaginatedMetadata.cs` |
 
 ### ListMetadataForResourceType
 
@@ -100,11 +100,11 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ListMetadataForResourceTypeRequest` | `Requests/CustomFields/ListMetadataForResourceTypeRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `PaginatedMetadata` | `Models/PaginatedMetadata.cs` |
+| `ListMetadataForResourceTypeRequest` | `src/Maxio/Requests/CustomFields/ListMetadataForResourceTypeRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `PaginatedMetadata` | `src/Maxio/Models/PaginatedMetadata.cs` |
 
 ### ListMetafields
 
@@ -117,10 +117,10 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ListMetafieldsRequest` | `Requests/CustomFields/ListMetafieldsRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListMetafieldsResponse` | `Models/ListMetafieldsResponse.cs` |
+| `ListMetafieldsRequest` | `src/Maxio/Requests/CustomFields/ListMetafieldsRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListMetafieldsResponse` | `src/Maxio/Models/ListMetafieldsResponse.cs` |
 
 ### UpdateMetadata
 
@@ -133,12 +133,12 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateMetadataOperationRequest` | `Requests/CustomFields/UpdateMetadataOperationRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `UpdateMetadataRequest` | `Models/UpdateMetadataRequest.cs` |
-| `Metadata` | `Models/Metadata.cs` |
-| `UpdateMetadataError` | `Errors/UpdateMetadataError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `UpdateMetadataOperationRequest` | `src/Maxio/Requests/CustomFields/UpdateMetadataOperationRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `UpdateMetadataRequest` | `src/Maxio/Models/UpdateMetadataRequest.cs` |
+| `Metadata` | `src/Maxio/Models/Metadata.cs` |
+| `UpdateMetadataError` | `src/Maxio/Errors/UpdateMetadataError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### UpdateMetafield
 
@@ -151,10 +151,10 @@ Accessor: `client.CustomFields` · Source: `Api/CustomFields.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateMetafieldRequest` | `Requests/CustomFields/UpdateMetafieldRequest.cs` |
-| `ResourceType` | `Models/Enums/ResourceType.cs` |
-| `UpdateMetafieldsRequest` | `Models/UpdateMetafieldsRequest.cs` |
-| `Metafield` | `Models/Metafield.cs` |
-| `UpdateMetafieldError` | `Errors/UpdateMetafieldError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `UpdateMetafieldRequest` | `src/Maxio/Requests/CustomFields/UpdateMetafieldRequest.cs` |
+| `ResourceType` | `src/Maxio/Models/Enums/ResourceType.cs` |
+| `UpdateMetafieldsRequest` | `src/Maxio/Models/UpdateMetafieldsRequest.cs` |
+| `Metafield` | `src/Maxio/Models/Metafield.cs` |
+| `UpdateMetafieldError` | `src/Maxio/Errors/UpdateMetafieldError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 

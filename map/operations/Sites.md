@@ -2,7 +2,7 @@
 
 # Sites — operations
 
-Accessor: `client.Sites` · Source: `Api/Sites.cs` · 3 operations
+Accessor: `client.Sites` · Source: `src/Maxio/Api/Sites.cs` · 3 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,8 +16,8 @@ Accessor: `client.Sites` · Source: `Api/Sites.cs` · 3 operations
 
 | Type | Source |
 | --- | --- |
-| `ClearSiteRequest` | `Requests/Sites/ClearSiteRequest.cs` |
-| `CleanupScope` | `Models/Enums/CleanupScope.cs` |
+| `ClearSiteRequest` | `src/Maxio/Requests/Sites/ClearSiteRequest.cs` |
+| `CleanupScope` | `src/Maxio/Models/Enums/CleanupScope.cs` |
 
 ### ListChargifyJsPublicKeys
 
@@ -29,8 +29,8 @@ Accessor: `client.Sites` · Source: `Api/Sites.cs` · 3 operations
 
 | Type | Source |
 | --- | --- |
-| `ListChargifyJsPublicKeysRequest` | `Requests/Sites/ListChargifyJsPublicKeysRequest.cs` |
-| `ListPublicKeysResponse` | `Models/ListPublicKeysResponse.cs` |
+| `ListChargifyJsPublicKeysRequest` | `src/Maxio/Requests/Sites/ListChargifyJsPublicKeysRequest.cs` |
+| `ListPublicKeysResponse` | `src/Maxio/Models/ListPublicKeysResponse.cs` |
 
 ### ReadSite
 
@@ -41,5 +41,5 @@ Accessor: `client.Sites` · Source: `Api/Sites.cs` · 3 operations
 
 | Type | Source |
 | --- | --- |
-| `SiteResponse` | `Models/SiteResponse.cs` |
+| `SiteResponse` | `src/Maxio/Models/SiteResponse.cs` |
 

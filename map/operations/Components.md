@@ -2,7 +2,7 @@
 
 # Components — operations
 
-Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
+Accessor: `client.Components` · Source: `src/Maxio/Api/Components.cs` · 12 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,10 +17,10 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `ArchiveComponentRequest` | `Requests/Components/ArchiveComponentRequest.cs` |
-| `Component` | `Models/Component.cs` |
-| `ArchiveComponentError` | `Errors/ArchiveComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ArchiveComponentRequest` | `src/Maxio/Requests/Components/ArchiveComponentRequest.cs` |
+| `Component` | `src/Maxio/Models/Component.cs` |
+| `ArchiveComponentError` | `src/Maxio/Errors/ArchiveComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateEventBasedComponent
 
@@ -33,11 +33,11 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateEventBasedComponentRequest` | `Requests/Components/CreateEventBasedComponentRequest.cs` |
-| `CreateEbbComponent` | `Models/CreateEbbComponent.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `CreateEventBasedComponentError` | `Errors/CreateEventBasedComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateEventBasedComponentRequest` | `src/Maxio/Requests/Components/CreateEventBasedComponentRequest.cs` |
+| `CreateEbbComponent` | `src/Maxio/Models/CreateEbbComponent.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `CreateEventBasedComponentError` | `src/Maxio/Errors/CreateEventBasedComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateMeteredComponent
 
@@ -50,11 +50,11 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateMeteredComponentRequest` | `Requests/Components/CreateMeteredComponentRequest.cs` |
-| `CreateMeteredComponent` | `Models/CreateMeteredComponent.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `CreateMeteredComponentError` | `Errors/CreateMeteredComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateMeteredComponentRequest` | `src/Maxio/Requests/Components/CreateMeteredComponentRequest.cs` |
+| `CreateMeteredComponent` | `src/Maxio/Models/CreateMeteredComponent.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `CreateMeteredComponentError` | `src/Maxio/Errors/CreateMeteredComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateOnOffComponent
 
@@ -67,11 +67,11 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateOnOffComponentRequest` | `Requests/Components/CreateOnOffComponentRequest.cs` |
-| `CreateOnOffComponent` | `Models/CreateOnOffComponent.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `CreateOnOffComponentError` | `Errors/CreateOnOffComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateOnOffComponentRequest` | `src/Maxio/Requests/Components/CreateOnOffComponentRequest.cs` |
+| `CreateOnOffComponent` | `src/Maxio/Models/CreateOnOffComponent.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `CreateOnOffComponentError` | `src/Maxio/Errors/CreateOnOffComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreatePrepaidUsageComponent
 
@@ -84,11 +84,11 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `CreatePrepaidUsageComponentRequest` | `Requests/Components/CreatePrepaidUsageComponentRequest.cs` |
-| `CreatePrepaidComponent` | `Models/CreatePrepaidComponent.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `CreatePrepaidUsageComponentError` | `Errors/CreatePrepaidUsageComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreatePrepaidUsageComponentRequest` | `src/Maxio/Requests/Components/CreatePrepaidUsageComponentRequest.cs` |
+| `CreatePrepaidComponent` | `src/Maxio/Models/CreatePrepaidComponent.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `CreatePrepaidUsageComponentError` | `src/Maxio/Errors/CreatePrepaidUsageComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateQuantityBasedComponent
 
@@ -101,11 +101,11 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateQuantityBasedComponentRequest` | `Requests/Components/CreateQuantityBasedComponentRequest.cs` |
-| `CreateQuantityBasedComponent` | `Models/CreateQuantityBasedComponent.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `CreateQuantityBasedComponentError` | `Errors/CreateQuantityBasedComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateQuantityBasedComponentRequest` | `src/Maxio/Requests/Components/CreateQuantityBasedComponentRequest.cs` |
+| `CreateQuantityBasedComponent` | `src/Maxio/Models/CreateQuantityBasedComponent.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `CreateQuantityBasedComponentError` | `src/Maxio/Errors/CreateQuantityBasedComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### FindComponent
 
@@ -118,8 +118,8 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `FindComponentRequest` | `Requests/Components/FindComponentRequest.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
+| `FindComponentRequest` | `src/Maxio/Requests/Components/FindComponentRequest.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
 
 ### ListComponents
 
@@ -131,10 +131,10 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `ListComponentsRequest` | `Requests/Components/ListComponentsRequest.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `ListComponentsFilter` | `Models/ListComponentsFilter.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
+| `ListComponentsRequest` | `src/Maxio/Requests/Components/ListComponentsRequest.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `ListComponentsFilter` | `src/Maxio/Models/ListComponentsFilter.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
 
 ### ListComponentsForProductFamily
 
@@ -147,10 +147,10 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `ListComponentsForProductFamilyRequest` | `Requests/Components/ListComponentsForProductFamilyRequest.cs` |
-| `ListComponentsFilter` | `Models/ListComponentsFilter.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
+| `ListComponentsForProductFamilyRequest` | `src/Maxio/Requests/Components/ListComponentsForProductFamilyRequest.cs` |
+| `ListComponentsFilter` | `src/Maxio/Models/ListComponentsFilter.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
 
 ### ReadComponent
 
@@ -163,8 +163,8 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadComponentRequest` | `Requests/Components/ReadComponentRequest.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
+| `ReadComponentRequest` | `src/Maxio/Requests/Components/ReadComponentRequest.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
 
 ### UpdateComponent
 
@@ -177,11 +177,11 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateComponentOperationRequest` | `Requests/Components/UpdateComponentOperationRequest.cs` |
-| `UpdateComponentRequest` | `Models/UpdateComponentRequest.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `UpdateComponentError` | `Errors/UpdateComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateComponentOperationRequest` | `src/Maxio/Requests/Components/UpdateComponentOperationRequest.cs` |
+| `UpdateComponentRequest` | `src/Maxio/Models/UpdateComponentRequest.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `UpdateComponentError` | `src/Maxio/Errors/UpdateComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### UpdateProductFamilyComponent
 
@@ -194,9 +194,9 @@ Accessor: `client.Components` · Source: `Api/Components.cs` · 12 operations
 
 | Type | Source |
 | --- | --- |
-| `UpdateProductFamilyComponentRequest` | `Requests/Components/UpdateProductFamilyComponentRequest.cs` |
-| `UpdateComponentRequest` | `Models/UpdateComponentRequest.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
-| `UpdateProductFamilyComponentError` | `Errors/UpdateProductFamilyComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `UpdateProductFamilyComponentRequest` | `src/Maxio/Requests/Components/UpdateProductFamilyComponentRequest.cs` |
+| `UpdateComponentRequest` | `src/Maxio/Models/UpdateComponentRequest.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
+| `UpdateProductFamilyComponentError` | `src/Maxio/Errors/UpdateProductFamilyComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

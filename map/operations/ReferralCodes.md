@@ -2,7 +2,7 @@
 
 # ReferralCodes — operations
 
-Accessor: `client.ReferralCodes` · Source: `Api/ReferralCodes.cs` · 1 operation
+Accessor: `client.ReferralCodes` · Source: `src/Maxio/Api/ReferralCodes.cs` · 1 operation
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -18,8 +18,8 @@ Accessor: `client.ReferralCodes` · Source: `Api/ReferralCodes.cs` · 1 operatio
 
 | Type | Source |
 | --- | --- |
-| `ValidateReferralCodeRequest` | `Requests/ReferralCodes/ValidateReferralCodeRequest.cs` |
-| `ReferralValidationResponse` | `Models/ReferralValidationResponse.cs` |
-| `ValidateReferralCodeError` | `Errors/ValidateReferralCodeError.cs` |
-| `SingleStringErrorResponse1` | `Models/SingleStringErrorResponse1.cs` |
+| `ValidateReferralCodeRequest` | `src/Maxio/Requests/ReferralCodes/ValidateReferralCodeRequest.cs` |
+| `ReferralValidationResponse` | `src/Maxio/Models/ReferralValidationResponse.cs` |
+| `ValidateReferralCodeError` | `src/Maxio/Errors/ValidateReferralCodeError.cs` |
+| `SingleStringErrorResponse1` | `src/Maxio/Models/SingleStringErrorResponse1.cs` |
 

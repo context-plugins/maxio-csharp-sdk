@@ -2,7 +2,7 @@
 
 # ComponentPricePoints — operations
 
-Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs` · 12 operations
+Accessor: `client.ComponentPricePoints` · Source: `src/Maxio/Api/ComponentPricePoints.cs` · 12 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,12 +17,12 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `ArchiveComponentPricePointRequest` | `Requests/ComponentPricePoints/ArchiveComponentPricePointRequest.cs` |
-| `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `ComponentPricePointResponse` | `Models/ComponentPricePointResponse.cs` |
-| `ArchiveComponentPricePointError` | `Errors/ArchiveComponentPricePointError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ArchiveComponentPricePointRequest` | `src/Maxio/Requests/ComponentPricePoints/ArchiveComponentPricePointRequest.cs` |
+| `ComponentIdModel` | `src/Maxio/Models/AnyOf/ComponentIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `ComponentPricePointResponse` | `src/Maxio/Models/ComponentPricePointResponse.cs` |
+| `ArchiveComponentPricePointError` | `src/Maxio/Errors/ArchiveComponentPricePointError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### BulkCreateComponentPricePoints
 
@@ -35,11 +35,11 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `BulkCreateComponentPricePointsRequest` | `Requests/ComponentPricePoints/BulkCreateComponentPricePointsRequest.cs` |
-| `CreateComponentPricePointsRequest` | `Models/CreateComponentPricePointsRequest.cs` |
-| `ComponentPricePointsResponse` | `Models/ComponentPricePointsResponse.cs` |
-| `BulkCreateComponentPricePointsError` | `Errors/BulkCreateComponentPricePointsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `BulkCreateComponentPricePointsRequest` | `src/Maxio/Requests/ComponentPricePoints/BulkCreateComponentPricePointsRequest.cs` |
+| `CreateComponentPricePointsRequest` | `src/Maxio/Models/CreateComponentPricePointsRequest.cs` |
+| `ComponentPricePointsResponse` | `src/Maxio/Models/ComponentPricePointsResponse.cs` |
+| `BulkCreateComponentPricePointsError` | `src/Maxio/Errors/BulkCreateComponentPricePointsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CloneComponentPricePoint
 
@@ -52,13 +52,13 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `CloneComponentPricePointOperationRequest` | `Requests/ComponentPricePoints/CloneComponentPricePointOperationRequest.cs` |
-| `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `CloneComponentPricePointRequest` | `Models/CloneComponentPricePointRequest.cs` |
-| `ComponentPricePointCurrencyOverageResponse` | `Models/ComponentPricePointCurrencyOverageResponse.cs` |
-| `CloneComponentPricePointError` | `Errors/CloneComponentPricePointError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CloneComponentPricePointOperationRequest` | `src/Maxio/Requests/ComponentPricePoints/CloneComponentPricePointOperationRequest.cs` |
+| `ComponentIdModel` | `src/Maxio/Models/AnyOf/ComponentIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `CloneComponentPricePointRequest` | `src/Maxio/Models/CloneComponentPricePointRequest.cs` |
+| `ComponentPricePointCurrencyOverageResponse` | `src/Maxio/Models/ComponentPricePointCurrencyOverageResponse.cs` |
+| `CloneComponentPricePointError` | `src/Maxio/Errors/CloneComponentPricePointError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateComponentPricePoint
 
@@ -71,11 +71,11 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `CreateComponentPricePointOperationRequest` | `Requests/ComponentPricePoints/CreateComponentPricePointOperationRequest.cs` |
-| `CreateComponentPricePointRequest` | `Models/CreateComponentPricePointRequest.cs` |
-| `ComponentPricePointResponse` | `Models/ComponentPricePointResponse.cs` |
-| `CreateComponentPricePointError` | `Errors/CreateComponentPricePointError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `CreateComponentPricePointOperationRequest` | `src/Maxio/Requests/ComponentPricePoints/CreateComponentPricePointOperationRequest.cs` |
+| `CreateComponentPricePointRequest` | `src/Maxio/Models/CreateComponentPricePointRequest.cs` |
+| `ComponentPricePointResponse` | `src/Maxio/Models/ComponentPricePointResponse.cs` |
+| `CreateComponentPricePointError` | `src/Maxio/Errors/CreateComponentPricePointError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### CreateCurrencyPrices
 
@@ -88,11 +88,11 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `CreateCurrencyPricesOperationRequest` | `Requests/ComponentPricePoints/CreateCurrencyPricesOperationRequest.cs` |
-| `CreateCurrencyPricesRequest` | `Models/CreateCurrencyPricesRequest.cs` |
-| `ComponentCurrencyPricesResponse` | `Models/ComponentCurrencyPricesResponse.cs` |
-| `CreateCurrencyPricesError` | `Errors/CreateCurrencyPricesError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `CreateCurrencyPricesOperationRequest` | `src/Maxio/Requests/ComponentPricePoints/CreateCurrencyPricesOperationRequest.cs` |
+| `CreateCurrencyPricesRequest` | `src/Maxio/Models/CreateCurrencyPricesRequest.cs` |
+| `ComponentCurrencyPricesResponse` | `src/Maxio/Models/ComponentCurrencyPricesResponse.cs` |
+| `CreateCurrencyPricesError` | `src/Maxio/Errors/CreateCurrencyPricesError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### ListAllComponentPricePoints
 
@@ -105,13 +105,13 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `ListAllComponentPricePointsRequest` | `Requests/ComponentPricePoints/ListAllComponentPricePointsRequest.cs` |
-| `ListComponentsPricePointsInclude` | `Models/Enums/ListComponentsPricePointsInclude.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListPricePointsFilter` | `Models/ListPricePointsFilter.cs` |
-| `ListComponentsPricePointsResponse` | `Models/ListComponentsPricePointsResponse.cs` |
-| `ListAllComponentPricePointsError` | `Errors/ListAllComponentPricePointsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListAllComponentPricePointsRequest` | `src/Maxio/Requests/ComponentPricePoints/ListAllComponentPricePointsRequest.cs` |
+| `ListComponentsPricePointsInclude` | `src/Maxio/Models/Enums/ListComponentsPricePointsInclude.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListPricePointsFilter` | `src/Maxio/Models/ListPricePointsFilter.cs` |
+| `ListComponentsPricePointsResponse` | `src/Maxio/Models/ListComponentsPricePointsResponse.cs` |
+| `ListAllComponentPricePointsError` | `src/Maxio/Errors/ListAllComponentPricePointsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListComponentPricePoints
 
@@ -124,9 +124,9 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `ListComponentPricePointsRequest` | `Requests/ComponentPricePoints/ListComponentPricePointsRequest.cs` |
-| `PricePointType` | `Models/Enums/PricePointType.cs` |
-| `ComponentPricePointsResponse` | `Models/ComponentPricePointsResponse.cs` |
+| `ListComponentPricePointsRequest` | `src/Maxio/Requests/ComponentPricePoints/ListComponentPricePointsRequest.cs` |
+| `PricePointType` | `src/Maxio/Models/Enums/PricePointType.cs` |
+| `ComponentPricePointsResponse` | `src/Maxio/Models/ComponentPricePointsResponse.cs` |
 
 ### PromoteComponentPricePointToDefault
 
@@ -138,8 +138,8 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `PromoteComponentPricePointToDefaultRequest` | `Requests/ComponentPricePoints/PromoteComponentPricePointToDefaultRequest.cs` |
-| `ComponentResponse` | `Models/ComponentResponse.cs` |
+| `PromoteComponentPricePointToDefaultRequest` | `src/Maxio/Requests/ComponentPricePoints/PromoteComponentPricePointToDefaultRequest.cs` |
+| `ComponentResponse` | `src/Maxio/Models/ComponentResponse.cs` |
 
 ### ReadComponentPricePoint
 
@@ -152,10 +152,10 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `ReadComponentPricePointRequest` | `Requests/ComponentPricePoints/ReadComponentPricePointRequest.cs` |
-| `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `ComponentPricePointCurrencyOverageResponse` | `Models/ComponentPricePointCurrencyOverageResponse.cs` |
+| `ReadComponentPricePointRequest` | `src/Maxio/Requests/ComponentPricePoints/ReadComponentPricePointRequest.cs` |
+| `ComponentIdModel` | `src/Maxio/Models/AnyOf/ComponentIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `ComponentPricePointCurrencyOverageResponse` | `src/Maxio/Models/ComponentPricePointCurrencyOverageResponse.cs` |
 
 ### UnarchiveComponentPricePoint
 
@@ -167,8 +167,8 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `UnarchiveComponentPricePointRequest` | `Requests/ComponentPricePoints/UnarchiveComponentPricePointRequest.cs` |
-| `ComponentPricePointResponse` | `Models/ComponentPricePointResponse.cs` |
+| `UnarchiveComponentPricePointRequest` | `src/Maxio/Requests/ComponentPricePoints/UnarchiveComponentPricePointRequest.cs` |
+| `ComponentPricePointResponse` | `src/Maxio/Models/ComponentPricePointResponse.cs` |
 
 ### UpdateComponentPricePoint
 
@@ -181,13 +181,13 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `UpdateComponentPricePointOperationRequest` | `Requests/ComponentPricePoints/UpdateComponentPricePointOperationRequest.cs` |
-| `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `UpdateComponentPricePointRequest` | `Models/UpdateComponentPricePointRequest.cs` |
-| `ComponentPricePointResponse` | `Models/ComponentPricePointResponse.cs` |
-| `UpdateComponentPricePointError` | `Errors/UpdateComponentPricePointError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `UpdateComponentPricePointOperationRequest` | `src/Maxio/Requests/ComponentPricePoints/UpdateComponentPricePointOperationRequest.cs` |
+| `ComponentIdModel` | `src/Maxio/Models/AnyOf/ComponentIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `UpdateComponentPricePointRequest` | `src/Maxio/Models/UpdateComponentPricePointRequest.cs` |
+| `ComponentPricePointResponse` | `src/Maxio/Models/ComponentPricePointResponse.cs` |
+| `UpdateComponentPricePointError` | `src/Maxio/Errors/UpdateComponentPricePointError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### UpdateCurrencyPrices
 
@@ -200,9 +200,9 @@ Accessor: `client.ComponentPricePoints` · Source: `Api/ComponentPricePoints.cs`
 
 | Type | Source |
 | --- | --- |
-| `UpdateCurrencyPricesOperationRequest` | `Requests/ComponentPricePoints/UpdateCurrencyPricesOperationRequest.cs` |
-| `UpdateCurrencyPricesRequest` | `Models/UpdateCurrencyPricesRequest.cs` |
-| `ComponentCurrencyPricesResponse` | `Models/ComponentCurrencyPricesResponse.cs` |
-| `UpdateCurrencyPricesError` | `Errors/UpdateCurrencyPricesError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `UpdateCurrencyPricesOperationRequest` | `src/Maxio/Requests/ComponentPricePoints/UpdateCurrencyPricesOperationRequest.cs` |
+| `UpdateCurrencyPricesRequest` | `src/Maxio/Models/UpdateCurrencyPricesRequest.cs` |
+| `ComponentCurrencyPricesResponse` | `src/Maxio/Models/ComponentCurrencyPricesResponse.cs` |
+| `UpdateCurrencyPricesError` | `src/Maxio/Errors/UpdateCurrencyPricesError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 

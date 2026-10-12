@@ -2,7 +2,7 @@
 
 # EventsBasedBillingSegments — operations
 
-Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBillingSegments.cs` · 6 operations
+Accessor: `client.EventsBasedBillingSegments` · Source: `src/Maxio/Api/EventsBasedBillingSegments.cs` · 6 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 | Type | Source |
 | --- | --- |
-| `BulkCreateSegmentsRequest` | `Requests/EventsBasedBillingSegments/BulkCreateSegmentsRequest.cs` |
-| `BulkCreateSegments` | `Models/BulkCreateSegments.cs` |
-| `ListSegmentsResponse` | `Models/ListSegmentsResponse.cs` |
-| `BulkCreateSegmentsError` | `Errors/BulkCreateSegmentsError.cs` |
-| `EventBasedBillingSegment1` | `Models/EventBasedBillingSegment1.cs` |
+| `BulkCreateSegmentsRequest` | `src/Maxio/Requests/EventsBasedBillingSegments/BulkCreateSegmentsRequest.cs` |
+| `BulkCreateSegments` | `src/Maxio/Models/BulkCreateSegments.cs` |
+| `ListSegmentsResponse` | `src/Maxio/Models/ListSegmentsResponse.cs` |
+| `BulkCreateSegmentsError` | `src/Maxio/Errors/BulkCreateSegmentsError.cs` |
+| `EventBasedBillingSegment1` | `src/Maxio/Models/EventBasedBillingSegment1.cs` |
 
 ### BulkUpdateSegments
 
@@ -34,11 +34,11 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 | Type | Source |
 | --- | --- |
-| `BulkUpdateSegmentsRequest` | `Requests/EventsBasedBillingSegments/BulkUpdateSegmentsRequest.cs` |
-| `BulkUpdateSegments` | `Models/BulkUpdateSegments.cs` |
-| `ListSegmentsResponse` | `Models/ListSegmentsResponse.cs` |
-| `BulkUpdateSegmentsError` | `Errors/BulkUpdateSegmentsError.cs` |
-| `EventBasedBillingSegment1` | `Models/EventBasedBillingSegment1.cs` |
+| `BulkUpdateSegmentsRequest` | `src/Maxio/Requests/EventsBasedBillingSegments/BulkUpdateSegmentsRequest.cs` |
+| `BulkUpdateSegments` | `src/Maxio/Models/BulkUpdateSegments.cs` |
+| `ListSegmentsResponse` | `src/Maxio/Models/ListSegmentsResponse.cs` |
+| `BulkUpdateSegmentsError` | `src/Maxio/Errors/BulkUpdateSegmentsError.cs` |
+| `EventBasedBillingSegment1` | `src/Maxio/Models/EventBasedBillingSegment1.cs` |
 
 ### CreateSegment
 
@@ -51,11 +51,11 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 | Type | Source |
 | --- | --- |
-| `CreateSegmentOperationRequest` | `Requests/EventsBasedBillingSegments/CreateSegmentOperationRequest.cs` |
-| `CreateSegmentRequest` | `Models/CreateSegmentRequest.cs` |
-| `SegmentResponse` | `Models/SegmentResponse.cs` |
-| `CreateSegmentError` | `Errors/CreateSegmentError.cs` |
-| `EventBasedBillingSegmentErrors1` | `Models/EventBasedBillingSegmentErrors1.cs` |
+| `CreateSegmentOperationRequest` | `src/Maxio/Requests/EventsBasedBillingSegments/CreateSegmentOperationRequest.cs` |
+| `CreateSegmentRequest` | `src/Maxio/Models/CreateSegmentRequest.cs` |
+| `SegmentResponse` | `src/Maxio/Models/SegmentResponse.cs` |
+| `CreateSegmentError` | `src/Maxio/Errors/CreateSegmentError.cs` |
+| `EventBasedBillingSegmentErrors1` | `src/Maxio/Models/EventBasedBillingSegmentErrors1.cs` |
 
 ### DeleteSegment
 
@@ -68,8 +68,8 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 | Type | Source |
 | --- | --- |
-| `DeleteSegmentRequest` | `Requests/EventsBasedBillingSegments/DeleteSegmentRequest.cs` |
-| `DeleteSegmentError` | `Errors/DeleteSegmentError.cs` |
+| `DeleteSegmentRequest` | `src/Maxio/Requests/EventsBasedBillingSegments/DeleteSegmentRequest.cs` |
+| `DeleteSegmentError` | `src/Maxio/Errors/DeleteSegmentError.cs` |
 
 ### ListSegmentsForPricePoint
 
@@ -83,11 +83,11 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 | Type | Source |
 | --- | --- |
-| `ListSegmentsForPricePointRequest` | `Requests/EventsBasedBillingSegments/ListSegmentsForPricePointRequest.cs` |
-| `ListSegmentsFilter` | `Models/ListSegmentsFilter.cs` |
-| `ListSegmentsResponse` | `Models/ListSegmentsResponse.cs` |
-| `ListSegmentsForPricePointError` | `Errors/ListSegmentsForPricePointError.cs` |
-| `EventBasedBillingListSegmentsErrors1` | `Models/EventBasedBillingListSegmentsErrors1.cs` |
+| `ListSegmentsForPricePointRequest` | `src/Maxio/Requests/EventsBasedBillingSegments/ListSegmentsForPricePointRequest.cs` |
+| `ListSegmentsFilter` | `src/Maxio/Models/ListSegmentsFilter.cs` |
+| `ListSegmentsResponse` | `src/Maxio/Models/ListSegmentsResponse.cs` |
+| `ListSegmentsForPricePointError` | `src/Maxio/Errors/ListSegmentsForPricePointError.cs` |
+| `EventBasedBillingListSegmentsErrors1` | `src/Maxio/Models/EventBasedBillingListSegmentsErrors1.cs` |
 
 ### UpdateSegment
 
@@ -100,9 +100,9 @@ Accessor: `client.EventsBasedBillingSegments` · Source: `Api/EventsBasedBilling
 
 | Type | Source |
 | --- | --- |
-| `UpdateSegmentOperationRequest` | `Requests/EventsBasedBillingSegments/UpdateSegmentOperationRequest.cs` |
-| `UpdateSegmentRequest` | `Models/UpdateSegmentRequest.cs` |
-| `SegmentResponse` | `Models/SegmentResponse.cs` |
-| `UpdateSegmentError` | `Errors/UpdateSegmentError.cs` |
-| `EventBasedBillingSegmentErrors1` | `Models/EventBasedBillingSegmentErrors1.cs` |
+| `UpdateSegmentOperationRequest` | `src/Maxio/Requests/EventsBasedBillingSegments/UpdateSegmentOperationRequest.cs` |
+| `UpdateSegmentRequest` | `src/Maxio/Models/UpdateSegmentRequest.cs` |
+| `SegmentResponse` | `src/Maxio/Models/SegmentResponse.cs` |
+| `UpdateSegmentError` | `src/Maxio/Errors/UpdateSegmentError.cs` |
+| `EventBasedBillingSegmentErrors1` | `src/Maxio/Models/EventBasedBillingSegmentErrors1.cs` |
 

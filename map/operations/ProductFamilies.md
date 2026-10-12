@@ -2,7 +2,7 @@
 
 # ProductFamilies — operations
 
-Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 operations
+Accessor: `client.ProductFamilies` · Source: `src/Maxio/Api/ProductFamilies.cs` · 4 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,11 +16,11 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 | Type | Source |
 | --- | --- |
-| `CreateProductFamilyOperationRequest` | `Requests/ProductFamilies/CreateProductFamilyOperationRequest.cs` |
-| `CreateProductFamilyRequest` | `Models/CreateProductFamilyRequest.cs` |
-| `ProductFamilyResponse` | `Models/ProductFamilyResponse.cs` |
-| `CreateProductFamilyError` | `Errors/CreateProductFamilyError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateProductFamilyOperationRequest` | `src/Maxio/Requests/ProductFamilies/CreateProductFamilyOperationRequest.cs` |
+| `CreateProductFamilyRequest` | `src/Maxio/Models/CreateProductFamilyRequest.cs` |
+| `ProductFamilyResponse` | `src/Maxio/Models/ProductFamilyResponse.cs` |
+| `CreateProductFamilyError` | `src/Maxio/Errors/CreateProductFamilyError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListProductFamilies
 
@@ -32,9 +32,9 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 | Type | Source |
 | --- | --- |
-| `ListProductFamiliesRequest` | `Requests/ProductFamilies/ListProductFamiliesRequest.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `ProductFamilyResponse` | `Models/ProductFamilyResponse.cs` |
+| `ListProductFamiliesRequest` | `src/Maxio/Requests/ProductFamilies/ListProductFamiliesRequest.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `ProductFamilyResponse` | `src/Maxio/Models/ProductFamilyResponse.cs` |
 
 ### ListProductsForProductFamily
 
@@ -48,12 +48,12 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 | Type | Source |
 | --- | --- |
-| `ListProductsForProductFamilyRequest` | `Requests/ProductFamilies/ListProductsForProductFamilyRequest.cs` |
-| `BasicDateField` | `Models/Enums/BasicDateField.cs` |
-| `ListProductsFilter` | `Models/ListProductsFilter.cs` |
-| `ListProductsInclude` | `Models/Enums/ListProductsInclude.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
-| `ListProductsForProductFamilyError` | `Errors/ListProductsForProductFamilyError.cs` |
+| `ListProductsForProductFamilyRequest` | `src/Maxio/Requests/ProductFamilies/ListProductsForProductFamilyRequest.cs` |
+| `BasicDateField` | `src/Maxio/Models/Enums/BasicDateField.cs` |
+| `ListProductsFilter` | `src/Maxio/Models/ListProductsFilter.cs` |
+| `ListProductsInclude` | `src/Maxio/Models/Enums/ListProductsInclude.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
+| `ListProductsForProductFamilyError` | `src/Maxio/Errors/ListProductsForProductFamilyError.cs` |
 
 ### ReadProductFamily
 
@@ -65,6 +65,6 @@ Accessor: `client.ProductFamilies` · Source: `Api/ProductFamilies.cs` · 4 oper
 
 | Type | Source |
 | --- | --- |
-| `ReadProductFamilyRequest` | `Requests/ProductFamilies/ReadProductFamilyRequest.cs` |
-| `ProductFamilyResponse` | `Models/ProductFamilyResponse.cs` |
+| `ReadProductFamilyRequest` | `src/Maxio/Requests/ProductFamilies/ReadProductFamilyRequest.cs` |
+| `ProductFamilyResponse` | `src/Maxio/Models/ProductFamilyResponse.cs` |
 

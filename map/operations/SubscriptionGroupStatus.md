@@ -2,7 +2,7 @@
 
 # SubscriptionGroupStatus — operations
 
-Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStatus.cs` · 4 operations
+Accessor: `client.SubscriptionGroupStatus` · Source: `src/Maxio/Api/SubscriptionGroupStatus.cs` · 4 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,9 +17,9 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 | Type | Source |
 | --- | --- |
-| `CancelDelayedCancellationForGroupRequest` | `Requests/SubscriptionGroupStatus/CancelDelayedCancellationForGroupRequest.cs` |
-| `CancelDelayedCancellationForGroupError` | `Errors/CancelDelayedCancellationForGroupError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CancelDelayedCancellationForGroupRequest` | `src/Maxio/Requests/SubscriptionGroupStatus/CancelDelayedCancellationForGroupRequest.cs` |
+| `CancelDelayedCancellationForGroupError` | `src/Maxio/Errors/CancelDelayedCancellationForGroupError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CancelSubscriptionsInGroup
 
@@ -32,10 +32,10 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 | Type | Source |
 | --- | --- |
-| `CancelSubscriptionsInGroupRequest` | `Requests/SubscriptionGroupStatus/CancelSubscriptionsInGroupRequest.cs` |
-| `CancelGroupedSubscriptionsRequest` | `Models/CancelGroupedSubscriptionsRequest.cs` |
-| `CancelSubscriptionsInGroupError` | `Errors/CancelSubscriptionsInGroupError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CancelSubscriptionsInGroupRequest` | `src/Maxio/Requests/SubscriptionGroupStatus/CancelSubscriptionsInGroupRequest.cs` |
+| `CancelGroupedSubscriptionsRequest` | `src/Maxio/Models/CancelGroupedSubscriptionsRequest.cs` |
+| `CancelSubscriptionsInGroupError` | `src/Maxio/Errors/CancelSubscriptionsInGroupError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### InitiateDelayedCancellationForGroup
 
@@ -48,9 +48,9 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 | Type | Source |
 | --- | --- |
-| `InitiateDelayedCancellationForGroupRequest` | `Requests/SubscriptionGroupStatus/InitiateDelayedCancellationForGroupRequest.cs` |
-| `InitiateDelayedCancellationForGroupError` | `Errors/InitiateDelayedCancellationForGroupError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `InitiateDelayedCancellationForGroupRequest` | `src/Maxio/Requests/SubscriptionGroupStatus/InitiateDelayedCancellationForGroupRequest.cs` |
+| `InitiateDelayedCancellationForGroupError` | `src/Maxio/Errors/InitiateDelayedCancellationForGroupError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReactivateSubscriptionGroup
 
@@ -63,9 +63,9 @@ Accessor: `client.SubscriptionGroupStatus` · Source: `Api/SubscriptionGroupStat
 
 | Type | Source |
 | --- | --- |
-| `ReactivateSubscriptionGroupOperationRequest` | `Requests/SubscriptionGroupStatus/ReactivateSubscriptionGroupOperationRequest.cs` |
-| `ReactivateSubscriptionGroupRequest` | `Models/ReactivateSubscriptionGroupRequest.cs` |
-| `ReactivateSubscriptionGroupResponse` | `Models/ReactivateSubscriptionGroupResponse.cs` |
-| `ReactivateSubscriptionGroupError` | `Errors/ReactivateSubscriptionGroupError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ReactivateSubscriptionGroupOperationRequest` | `src/Maxio/Requests/SubscriptionGroupStatus/ReactivateSubscriptionGroupOperationRequest.cs` |
+| `ReactivateSubscriptionGroupRequest` | `src/Maxio/Models/ReactivateSubscriptionGroupRequest.cs` |
+| `ReactivateSubscriptionGroupResponse` | `src/Maxio/Models/ReactivateSubscriptionGroupResponse.cs` |
+| `ReactivateSubscriptionGroupError` | `src/Maxio/Errors/ReactivateSubscriptionGroupError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 

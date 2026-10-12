@@ -2,7 +2,7 @@
 
 # BillingPortal — operations
 
-Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operations
+Accessor: `client.BillingPortal` · Source: `src/Maxio/Api/BillingPortal.cs` · 4 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -18,11 +18,11 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 | Type | Source |
 | --- | --- |
-| `EnableBillingPortalForCustomerRequest` | `Requests/BillingPortal/EnableBillingPortalForCustomerRequest.cs` |
-| `AutoInvite` | `Models/Enums/AutoInvite.cs` |
-| `CustomerResponse` | `Models/CustomerResponse.cs` |
-| `EnableBillingPortalForCustomerError` | `Errors/EnableBillingPortalForCustomerError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `EnableBillingPortalForCustomerRequest` | `src/Maxio/Requests/BillingPortal/EnableBillingPortalForCustomerRequest.cs` |
+| `AutoInvite` | `src/Maxio/Models/Enums/AutoInvite.cs` |
+| `CustomerResponse` | `src/Maxio/Models/CustomerResponse.cs` |
+| `EnableBillingPortalForCustomerError` | `src/Maxio/Errors/EnableBillingPortalForCustomerError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadBillingPortalLink
 
@@ -35,11 +35,11 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 | Type | Source |
 | --- | --- |
-| `ReadBillingPortalLinkRequest` | `Requests/BillingPortal/ReadBillingPortalLinkRequest.cs` |
-| `PortalManagementLink` | `Models/PortalManagementLink.cs` |
-| `ReadBillingPortalLinkError` | `Errors/ReadBillingPortalLinkError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
-| `TooManyManagementLinkRequestsError1` | `Models/TooManyManagementLinkRequestsError1.cs` |
+| `ReadBillingPortalLinkRequest` | `src/Maxio/Requests/BillingPortal/ReadBillingPortalLinkRequest.cs` |
+| `PortalManagementLink` | `src/Maxio/Models/PortalManagementLink.cs` |
+| `ReadBillingPortalLinkError` | `src/Maxio/Errors/ReadBillingPortalLinkError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
+| `TooManyManagementLinkRequestsError1` | `src/Maxio/Models/TooManyManagementLinkRequestsError1.cs` |
 
 ### ResendBillingPortalInvitation
 
@@ -52,10 +52,10 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 | Type | Source |
 | --- | --- |
-| `ResendBillingPortalInvitationRequest` | `Requests/BillingPortal/ResendBillingPortalInvitationRequest.cs` |
-| `ResentInvitation` | `Models/ResentInvitation.cs` |
-| `ResendBillingPortalInvitationError` | `Errors/ResendBillingPortalInvitationError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ResendBillingPortalInvitationRequest` | `src/Maxio/Requests/BillingPortal/ResendBillingPortalInvitationRequest.cs` |
+| `ResentInvitation` | `src/Maxio/Models/ResentInvitation.cs` |
+| `ResendBillingPortalInvitationError` | `src/Maxio/Errors/ResendBillingPortalInvitationError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### RevokeBillingPortalAccess
 
@@ -67,6 +67,6 @@ Accessor: `client.BillingPortal` · Source: `Api/BillingPortal.cs` · 4 operatio
 
 | Type | Source |
 | --- | --- |
-| `RevokeBillingPortalAccessRequest` | `Requests/BillingPortal/RevokeBillingPortalAccessRequest.cs` |
-| `RevokedInvitation` | `Models/RevokedInvitation.cs` |
+| `RevokeBillingPortalAccessRequest` | `src/Maxio/Requests/BillingPortal/RevokeBillingPortalAccessRequest.cs` |
+| `RevokedInvitation` | `src/Maxio/Models/RevokedInvitation.cs` |
 

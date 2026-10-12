@@ -2,7 +2,7 @@
 
 # ApiExports — operations
 
-Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
+Accessor: `client.ApiExports` · Source: `src/Maxio/Api/ApiExports.cs` · 9 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,9 +16,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `BatchJobResponse` | `Models/BatchJobResponse.cs` |
-| `ExportInvoicesError` | `Errors/ExportInvoicesError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `BatchJobResponse` | `src/Maxio/Models/BatchJobResponse.cs` |
+| `ExportInvoicesError` | `src/Maxio/Errors/ExportInvoicesError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### ExportProformaInvoices
 
@@ -30,9 +30,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `BatchJobResponse` | `Models/BatchJobResponse.cs` |
-| `ExportProformaInvoicesError` | `Errors/ExportProformaInvoicesError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `BatchJobResponse` | `src/Maxio/Models/BatchJobResponse.cs` |
+| `ExportProformaInvoicesError` | `src/Maxio/Errors/ExportProformaInvoicesError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### ExportSubscriptions
 
@@ -44,9 +44,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `BatchJobResponse` | `Models/BatchJobResponse.cs` |
-| `ExportSubscriptionsError` | `Errors/ExportSubscriptionsError.cs` |
-| `SingleErrorResponse1` | `Models/SingleErrorResponse1.cs` |
+| `BatchJobResponse` | `src/Maxio/Models/BatchJobResponse.cs` |
+| `ExportSubscriptionsError` | `src/Maxio/Errors/ExportSubscriptionsError.cs` |
+| `SingleErrorResponse1` | `src/Maxio/Models/SingleErrorResponse1.cs` |
 
 ### ListExportedInvoices
 
@@ -60,9 +60,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ListExportedInvoicesRequest` | `Requests/ApiExports/ListExportedInvoicesRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `ListExportedInvoicesError` | `Errors/ListExportedInvoicesError.cs` |
+| `ListExportedInvoicesRequest` | `src/Maxio/Requests/ApiExports/ListExportedInvoicesRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `ListExportedInvoicesError` | `src/Maxio/Errors/ListExportedInvoicesError.cs` |
 
 ### ListExportedProformaInvoices
 
@@ -76,9 +76,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ListExportedProformaInvoicesRequest` | `Requests/ApiExports/ListExportedProformaInvoicesRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `ListExportedProformaInvoicesError` | `Errors/ListExportedProformaInvoicesError.cs` |
+| `ListExportedProformaInvoicesRequest` | `src/Maxio/Requests/ApiExports/ListExportedProformaInvoicesRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `ListExportedProformaInvoicesError` | `src/Maxio/Errors/ListExportedProformaInvoicesError.cs` |
 
 ### ListExportedSubscriptions
 
@@ -92,9 +92,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ListExportedSubscriptionsRequest` | `Requests/ApiExports/ListExportedSubscriptionsRequest.cs` |
-| `Subscription` | `Models/Subscription.cs` |
-| `ListExportedSubscriptionsError` | `Errors/ListExportedSubscriptionsError.cs` |
+| `ListExportedSubscriptionsRequest` | `src/Maxio/Requests/ApiExports/ListExportedSubscriptionsRequest.cs` |
+| `Subscription` | `src/Maxio/Models/Subscription.cs` |
+| `ListExportedSubscriptionsError` | `src/Maxio/Errors/ListExportedSubscriptionsError.cs` |
 
 ### ReadInvoicesExport
 
@@ -107,9 +107,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadInvoicesExportRequest` | `Requests/ApiExports/ReadInvoicesExportRequest.cs` |
-| `BatchJobResponse` | `Models/BatchJobResponse.cs` |
-| `ReadInvoicesExportError` | `Errors/ReadInvoicesExportError.cs` |
+| `ReadInvoicesExportRequest` | `src/Maxio/Requests/ApiExports/ReadInvoicesExportRequest.cs` |
+| `BatchJobResponse` | `src/Maxio/Models/BatchJobResponse.cs` |
+| `ReadInvoicesExportError` | `src/Maxio/Errors/ReadInvoicesExportError.cs` |
 
 ### ReadProformaInvoicesExport
 
@@ -122,9 +122,9 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadProformaInvoicesExportRequest` | `Requests/ApiExports/ReadProformaInvoicesExportRequest.cs` |
-| `BatchJobResponse` | `Models/BatchJobResponse.cs` |
-| `ReadProformaInvoicesExportError` | `Errors/ReadProformaInvoicesExportError.cs` |
+| `ReadProformaInvoicesExportRequest` | `src/Maxio/Requests/ApiExports/ReadProformaInvoicesExportRequest.cs` |
+| `BatchJobResponse` | `src/Maxio/Models/BatchJobResponse.cs` |
+| `ReadProformaInvoicesExportError` | `src/Maxio/Errors/ReadProformaInvoicesExportError.cs` |
 
 ### ReadSubscriptionsExport
 
@@ -137,7 +137,7 @@ Accessor: `client.ApiExports` · Source: `Api/ApiExports.cs` · 9 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadSubscriptionsExportRequest` | `Requests/ApiExports/ReadSubscriptionsExportRequest.cs` |
-| `BatchJobResponse` | `Models/BatchJobResponse.cs` |
-| `ReadSubscriptionsExportError` | `Errors/ReadSubscriptionsExportError.cs` |
+| `ReadSubscriptionsExportRequest` | `src/Maxio/Requests/ApiExports/ReadSubscriptionsExportRequest.cs` |
+| `BatchJobResponse` | `src/Maxio/Models/BatchJobResponse.cs` |
+| `ReadSubscriptionsExportError` | `src/Maxio/Errors/ReadSubscriptionsExportError.cs` |
 

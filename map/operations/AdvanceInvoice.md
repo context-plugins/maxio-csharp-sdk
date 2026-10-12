@@ -2,7 +2,7 @@
 
 # AdvanceInvoice — operations
 
-Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operations
+Accessor: `client.AdvanceInvoice` · Source: `src/Maxio/Api/AdvanceInvoice.cs` · 3 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,11 +17,11 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 | Type | Source |
 | --- | --- |
-| `IssueAdvanceInvoiceOperationRequest` | `Requests/AdvanceInvoice/IssueAdvanceInvoiceOperationRequest.cs` |
-| `IssueAdvanceInvoiceRequest` | `Models/IssueAdvanceInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `IssueAdvanceInvoiceError` | `Errors/IssueAdvanceInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `IssueAdvanceInvoiceOperationRequest` | `src/Maxio/Requests/AdvanceInvoice/IssueAdvanceInvoiceOperationRequest.cs` |
+| `IssueAdvanceInvoiceRequest` | `src/Maxio/Models/IssueAdvanceInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `IssueAdvanceInvoiceError` | `src/Maxio/Errors/IssueAdvanceInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadAdvanceInvoice
 
@@ -34,9 +34,9 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 | Type | Source |
 | --- | --- |
-| `ReadAdvanceInvoiceRequest` | `Requests/AdvanceInvoice/ReadAdvanceInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `ReadAdvanceInvoiceError` | `Errors/ReadAdvanceInvoiceError.cs` |
+| `ReadAdvanceInvoiceRequest` | `src/Maxio/Requests/AdvanceInvoice/ReadAdvanceInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `ReadAdvanceInvoiceError` | `src/Maxio/Errors/ReadAdvanceInvoiceError.cs` |
 
 ### VoidAdvanceInvoice
 
@@ -49,8 +49,8 @@ Accessor: `client.AdvanceInvoice` · Source: `Api/AdvanceInvoice.cs` · 3 operat
 
 | Type | Source |
 | --- | --- |
-| `VoidAdvanceInvoiceRequest` | `Requests/AdvanceInvoice/VoidAdvanceInvoiceRequest.cs` |
-| `VoidInvoiceRequest` | `Models/VoidInvoiceRequest.cs` |
-| `Invoice` | `Models/Invoice.cs` |
-| `VoidAdvanceInvoiceError` | `Errors/VoidAdvanceInvoiceError.cs` |
+| `VoidAdvanceInvoiceRequest` | `src/Maxio/Requests/AdvanceInvoice/VoidAdvanceInvoiceRequest.cs` |
+| `VoidInvoiceRequest` | `src/Maxio/Models/VoidInvoiceRequest.cs` |
+| `Invoice` | `src/Maxio/Models/Invoice.cs` |
+| `VoidAdvanceInvoiceError` | `src/Maxio/Errors/VoidAdvanceInvoiceError.cs` |
 

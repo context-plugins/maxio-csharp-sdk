@@ -2,7 +2,7 @@
 
 # SubscriptionComponents — operations
 
-Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents.cs` · 17 operations
+Accessor: `client.SubscriptionComponents` · Source: `src/Maxio/Api/SubscriptionComponents.cs` · 17 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,8 +16,8 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `ActivateEventBasedComponentRequest` | `Requests/SubscriptionComponents/ActivateEventBasedComponentRequest.cs` |
-| `ActivateEventBasedComponent` | `Models/ActivateEventBasedComponent.cs` |
+| `ActivateEventBasedComponentRequest` | `src/Maxio/Requests/SubscriptionComponents/ActivateEventBasedComponentRequest.cs` |
+| `ActivateEventBasedComponent` | `src/Maxio/Models/ActivateEventBasedComponent.cs` |
 
 ### AllocateComponent
 
@@ -30,11 +30,11 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `AllocateComponentRequest` | `Requests/SubscriptionComponents/AllocateComponentRequest.cs` |
-| `CreateAllocationRequest` | `Models/CreateAllocationRequest.cs` |
-| `AllocationResponse` | `Models/AllocationResponse.cs` |
-| `AllocateComponentError` | `Errors/AllocateComponentError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `AllocateComponentRequest` | `src/Maxio/Requests/SubscriptionComponents/AllocateComponentRequest.cs` |
+| `CreateAllocationRequest` | `src/Maxio/Models/CreateAllocationRequest.cs` |
+| `AllocationResponse` | `src/Maxio/Models/AllocationResponse.cs` |
+| `AllocateComponentError` | `src/Maxio/Errors/AllocateComponentError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### AllocateComponents
 
@@ -47,11 +47,11 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `AllocateComponentsRequest` | `Requests/SubscriptionComponents/AllocateComponentsRequest.cs` |
-| `AllocateComponents` | `Models/AllocateComponents.cs` |
-| `AllocationResponse` | `Models/AllocationResponse.cs` |
-| `AllocateComponentsError` | `Errors/AllocateComponentsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `AllocateComponentsRequest` | `src/Maxio/Requests/SubscriptionComponents/AllocateComponentsRequest.cs` |
+| `AllocateComponents` | `src/Maxio/Models/AllocateComponents.cs` |
+| `AllocationResponse` | `src/Maxio/Models/AllocationResponse.cs` |
+| `AllocateComponentsError` | `src/Maxio/Errors/AllocateComponentsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### BulkRecordEvents
 
@@ -65,8 +65,8 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `BulkRecordEventsRequest` | `Requests/SubscriptionComponents/BulkRecordEventsRequest.cs` |
-| `EbbEvent` | `Models/EbbEvent.cs` |
+| `BulkRecordEventsRequest` | `src/Maxio/Requests/SubscriptionComponents/BulkRecordEventsRequest.cs` |
+| `EbbEvent` | `src/Maxio/Models/EbbEvent.cs` |
 
 ### BulkResetSubscriptionComponentsPricePoints
 
@@ -78,8 +78,8 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `BulkResetSubscriptionComponentsPricePointsRequest` | `Requests/SubscriptionComponents/BulkResetSubscriptionComponentsPricePointsRequest.cs` |
-| `SubscriptionResponse` | `Models/SubscriptionResponse.cs` |
+| `BulkResetSubscriptionComponentsPricePointsRequest` | `src/Maxio/Requests/SubscriptionComponents/BulkResetSubscriptionComponentsPricePointsRequest.cs` |
+| `SubscriptionResponse` | `src/Maxio/Models/SubscriptionResponse.cs` |
 
 ### BulkUpdateSubscriptionComponentsPricePoints
 
@@ -92,10 +92,10 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `BulkUpdateSubscriptionComponentsPricePointsRequest` | `Requests/SubscriptionComponents/BulkUpdateSubscriptionComponentsPricePointsRequest.cs` |
-| `BulkComponentsPricePointAssignment` | `Models/BulkComponentsPricePointAssignment.cs` |
-| `BulkUpdateSubscriptionComponentsPricePointsError` | `Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs` |
-| `ComponentPricePointError1` | `Models/ComponentPricePointError1.cs` |
+| `BulkUpdateSubscriptionComponentsPricePointsRequest` | `src/Maxio/Requests/SubscriptionComponents/BulkUpdateSubscriptionComponentsPricePointsRequest.cs` |
+| `BulkComponentsPricePointAssignment` | `src/Maxio/Models/BulkComponentsPricePointAssignment.cs` |
+| `BulkUpdateSubscriptionComponentsPricePointsError` | `src/Maxio/Errors/BulkUpdateSubscriptionComponentsPricePointsError.cs` |
+| `ComponentPricePointError1` | `src/Maxio/Models/ComponentPricePointError1.cs` |
 
 ### CreateUsage
 
@@ -108,13 +108,13 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `CreateUsageOperationRequest` | `Requests/SubscriptionComponents/CreateUsageOperationRequest.cs` |
-| `SubscriptionIdOrReference` | `Models/AnyOf/SubscriptionIdOrReference.cs` |
-| `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
-| `CreateUsageRequest` | `Models/CreateUsageRequest.cs` |
-| `UsageResponse` | `Models/UsageResponse.cs` |
-| `CreateUsageError` | `Errors/CreateUsageError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateUsageOperationRequest` | `src/Maxio/Requests/SubscriptionComponents/CreateUsageOperationRequest.cs` |
+| `SubscriptionIdOrReference` | `src/Maxio/Models/AnyOf/SubscriptionIdOrReference.cs` |
+| `ComponentIdModel` | `src/Maxio/Models/AnyOf/ComponentIdModel.cs` |
+| `CreateUsageRequest` | `src/Maxio/Models/CreateUsageRequest.cs` |
+| `UsageResponse` | `src/Maxio/Models/UsageResponse.cs` |
+| `CreateUsageError` | `src/Maxio/Errors/CreateUsageError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### DeactivateEventBasedComponent
 
@@ -126,7 +126,7 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `DeactivateEventBasedComponentRequest` | `Requests/SubscriptionComponents/DeactivateEventBasedComponentRequest.cs` |
+| `DeactivateEventBasedComponentRequest` | `src/Maxio/Requests/SubscriptionComponents/DeactivateEventBasedComponentRequest.cs` |
 
 ### DeletePrepaidUsageAllocation
 
@@ -139,10 +139,10 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `DeletePrepaidUsageAllocationRequest` | `Requests/SubscriptionComponents/DeletePrepaidUsageAllocationRequest.cs` |
-| `CreditSchemeRequest` | `Models/CreditSchemeRequest.cs` |
-| `DeletePrepaidUsageAllocationError` | `Errors/DeletePrepaidUsageAllocationError.cs` |
-| `SubscriptionComponentAllocationError1` | `Models/SubscriptionComponentAllocationError1.cs` |
+| `DeletePrepaidUsageAllocationRequest` | `src/Maxio/Requests/SubscriptionComponents/DeletePrepaidUsageAllocationRequest.cs` |
+| `CreditSchemeRequest` | `src/Maxio/Models/CreditSchemeRequest.cs` |
+| `DeletePrepaidUsageAllocationError` | `src/Maxio/Errors/DeletePrepaidUsageAllocationError.cs` |
+| `SubscriptionComponentAllocationError1` | `src/Maxio/Models/SubscriptionComponentAllocationError1.cs` |
 
 ### ListAllocations
 
@@ -156,10 +156,10 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `ListAllocationsRequest` | `Requests/SubscriptionComponents/ListAllocationsRequest.cs` |
-| `AllocationResponse` | `Models/AllocationResponse.cs` |
-| `ListAllocationsError` | `Errors/ListAllocationsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListAllocationsRequest` | `src/Maxio/Requests/SubscriptionComponents/ListAllocationsRequest.cs` |
+| `AllocationResponse` | `src/Maxio/Models/AllocationResponse.cs` |
+| `ListAllocationsError` | `src/Maxio/Errors/ListAllocationsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListSubscriptionComponents
 
@@ -172,14 +172,14 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionComponentsRequest` | `Requests/SubscriptionComponents/ListSubscriptionComponentsRequest.cs` |
-| `SubscriptionListDateField` | `Models/Enums/SubscriptionListDateField.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListSubscriptionComponentsFilter` | `Models/ListSubscriptionComponentsFilter.cs` |
-| `IncludeNotNull` | `Models/Enums/IncludeNotNull.cs` |
-| `ListSubscriptionComponentsSort` | `Models/Enums/ListSubscriptionComponentsSort.cs` |
-| `ListSubscriptionComponentsInclude` | `Models/Enums/ListSubscriptionComponentsInclude.cs` |
-| `SubscriptionComponentResponse` | `Models/SubscriptionComponentResponse.cs` |
+| `ListSubscriptionComponentsRequest` | `src/Maxio/Requests/SubscriptionComponents/ListSubscriptionComponentsRequest.cs` |
+| `SubscriptionListDateField` | `src/Maxio/Models/Enums/SubscriptionListDateField.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListSubscriptionComponentsFilter` | `src/Maxio/Models/ListSubscriptionComponentsFilter.cs` |
+| `IncludeNotNull` | `src/Maxio/Models/Enums/IncludeNotNull.cs` |
+| `ListSubscriptionComponentsSort` | `src/Maxio/Models/Enums/ListSubscriptionComponentsSort.cs` |
+| `ListSubscriptionComponentsInclude` | `src/Maxio/Models/Enums/ListSubscriptionComponentsInclude.cs` |
+| `SubscriptionComponentResponse` | `src/Maxio/Models/SubscriptionComponentResponse.cs` |
 
 ### ListSubscriptionComponentsForSite
 
@@ -191,14 +191,14 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionComponentsForSiteRequest` | `Requests/SubscriptionComponents/ListSubscriptionComponentsForSiteRequest.cs` |
-| `ListSubscriptionComponentsSort` | `Models/Enums/ListSubscriptionComponentsSort.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListSubscriptionComponentsForSiteFilter` | `Models/ListSubscriptionComponentsForSiteFilter.cs` |
-| `SubscriptionListDateField` | `Models/Enums/SubscriptionListDateField.cs` |
-| `IncludeNotNull` | `Models/Enums/IncludeNotNull.cs` |
-| `ListSubscriptionComponentsInclude` | `Models/Enums/ListSubscriptionComponentsInclude.cs` |
-| `ListSubscriptionComponentsResponse` | `Models/ListSubscriptionComponentsResponse.cs` |
+| `ListSubscriptionComponentsForSiteRequest` | `src/Maxio/Requests/SubscriptionComponents/ListSubscriptionComponentsForSiteRequest.cs` |
+| `ListSubscriptionComponentsSort` | `src/Maxio/Models/Enums/ListSubscriptionComponentsSort.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListSubscriptionComponentsForSiteFilter` | `src/Maxio/Models/ListSubscriptionComponentsForSiteFilter.cs` |
+| `SubscriptionListDateField` | `src/Maxio/Models/Enums/SubscriptionListDateField.cs` |
+| `IncludeNotNull` | `src/Maxio/Models/Enums/IncludeNotNull.cs` |
+| `ListSubscriptionComponentsInclude` | `src/Maxio/Models/Enums/ListSubscriptionComponentsInclude.cs` |
+| `ListSubscriptionComponentsResponse` | `src/Maxio/Models/ListSubscriptionComponentsResponse.cs` |
 
 ### ListUsages
 
@@ -211,10 +211,10 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `ListUsagesRequest` | `Requests/SubscriptionComponents/ListUsagesRequest.cs` |
-| `SubscriptionIdOrReference` | `Models/AnyOf/SubscriptionIdOrReference.cs` |
-| `ComponentIdModel` | `Models/AnyOf/ComponentIdModel.cs` |
-| `UsageResponse` | `Models/UsageResponse.cs` |
+| `ListUsagesRequest` | `src/Maxio/Requests/SubscriptionComponents/ListUsagesRequest.cs` |
+| `SubscriptionIdOrReference` | `src/Maxio/Models/AnyOf/SubscriptionIdOrReference.cs` |
+| `ComponentIdModel` | `src/Maxio/Models/AnyOf/ComponentIdModel.cs` |
+| `UsageResponse` | `src/Maxio/Models/UsageResponse.cs` |
 
 ### PreviewAllocations
 
@@ -227,11 +227,11 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `PreviewAllocationsOperationRequest` | `Requests/SubscriptionComponents/PreviewAllocationsOperationRequest.cs` |
-| `PreviewAllocationsRequest` | `Models/PreviewAllocationsRequest.cs` |
-| `AllocationPreviewResponse` | `Models/AllocationPreviewResponse.cs` |
-| `PreviewAllocationsError` | `Errors/PreviewAllocationsError.cs` |
-| `ComponentAllocationError1` | `Models/ComponentAllocationError1.cs` |
+| `PreviewAllocationsOperationRequest` | `src/Maxio/Requests/SubscriptionComponents/PreviewAllocationsOperationRequest.cs` |
+| `PreviewAllocationsRequest` | `src/Maxio/Models/PreviewAllocationsRequest.cs` |
+| `AllocationPreviewResponse` | `src/Maxio/Models/AllocationPreviewResponse.cs` |
+| `PreviewAllocationsError` | `src/Maxio/Errors/PreviewAllocationsError.cs` |
+| `ComponentAllocationError1` | `src/Maxio/Models/ComponentAllocationError1.cs` |
 
 ### ReadSubscriptionComponent
 
@@ -244,9 +244,9 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `ReadSubscriptionComponentRequest` | `Requests/SubscriptionComponents/ReadSubscriptionComponentRequest.cs` |
-| `SubscriptionComponentResponse` | `Models/SubscriptionComponentResponse.cs` |
-| `ReadSubscriptionComponentError` | `Errors/ReadSubscriptionComponentError.cs` |
+| `ReadSubscriptionComponentRequest` | `src/Maxio/Requests/SubscriptionComponents/ReadSubscriptionComponentRequest.cs` |
+| `SubscriptionComponentResponse` | `src/Maxio/Models/SubscriptionComponentResponse.cs` |
+| `ReadSubscriptionComponentError` | `src/Maxio/Errors/ReadSubscriptionComponentError.cs` |
 
 ### RecordEvent
 
@@ -260,8 +260,8 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `RecordEventRequest` | `Requests/SubscriptionComponents/RecordEventRequest.cs` |
-| `EbbEvent` | `Models/EbbEvent.cs` |
+| `RecordEventRequest` | `src/Maxio/Requests/SubscriptionComponents/RecordEventRequest.cs` |
+| `EbbEvent` | `src/Maxio/Models/EbbEvent.cs` |
 
 ### UpdatePrepaidUsageAllocationExpirationDate
 
@@ -274,8 +274,8 @@ Accessor: `client.SubscriptionComponents` · Source: `Api/SubscriptionComponents
 
 | Type | Source |
 | --- | --- |
-| `UpdatePrepaidUsageAllocationExpirationDateRequest` | `Requests/SubscriptionComponents/UpdatePrepaidUsageAllocationExpirationDateRequest.cs` |
-| `UpdateAllocationExpirationDate` | `Models/UpdateAllocationExpirationDate.cs` |
-| `UpdatePrepaidUsageAllocationExpirationDateError` | `Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs` |
-| `SubscriptionComponentAllocationError1` | `Models/SubscriptionComponentAllocationError1.cs` |
+| `UpdatePrepaidUsageAllocationExpirationDateRequest` | `src/Maxio/Requests/SubscriptionComponents/UpdatePrepaidUsageAllocationExpirationDateRequest.cs` |
+| `UpdateAllocationExpirationDate` | `src/Maxio/Models/UpdateAllocationExpirationDate.cs` |
+| `UpdatePrepaidUsageAllocationExpirationDateError` | `src/Maxio/Errors/UpdatePrepaidUsageAllocationExpirationDateError.cs` |
+| `SubscriptionComponentAllocationError1` | `src/Maxio/Models/SubscriptionComponentAllocationError1.cs` |
 

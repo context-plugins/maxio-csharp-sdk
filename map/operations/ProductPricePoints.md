@@ -2,7 +2,7 @@
 
 # ProductPricePoints — operations
 
-Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 11 operations
+Accessor: `client.ProductPricePoints` · Source: `src/Maxio/Api/ProductPricePoints.cs` · 11 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,12 +17,12 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ArchiveProductPricePointRequest` | `Requests/ProductPricePoints/ArchiveProductPricePointRequest.cs` |
-| `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
-| `ArchiveProductPricePointError` | `Errors/ArchiveProductPricePointError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ArchiveProductPricePointRequest` | `src/Maxio/Requests/ProductPricePoints/ArchiveProductPricePointRequest.cs` |
+| `ProductIdModel` | `src/Maxio/Models/AnyOf/ProductIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `ProductPricePointResponse` | `src/Maxio/Models/ProductPricePointResponse.cs` |
+| `ArchiveProductPricePointError` | `src/Maxio/Errors/ArchiveProductPricePointError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### BulkCreateProductPricePoints
 
@@ -35,10 +35,10 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `BulkCreateProductPricePointsOperationRequest` | `Requests/ProductPricePoints/BulkCreateProductPricePointsOperationRequest.cs` |
-| `BulkCreateProductPricePointsRequest` | `Models/BulkCreateProductPricePointsRequest.cs` |
-| `BulkCreateProductPricePointsResponse` | `Models/BulkCreateProductPricePointsResponse.cs` |
-| `BulkCreateProductPricePointsError` | `Errors/BulkCreateProductPricePointsError.cs` |
+| `BulkCreateProductPricePointsOperationRequest` | `src/Maxio/Requests/ProductPricePoints/BulkCreateProductPricePointsOperationRequest.cs` |
+| `BulkCreateProductPricePointsRequest` | `src/Maxio/Models/BulkCreateProductPricePointsRequest.cs` |
+| `BulkCreateProductPricePointsResponse` | `src/Maxio/Models/BulkCreateProductPricePointsResponse.cs` |
+| `BulkCreateProductPricePointsError` | `src/Maxio/Errors/BulkCreateProductPricePointsError.cs` |
 
 ### CreateProductCurrencyPrices
 
@@ -51,11 +51,11 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `CreateProductCurrencyPricesOperationRequest` | `Requests/ProductPricePoints/CreateProductCurrencyPricesOperationRequest.cs` |
-| `CreateProductCurrencyPricesRequest` | `Models/CreateProductCurrencyPricesRequest.cs` |
-| `CurrencyPricesResponse` | `Models/CurrencyPricesResponse.cs` |
-| `CreateProductCurrencyPricesError` | `Errors/CreateProductCurrencyPricesError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `CreateProductCurrencyPricesOperationRequest` | `src/Maxio/Requests/ProductPricePoints/CreateProductCurrencyPricesOperationRequest.cs` |
+| `CreateProductCurrencyPricesRequest` | `src/Maxio/Models/CreateProductCurrencyPricesRequest.cs` |
+| `CurrencyPricesResponse` | `src/Maxio/Models/CurrencyPricesResponse.cs` |
+| `CreateProductCurrencyPricesError` | `src/Maxio/Errors/CreateProductCurrencyPricesError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### CreateProductPricePoint
 
@@ -68,12 +68,12 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `CreateProductPricePointOperationRequest` | `Requests/ProductPricePoints/CreateProductPricePointOperationRequest.cs` |
-| `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
-| `CreateProductPricePointRequest` | `Models/CreateProductPricePointRequest.cs` |
-| `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
-| `CreateProductPricePointError` | `Errors/CreateProductPricePointError.cs` |
-| `ProductPricePointErrorResponse1` | `Models/ProductPricePointErrorResponse1.cs` |
+| `CreateProductPricePointOperationRequest` | `src/Maxio/Requests/ProductPricePoints/CreateProductPricePointOperationRequest.cs` |
+| `ProductIdModel` | `src/Maxio/Models/AnyOf/ProductIdModel.cs` |
+| `CreateProductPricePointRequest` | `src/Maxio/Models/CreateProductPricePointRequest.cs` |
+| `ProductPricePointResponse` | `src/Maxio/Models/ProductPricePointResponse.cs` |
+| `CreateProductPricePointError` | `src/Maxio/Errors/CreateProductPricePointError.cs` |
+| `ProductPricePointErrorResponse1` | `src/Maxio/Models/ProductPricePointErrorResponse1.cs` |
 
 ### ListAllProductPricePoints
 
@@ -86,13 +86,13 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ListAllProductPricePointsRequest` | `Requests/ProductPricePoints/ListAllProductPricePointsRequest.cs` |
-| `SortingDirection` | `Models/Enums/SortingDirection.cs` |
-| `ListPricePointsFilter` | `Models/ListPricePointsFilter.cs` |
-| `ListProductsPricePointsInclude` | `Models/Enums/ListProductsPricePointsInclude.cs` |
-| `ListProductPricePointsResponse` | `Models/ListProductPricePointsResponse.cs` |
-| `ListAllProductPricePointsError` | `Errors/ListAllProductPricePointsError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListAllProductPricePointsRequest` | `src/Maxio/Requests/ProductPricePoints/ListAllProductPricePointsRequest.cs` |
+| `SortingDirection` | `src/Maxio/Models/Enums/SortingDirection.cs` |
+| `ListPricePointsFilter` | `src/Maxio/Models/ListPricePointsFilter.cs` |
+| `ListProductsPricePointsInclude` | `src/Maxio/Models/Enums/ListProductsPricePointsInclude.cs` |
+| `ListProductPricePointsResponse` | `src/Maxio/Models/ListProductPricePointsResponse.cs` |
+| `ListAllProductPricePointsError` | `src/Maxio/Errors/ListAllProductPricePointsError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListProductPricePoints
 
@@ -105,10 +105,10 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ListProductPricePointsRequest` | `Requests/ProductPricePoints/ListProductPricePointsRequest.cs` |
-| `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
-| `PricePointType` | `Models/Enums/PricePointType.cs` |
-| `ListProductPricePointsResponse` | `Models/ListProductPricePointsResponse.cs` |
+| `ListProductPricePointsRequest` | `src/Maxio/Requests/ProductPricePoints/ListProductPricePointsRequest.cs` |
+| `ProductIdModel` | `src/Maxio/Models/AnyOf/ProductIdModel.cs` |
+| `PricePointType` | `src/Maxio/Models/Enums/PricePointType.cs` |
+| `ListProductPricePointsResponse` | `src/Maxio/Models/ListProductPricePointsResponse.cs` |
 
 ### PromoteProductPricePointToDefault
 
@@ -120,8 +120,8 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `PromoteProductPricePointToDefaultRequest` | `Requests/ProductPricePoints/PromoteProductPricePointToDefaultRequest.cs` |
-| `ProductResponse` | `Models/ProductResponse.cs` |
+| `PromoteProductPricePointToDefaultRequest` | `src/Maxio/Requests/ProductPricePoints/PromoteProductPricePointToDefaultRequest.cs` |
+| `ProductResponse` | `src/Maxio/Models/ProductResponse.cs` |
 
 ### ReadProductPricePoint
 
@@ -134,10 +134,10 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `ReadProductPricePointRequest` | `Requests/ProductPricePoints/ReadProductPricePointRequest.cs` |
-| `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
+| `ReadProductPricePointRequest` | `src/Maxio/Requests/ProductPricePoints/ReadProductPricePointRequest.cs` |
+| `ProductIdModel` | `src/Maxio/Models/AnyOf/ProductIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `ProductPricePointResponse` | `src/Maxio/Models/ProductPricePointResponse.cs` |
 
 ### UnarchiveProductPricePoint
 
@@ -149,8 +149,8 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `UnarchiveProductPricePointRequest` | `Requests/ProductPricePoints/UnarchiveProductPricePointRequest.cs` |
-| `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
+| `UnarchiveProductPricePointRequest` | `src/Maxio/Requests/ProductPricePoints/UnarchiveProductPricePointRequest.cs` |
+| `ProductPricePointResponse` | `src/Maxio/Models/ProductPricePointResponse.cs` |
 
 ### UpdateProductCurrencyPrices
 
@@ -163,11 +163,11 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `UpdateProductCurrencyPricesRequest` | `Requests/ProductPricePoints/UpdateProductCurrencyPricesRequest.cs` |
-| `UpdateCurrencyPricesRequest` | `Models/UpdateCurrencyPricesRequest.cs` |
-| `CurrencyPricesResponse` | `Models/CurrencyPricesResponse.cs` |
-| `UpdateProductCurrencyPricesError` | `Errors/UpdateProductCurrencyPricesError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `UpdateProductCurrencyPricesRequest` | `src/Maxio/Requests/ProductPricePoints/UpdateProductCurrencyPricesRequest.cs` |
+| `UpdateCurrencyPricesRequest` | `src/Maxio/Models/UpdateCurrencyPricesRequest.cs` |
+| `CurrencyPricesResponse` | `src/Maxio/Models/CurrencyPricesResponse.cs` |
+| `UpdateProductCurrencyPricesError` | `src/Maxio/Errors/UpdateProductCurrencyPricesError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### UpdateProductPricePoint
 
@@ -179,9 +179,9 @@ Accessor: `client.ProductPricePoints` · Source: `Api/ProductPricePoints.cs` · 
 
 | Type | Source |
 | --- | --- |
-| `UpdateProductPricePointOperationRequest` | `Requests/ProductPricePoints/UpdateProductPricePointOperationRequest.cs` |
-| `ProductIdModel` | `Models/AnyOf/ProductIdModel.cs` |
-| `PricePointIdModel` | `Models/AnyOf/PricePointIdModel.cs` |
-| `UpdateProductPricePointRequest` | `Models/UpdateProductPricePointRequest.cs` |
-| `ProductPricePointResponse` | `Models/ProductPricePointResponse.cs` |
+| `UpdateProductPricePointOperationRequest` | `src/Maxio/Requests/ProductPricePoints/UpdateProductPricePointOperationRequest.cs` |
+| `ProductIdModel` | `src/Maxio/Models/AnyOf/ProductIdModel.cs` |
+| `PricePointIdModel` | `src/Maxio/Models/AnyOf/PricePointIdModel.cs` |
+| `UpdateProductPricePointRequest` | `src/Maxio/Models/UpdateProductPricePointRequest.cs` |
+| `ProductPricePointResponse` | `src/Maxio/Models/ProductPricePointResponse.cs` |
 

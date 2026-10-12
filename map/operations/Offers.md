@@ -2,7 +2,7 @@
 
 # Offers — operations
 
-Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
+Accessor: `client.Offers` · Source: `src/Maxio/Api/Offers.cs` · 5 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -16,7 +16,7 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `ArchiveOfferRequest` | `Requests/Offers/ArchiveOfferRequest.cs` |
+| `ArchiveOfferRequest` | `src/Maxio/Requests/Offers/ArchiveOfferRequest.cs` |
 
 ### CreateOffer
 
@@ -28,11 +28,11 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `CreateOfferOperationRequest` | `Requests/Offers/CreateOfferOperationRequest.cs` |
-| `CreateOfferRequest` | `Models/CreateOfferRequest.cs` |
-| `OfferResponse` | `Models/OfferResponse.cs` |
-| `CreateOfferError` | `Errors/CreateOfferError.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `CreateOfferOperationRequest` | `src/Maxio/Requests/Offers/CreateOfferOperationRequest.cs` |
+| `CreateOfferRequest` | `src/Maxio/Models/CreateOfferRequest.cs` |
+| `OfferResponse` | `src/Maxio/Models/OfferResponse.cs` |
+| `CreateOfferError` | `src/Maxio/Errors/CreateOfferError.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### ListOffers
 
@@ -45,10 +45,10 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `ListOffersRequest` | `Requests/Offers/ListOffersRequest.cs` |
-| `ListOffersResponse` | `Models/ListOffersResponse.cs` |
-| `ListOffersError` | `Errors/ListOffersError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `ListOffersRequest` | `src/Maxio/Requests/Offers/ListOffersRequest.cs` |
+| `ListOffersResponse` | `src/Maxio/Models/ListOffersResponse.cs` |
+| `ListOffersError` | `src/Maxio/Errors/ListOffersError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ReadOffer
 
@@ -60,8 +60,8 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `ReadOfferRequest` | `Requests/Offers/ReadOfferRequest.cs` |
-| `OfferResponse` | `Models/OfferResponse.cs` |
+| `ReadOfferRequest` | `src/Maxio/Requests/Offers/ReadOfferRequest.cs` |
+| `OfferResponse` | `src/Maxio/Models/OfferResponse.cs` |
 
 ### UnarchiveOffer
 
@@ -73,5 +73,5 @@ Accessor: `client.Offers` · Source: `Api/Offers.cs` · 5 operations
 
 | Type | Source |
 | --- | --- |
-| `UnarchiveOfferRequest` | `Requests/Offers/UnarchiveOfferRequest.cs` |
+| `UnarchiveOfferRequest` | `src/Maxio/Requests/Offers/UnarchiveOfferRequest.cs` |
 

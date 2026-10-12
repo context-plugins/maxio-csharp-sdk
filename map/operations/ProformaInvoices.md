@@ -2,7 +2,7 @@
 
 # ProformaInvoices — operations
 
-Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 operations
+Accessor: `client.ProformaInvoices` · Source: `src/Maxio/Api/ProformaInvoices.cs` · 10 operations
 
 **Type sources**: the file declaring each type an operation names (`RawError` excluded — see sdk-map.md).
 
@@ -17,9 +17,9 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `CreateConsolidatedProformaInvoiceRequest` | `Requests/ProformaInvoices/CreateConsolidatedProformaInvoiceRequest.cs` |
-| `CreateConsolidatedProformaInvoiceError` | `Errors/CreateConsolidatedProformaInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateConsolidatedProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/CreateConsolidatedProformaInvoiceRequest.cs` |
+| `CreateConsolidatedProformaInvoiceError` | `src/Maxio/Errors/CreateConsolidatedProformaInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateProformaInvoice
 
@@ -32,10 +32,10 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `CreateProformaInvoiceRequest` | `Requests/ProformaInvoices/CreateProformaInvoiceRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `CreateProformaInvoiceError` | `Errors/CreateProformaInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `CreateProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/CreateProformaInvoiceRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `CreateProformaInvoiceError` | `src/Maxio/Errors/CreateProformaInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### CreateSignupProformaInvoice
 
@@ -47,12 +47,12 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `CreateSignupProformaInvoiceRequest` | `Requests/ProformaInvoices/CreateSignupProformaInvoiceRequest.cs` |
-| `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `CreateSignupProformaInvoiceError` | `Errors/CreateSignupProformaInvoiceError.cs` |
-| `ProformaBadRequestErrorResponse1` | `Models/ProformaBadRequestErrorResponse1.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `CreateSignupProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/CreateSignupProformaInvoiceRequest.cs` |
+| `CreateSubscriptionRequest` | `src/Maxio/Models/CreateSubscriptionRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `CreateSignupProformaInvoiceError` | `src/Maxio/Errors/CreateSignupProformaInvoiceError.cs` |
+| `ProformaBadRequestErrorResponse1` | `src/Maxio/Models/ProformaBadRequestErrorResponse1.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### DeliverProformaInvoice
 
@@ -65,11 +65,11 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `DeliverProformaInvoiceOperationRequest` | `Requests/ProformaInvoices/DeliverProformaInvoiceOperationRequest.cs` |
-| `DeliverProformaInvoiceRequest` | `Models/DeliverProformaInvoiceRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `DeliverProformaInvoiceError` | `Errors/DeliverProformaInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `DeliverProformaInvoiceOperationRequest` | `src/Maxio/Requests/ProformaInvoices/DeliverProformaInvoiceOperationRequest.cs` |
+| `DeliverProformaInvoiceRequest` | `src/Maxio/Models/DeliverProformaInvoiceRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `DeliverProformaInvoiceError` | `src/Maxio/Errors/DeliverProformaInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### ListProformaInvoices
 
@@ -82,10 +82,10 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `ListProformaInvoicesRequest` | `Requests/ProformaInvoices/ListProformaInvoicesRequest.cs` |
-| `ProformaInvoiceStatus` | `Models/Enums/ProformaInvoiceStatus.cs` |
-| `Direction` | `Models/Enums/Direction.cs` |
-| `ListProformaInvoicesResponse` | `Models/ListProformaInvoicesResponse.cs` |
+| `ListProformaInvoicesRequest` | `src/Maxio/Requests/ProformaInvoices/ListProformaInvoicesRequest.cs` |
+| `ProformaInvoiceStatus` | `src/Maxio/Models/Enums/ProformaInvoiceStatus.cs` |
+| `Direction` | `src/Maxio/Models/Enums/Direction.cs` |
+| `ListProformaInvoicesResponse` | `src/Maxio/Models/ListProformaInvoicesResponse.cs` |
 
 ### ListSubscriptionGroupProformaInvoices
 
@@ -99,9 +99,9 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `ListSubscriptionGroupProformaInvoicesRequest` | `Requests/ProformaInvoices/ListSubscriptionGroupProformaInvoicesRequest.cs` |
-| `ListProformaInvoicesResponse` | `Models/ListProformaInvoicesResponse.cs` |
-| `ListSubscriptionGroupProformaInvoicesError` | `Errors/ListSubscriptionGroupProformaInvoicesError.cs` |
+| `ListSubscriptionGroupProformaInvoicesRequest` | `src/Maxio/Requests/ProformaInvoices/ListSubscriptionGroupProformaInvoicesRequest.cs` |
+| `ListProformaInvoicesResponse` | `src/Maxio/Models/ListProformaInvoicesResponse.cs` |
+| `ListSubscriptionGroupProformaInvoicesError` | `src/Maxio/Errors/ListSubscriptionGroupProformaInvoicesError.cs` |
 
 ### PreviewProformaInvoice
 
@@ -114,10 +114,10 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `PreviewProformaInvoiceRequest` | `Requests/ProformaInvoices/PreviewProformaInvoiceRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `PreviewProformaInvoiceError` | `Errors/PreviewProformaInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `PreviewProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/PreviewProformaInvoiceRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `PreviewProformaInvoiceError` | `src/Maxio/Errors/PreviewProformaInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
 ### PreviewSignupProformaInvoice
 
@@ -130,13 +130,13 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `PreviewSignupProformaInvoiceRequest` | `Requests/ProformaInvoices/PreviewSignupProformaInvoiceRequest.cs` |
-| `CreateSignupProformaPreviewInclude` | `Models/Enums/CreateSignupProformaPreviewInclude.cs` |
-| `CreateSubscriptionRequest` | `Models/CreateSubscriptionRequest.cs` |
-| `SignupProformaPreviewResponse` | `Models/SignupProformaPreviewResponse.cs` |
-| `PreviewSignupProformaInvoiceError` | `Errors/PreviewSignupProformaInvoiceError.cs` |
-| `ProformaBadRequestErrorResponse1` | `Models/ProformaBadRequestErrorResponse1.cs` |
-| `ErrorArrayMapResponse1` | `Models/ErrorArrayMapResponse1.cs` |
+| `PreviewSignupProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/PreviewSignupProformaInvoiceRequest.cs` |
+| `CreateSignupProformaPreviewInclude` | `src/Maxio/Models/Enums/CreateSignupProformaPreviewInclude.cs` |
+| `CreateSubscriptionRequest` | `src/Maxio/Models/CreateSubscriptionRequest.cs` |
+| `SignupProformaPreviewResponse` | `src/Maxio/Models/SignupProformaPreviewResponse.cs` |
+| `PreviewSignupProformaInvoiceError` | `src/Maxio/Errors/PreviewSignupProformaInvoiceError.cs` |
+| `ProformaBadRequestErrorResponse1` | `src/Maxio/Models/ProformaBadRequestErrorResponse1.cs` |
+| `ErrorArrayMapResponse1` | `src/Maxio/Models/ErrorArrayMapResponse1.cs` |
 
 ### ReadProformaInvoice
 
@@ -149,9 +149,9 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `ReadProformaInvoiceRequest` | `Requests/ProformaInvoices/ReadProformaInvoiceRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `ReadProformaInvoiceError` | `Errors/ReadProformaInvoiceError.cs` |
+| `ReadProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/ReadProformaInvoiceRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `ReadProformaInvoiceError` | `src/Maxio/Errors/ReadProformaInvoiceError.cs` |
 
 ### VoidProformaInvoice
 
@@ -164,9 +164,9 @@ Accessor: `client.ProformaInvoices` · Source: `Api/ProformaInvoices.cs` · 10 o
 
 | Type | Source |
 | --- | --- |
-| `VoidProformaInvoiceRequest` | `Requests/ProformaInvoices/VoidProformaInvoiceRequest.cs` |
-| `VoidInvoiceRequest` | `Models/VoidInvoiceRequest.cs` |
-| `ProformaInvoice` | `Models/ProformaInvoice.cs` |
-| `VoidProformaInvoiceError` | `Errors/VoidProformaInvoiceError.cs` |
-| `ErrorListResponse1` | `Models/ErrorListResponse1.cs` |
+| `VoidProformaInvoiceRequest` | `src/Maxio/Requests/ProformaInvoices/VoidProformaInvoiceRequest.cs` |
+| `VoidInvoiceRequest` | `src/Maxio/Models/VoidInvoiceRequest.cs` |
+| `ProformaInvoice` | `src/Maxio/Models/ProformaInvoice.cs` |
+| `VoidProformaInvoiceError` | `src/Maxio/Errors/VoidProformaInvoiceError.cs` |
+| `ErrorListResponse1` | `src/Maxio/Models/ErrorListResponse1.cs` |
 
